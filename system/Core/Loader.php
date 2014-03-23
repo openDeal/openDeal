@@ -146,5 +146,3 @@ final class Loader {
     }
 
 }
-
-?>
