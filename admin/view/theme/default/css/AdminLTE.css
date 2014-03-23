@@ -2829,3 +2829,28 @@ label.required:after {
     color: red;
     font-weight: bold;
 }
+
+
+table td.left,
+table th.left{
+	text-align: left;
+	padding: 7px;
+}
+table td.right,
+table th.right{
+	text-align: right;
+	padding: 7px;
+}
+table td.center,
+table th.center{
+	text-align: center;
+	padding: 7px;
+}
+a.asc {
+	padding-right: 15px;
+	background: url('images/asc.png') right center no-repeat;
+}
+a.desc {
+	padding-right: 15px;
+	background: url('images/desc.png') right center no-repeat;
+}
