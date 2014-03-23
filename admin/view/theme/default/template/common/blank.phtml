@@ -9,10 +9,32 @@
         <?php } ?>
     </ol>
 </section>
+<section class="page-actions">
+    <a href="#" class="btn btn-primary">
+        <i class="fa fa-plus"></i> User Action
+    </a>
+    <a href="#" class="btn btn-danger" onclick="$('#form').submit();">
+        <i class="fa fa-times"></i> Danger Action
+    </a>
+
+</section>
 
 <!-- Main content -->
 <section class="content">
-
+    <?php if ($error_warning) { ?>
+        <div class="alert alert-danger alert-dismissable">
+            <i class="fa fa-ban"></i>
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <?php echo $error_warning; ?>
+        </div>
+    <?php } ?>
+    <?php if ($success) { ?>
+        <div class="alert alert-success alert-dismissable">
+            <i class="fa fa-check"></i>
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <?php echo $success; ?>
+        </div>
+    <?php } ?>
 
 </section><!-- /.content -->
 
