@@ -63,8 +63,8 @@ class City {
             $this->set($this->request->cookie['city_id']);
         } else {
 
-            if ($this->config->get('config_city')) {
-                $this->set($this->config->get('config_city'));
+            if ($this->config->get('config_city_id')) {
+                $this->set($this->config->get('config_city_id'));
             } else {
                 $geo = new Geoplugin(get_client_ip());
                 $geo->locate();
