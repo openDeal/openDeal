@@ -117,5 +117,9 @@ class City {
         $result = $db->query($query);
         return $result->row;
     }
+    
+    public function __get($name) {
+        return isset($this->cities[$this->city][$name])? $this->cities[$this->city][$name]:null;
+    }
 
 }
