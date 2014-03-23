@@ -1,0 +1,410 @@
+body {
+    padding-top: 5px;
+    padding-bottom: 0px;
+
+
+}
+.wrapper{
+    max-width:1210px;
+    display:block;
+    margin-right:auto;
+    margin-left:auto;
+
+}
+
+
+.sub{
+    padding:30px 0px 30px;
+}
+
+
+h1 {
+    font-size: 32.5px;
+}
+
+
+.panel .thumbnail {
+    margin-bottom: 10px;
+}
+
+
+
+.nopad{
+    padding: 0;
+}
+
+.panel .thumbnail.nopad{
+    margin-bottom: 0px;
+}
+
+.thumbnail img{
+    min-width:100%;
+}
+
+.wasprice{
+    text-decoration: line-through;
+    font-size:150%;
+    color:red;
+    text-align: left;
+
+}
+
+.nowprice{
+    font-size:175%;
+    color:green;
+    text-align:right;
+}
+
+footer{
+    background: #333333; /* Old browsers */
+    background: -moz-linear-gradient(top,  #000000 0%, #333333  100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#000000), color-stop(100%,#333333)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #000000 0%,#333333 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #000000 0%,#333333 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #000000 0%,#333333 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #000000 0%,#333333 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#333333',GradientType=0 ); /* IE6-9 */
+
+    color: #DFDFDF;
+
+
+    padding-top:20px;
+    padding-bottom: 20px;
+    margin-top:20px;
+    border-top:1px solid #dedede;
+
+}
+
+footer h4, footer a {
+    color: #fff;
+}
+
+.related-projects{
+    padding-top:20px;
+    margin-top:20px;
+
+}
+.nowrap {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cm_deals_content_container {
+    background-clip: padding-box;
+    background-color: white;
+    border: 2px solid #317eac;
+    border-radius: 9px 9px 9px 9px;
+    margin: 10px 0px 15px 0px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.cm_deals_content {
+    padding: 10px;
+}
+
+.price_block {
+    width: 100%;
+}
+
+.price_container  {
+    color: white;
+    font-size: 2.5em;
+    font-weight: 700;
+    text-align: center;
+    height: 80px;
+    position: relative;
+    width: 100%;
+}
+.price_container .price {
+    padding: 0.5em 0;
+}
+
+.price_container  .price_label {
+    font-size: 16px;
+    line-height: 1.5em;
+    font-weight: normal;
+    padding-right: 0.5em;
+    top: -0.2em;
+    position: relative;
+}
+
+.deal_detail .tag {
+    position: relative;
+    width: 100%;
+}
+
+.tag .tag_background,
+.tag .tag_background_repeat {
+    background-repeat: repeat-x;
+    position: absolute;
+    height: 100%;
+    top: 0px;
+    height: 80px;
+    float: left
+}
+
+.tag .tag_background {
+    background-image: url("../image/tag_left.png");
+    width: 28px;
+    left: -28px;
+}
+
+.tag .tag_background_repeat {
+    background-image: url("../image/tag.png");
+    width: 100%;
+    left: 0px;
+}
+
+.buy_button {
+    font-size:20px;
+    font-weight: bold;
+}
+
+.buy_button.btn-xs {
+    font-weight: normal;
+    font-size: 12px;
+}
+
+@media (min-width: 992px) and (max-width: 1200px){
+    .navbar, .wrapper {
+        max-width: 1000px;
+        margin-right:auto;
+        margin-left:auto;
+    }
+
+}
+
+@media(min-width: 768px) and (max-width: 992px){
+    .navbar, .wrapper {
+        max-width: 760px;
+        margin-right:auto;
+        margin-left:auto;
+    }
+
+}
+
+@media (max-width: 992px){
+    .navbar .btn-navbar {
+        margin-top:20px;
+    }
+
+}
+
+@media (max-width: 767px){
+    .container {
+        padding-right:20px;
+        padding-left:20px;
+    }
+    body{
+        padding-top:0px;
+    }
+}
+
+#powered {
+    margin-top: 5px;
+    text-align: right;
+    clear: both;
+}
+
+#header {
+    margin-bottom: 5px;
+}
+.deal_detail_block {
+    background: none repeat scroll 0 0 #E0EFFF;
+    border: 1px solid #65C8DF;
+    width: 100%;
+}
+.deal_detail .discount_info {
+    width: 100%;
+    position: relative;
+    height: 50px;
+    margin-top: 10px;
+}
+
+.discount_info_block {
+    float: left;
+    margin: 0px auto;
+    text-align: center;
+    width: 33.33%;
+}
+
+.discount_info_block dt {
+    font-weight: normal;
+}
+
+.remaining_time_block, .coupon_code_block, .bought_block, .advance_payment_block {
+    margin: 5px 0 0;
+}
+.deal_detail .deal_value dd, .deal_detail .deal_discount dd, .deal_detail .deal_save dd {
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.remaining_time_block .countdown_block {
+    font-size: 15px;
+    font-weight: bold;
+    overflow: auto;
+    padding-bottom: 10px;
+    text-align: center;
+    width: 100%;}
+
+.bought_block {
+    text-align: center;
+}
+
+.tip_meter {
+    margin: 7px auto;
+    position: relative;
+    width: 90%;
+}
+
+.tip_meter .min_max {
+    min-height: 1em !important;
+}
+
+.tip_meter .min {
+    float: left;
+}
+.tip_meter .max {
+    float: right;
+}
+.tip_meter span {
+    font-weight: bold;
+    min-height: 1em !important;
+}
+
+.tip_meter .progress {
+    min-height: 0;
+    margin: 0;
+}
+
+.bought_block .need_more {
+    margin-top: 10px;
+    position: relative;
+    text-align: center;
+}
+
+.custom_tweet_button {
+    cursor: pointer;
+    display: block;
+    background: url("../image/twitter.png") no-repeat scroll left top #FFFFFF;
+    height: 20px;
+    width: 20px;
+}
+
+.share_buttons {
+    height: 20px;
+    padding-top: 10px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.share_buttons ul {
+    margin: 0px !important;
+    padding: 0px !important;
+}
+
+.share_buttons li {
+    padding-right: 5px !important;
+    float: left;
+    height: 20px;
+    line-height: 2em !important;
+    list-style: none outside none;
+    font-size: 10px;
+}
+
+.multi_option_modal table {
+    width: 100%;
+}
+
+.multi_option_modal table tr td.purchase {
+    width: 80px;
+    text-align: center;
+}
+
+.multi_option_modal table tr td.purchase .buy_button {
+    width: 50px;
+}
+
+.multi_option_modal table tr td.status {
+    width: 100px;
+    text-align: center;
+    color: #666;
+    font-size: 15px;
+}
+
+.multi_option_modal table tr td .details div {
+    display: inline;
+}
+
+.multi_option_modal table tr td .option_name {
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 16px;
+    color: #0185C6;
+    text-decoration: none;
+}
+
+.multi_option_modal table tr td .option_name:hover {
+    text-decoration: underline;
+}
+
+.multi_option_modal table tr td em {
+    font-weight: bold;
+}
+
+.multi_option_modal table tr td {
+    border-bottom: 1px #CCC dashed;
+}
+
+.multi_option_modal .advance_details {
+    float: left;
+}
+
+#deal_countdown {
+    background: url("../image/sprite.png") no-repeat scroll -20px -88px;
+    background-color: rgba(69, 174, 234, 0.2); 
+    margin-top: 10px;
+    padding: 4px 4px 4px 47px;
+    height: 67px;
+}
+
+.countdown_timer_label {
+    display: none;
+}
+
+.deal_on {
+    font-size: 1.5em;
+    font-weight: 700;
+    text-align: center;
+    color: #007B9C;
+    margin: 10px 0;
+}
+
+.carousel-control {
+    position: absolute;
+    top: 40%;
+    left: 15px;
+    width: 50px;
+    height: 50px;
+    margin-top: -20px;
+    font-size: 60px;
+    font-weight: 100;
+    line-height: 33px;
+    color: #fff;
+    text-align: center;
+    background: #222;
+    border: 3px solid #fff;
+    -webkit-border-radius: 23px;
+    -moz-border-radius: 23px;
+    border-radius: 23px;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+.carousel-control.right {
+    left: auto;
+    right: 15px;
+}
