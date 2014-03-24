@@ -1,0 +1,134 @@
+<?php echo $header; ?>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1><i class="fa fa-user"></i> <?php echo $heading_title; ?><small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <?php foreach ($breadcrumbs as $i => $breadcrumb) { ?>
+            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo ($i == 0) ? '<i class="fa fa-dashboard"></i> ' : ''; ?><?php echo $breadcrumb['text']; ?></a></li>
+        <?php } ?>
+    </ol>
+</section>
+
+
+<!-- Main content -->
+<section class="content">
+    <?php if ($error_warning) { ?>
+        <div class="alert alert-danger alert-dismissable">
+            <i class="fa fa-ban"></i>
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <?php echo $error_warning; ?>
+        </div>
+    <?php } ?>
+    <form action="<?php echo $action; ?>" class="form-horizontal form-validate" method="post" enctype="multipart/form-data" id="form">
+        <div class="box">
+            <div class="box-body">
+
+                <div class="form-group">
+                    <label for="usernameInput" class="col-sm-2 control-label required"><?php echo $entry_username; ?></label>
+                    <div class="col-sm-9">
+                        <input type="text" name="username" value="<?php echo $username; ?>" class="form-control required" id="usernameInput" />
+                        <?php if ($error_username) { ?>
+                            <span class="error text-danger"><?php echo $error_username; ?></span>
+                        <?php } ?>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="firstnameInput" class="col-sm-2 control-label required"><?php echo $entry_firstname; ?></label>
+                    <div class="col-sm-9">
+                        <input type="text" name="firstname" value="<?php echo $firstname; ?>" class="form-control required" id="firstnameInput" />
+                        <?php if ($error_firstname) { ?>
+                            <span class="error text-danger"><?php echo $error_firstname; ?></span>
+                        <?php } ?>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="lastnameInput" class="col-sm-2 control-label required"><?php echo $entry_lastname; ?></label>
+                    <div class="col-sm-9">
+                        <input type="text" name="lastname" value="<?php echo $lastname; ?>" class="form-control required" id="lastnameInput" />
+                        <?php if ($error_lastname) { ?>
+                            <span class="error text-danger"><?php echo $error_lastname; ?></span>
+                        <?php } ?>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="emailInput" class="col-sm-2 control-label "><?php echo $entry_email; ?></label>
+                    <div class="col-sm-9">
+                        <input type="email" name="email" value="<?php echo $email; ?>" class="form-control" id="emailInput" />
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="usergroupInput" class="col-sm-2 control-label "><?php echo $entry_user_group; ?></label>
+                    <div class="col-sm-9">
+                        <select name="user_group_id" class="form-control" id="usergroupInput">
+                            <?php foreach ($user_groups as $user_group) : ?>
+                                <?php if ($user_group['user_group_id'] == $user_group_id) : ?>
+                                    <option value="<?php echo $user_group['user_group_id']; ?>" selected="selected"><?php echo $user_group['name']; ?></option>
+                                <?php else: ?>
+                                    <option value="<?php echo $user_group['user_group_id']; ?>"><?php echo $user_group['name']; ?></option>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </select>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="passwordInput" class="col-sm-2 control-label"><?php echo $entry_password; ?></label>
+                    <div class="col-sm-9">
+                        <input type="text" name="password" value="<?php echo $password; ?>" class="form-control" id="passwordInput" />
+                        <?php if ($error_password) { ?>
+                            <span class="error text-danger"><?php echo $error_password; ?></span>
+                        <?php } ?>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmInput" class="col-sm-2 control-label"><?php echo $entry_confirm; ?></label>
+                    <div class="col-sm-9">
+                        <input type="text" name="confirm" value="<?php echo $confirm; ?>" class="form-control" id="confirmInput" />
+                        <?php if ($error_confirm) { ?>
+                            <span class="error text-danger"><?php echo $error_confirm; ?></span>
+                        <?php } ?>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="statusInput" class="col-sm-2 control-label "><?php echo $entry_status; ?></label>
+                    <div class="col-sm-9">
+                        <select name="status" class="form-control" id="statusInput">
+                            <?php if ($status) : ?>
+                                <option value="0"><?php echo $text_disabled; ?></option>
+                                <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                            <?php else: ?>
+                                <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                                <option value="1"><?php echo $text_enabled; ?></option>
+                            <?php endif; ?>
+                        </select>
+
+                    </div>
+                </div>
+
+          
+
+            </div>
+            <div class="box-footer text-center">
+                <button class="btn btn-primary">
+                    <i class="fa fa-check"></i> <?php echo $button_save; ?>
+                </button>
+                <a href="<?php echo $cancel; ?>" class="btn" onclick="$('#form').submit();">
+                    <i class="fa fa-times"></i> <?php echo $button_cancel; ?>
+                </a>
+
+            </div>
+        </div>
+
+    </form>
+</section><!-- /.content -->
+
+<?php echo $footer; ?>

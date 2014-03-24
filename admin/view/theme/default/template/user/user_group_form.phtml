@@ -1,0 +1,100 @@
+<?php echo $header; ?>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1><i class="fa fa-dashboard"></i> <?php echo $heading_title; ?><small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <?php foreach ($breadcrumbs as $i => $breadcrumb) { ?>
+            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo ($i == 0) ? '<i class="fa fa-dashboard"></i> ' : ''; ?><?php echo $breadcrumb['text']; ?></a></li>
+        <?php } ?>
+    </ol>
+</section>
+
+
+<!-- Main content -->
+<section class="content">
+    <?php if ($error_warning) { ?>
+        <div class="alert alert-danger alert-dismissable">
+            <i class="fa fa-ban"></i>
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <?php echo $error_warning; ?>
+        </div>
+    <?php } ?>
+    <form action="<?php echo $action; ?>" class="form-horizontal form-validate" method="post" enctype="multipart/form-data" id="form">
+        <div class="box">
+            <div class="box-body">
+                <div class="form-group">
+                    <label for="nameInput" class="col-sm-2 control-label required"><?php echo $entry_name; ?></label>
+                    <div class="col-sm-9">
+                        <input type="text" name="name" value="<?php echo $name; ?>" class="form-control required" id="nameInput" />
+                        <?php if ($error_name) { ?>
+                            <span class="error text-danger"><?php echo $error_name; ?></span>
+                        <?php } ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label for="accessInput" class="col-sm-12"><?php echo $entry_access; ?></label>
+                        <div class="col-sm-12">
+                            <div class="scrollbox">
+                                <ul class="list-group">
+                                    <?php $class = 'odd'; ?>
+                                    <?php foreach ($permissions as $permission) : ?>
+                                        <?php $class = ($class == 'even' ? 'odd' : 'even'); ?>
+                                        <li class="list-group-item <?php echo $class; ?>">
+                                            <?php if (in_array($permission, $access)) { ?>
+                                                <input type="checkbox" name="permission[access][]" value="<?php echo $permission; ?>" checked="checked" />
+                                                <?php echo $permission; ?>
+                                            <?php } else { ?>
+                                                <input type="checkbox" name="permission[access][]" value="<?php echo $permission; ?>" />
+                                                <?php echo $permission; ?>
+                                            <?php } ?>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </div>
+                            <a onclick="$(this).parent().find(':checkbox').iCheck('check');" class="btn btn-sm"><?php echo $text_select_all; ?></a> / <a class="btn btn-sm" onclick="$(this).parent().find(':checkbox').iCheck('uncheck');"><?php echo $text_unselect_all; ?></a>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="modifyInput" class="col-sm-12"><?php echo $entry_modify; ?></label>
+                        <div class="col-sm-12">
+                            <div class="scrollbox">
+                                <ul class="list-group">
+                                    <?php $class = 'odd'; ?>
+                                    <?php foreach ($permissions as $permission) : ?>
+                                        <?php $class = ($class == 'even' ? 'odd' : 'even'); ?>
+                                        <li class="list-group-item <?php echo $class; ?>">
+                                            <?php if (in_array($permission, $modify)) { ?>
+                                                <input type="checkbox" name="permission[modify][]" value="<?php echo $permission; ?>" checked="checked" />
+                                                <?php echo $permission; ?>
+                                            <?php } else { ?>
+                                                <input type="checkbox" name="permission[modify][]" value="<?php echo $permission; ?>" />
+                                                <?php echo $permission; ?>
+                                            <?php } ?>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </div>
+                            <a onclick="$(this).parent().find(':checkbox').iCheck('check');" class="btn btn-sm"><?php echo $text_select_all; ?></a> / <a class="btn btn-sm" onclick="$(this).parent().find(':checkbox').iCheck('uncheck');"><?php echo $text_unselect_all; ?></a>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="box-footer">
+                <button class="btn btn-primary">
+                    <i class="fa fa-check"></i> <?php echo $button_save; ?>
+                </button>
+                <a href="<?php echo $cancel; ?>" class="btn" onclick="$('#form').submit();">
+                    <i class="fa fa-times"></i> <?php echo $button_cancel; ?>
+                </a>
+            </div>
+        </div>
+    </form>
+
+</section><!-- /.content -->
+
+<?php echo $footer; ?>

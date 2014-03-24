@@ -1,0 +1,38 @@
+<?php echo $header; ?>
+<div class="form-box" id="login-box">
+    <div class="header"><?php echo $heading_title; ?></div>
+
+    <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="forgotten">
+
+        <div class="body bg-gray">
+
+            <?php if ($error_warning) { ?>
+                <div class="alert alert-danger"><?php echo $error_warning; ?></div>
+            <?php } ?>
+            <p><?php echo $text_email; ?></p>
+            <div class="form-group">
+                <input type="email" name="email" value="<?php echo $email; ?>" class="form-control" placeholder="<?php echo $entry_email; ?>" />
+            </div>         
+
+        </div>
+        <div class="footer">                                                               
+            <button type="submit" class="btn bg-olive btn-block"><?php echo $button_reset; ?></button>
+            <a href="<?php echo $cancel; ?>" class="btn btn-block"><?php echo $button_cancel; ?></a>
+
+
+
+        </div>
+
+    </form>
+</div>
+
+<script type="text/javascript"><!--
+    addOnready(function() {
+        $('#form input').keydown(function(e) {
+            if (e.keyCode == 13) {
+                $('#form').submit();
+            }
+        });
+    });
+//--></script> 
+<?php echo $footer; ?>

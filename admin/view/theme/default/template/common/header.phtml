@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html dir="<?php echo $direction; ?>" lang="<?php echo $lang; ?>">
+    <head>
+        <meta charset="UTF-8">
+        <title><?php echo $title; ?></title>
+        <base href="<?php echo $base; ?>" />
+
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+
+
+        <?php if ($description) { ?>
+            <meta name="description" content="<?php echo $description; ?>" />
+        <?php } ?>
+        <?php if ($keywords) { ?>
+            <meta name="keywords" content="<?php echo $keywords; ?>" />
+        <?php } ?>
+        <?php foreach ($links as $link) { ?>
+            <link href="<?php echo $link['href']; ?>" rel="<?php echo $link['rel']; ?>" />
+        <?php } ?>
+
+        <!-- bootstrap 3.0.2 -->
+        <link href="view/theme/default/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <!-- JQery ui -->
+        <link href="view/theme/default/css/jQueryUI/jquery-ui-1.10.3.custom.min.css" rel="stylesheet" type="text/css" />
+        <!-- font Awesome -->
+        <link href="view/theme/default/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <!-- Ionicons -->
+        <link href="view/theme/default/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+        <!-- Theme style -->
+        <link href="view/theme/default/css/AdminLTE.css" rel="stylesheet" type="text/css" />
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        <?php foreach ($styles as $style) { ?>
+            <link rel="<?php echo $style['rel']; ?>" type="text/css" href="<?php echo $style['href']; ?>" media="<?php echo $style['media']; ?>" />
+        <?php } ?>
+
+
+        <script type="text/javascript">
+            /** Hack to make sure that inline code can reference $.ready style functionality **/
+            var onReadyCallbacks = [];
+            var addOnready = function(callback) {
+                onReadyCallbacks.push(callback);
+            }
+
+        </script>
+    </head>
+    <body class="skin-blue">
+        <header class="header">
+            <a href="../../index.html" class="logo">
+                <!-- Add the class icon to your logo image or logo icon to add the margining -->
+                OpenDeal
+            </a>
+            <!-- Header Navbar: style can be found in header.less -->
+            <nav class="navbar navbar-static-top" role="navigation">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only"><?php echo $this->language->get('text_toggle_navigation'); ?></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <div class="navbar-right">
+                    <ul class="nav navbar-nav">
+
+
+
+
+                        <!-- User Account: style can be found in dropdown.less -->
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="glyphicon glyphicon-user"></i>
+                                <span><?php echo $this->user->getUserName(); ?> <i class="caret"></i></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- User image -->
+                                <li class="user-header bg-light-blue" style="height:100px;">
+
+                                    <p>
+                                        <?php echo $this->user->getFullName(); ?> - <?php echo $this->user->getRoleName(); ?>
+                                    </p>
+                                </li>
+
+                                <!-- Menu Footer-->
+                                <li class="user-footer">
+
+                                    <div class="pull-right">
+                                        <a href="<?php echo $logout; ?>" class="btn btn-default btn-flat"><?php echo $text_logout; ?></a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <div class="wrapper row-offcanvas row-offcanvas-left">
+            <!-- Left side column. contains the logo and sidebar -->
+            <aside class="left-side sidebar-offcanvas">                
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+
+
+                    <!-- sidebar menu: : style can be found in sidebar.less -->
+                    <ul class="sidebar-menu">
+                        <li>
+                            <a href="<?php echo $home; ?>">
+                                <i class="fa fa-dashboard"></i> <span><?php echo $text_dashboard; ?></span>
+                            </a>
+                        </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-users"></i>
+                                <span><?php echo $text_customer; ?></span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <?php if ($customer): ?>
+                                    <li><a href="<?php echo $customer; ?>"><i class="fa fa-user-md"></i> <?php echo $text_customer; ?></a></li>
+                                <?php endif; ?>
+                                <?php if ($customer_group): ?>
+                                    <li><a href="<?php echo $customer_group; ?>"><i class="fa fa-lock"></i> <?php echo $text_customer_group; ?></a></li>
+                                <?php endif; ?>
+                                <?php if ($customer_ban_ip): ?>
+                                    <li><a href="<?php echo $customer_ban_ip; ?>"><i class="fa fa-ban"></i> <?php echo $text_customer_ban_ip; ?></a></li>
+                                <?php endif; ?>
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-money"></i>
+                                <span><?php echo $this->language->get('text_deals'); ?></span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                 <li><a href="#"><i class="fa fa-cog"></i> Categories</a></li>
+                                  <li><a href="#"><i class="fa fa-cog"></i> Deals</a></li>
+                            </ul>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-cogs"></i> <span><?php echo $text_system; ?></span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+
+                            <ul class="treeview-menu">
+                                <li><a href="<?php echo $setting; ?>"><i class="fa fa-cog"></i> <?php echo $text_setting; ?></a></li>
+                                <li class="treeview">
+                                    <a href="#">
+                                        <i class="fa fa-desktop"></i> <span><?php echo $text_design; ?></span>
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <li><a href="<?php echo $layout; ?>"><i class="fa fa-pencil"></i> <?php echo $text_layout; ?></a></li>
+                                        <li><a href="<?php echo $banner; ?>"><i class="fa fa-certificate"></i> <?php echo $text_banner; ?></a></li>
+                                    </ul>
+                                </li>
+                                <li class="treeview">
+                                    <a  href="#">
+                                        <i class="fa fa-users"></i> <span><?php echo $text_users; ?></span>
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <li><a href="<?php echo $user; ?>"><i class="fa fa-user"></i> <?php echo $text_user; ?></a></li>
+                                        <li><a href="<?php echo $user_group; ?>"><i class="fa fa-lock"></i> <?php echo $text_user_group; ?></a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="<?php echo $error_log; ?>"><i class="fa fa-list-alt"></i> <?php echo $text_error_log; ?></a></li>
+                                <li><a href="<?php echo $backup; ?>"><i class="fa fa-download"></i> <?php echo $text_backup; ?></a></li>
+
+                                
+                            </ul>
+                        </li>
+
+                        <li id="help" class="treeview">
+                            <a class="top" href="#">
+                                <i class="fa fa-question-circle"></i> <?php echo $text_help; ?><i class="fa fa-angle-left pull-right"></i>
+                            </a>
+
+                            <ul class="treeview-menu">
+                                <li><a href="http://www.opendeal.info" target="_blank">OpenDeal Site</a></li>
+                                <li><a href="http://www.opendeal.info/index.php?route=documentation/introduction" target="_blank">Documentation</a></li>
+                                <li><a href="http://forum.opencart.com" target="_blank">Support</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </section>
+                <!-- /.sidebar -->
+            </aside>
+
+            <!-- Right side column. Contains the navbar and content of the page -->
+            <aside class="right-side"> 

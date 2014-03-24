@@ -2833,24 +2833,63 @@ label.required:after {
 
 table td.left,
 table th.left{
-	text-align: left;
-	padding: 7px;
+    text-align: left;
+    padding: 7px;
 }
 table td.right,
 table th.right{
-	text-align: right;
-	padding: 7px;
+    text-align: right;
+    padding: 7px;
 }
 table td.center,
 table th.center{
-	text-align: center;
-	padding: 7px;
+    text-align: center;
+    padding: 7px;
 }
 a.asc {
-	padding-right: 15px;
-	background: url('images/asc.png') right center no-repeat;
+    padding-right: 15px;
+    background: url('images/asc.png') right center no-repeat;
 }
 a.desc {
-	padding-right: 15px;
-	background: url('images/desc.png') right center no-repeat;
+    padding-right: 15px;
+    background: url('images/desc.png') right center no-repeat;
+}
+
+.box .box-header a.btn {
+    color: #fff;
+}
+
+div#form-error {
+    display:none;
+}
+
+.pagination-container {
+    margin-left:20px;
+    margin-right:20px;
+}
+
+.pagination-container .results {
+    display: inline-block;
+    padding-left: 0;
+    margin: 20px 0;
+    border-radius: 4px;
+}
+
+
+.scrollbox {
+    height: 250px;
+    border: 1px solid #CCCCCC;
+    overflow-y: scroll;
+}
+
+.scrollbox .odd {
+   background: rgba(0, 0, 0, 0.05);
+}
+
+.scrollbox .list-group {
+    margin-bottom: 0px;
+}
+
+.list-group .icheckbox_minimal {
+    margin-right: 10px;
 }
