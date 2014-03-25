@@ -1,7 +1,7 @@
 <?php echo $header; ?>
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1><i class="fa fa-dashboard"></i> <?php echo $heading_title; ?><small></small>
+    <h1><i class="fa fa-cog"></i> <?php echo $heading_title; ?><small></small>
     </h1>
     <ol class="breadcrumb">
         <?php foreach ($breadcrumbs as $i => $breadcrumb) { ?>
@@ -35,6 +35,7 @@
             <?php echo $success; ?>
         </div>
     <?php } ?>
+
     <div class="box">
         <div class="box-body">
             <form action="<?php echo $delete; ?>" method="post" enctype="multipart/form-data" id="form">
@@ -42,46 +43,39 @@
                     <thead>
                         <tr>
                             <th width="1" style="text-align: center;"><input class="selectall" type="checkbox" onclick="$('input[name*=\'selected\']').attr('checked', this.checked);" /></th>
-                            <th class="left"><?php if ($sort == 'name') { ?>
-                                    <a href="<?php echo $sort_name; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_name; ?></a>
-                                <?php } else { ?>
-                                    <a href="<?php echo $sort_name; ?>"><?php echo $column_name; ?></a>
-                                <?php } ?></th>
+                            <th class="left"><?php echo $column_name; ?></a></th>
+                            <th class="left"><?php echo $column_url; ?></th>
                             <th class="right"><?php echo $column_action; ?></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php if ($user_groups) { ?>
-                            <?php foreach ($user_groups as $user_group) { ?>
+                        <?php if ($stores) { ?>
+                            <?php foreach ($stores as $store) { ?>
                                 <tr>
-                                    <td style="text-align: center;"><?php if ($user_group['selected']) { ?>
-                                            <input type="checkbox" name="selected[]" value="<?php echo $user_group['user_group_id']; ?>" checked="checked" />
+                                    <td style="text-align: center;"><?php if ($store['selected']) { ?>
+                                            <input type="checkbox" name="selected[]" value="<?php echo $store['store_id']; ?>" checked="checked" />
                                         <?php } else { ?>
-                                            <input type="checkbox" name="selected[]" value="<?php echo $user_group['user_group_id']; ?>" />
+                                            <input type="checkbox" name="selected[]" value="<?php echo $store['store_id']; ?>" />
                                         <?php } ?></td>
-                                    <td class="left"><?php echo $user_group['name']; ?></td>
-                                    <td class="right"><?php foreach ($user_group['action'] as $action) { ?>
-                                            <a class="btn btn-xs btn-primary" href="<?php echo $action['href']; ?>"><?php echo $action['text']; ?></a>
+                                    <td class="left"><?php echo $store['name']; ?></td>
+                                    <td class="left"><?php echo $store['url']; ?></td>
+                                    <td class="right"><?php foreach ($store['action'] as $action) { ?>
+                                            <a class="btn btn-xs btn-primary" href="<?php echo $action['href']; ?>"><?php echo $action['text']; ?></a> 
                                         <?php } ?></td>
                                 </tr>
                             <?php } ?>
                         <?php } else { ?>
                             <tr>
-                                <td class="center" colspan="3"><div class="alert alert-info"><?php echo $text_no_results; ?></div></td>
+                                <td class="center" colspan="4"><div class="alert alert-info"><?php echo $text_no_results; ?></div></td>
                             </tr>
                         <?php } ?>
                     </tbody>
                 </table>
             </form>
         </div>
-        <div class="box-footer">
-            <div class="row">
-                <div class="pagination-container">
-                    <?php echo $pagination; ?>
-                </div>
-            </div>
-        </div>
+
     </div>
+
 
 </section><!-- /.content -->
 

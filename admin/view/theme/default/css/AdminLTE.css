@@ -2893,3 +2893,6 @@ div#form-error {
 .list-group .icheckbox_minimal {
     margin-right: 10px;
 }
+textarea {
+    resize: none;
+}

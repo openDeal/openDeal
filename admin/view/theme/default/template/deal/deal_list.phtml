@@ -1,0 +1,127 @@
+<?php echo $header; ?>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1><i class="fa fa-dashboard"></i> <?php echo $heading_title; ?><small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <?php foreach ($breadcrumbs as $i => $breadcrumb) { ?>
+            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo ($i == 0) ? '<i class="fa fa-dashboard"></i> ' : ''; ?><?php echo $breadcrumb['text']; ?></a></li>
+        <?php } ?>
+    </ol>
+</section>
+<section class="page-actions">
+    <a href="<?php echo $insert; ?>" class="btn btn-primary">
+        <i class="fa fa-plus"></i> <?php echo $button_insert; ?>
+    </a>
+    <button class="btn btn-danger" onclick="$('#form').submit();">
+        <i class="fa fa-times"></i> <?php echo $button_delete; ?>
+    </button>
+
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <?php if ($error_warning) { ?>
+        <div class="alert alert-danger alert-dismissable">
+            <i class="fa fa-ban"></i>
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <?php echo $error_warning; ?>
+        </div>
+    <?php } ?>
+    <?php if ($success) { ?>
+        <div class="alert alert-success alert-dismissable">
+            <i class="fa fa-check"></i>
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <?php echo $success; ?>
+        </div>
+    <?php } ?>
+
+
+    <div class="box">
+        <div class="box-body">
+            <form action="<?php echo $delete; ?>" method="post" enctype="multipart/form-data" id="form">
+                <table class="table table-bordered table-striped table-responsive">
+                    <thead>
+                        <tr>
+
+
+
+                            <th width="1" style="text-align: center;"><input class="selectall" type="checkbox" onclick="$('input[name*=\'selected\']').attr('checked', this.checked);" /></th>
+                            <th class="left"><?php if ($sort == 'title') { ?>
+                                    <a href="<?php echo $sort_title; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_title; ?></a>
+                                <?php } else { ?>
+                                    <a href="<?php echo $sort_title; ?>"><?php echo $column_title; ?></a>
+                                <?php } ?></th>
+                            <th class="left"><?php echo $column_tip_time; ?></th>
+
+                            <th class="left"><?php if ($sort == 'price') { ?>
+                                    <a href="<?php echo $sort_price; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_price; ?></a>
+                                <?php } else { ?>
+                                    <a href="<?php echo $sort_price; ?>"><?php echo $column_price; ?></a>
+                                <?php } ?></th>
+
+                            <th class="left"><?php if ($sort == 'begin_time') { ?>
+                                    <a href="<?php echo $sort_begin; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_begin_time; ?></a>
+                                <?php } else { ?>
+                                    <a href="<?php echo $sort_begin; ?>"><?php echo $column_begin_time; ?></a>
+                                <?php } ?></th>
+
+                            <th class="left"><?php if ($sort == 'end_time') { ?>
+                                    <a href="<?php echo $sort_end; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_end_time; ?></a>
+                                <?php } else { ?>
+                                    <a href="<?php echo $sort_end; ?>"><?php echo $column_end_time; ?></a>
+                                <?php } ?></th>
+                            <th class="left"><?php echo $column_status; ?></th>
+                            <th class="left"><?php echo $column_ordered; ?></th>
+
+                            <th class="left"><?php if ($sort == 'date_added') { ?>
+                                    <a href="<?php echo $sort_date_added; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_date_added; ?></a>
+                                <?php } else { ?>
+                                    <a href="<?php echo $sort_date_added; ?>"><?php echo $column_date_added; ?></a>
+                                <?php } ?></th>
+                            <th class="right"><?php echo $column_action; ?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if ($deals): ?>
+                            <?php foreach ($deals as $deal): ?>
+                                <tr>
+                                    <td style="text-align: center;"><?php if ($deal['selected']) { ?>
+                                            <input type="checkbox" name="selected[]" value="<?php echo $deal['deal_id']; ?>" checked="checked" />
+                                        <?php } else { ?>
+                                            <input type="checkbox" name="selected[]" value="<?php echo $deal['deal_id']; ?>" />
+                                        <?php } ?></td>
+                                    <td class="left"><?php echo $deal['title']; ?></td>
+                                    <td class="left"><?php echo $deal['tip_time']; ?></td>
+                                    <td class='left'><span style='text-decoration:line-through;color:#b00'><?php echo $deal['market_price']; ?></span><?php echo $deal['deal_price']; ?></td>
+                                    <td class="left"><?php echo $company['begin_time']; ?></td>
+                                    <td class="left"><?php echo $company['end_time']; ?></td>
+                                    <td class="left"><?php echo $company['status']; ?></td>
+                                    <td class="left"><?php echo $company['current_orders']; ?></td>
+                                    <td class="left"><?php echo $company['date_added']; ?></td>
+                                    <td class="right"><?php foreach ($company['action'] as $action) { ?>
+                                            <a class="btn btn-xs btn-primary" href="<?php echo $action['href']; ?>"><?php echo $action['text']; ?></a>
+                                        <?php } ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td class="center" colspan="10"><div class="alert alert-info"><?php echo $text_no_results; ?></div></td>
+                            </tr>
+                        <?php endif; ?>
+
+                    </tbody>
+                </table>
+        </div>
+        <div class="box-footer">
+            <div class="row">
+                <div class="pagination-container">
+                    <?php echo $pagination; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section><!-- /.content -->
+
+<?php echo $footer; ?>

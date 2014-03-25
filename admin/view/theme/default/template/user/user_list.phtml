@@ -40,7 +40,7 @@
                 <table class="table table-bordered table-striped table-responsive">
                     <thead>
                         <tr>
-                            <th width="1" style="text-align: center;"><input type="checkbox" onclick="$('input[name*=\'selected\']').attr('checked', this.checked);" /></th>
+                            <th width="1" style="text-align: center;"><input class="selectall" type="checkbox" onclick="$('input[name*=\'selected\']').attr('checked', this.checked);" /></th>
                             <th class="left"><?php if ($sort == 'username') { ?>
                                     <a href="<?php echo $sort_username; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_username; ?></a>
                                 <?php } else { ?>

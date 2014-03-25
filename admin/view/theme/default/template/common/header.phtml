@@ -114,24 +114,7 @@
                                 <i class="fa fa-dashboard"></i> <span><?php echo $text_dashboard; ?></span>
                             </a>
                         </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-users"></i>
-                                <span><?php echo $text_customer; ?></span>
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                                <?php if ($customer): ?>
-                                    <li><a href="<?php echo $customer; ?>"><i class="fa fa-user-md"></i> <?php echo $text_customer; ?></a></li>
-                                <?php endif; ?>
-                                <?php if ($customer_group): ?>
-                                    <li><a href="<?php echo $customer_group; ?>"><i class="fa fa-lock"></i> <?php echo $text_customer_group; ?></a></li>
-                                <?php endif; ?>
-                                <?php if ($customer_ban_ip): ?>
-                                    <li><a href="<?php echo $customer_ban_ip; ?>"><i class="fa fa-ban"></i> <?php echo $text_customer_ban_ip; ?></a></li>
-                                <?php endif; ?>
-                            </ul>
-                        </li>
+
                         <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-money"></i>
@@ -139,9 +122,43 @@
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
                             <ul class="treeview-menu">
-                                 <li><a href="#"><i class="fa fa-cog"></i> Categories</a></li>
-                                  <li><a href="#"><i class="fa fa-cog"></i> Deals</a></li>
+                                <li><a href="<?php echo $link_company;?>"><i class="fa fa-cog"></i> <?php echo $this->language->get('text_companies'); ?></a></li>
+                                <li><a href="<?php echo $category;?>"><i class="fa fa-cog"></i> <?php echo $this->language->get('text_category'); ?></a></li>
+                                <li><a href="<?php echo $deal;?>"><i class="fa fa-cog"></i> <?php echo $this->language->get('text_deals'); ?></a></li>
+                                <!-- Questions -? perhaps facebook initially -->
+                                <li><a href="#"><i class="fa fa-cog"></i> <?php echo $this->language->get('text_question'); ?></a></li>
                             </ul>
+                        </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-money"></i>
+                                <span><?php echo $this->language->get('text_sale'); ?></span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                 <li><a href="#"><i class="fa fa-cog"></i> <?php echo $this->language->get('text_order'); ?></a></li>
+                                <li class="treeview">
+                                    <a href="#">
+                                        <i class="fa fa-users"></i>
+                                        <span><?php echo $text_customer; ?></span>
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </a>
+                                    <ul class="treeview-menu">
+                                        <?php if ($customer): ?>
+                                            <li><a href="<?php echo $customer; ?>"><i class="fa fa-user-md"></i> <?php echo $text_customer; ?></a></li>
+                                        <?php endif; ?>
+                                        <?php if ($customer_group): ?>
+                                            <li><a href="<?php echo $customer_group; ?>"><i class="fa fa-lock"></i> <?php echo $text_customer_group; ?></a></li>
+                                        <?php endif; ?>
+                                        <?php if ($customer_ban_ip): ?>
+                                            <li><a href="<?php echo $customer_ban_ip; ?>"><i class="fa fa-ban"></i> <?php echo $text_customer_ban_ip; ?></a></li>
+                                        <?php endif; ?>
+                                    </ul>
+                                </li>  
+                                <li><a href="#"><i class="fa fa-cog"></i> <?php echo $this->language->get('text_coupon'); ?></a></li>
+                                <li><a href="#"><i class="fa fa-cog"></i> <?php echo $this->language->get('text_affiliate'); ?></a></li>
+                            </ul>
+                        </li>
                         <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-cogs"></i> <span><?php echo $text_system; ?></span>
@@ -173,7 +190,7 @@
                                 <li><a href="<?php echo $error_log; ?>"><i class="fa fa-list-alt"></i> <?php echo $text_error_log; ?></a></li>
                                 <li><a href="<?php echo $backup; ?>"><i class="fa fa-download"></i> <?php echo $text_backup; ?></a></li>
 
-                                
+
                             </ul>
                         </li>
 

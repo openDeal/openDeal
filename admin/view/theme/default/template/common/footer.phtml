@@ -20,16 +20,44 @@
 <?php } ?>
 <script type="text/javascript">
 
+function image_upload(field, thumb) {
+	$('#dialog').remove();
+	
+	$('body').prepend('<div id="dialog" style="padding: 3px 0px 0px 0px;"><iframe src="index.php?route=common/filemanager&token=<?php echo $token; ?>&field=' + encodeURIComponent(field) + '" style="padding:0; margin: 0; display: block; width: 100%; height: 100%;" frameborder="no" scrolling="auto"></iframe></div>');
+	
+	$('#dialog').dialog({
+		title: '<?php echo $text_image_manager; ?>',
+		close: function (event, ui) {
+			if ($('#' + field).attr('value')) {
+				$.ajax({
+					url: 'index.php?route=common/filemanager/image&token=<?php echo $token; ?>&image=' + encodeURIComponent($('#' + field).val()),
+					dataType: 'text',
+					success: function(data) {
+						$('#' + thumb).replaceWith('<img src="' + data + '" alt="" id="' + thumb + '" />');
+					}
+				});
+			}
+		},	
+		bgiframe: false,
+		width: 800,
+		height: 400,
+		resizable: false,
+		modal: false
+	});
+};
 
 //-----------------------------------------
 // Confirm Actions (delete, uninstall)
 //-----------------------------------------
     $(document).ready(function() {
-        $.each(onReadyCallbacks, function(i, callback) {
-            if (callback instanceof Function) {
-                callback();
-            }
+
+        $('input.selectall').on('ifChecked', function(event) {
+                $('input[name*=\'selected\']').iCheck('check');
         });
+        $('input.selectall').on('ifUnchecked', function(event) {
+                $('input[name*=\'selected\']').iCheck('uncheck');
+        });
+
         // Confirm Delete
         $('#form').submit(function() {
             if ($(this).attr('action').indexOf('delete', 1) != -1) {
@@ -46,32 +74,43 @@
                 }
             }
         });
-    });
 
-    //Form Validation
-    $('.form-validate').validate({
-        highlight: function(element, errorClass, validClass) {
-            $(element).closest('.form-group').addClass('has-error');
-            
-        },
-        unhighlight: function(element, errorClass, validClass) {
-            $(element).closest('.form-group').removeClass('has-error');
-        },
-        invalidHandler: function(event, validator) {
-            // 'this' refers to the form
-            var errors = validator.numberOfInvalids();
-            if (errors) {
-                var message = errors == 1
-                        ? '<?php echo $form_missed_one; ?>'
-                        : '<?php echo $form_missed_x; ?>'.replace("{{errors}}", errors);
-                $("div#form-error span").html(message);
-                $("div#form-error").show();
-            } else {
-                $("div#form-error").hide();
+
+        //Menu highlighting
+        $('.sidebar-menu a[href="' + location.href + '"]').parent('li').addClass('active').parents('li').children('a').trigger('click');
+
+        //Form Validation
+        $('.form-validate').validate({
+        ignore: ".ignore",
+            highlight: function(element, errorClass, validClass) {
+                $(element).closest('.form-group').addClass('has-error');
+
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).closest('.form-group').removeClass('has-error');
+            },
+            invalidHandler: function(event, validator) {
+                // 'this' refers to the form
+                var errors = validator.numberOfInvalids();
+                if (errors) {
+                    var message = errors == 1
+                            ? '<?php echo $form_missed_one; ?>'
+                            : '<?php echo $form_missed_x; ?>'.replace("{{errors}}", errors);
+                    $("div#form-error span").html(message);
+                    $("div#form-error").show();
+                } else {
+                    $("div#form-error").hide();
+                }
             }
-        }
+
+        });
+
+        //Onready Callbacks
+        $.each(onReadyCallbacks, function(i, callback) {
+            if (callback instanceof Function) {
+                callback();
+            }
+        });
 
     });
-
-
 </script>

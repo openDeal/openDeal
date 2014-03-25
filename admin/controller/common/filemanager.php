@@ -20,6 +20,8 @@ class ControllerCommonFilemanager extends \Core\Controller {
         } else {
             $this->data['fckeditor'] = false;
         }
+        
+        $this->data['image_url'] =  HTTP_CATALOG . 'image/';
 
         $this->load->model('tool/image');
 

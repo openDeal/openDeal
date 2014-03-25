@@ -35,7 +35,7 @@
                                 lang: '<?php echo $lang; ?>', // language (OPTIONAL)
                                 getFileCallback: function(file) {
 <?php if ($fckeditor) : ?>
-                                        window.opener.CKEDITOR.tools.callFunction(funcNum, file);
+                                        window.opener.CKEDITOR.tools.callFunction('<?php echo $fckeditor; ?>', '<?php echo $image_url; ?>' + file.path);
                                         self.close();
 <?php else: ?>
                                         parent.console.log(file);
