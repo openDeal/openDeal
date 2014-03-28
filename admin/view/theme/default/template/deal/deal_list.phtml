@@ -93,13 +93,13 @@
                                         <?php } ?></td>
                                     <td class="left"><?php echo $deal['title']; ?></td>
                                     <td class="left"><?php echo $deal['tip_time']; ?></td>
-                                    <td class='left'><span style='text-decoration:line-through;color:#b00'><?php echo $deal['market_price']; ?></span><?php echo $deal['deal_price']; ?></td>
-                                    <td class="left"><?php echo $company['begin_time']; ?></td>
-                                    <td class="left"><?php echo $company['end_time']; ?></td>
-                                    <td class="left"><?php echo $company['status']; ?></td>
-                                    <td class="left"><?php echo $company['current_orders']; ?></td>
-                                    <td class="left"><?php echo $company['date_added']; ?></td>
-                                    <td class="right"><?php foreach ($company['action'] as $action) { ?>
+                                    <td class='left'><span style='text-decoration:line-through;color:#b00'><?php echo $deal['market_price']; ?></span><br /><?php echo $deal['deal_price']; ?></td>
+                                    <td class="left"><?php echo $deal['begin_time']; ?></td>
+                                    <td class="left"><?php echo $deal['end_time']; ?></td>
+                                    <td class="left"><?php echo $deal['status']; ?></td>
+                                    <td class="left"><?php echo $deal['current_orders']; ?></td>
+                                    <td class="left"><?php echo $deal['date_added']; ?></td>
+                                    <td class="right"><?php foreach ($deal['action'] as $action) { ?>
                                             <a class="btn btn-xs btn-primary" href="<?php echo $action['href']; ?>"><?php echo $action['text']; ?></a>
                                         <?php } ?></td>
                                 </tr>

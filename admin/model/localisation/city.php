@@ -79,7 +79,7 @@ class ModelLocalisationCity extends \Core\Model {
         $this->cache->delete('city');
     }
 
-    public function getCity($country_id) {
+    public function getCity($city_id) {
         $query = $this->db->query("SELECT DISTINCT *, (SELECT keyword FROM #__url_alias WHERE query = 'city_id=" . (int) $city_id . "') AS keyword FROM #__city WHERE city_id = '" . (int) $city_id . "'");
         return $query->row;
     }
@@ -91,6 +91,10 @@ class ModelLocalisationCity extends \Core\Model {
             $sort_data = array(
                 'city_name'
             );
+
+            if (!empty($data['filter_name'])) {
+                $sql .= " WHERE city_name LIKE '" . $this->db->escape($data['filter_name']) . "%'";
+            }
 
             if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
                 $sql .= " ORDER BY " . $data['sort'];

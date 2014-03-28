@@ -11,6 +11,10 @@ class ModelDealCompany extends \Core\Model {
                 'date_added'
             );
 
+            if (!empty($data['filter_name'])) {
+                $sql .= " WHERE name LIKE '" . $this->db->escape($data['filter_name']) . "%'";
+            }
+
             if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
                 $sql .= " ORDER BY " . $data['sort'];
             } else {

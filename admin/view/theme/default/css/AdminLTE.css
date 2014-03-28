@@ -2896,3 +2896,13 @@ div#form-error {
 textarea {
     resize: none;
 }
+
+.image img {
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.image.pull-left {
+    margin-left:15px;
+}

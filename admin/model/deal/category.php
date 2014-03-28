@@ -8,6 +8,18 @@ class ModelDealCategory extends \Core\Model {
         return $query->row['total'];
     }
 
+    public function getCategory($category_id) {
+        $query = $this->db->query("SELECT DISTINCT *, (SELECT GROUP_CONCAT(cd1.name ORDER BY level SEPARATOR ' &gt; ')"
+                . " FROM #__category_path cp LEFT JOIN #__category_description cd1 ON (cp.path_id = cd1.category_id AND "
+                . "cp.category_id != cp.path_id) WHERE cp.category_id = c.category_id AND "
+                . "cd1.language_id = '" . (int) $this->config->get('config_language_id') . "' GROUP BY cp.category_id) AS "
+                . "path, (SELECT keyword FROM #__url_alias WHERE query = 'category_id=" . (int) $category_id . "') AS keyword "
+                . " FROM #__category c LEFT JOIN #__category_description cd2 ON (c.category_id = cd2.category_id) WHERE"
+                . " c.category_id = '" . (int) $category_id . "' AND cd2.language_id = '" . (int) $this->config->get('config_language_id') . "'");
+
+        return $query->row;
+    }
+
     public function getCategories($data) {
         $sql = "SELECT cp.category_id AS category_id, GROUP_CONCAT(cd1.name ORDER BY cp.level SEPARATOR ' &gt; ') AS name, "
                 . "c.parent_id, c.sort_order FROM #__category_path cp "
