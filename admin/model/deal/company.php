@@ -85,7 +85,7 @@ class ModelDealCompany extends \Core\Model {
                 . "image = " . $this->db->quote($data['image']) . ", "
                 . "commission = " . $this->db->quote((float) $data['commission']) . ", "
                 . "about = " . $this->db->quote($data['about']) . ", "
-                . "date_added = now(), "
+                . "date_added = '" . time() . "', "
                 . "status = " . (int) $data['status']);
 
         $company_id = $this->db->getLastId();
