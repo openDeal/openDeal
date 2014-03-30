@@ -241,7 +241,7 @@
                                 <div  class="scrollbox">
                                     <ul id="deal_city" class="list-group">
                                         <?php $class = 'odd'; ?>
-                                        <?php foreach ($deal_cities as $deal_caty) { ?>
+                                        <?php foreach ($deal_cities as $deal_city) { ?>
                                             <?php $class = ($class == 'even' ? 'odd' : 'even'); ?>
 
                                             <li id="deal_city<?php echo $deal_city['city_id']; ?>" class="list-group-item <?php echo $class; ?>"><?php echo $deal_city['name']; ?><button class="btn btn-xs btn-danger pull-right" type="btn" >x</button>

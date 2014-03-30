@@ -12,10 +12,10 @@ class ModelDealDeal extends \Core\Model {
         return $query->row['total'];
     }
 
-    public function getDealCities($city_id) {
+    public function getDealCities($deal_id) {
         $deal_city_data = array();
 
-        $query = $this->db->query("SELECT * FROM #__deal_to_city WHERE deal_id = '" . (int) $deal_id . "'");
+        $query = $this->db->query("SELECT city_id FROM #__deal_to_city WHERE deal_id = '" . (int) $deal_id . "'");
 
         foreach ($query->rows as $result) {
             $deal_city_data[] = $result['city_id'];
@@ -24,10 +24,22 @@ class ModelDealDeal extends \Core\Model {
         return $deal_city_data;
     }
 
-    public function getDealShippings($city_id) {
+    public function getDealImages($deal_id) {
+        $deal_image_data = array();
+
+        $query = $this->db->query("SELECT * FROM #__deal_image WHERE deal_id = '" . (int) $deal_id . "' order by sort_order asc");
+
+        foreach ($query->rows as $result) {
+            $deal_image_data[] = $result['image'];
+        }
+
+        return $deal_image_data;
+    }
+
+    public function getDealShippings($deal_id) {
         $deal_shipping_data = array();
 
-        $query = $this->db->query("SELECT * FROM #__deal_shipping WHERE deal_id = '" . (int) $deal_id . "' order by sort_order asc deal_shipping_id asc");
+        $query = $this->db->query("SELECT * FROM #__deal_shipping WHERE deal_id = '" . (int) $deal_id . "' order by sort_order asc, deal_shipping_id asc");
 
         foreach ($query->rows as $result) {
             $deal_shipping_data[] = $result;
@@ -60,8 +72,27 @@ class ModelDealDeal extends \Core\Model {
         return $deal_category_data;
     }
 
+    public function getDealStores($deal_id) {
+        $deal_store_data = array();
+
+        $query = $this->db->query("SELECT store_id FROM #__deal_to_store WHERE deal_id = '" . (int) $deal_id . "'");
+
+        foreach ($query->rows as $result) {
+            $deal_store_data[] = $result['store_id'];
+        }
+
+        return $deal_store_data;
+    }
+
     public function getDeal($deal_id) {
         //(SELECT keyword FROM #__url_alias WHERE query = 'deal_id=" . (int)$deal_id . "') AS keyword
+        $query = $this->db->query("SELECT DISTINCT *, (SELECT keyword FROM #__url_alias WHERE "
+                . " query = 'deal_id=" . (int) $deal_id . "') AS keyword FROM #__deal d "
+                . " LEFT JOIN #__deal_description dd ON (d.deal_id = dd.deal_id) WHERE "
+                . " d.deal_id = '" . (int) $deal_id . "' "
+                . " AND dd.language_id = '" . (int) $this->config->get('config_language_id') . "'");
+
+        return $query->row;
     }
 
     public function getDeals($data = array()) {
@@ -108,7 +139,7 @@ class ModelDealDeal extends \Core\Model {
     public function getDealDescriptions($deal_id) {
         $deal_description_data = array();
 
-        $query = $this->db->query("SELECT * FROM #__deal_description WHERE deal_id = '" . (int) $category_id . "'");
+        $query = $this->db->query("SELECT * FROM #__deal_description WHERE deal_id = '" . (int) $deal_id . "'");
 
         foreach ($query->rows as $result) {
             $deal_description_data[$result['language_id']] = array(
@@ -116,10 +147,10 @@ class ModelDealDeal extends \Core\Model {
                 'meta_keyword' => $result['meta_keyword'],
                 'meta_description' => $result['meta_description'],
                 'details' => $result['details'],
-                'introduction' => $result['details'],
-                'hightlights' => $result['details'],
-                'conditions' => $result['details'],
-                'collect_instructions' => $result['details'],
+                'introduction' => $result['introduction'],
+                'highlights' => $result['highlights'],
+                'conditions' => $result['conditions'],
+                'collect_instructions' => $result['collect_instructions'],
             );
         }
 
@@ -215,6 +246,110 @@ class ModelDealDeal extends \Core\Model {
             }
         }
 
+        if ($data['keyword']) {
+            $this->db->query("INSERT INTO #__url_alias SET query = 'deal_id=" . (int) $deal_id . "', keyword = '" . $this->db->escape($data['keyword']) . "'");
+        }
+
+        $this->cache->delete('deal');
+    }
+
+    public function editDeal($deal_id, $data) {
+
+        $times = explode("-", $data['deal_times']);
+        $data['begin_time'] = strtotime(trim($times[0]));
+        $data['end_time'] = strtotime(trim($times[1]));
+
+        $this->db->query("Update #__deal set "
+                . " market_price = '" . (float) $data['market_price'] . "', "
+                . " deal_price = '" . (float) $data['deal_price'] . "', "
+                . " begin_time = " . $this->db->quote($data['begin_time']) . ", "
+                . " end_time = " . $this->db->quote($data['end_time']) . ", "
+                . " tip_point = " . (int) $data['tip_point'] . ", "
+                . " stock = " . (int) $data['stock'] . ", "
+                . " user_max = " . (int) $data['user_max'] . ", "
+                . " company_id = " . (int) $data['company_id'] . ", "
+                . " status = " . (int) $data['status'] . ", "
+                . " commission = " . (float) $data['commission'] . ", "
+                . " feature_weight = " . (int) $data['feature_weight'] . ", "
+                . " can_collect = " . (int) $data['can_collect'] . ", "
+                . " is_coupon = " . (int) $data['is_coupon'] . ", "
+                . " coupon_expiry = " . $this->db->quote(strtotime($data['coupon_expiry'])) . ", "
+                . " modify_date = " . time());
+
+
+        $this->db->query("Delete from #__deal_image where deal_id = " . (int) $deal_id);
+        if (isset($data['images'])) {
+            foreach ($data['images'] as $image) {
+                $this->db->query("Insert into #__deal_image set deal_id = " . (int) $deal_id . ", image = " . $this->db->quote($image));
+            }
+        }
+
+        $this->db->query("Delete from #__deal_description where deal_id = " . (int) $deal_id);
+        if (isset($data['deal_description'])) {
+            foreach ($data['deal_description'] as $language_id => $description) {
+                $this->db->query("Insert into #__deal_description set deal_id = " . (int) $deal_id . ", "
+                        . " language_id = " . (int) $language_id . ", "
+                        . " title = " . $this->db->quote($description['title']) . ", "
+                        . " introduction = " . $this->db->quote($description['introduction']) . ", "
+                        . " highlights = " . $this->db->quote($description['highlights']) . ", "
+                        . " conditions = " . $this->db->quote($description['conditions']) . ", "
+                        . " details = " . $this->db->quote($description['details']) . ", "
+                        . " meta_keyword = " . $this->db->quote($description['meta_keyword']) . ", "
+                        . " meta_description = " . $this->db->quote($description['meta_description']));
+            }
+        }
+
+        /** DEAL OPTION TO DO * */
+        $this->db->query("Delete from #__deal_option where deal_id = " . (int) $deal_id);
+        if (isset($data['deal_option'])) {
+            foreach ($deal['deal_option'] as $option) {
+                $this->db->query("Insert into #__deal_option set deal_id = " . (int) $deal_id . ", "
+                        . " title = " . $this->db->quote($option['title']) . ", "
+                        . " price = " . (float) $option['price']);
+            }
+        }
+
+        $this->db->query("Delete from #__deal_shipping where deal_id = " . (int) $deal_id);
+        if (isset($data['deal_shipping'])) {
+            foreach ($data['deal_shipping'] as $shipping) {
+                $this->db->query("Insert into #__deal_shipping set deal_id = " . (int) $deal_id . ", "
+                        . " title = " . $this->db->quote($shipping['title']) . ", "
+                        . " price = " . (float) $shipping['price'] . ", "
+                        . " sort_order = " . (int) $shipping['sort_order']);
+            }
+        }
+
+        $this->db->query("Delete from #__deal_to_category where deal_id = " . (int) $deal_id);
+        if (isset($data['deal_category'])) {
+            foreach ($data['deal_category'] as $category) {
+                $this->db->query("Insert into #__deal_to_category set deal_id = " . (int) $deal_id . ", category_id = " . (int) $category);
+            }
+        }
+
+        $this->db->query("Delete from #__deal_to_city where deal_id = " . (int) $deal_id);
+        if (isset($data['deal_city'])) {
+            foreach ($data['deal_city'] as $city) {
+                $this->db->query("Insert into #__deal_to_city set deal_id = " . (int) $deal_id . ", city_id = " . (int) $city);
+            }
+        }
+
+        $this->db->query("Delete from #__deal_to_layout where deal_id = " . (int) $deal_id);
+        if (isset($data['deal_layout'])) {
+            foreach ($data['deal_layout'] as $store_id => $layout) {
+                if ($layout['layout_id']) {
+                    $this->db->query("INSERT INTO #__deal_to_layout SET deal_id = '" . (int) $deal_id . "', store_id = '" . (int) $store_id . "', layout_id = '" . (int) $layout['layout_id'] . "'");
+                }
+            }
+        }
+
+        $this->db->query("Delete from #__deal_to_store where deal_id = " . (int) $deal_id);
+        if (isset($data['deal_store'])) {
+            foreach ($data['deal_store'] as $store_id) {
+                $this->db->query("INSERT INTO #__deal_to_store SET deal_id = '" . (int) $deal_id . "', store_id = '" . (int) $store_id . "'");
+            }
+        }
+
+        $this->db->query("Delete from #__url_alias where query = 'deal_id=" . (int) $deal_id . "'");
         if ($data['keyword']) {
             $this->db->query("INSERT INTO #__url_alias SET query = 'deal_id=" . (int) $deal_id . "', keyword = '" . $this->db->escape($data['keyword']) . "'");
         }

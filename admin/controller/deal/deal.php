@@ -398,7 +398,7 @@ class ControllerDealDeal extends \Core\Controller {
         $this->data['cancel'] = $this->url->link('deal/deal', 'token=' . $this->session->data['token'] . $url, 'SSL');
 
         if (isset($this->request->get['deal_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
-            $company_info = $this->model_deal_deal->getDeal($this->request->get['del_id']);
+            $deal_info = $this->model_deal_deal->getDeal($this->request->get['deal_id']);
         }
 
         $this->data['token'] = $this->session->data['token'];
@@ -425,7 +425,7 @@ class ControllerDealDeal extends \Core\Controller {
 
         if ($this->data['company_id']) {
             $this->load->model('deal/company');
-            $company = $this->modal_deal_company->getCompany($this->data['company_id']);
+            $company = $this->model_deal_company->getCompany($this->data['company_id']);
             $this->data['company'] = $company['name'];
         } else {
             $this->data['company'] = '';
@@ -450,7 +450,7 @@ class ControllerDealDeal extends \Core\Controller {
         if (isset($this->request->post['deal_times'])) {
             $this->data['deal_times'] = $this->request->post['deal_times'];
         } elseif (!empty($deal_info)) {
-            $this->data['deal_times'] = DATE("d/m/Y H:i A", $deal_info['begin_time']) . ' - ' . DATE("d/m/Y H:i A", $deal_info['end_time']);
+            $this->data['deal_times'] = DATE("Y/m/d H:i A", $deal_info['begin_time']) . ' - ' . DATE("Y/m/d H:i A", $deal_info['end_time']);
         } else {
             $this->data['deal_times'] = '';
         }
@@ -546,7 +546,7 @@ class ControllerDealDeal extends \Core\Controller {
             $city_info = $this->model_localisation_city->getCity($city_id);
             if ($city_info) {
                 $this->data['deal_cities'][] = array(
-                    'city_id' => $city_info['category_id'],
+                    'city_id' => $city_info['city_id'],
                     'name' => $city_info['city_name']
                 );
             }
@@ -568,7 +568,7 @@ class ControllerDealDeal extends \Core\Controller {
         $this->data['images'] = array();
         foreach ($images as $image) {
             if (file_exists(DIR_IMAGE . $image)) {
-                $this->data['images'] = array(
+                $this->data['images'][] = array(
                     'image' => $image,
                     'thumb' => $this->model_tool_image->resize($image, 100, 100)
                 );
@@ -607,7 +607,7 @@ class ControllerDealDeal extends \Core\Controller {
         if (isset($this->request->post['deal_shipping'])) {
             $this->data['deal_shipping'] = $this->request->post['deal_shipping'];
         } elseif (!empty($deal_info)) {
-            $this->data['can_collect'] = $this->model_deal_deal->getDealShippings($this->request->get['deal_id']);
+            $this->data['deal_shipping'] = $this->model_deal_deal->getDealShippings($this->request->get['deal_id']);
         } else {
             $this->data['deal_shipping'] = array();
         }
@@ -621,7 +621,7 @@ class ControllerDealDeal extends \Core\Controller {
         if (isset($this->request->post['deal_store'])) {
             $this->data['deal_store'] = $this->request->post['deal_store'];
         } elseif (isset($this->request->get['deal_id'])) {
-            $this->data['deal_store'] = $this->model_deal_company->getDealStores($this->request->get['deal_id']);
+            $this->data['deal_store'] = $this->model_deal_deal->getDealStores($this->request->get['deal_id']);
         } else {
             $this->data['deal_store'] = array(0);
         }
@@ -649,6 +649,9 @@ class ControllerDealDeal extends \Core\Controller {
             'common/footer'
         );
 
+        
+        //debugPre($this->data);
+        //exit;
 
         $this->document->addScript('view/theme/default/js/plugins/daterangepicker/daterangepicker.js');
         $this->document->addStyle('view/theme/default/css/daterangepicker/daterangepicker-bs3.css');
