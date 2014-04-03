@@ -1,0 +1,94 @@
+<?php echo $header; ?>
+<div class="container">
+    <?php echo $column_left; ?>
+    <?php echo $column_right; ?>
+    <div id="content">
+        <?php echo $content_top; ?>
+        <div class="breadcrumb">
+            <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+                <?php echo $breadcrumb['separator']; ?><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a>
+            <?php } ?>
+        </div>
+        <h1><?php echo $heading_title; ?></h1>
+
+        <form action="<?php echo $action; ?>" method="post" class="form-horizontal" enctype="multipart/form-data">
+            <h2><?php echo $text_location; ?></h2>
+            <div class="contact-info">
+
+                <div class="row">
+                    <div class="col-md-6 left">
+                        <address>
+                            <strong><?php echo $store; ?></strong><br />
+                            <?php echo $address; ?><br />
+                            <?php if ($telephone) : ?>
+                                <abbr title="<?php echo $text_telephone; ?>"><span class="glyphicon glyphicon-phone-alt"></span></abbr>
+                                <?php echo $telephone; ?><br />
+                            <?php endif; ?>
+                            <?php if ($fax) : ?>
+                                <abbr title="<?php echo $text_fax; ?>"><span class="glyphicon glyphicon-phone-alt"></span></abbr>
+                                <?php echo $fax; ?>
+                            <?php endif; ?>
+                        </address>
+
+                    </div>
+                    <div class="col-md-6 right">
+                        MAP SHOULD GO HERE
+                    </div>
+
+                </div>
+            </div>
+            <h2><?php echo $text_contact; ?></h2>
+            <div class="content">
+
+                <div class="form-group">
+                    <label for="inputContactName" class="col-sm-2 control-label"><?php echo $entry_name; ?></label>
+                    <div class="col-sm-10">
+                        <input type="text" id="inputContactName" class="form-control required" name="name" value="<?php echo $name; ?>" />
+                        <?php if ($error_name) { ?>
+                            <span class="text-danger"><?php echo $error_name; ?></span>
+                        <?php } ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputContactEmail" class="col-sm-2 control-label"><?php echo $entry_email; ?></label>
+                    <div class="col-sm-10">
+                        <input type="email" id="inputContactEmail" class="form-control required" name="email" value="<?php echo $email; ?>" />
+                        <?php if ($error_email) { ?>
+                            <span class="text-danger"><?php echo $error_email; ?></span>
+                        <?php } ?>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputContactEnquiry" class="col-sm-2 control-label"><?php echo $entry_enquiry; ?></label>
+                    <div class="col-sm-10">
+                        <textarea id="inputContactEnquiry" name="enquiry"  rows="10" class="form-control required"><?php echo $enquiry; ?></textarea>
+
+                        <?php if ($error_enquiry) { ?>
+                            <span class="text-danger"><?php echo $error_enquiry; ?></span>
+                        <?php } ?>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputContactCaptcha" class="col-sm-2 control-label"><?php echo $entry_captcha; ?></label>
+                    <div class="col-sm-10">
+                        <input type="text" id="inputContactCaptcha" class="form-control required" name="captcha" value="<?php echo $captcha; ?>" />
+                        <img src="index.php?route=information/contact/captcha" alt="" />
+                        <?php if ($error_captcha) { ?>
+                            <span class="text-danger"><?php echo $error_captcha; ?></span>
+                        <?php } ?>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="buttons">
+                <div class="right"><input type="submit" value="<?php echo $button_continue; ?>" class="button" /></div>
+            </div>
+        </form>
+
+        <?php echo $content_bottom; ?></div>
+</div>
+
+<?php echo $footer; ?>

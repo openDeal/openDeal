@@ -1,0 +1,86 @@
+<?php echo $header; ?>
+<div class="container">
+    <?php echo $column_left; ?>
+    <?php echo $column_right; ?>
+    <div id="content">
+        <ol class="breadcrumb">
+            <?php $i = 0; ?>
+            <?php foreach ($breadcrumbs as $i => $breadcrumb) { ?>
+                <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo ($i == 0) ? '<i class="fa fa-dashboard"></i> ' : ''; ?><?php echo $breadcrumb['text']; ?></a></li>
+            <?php } ?>
+        </ol>
+        <?php echo $content_top; ?>
+
+        <h1><?php echo $heading_title; ?></h1>
+        <div class="well well-sm">Filters</div>
+        <?php if ($deals) : ?>
+            <div class="deals-list row">
+                <?php foreach ($deals as $deal): ?>
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 deal-item">
+
+                        <div class="panel panel-default">
+                            <!-- Default panel contents -->
+                            <div class="panel-heading"><h4 class="text-center nowrap"><i class="icon-fullscreen"></i> <?php echo $deal['title']; ?></h4></div>
+                            <div class="panel-body nopad">
+                                <div class="thumbnail nopad">
+                                    <img src="<?php echo (($deal['image'])) ? $deal['image'] : $no_image; ?>" class="img-responsive" alt="">
+                                </div>
+
+                            </div>
+
+                            <!-- List group -->
+                            <ul class="list-group">
+                                <li class="list-group-item"><?php echo $deal['introduction']; ?></li>
+                                <li class="list-group-item "><span class="wasprice"><?php echo $this->currency->format($deal['market_price']); ?></span> <span class="nowprice"><?php echo $this->currency->format($deal['deal_price']); ?></span></li>
+
+                                <li class="list-group-item">
+
+                                    <?php if ($deal['state'] == ModelDealDeal::DEAL_AVAILABLE): ?>
+                                        <div class="countdown_block">
+                                            <div id="deal_countdown_<?php echo $deal['deal_id']; ?>" class="hasCountdown" data-time="<?php echo $deal['time_diff']; ?>"></div>
+                                            <script type="text/javascript">
+                                                addOnready(function()
+                                                {
+                                                    $('#deal_countdown_<?php echo $deal['deal_id']; ?>').countdown({
+                                                        timezone: 0,
+                                                        until: +<?php echo $deal['time_diff']; ?>
+
+                                                    });
+                                                    $('#deal_countdown_<?php echo $deal['deal_id']; ?>').countdown($.countdown.regionalOptions['<?php echo $this->language->get('code'); ?>']);
+                                                });</script>
+                                        </div>
+                                    <?php else: ?>
+                                        <div class="alert alert-danger"><?php echo $this->language->get("deal_state_" . (int) $deal['state']); ?></div>
+                                    <?php endif; ?>
+
+                                </li>
+                                <li class="list-group-item"><a class="btn btn-success btn-block" href="<?php echo $deal['url']; ?>">View Deal</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+
+
+            <div class="pagination-container row">
+                <?php echo $pagination; ?>
+            </div>
+        <?php else: ?>
+            <div class="alert alert-info">
+                <?php echo $text_no_results; ?>
+            </div>
+        <?php endif; ?>
+        <?php echo $content_bottom; ?></div>
+</div>
+<script>
+    addOnready(function()
+    {
+        $.getScript('/public/view/theme/default/javascript/isotope.pkgd.min.js', function() {
+            $('.deals-list').isotope({
+                
+                itemSelector: '.deal-item'
+            });
+        });
+    });
+</script>
+<?php echo $footer; ?>

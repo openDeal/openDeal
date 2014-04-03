@@ -363,7 +363,7 @@ footer h4, footer a {
 .multi_option_modal .advance_details {
     float: left;
 }
-
+.hasCountdown,
 #deal_countdown {
     background: url("../image/sprite.png") no-repeat scroll -20px -88px;
     background-color: rgba(69, 174, 234, 0.2); 

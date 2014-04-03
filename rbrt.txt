@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <title>Base page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+
+
+
+        <style>
+            .review_title {
+                color: red;
+            }
+        </style>
+
+    <body>
+
+        <div id="regionalFeedback">
+
+
+        </div>
+        <hr />
+        <h3>Review Item</h3>
+        <pre>
+business_id: "251"
+business_name: "Mag & Turbo"
+business_responded: "1"
+business_responses: Array[0] = 
+    id: "33032"
+    response: "Paul,Firstly, ..."
+    review_id: "161266"
+    submitted: "1386663544"
+    user_id: "1496"
+    username: "arron"
+review_body: "Recently used Mag &amp; Turbo for fitting and balancing heaps of tyres for a recent race series. The guys were fantastic and provided excellent service. Very friendly and helpful."
+review_id: "161266"
+review_rating: "5"
+review_timestamp: "1386541423"
+review_title: "Service beyond expectation"
+review_url: "http://rankedbyreview.co.nz/dunedin/review/161266"
+reviewed_by: "ActiveFurnisher"
+reviewer_avatar: "images/businessAvatars/avatar2.jpg"
+reviewer_user_id: "28167
+        </pre>
+        <hr />
+        <h3>Parameters</h3>
+        <ul>
+            <li><strong>limit</strong> How many records to return (default 5)</li>
+            <li><strong>min_score</strong> What score minimum should be returned, default(0) (float)</li>
+            <li><strong>max_score</strong> What score maximum should be returned, default(5) (float)</li>
+            <li><strong>direction</strong> Newest to oldest(desc) or oldest to newest (asc) reviews first default (desc)</li>
+            <li><strong>page</strong> Page number, default (1)</li>
+        </ul>
+
+        <!-- /end WRAPPER-->
+        <!-- Le javascript
+        ================================================== -->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+
+
+        <!-- NICE Scroll plugin -->
+        <script>
+            //scroll bar custom
+            jQuery(document).ready(
+                    $.ajax({
+                        url: 'http://api.rankedbyreview.com/get-business-reviews/251',
+                        dataType: 'jsonp',
+                        success: function(regionData) {
+                            $.each(regionData.reviews, function(i, review) {
+                                
+                                var xh = '<div class="divide">';
+                                xh += '<div class="span7 offset1">';
+                                xh += '  <h3 class="review_title">' + review.review_title + '</h3>';
+                                xh += '<p class="review_body">' + review.review_body + '</p>';
+                                xh += '</div> ';
+                                xh += '<div class="span2 offset1">';
+                                xh += '<a class="m-btn blue span2 review_link" target="_blank" href="' + review.review_link + '">View Review</a></p>';
+                                xh += '</div>';
+
+                                $('#regionalFeedback').append(xh);
+                            });
+                        }
+
+                    })
+                    );
+        </script>
+
+
+    </body>
+</html>

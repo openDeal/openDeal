@@ -1,0 +1,312 @@
+<?php echo $header; ?>
+<div class="container">
+    <?php echo $column_left; ?>
+    <?php echo $column_right; ?>
+    <div id="content">
+        <ol class="breadcrumb">
+            <?php $i = 0; ?>
+            <?php foreach ($breadcrumbs as $i => $breadcrumb) { ?>
+                <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo ($i == 0) ? '<i class="fa fa-dashboard"></i> ' : ''; ?><?php echo $breadcrumb['text']; ?></a></li>
+            <?php } ?>
+        </ol>
+        <?php echo $content_top; ?>
+        <div class="container">
+            <div class="cm_deals_content_container">
+                <div class="cm_deals_content">
+
+                    <div class="deal_detail row">
+                        <div class="col-md-12">
+                            <h3 class="deal_name"><?php echo $deal['title']; ?></h3>
+                            <p class="deal_short_description lead"><?php echo $deal['introduction']; ?></p>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-4">
+                                        <div class="price_block deal_detail_block">
+                                            <div class="tag">
+                                                <div class="tag_background"></div>
+                                                <div class="tag_background_repeat"></div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="price_container"><div class="price"><?php echo $this->currency->format($deal['deal_price']); ?></div></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <?php if ($deal['state'] == ModelDealDeal::DEAL_AVAILABLE): ?>
+                                                            <div class="button">
+                                                                <a class="buy_button cmbtn btn btn-large btn-block btn-success" href="#<?php echo $deal['deal_id']; ?>"><?php echo $this->language->get('button_buy'); ?></a>
+                                                            </div>
+                                                        <?php else : ?>
+                                                            <div class="button">
+                                                                <div class="buy_button cmbtn btn btn-large btn-block btn-danger" >
+                                                                    <?php echo $this->language->get("deal_state_" . (int) $deal['state']); ?>
+                                                                </div>
+                                                            </div>
+                                                        <?php endif; ?>
+
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="discount_info">
+                                                            <div class="discount_info_block deal_value">
+                                                                <dt><?php echo $this->language->get('text_value'); ?></dt>
+                                                                <dd><?php echo $this->currency->format($deal['market_price']); ?></dd>
+                                                            </div>
+                                                            <div class="discount_info_block deal_discount">
+                                                                <dt><?php echo $this->language->get('text_discount'); ?></dt>
+                                                                <dd><?php echo $deal['discount']; ?>%</dd>
+                                                            </div>
+                                                            <div class="discount_info_block deal_save">
+                                                                <dt><?php echo $this->language->get('text_you_save'); ?></dt>
+                                                                <dd><?php echo $this->currency->format($deal['savings']); ?></dd>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="remaining_time_block deal_detail_block">
+                                            <div class="countdown_block">
+                                                <h3><?php echo $this->language->get("heading_time_left_to_buy"); ?></h3>
+                                                <?php if ($deal['state'] == ModelDealDeal::DEAL_AVAILABLE): ?>
+                                                    <div id="deal_countdown" class="hasCountdown" data-time="<?php echo $deal['time_diff']; ?>"></div>
+                                                <?php else: ?>
+                                                    <div class="alert"><?php echo $this->language->get("deal_state_" . (int) $deal['state']); ?></div>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                        <div class="bought_block deal_detail_block row">
+                                            <h3>
+                                                <?php echo sprintf($this->language->get('text_bought'), $deal['current_orders']); ?>	
+                                            </h3>
+
+                                            <?php if ($deal['tipped']): ?>
+                                                <div class="deal_on">
+                                                    <span class="fa-icon-thumbs-up text-success"></span> <?php echo $this->language->get("text_deal_on"); ?>
+                                                </div>
+                                                <p><?php echo sprintf($this->language->get("text_deal_tipped_time"), Date($this->language->get('date_format_long'), $deal['tip_time'])); ?></p>
+
+                                                <?php if ($deal['tipped'] && $deal['stock'] > 0 && $deal['current_orders'] < $deal['stock']): ?>
+                                                    <div class="tip_meter">
+                                                        <div class="progress_bar progress span12">
+                                                            <div class="bar" style="width: <?php echo $tippingPercent; ?>;"></div>
+                                                        </div>
+                                                        <div class="min_max">
+                                                            <span class="min">0</span>
+                                                            <span class="max"><?php echo $deal['stock']; ?></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="need_more col-md-12">
+                                                        <?php
+                                                        if ($deal['stock'] - $deal['current_orders'] > 1):
+                                                            echo sprintf($this->language->get("text_coupons_left"), $deal['stock'] - $deal['current_orders']);
+
+                                                        else:
+                                                            echo sprintf($this->language->get("text_coupon_left"), $deal['stock'] - $deal['current_orders']);
+                                                        endif;
+                                                        ?>
+                                                    </div>
+
+                                                <?php endif; ?>
+                                            <?php else: ?>
+                                                <div class="tip_meter">
+                                                    <div class="progress">
+                                                        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $deal['tippingPercent']; ?>%;">
+                                                            <span class="sr-only"></span>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="min_max">
+                                                        <span class="min">0</span>
+                                                        <span class="max"><?php echo $deal['tip_point']; ?></span>
+                                                    </div>
+                                                </div>
+                                                <div class="need_more col-md-12">
+                                                    <?php echo sprintf($this->language->get("text_needed_to_tip"), $deal['deals_left']); ?>						
+                                                </div>
+                                            <?php endif; ?>
+
+
+
+
+                                        </div>
+
+                                        <div class="share_buttons">
+                                            <ul>
+                                                <li>
+                                                <g:plusone size="medium" annotation="none"></g:plusone>
+
+                                                </li>
+                                                <li>
+
+                                                    <div>
+                                                        <a class="custom_tweet_button" href="https://twitter.com/share?url=<?php echo urlencode($this->url->link("deal/deal", array("deal_id" => $deal['deal_id'], "city_id" => $this->city->city))); ?>" target="_blank"></a>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="fb-like" data-href="<?php echo $this->url->link("deal/deal", array("deal_id" => $deal['deal_id'], "city_id" => $this->city->city)); ?>" data-send="true" data-layout="button_count" data-width="100" data-show-faces="false"></div>    
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div id="deal_slideshow" class="cmslideshow carousel slide">
+                                            <div class="carousel-inner">
+                                                
+                                                <?php if ($deal['images']): ?>
+                                                    <?php foreach ($deal['images'] as $i => $image): ?>
+                                                        <div class="item<?php echo ($i == 0) ? ' active' : ''; ?>">
+                                                            <img src="<?php echo $image; ?>">
+                                                        </div>
+                                                    <?php endforeach; ?>
+                                                <?php else: ?>
+                                                    <div class="item active">
+                                                        <img src="<?php echo $no_image; ?>">
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+                                            <?php if (count($deal['images']) > 1): ?>
+                                                <a class="left carousel-control" href="#deal_slideshow" data-slide="prev">‹</a>
+                                                <a class="right carousel-control" href="#deal_slideshow" data-slide="next">›</a>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="deal_description">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-8">
+
+
+                                            <?php if ($deal['highlights']): ?>
+                                                <h2>Highlights</h2>
+                                                <?php echo $deal['highlights']; ?>
+                                                <hr />
+                                            <?php endif; ?>
+
+                                            <h2>The Deal</h2>
+                                            <?php echo $deal['details']; ?>					
+
+                                            <?php if ($deal['conditions']): ?>
+                                                <hr />
+                                                <h2>The fine print</h2>
+                                                <?php echo $deal['conditions']; ?>
+
+                                            <?php endif; ?>
+
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h2><?php echo $deal['company']['name']; ?></h2>
+                                            <?php if ($deal['company']['website']): ?>
+                                                <a target="_blank" href="<?php echo $deal['company']['website']; ?>"><?php echo $deal['company']['website']; ?></a>
+                                            <?php endif; ?>
+
+                                            <script type="text/javascript">
+                                                var map;
+                                                function initialize()
+                                                {
+                                                    var latlng = new google.maps.LatLng(<?php echo $deal['company']['locations'][0]['latitude']; ?>, <?php echo $deal['company']['locations'][0]['longitude']; ?>);
+                                                    var myOptions = {
+                                                        zoom: 15,
+                                                        center: latlng,
+                                                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                                                    };
+                                                    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+<?php foreach ($deal['company']['locations'] as $l => $location): ?>
+                                                        var latlng<?php echo $l; ?> = new google.maps.LatLng(<?php echo $location['latitude']; ?>, <?php echo $location['longitude']; ?>);
+                                                        var marker<?php echo $l; ?> = new google.maps.Marker({
+                                                            position: latlng<?php echo $l; ?>,
+                                                            map: map,
+                                                            title: '<?php echo $deal['company']['name']; ?>'});
+<?php endforeach; ?>
+                                                }
+
+                                                function markerTrigger(coordinateString)
+                                                {
+                                                    coordinateArray = coordinateString.split(",");
+                                                    var point = new google.maps.LatLng(
+                                                            parseFloat(coordinateArray[0]),
+                                                            parseFloat(coordinateArray[1]));
+                                                    window.map.setCenter(point);
+                                                }
+
+                                                addOnready(function()
+                                                {
+                                                    initialize();
+                                                });</script>
+
+                                            <div class="partner_address">
+                                                <div class='list-group-item'>
+                                                    <div id="map_canvas" style='width: 100%;height:350px;'></div>
+                                                </div>
+                                                <?php foreach ($deal['company']['locations'] as $location): ?>
+                                                    <div class='list-group-item'>
+                                                        <div class="address_name">
+                                                            <strong onclick="markerTrigger('<?php echo $location['latitude']; ?>,<?php echo $location['longitude']; ?>')"><?php echo $location['address']; ?></strong>
+                                                        </div>
+                                                        <abbr title='phone'>P:</abbr>(123) 4567890<br />
+                                                        <a class="btn btn-sm " href="//maps.google.com/maps?f=d&amp;daddr=<?php echo urlencode($location['address']); ?>" target="_blank">Get directions</a>
+                                                    </div>
+                                                <?php endforeach; ?>
+
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="fb-root"></div>
+
+
+
+                    </div>
+                </div>
+
+            </div>
+
+
+            <?php echo $content_bottom; ?></div>
+    </div>
+
+    <script type="text/javascript">
+        addOnready(function()
+        {
+            $('#deal_countdown').countdown({
+                timezone: 0,
+                until: +<?php echo $deal['time_diff'];
+            ?>,
+                expiryUrl: '<?php echo $this->url->link("deal/deal", array("deal_id" => $deal['deal_id'])); ?>'
+            });
+            $('#deal_countdown').countdown($.countdown.regionalOptions['<?php echo $lang; ?>']);
+        });</script>
+    <script type="text/javascript">
+        (function() {
+            var po = document.createElement('script');
+            po.type = 'text/javascript';
+            po.async = true;
+            po.src = 'https://apis.google.com/js/plusone.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(po, s);
+        })();</script>
+    <script src="//platform.twitter.com/widgets.js" type="text/javascript"></script>
+    <script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+
+    <?php echo $footer; ?>

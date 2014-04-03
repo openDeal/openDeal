@@ -1,0 +1,21 @@
+<?php echo $header; ?>
+<div class="container">
+    <?php echo $column_left; ?>
+    <?php echo $column_right; ?>
+    <div id="content">
+        <?php echo $content_top; ?>
+
+        <h1 style="display:none;"><?php echo $heading_title; ?></h1>
+        
+        <?php if($deals) : ?>
+        <?php foreach($deals as $deal): ?>
+        
+        <?php endforeach; ?>
+        <?php else: ?>
+        <div class="alert alert-info">
+            <?php echo $text_no_results; ?>
+        </div>
+        <?php endif; ?>
+        <?php echo $content_bottom; ?></div>
+</div>
+<?php echo $footer; ?>

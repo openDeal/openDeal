@@ -159,9 +159,10 @@ class ModelDealDeal extends \Core\Model {
 
     public function addDeal($data) {
 
-        $times = explode("-", $data['deal_times']);
-        $data['begin_time'] = strtotime(trim($times[0]));
-        $data['end_time'] = strtotime(trim($times[1]));
+          $times = explode(" - ", $data['deal_times']);
+
+        $data['begin_time'] = strtotime($times[0]);
+        $data['end_time'] = strtotime($times[1]);
 
         $this->db->query("Insert into #__deal set "
                 . " market_price = '" . (float) $data['market_price'] . "', "
@@ -255,9 +256,12 @@ class ModelDealDeal extends \Core\Model {
 
     public function editDeal($deal_id, $data) {
 
-        $times = explode("-", $data['deal_times']);
-        $data['begin_time'] = strtotime(trim($times[0]));
-        $data['end_time'] = strtotime(trim($times[1]));
+       
+        
+       $times = explode(" - ", $data['deal_times']);
+
+        $data['begin_time'] = strtotime($times[0]);
+        $data['end_time'] = strtotime($times[1]);
 
         $this->db->query("Update #__deal set "
                 . " market_price = '" . (float) $data['market_price'] . "', "
@@ -274,7 +278,8 @@ class ModelDealDeal extends \Core\Model {
                 . " can_collect = " . (int) $data['can_collect'] . ", "
                 . " is_coupon = " . (int) $data['is_coupon'] . ", "
                 . " coupon_expiry = " . $this->db->quote(strtotime($data['coupon_expiry'])) . ", "
-                . " modify_date = " . time());
+                . " modify_date = " . time()
+                . " where deal_id = " . (int)$deal_id);
 
 
         $this->db->query("Delete from #__deal_image where deal_id = " . (int) $deal_id);
