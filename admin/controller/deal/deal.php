@@ -18,7 +18,7 @@ class ControllerDealDeal extends \Core\Controller {
         $this->load->model('deal/deal');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
-         
+
             $this->model_deal_deal->addDeal($this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
@@ -290,6 +290,7 @@ class ControllerDealDeal extends \Core\Controller {
 
         $this->data['tab_general'] = $this->language->get('tab_general');
         $this->data['tab_data'] = $this->language->get('tab_data');
+        $this->data['tab_option'] = $this->language->get('tab_option');
         $this->data['tab_link'] = $this->language->get('tab_link');
         $this->data['tab_image'] = $this->language->get('tab_image');
         $this->data['tab_delivery'] = $this->language->get('tab_delivery');
@@ -305,6 +306,7 @@ class ControllerDealDeal extends \Core\Controller {
         $this->data['entry_meta_description'] = $this->language->get('entry_meta_description');
         $this->data['entry_company'] = $this->language->get('entry_company');
         $this->data['entry_market_price'] = $this->language->get('entry_market_price');
+        $this->data['entry_product_name'] = $this->language->get('entry_product_name');
         $this->data['entry_deal_price'] = $this->language->get('entry_deal_price');
         $this->data['entry_begin_time'] = $this->language->get('entry_begin_time');
         $this->data['entry_end_time'] = $this->language->get('entry_end_time');
@@ -327,10 +329,14 @@ class ControllerDealDeal extends \Core\Controller {
 
         $this->data['entry_shipping'] = $this->language->get('entry_shipping');
         $this->data['button_add_shipping'] = $this->language->get('button_add_shipping');
+        $this->data['button_add_option'] = $this->language->get("button_add_option");
         $this->data['text_shipping_title'] = $this->language->get('text_shipping_title');
         $this->data['text_shipping_price'] = $this->language->get('text_shipping_price');
         $this->data['text_shipping_order'] = $this->language->get('text_shipping_order');
 
+        
+        $this->data['entry_option'] = $this->language->get("entry_option");
+        $this->data['text_option_title'] = $this->language->get("text_option_title");
 
         $this->data['entry_layout'] = $this->language->get('entry_layout');
 
@@ -415,6 +421,19 @@ class ControllerDealDeal extends \Core\Controller {
             $this->data['deal_description'] = array();
         }
 
+        if (isset($this->request->post['deal_option'])) {
+            $this->data['deal_option'] = $this->request->post['deal_option'];
+        } elseif (isset($this->request->get['deal_id'])) {
+            $this->data['deal_option'] = $this->model_deal_deal->getDealOptions($this->request->get['deal_id']);
+        } else {
+            $this->data['deal_option'] = array(
+                'title' => '',
+                'market_price' => '',
+                'price' => ''
+            );
+        }
+
+
         if (isset($this->request->post['company_id'])) {
             $this->data['company_id'] = $this->request->post['company_id'];
         } elseif (!empty($deal_info)) {
@@ -439,6 +458,14 @@ class ControllerDealDeal extends \Core\Controller {
             $this->data['market_price'] = '';
         }
 
+        if (isset($this->request->post['product_name'])) {
+            $this->data['product_name'] = $this->request->post['product_name'];
+        } elseif (!empty($deal_info)) {
+            $this->data['product_name'] = $deal_info['product_name'];
+        } else {
+            $this->data['product_name'] = '';
+        }
+
         if (isset($this->request->post['deal_price'])) {
             $this->data['deal_price'] = $this->request->post['deal_price'];
         } elseif (!empty($deal_info)) {
@@ -450,7 +477,7 @@ class ControllerDealDeal extends \Core\Controller {
         if (isset($this->request->post['deal_times'])) {
             $this->data['deal_times'] = $this->request->post['deal_times'];
         } elseif (!empty($deal_info)) {
-            $this->data['deal_times'] = DATE("Y/m/d H:i A", $deal_info['begin_time']) . ' - ' . DATE("Y/m/d H:i A", $deal_info['end_time']);
+            $this->data['deal_times'] = DATE("Y/m/d h:i A", $deal_info['begin_time']) . ' - ' . DATE("Y/m/d h:i A", $deal_info['end_time']);
         } else {
             $this->data['deal_times'] = '';
         }
@@ -552,6 +579,8 @@ class ControllerDealDeal extends \Core\Controller {
             }
         }
 
+
+
         $this->load->model('tool/image');
 
 
@@ -649,7 +678,7 @@ class ControllerDealDeal extends \Core\Controller {
             'common/footer'
         );
 
-        
+
         //debugPre($this->data);
         //exit;
 
@@ -663,7 +692,7 @@ class ControllerDealDeal extends \Core\Controller {
         if (!$this->user->hasPermission('modify', 'deal/deal')) {
             $this->error['warning'] = $this->language->get('error_permission');
         }
-        
+
         foreach ($this->request->post['deal_description'] as $language_id => $value) {
             if ((utf8_strlen($value['title']) < 2)) {
                 $this->error['title'][$language_id] = $this->language->get('error_title');
@@ -677,9 +706,9 @@ class ControllerDealDeal extends \Core\Controller {
         if ($this->error && !isset($this->error['warning'])) {
             $this->error['warning'] = $this->language->get('error_warning');
         }
-        
-       
-        
+
+
+
 
         if (!$this->error) {
             return true;

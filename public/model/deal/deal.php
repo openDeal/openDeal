@@ -36,7 +36,7 @@ class ModelDealDeal extends \Core\Model {
 
     public function getDeals($data = array()) {
 
-        $sql = "Select d.deal_id,  ROUND( 100 - ( 100 * ( d.deal_price / d.market_price ) ) , 4 ) AS discount from #__deal d inner join #__deal_to_store d2s on d.deal_id = d2s.deal_id";
+        $sql = "Select d.deal_id,  ROUND( 100 - ( 100 * ( d.deal_price / d.market_price ) ) , 0 ) AS discount from #__deal d inner join #__deal_to_store d2s on d.deal_id = d2s.deal_id";
         $where = " Where d2s.store_id = '" . (int) $this->config->get('store_id') . "' and d.status = '1' ";
 
         if (!empty($data['filter_begin_time'])) {
@@ -65,7 +65,7 @@ class ModelDealDeal extends \Core\Model {
         }
         if (!empty($data['filter_city_id'])) {
             $sql .= " inner join #__deal_to_city dtc on d.deal_id = dtc.deal_id ";
-            $where .= " and dtc.city_id = '" . (int)$data['filter_city_id'] . "' ";
+            $where .= " and dtc.city_id = '" . (int) $data['filter_city_id'] . "' ";
         }
 
         $sql .= " inner join #__deal_description dd on d.deal_id = dd.deal_id ";
@@ -128,8 +128,8 @@ class ModelDealDeal extends \Core\Model {
 
         return $deal_data;
     }
-    
-    public function getTotalDeals($data){
+
+    public function getTotalDeals($data) {
         $sql = "Select count(d.deal_id) as total from #__deal d inner join #__deal_to_store d2s on d.deal_id = d2s.deal_id";
         $where = " Where d2s.store_id = '" . (int) $this->config->get('store_id') . "' and d.status = '1' ";
 
@@ -159,7 +159,7 @@ class ModelDealDeal extends \Core\Model {
         }
         if (!empty($data['filter_city_id'])) {
             $sql .= " inner join #__deal_to_city dtc on d.deal_id = dtc.deal_id ";
-            $where .= " and dtc.city_id = '" . (int)$data['filter_city_id'] . "' ";
+            $where .= " and dtc.city_id = '" . (int) $data['filter_city_id'] . "' ";
         }
 
         $sql .= " inner join #__deal_description dd on d.deal_id = dd.deal_id ";
@@ -190,13 +190,8 @@ class ModelDealDeal extends \Core\Model {
             $deal = $query->row;
 
 
-            $deal['images'] = array();
-            $images = $this->db->query("Select image from #__deal_image where deal_id ='" . (int) $deal_id . "' order by sort_order asc, deal_image_id asc");
-            if ($images->num_rows) {
-                foreach ($images->rows as $image) {
-                    $deal['images'][] = $image['image'];
-                }
-            }
+            $deal['images'] = $this->getDealImages($deal_id);
+        
             //MAke sure the end_time is later than now
             if ($deal['end_time'] < $deal['begin_time']) {
                 $deal['end_time'] = $deal['begin_time'];
@@ -255,6 +250,51 @@ class ModelDealDeal extends \Core\Model {
         }
 
         return $deal['state'] = self::DEAL_AVAILABLE;
+    }
+
+    public function getDealOptions($deal_id) {
+        $deal_option_data = array();
+        $query = $this->db->query("Select *, ROUND( 100 - ( 100 * ( price / market_price ) ) , 0 ) AS discount from #__deal_option where deal_id = " . (int) $deal_id . " order by sort_order asc");
+        if ($query->num_rows) {
+            foreach ($query->rows as $option) {
+                $deal_option_data[$option['deal_option_id']] = array(
+                    'deal_option_id' => $option['deal_option_id'],
+                    'title' => $option['title'],
+                    'market_price' => $option['market_price'],
+                    'price' => $option['price'],
+                    'discount' => $option['discount'],
+                    'saving' => $option['market_price'] - $option['price']
+                );
+            }
+        }
+        return $deal_option_data;
+    }
+    
+    public function getDealShippings($deal_id){
+        $deal_shipping_data = array();
+        $query = $this->db->query("Select * from #__deal_shipping where deal_id = " . (int) $deal_id . " order by sort_order asc");
+        if ($query->num_rows) {
+            foreach ($query->rows as $option) {
+                $deal_shipping_data[$option['deal_shipping_id']] = array(
+                    'deal_shipping_id' => $option['deal_shipping_id'],
+                    'title' => $option['title'],
+                    'price' => $option['price']
+                );
+            }
+        }
+        return $deal_shipping_data;
+    }
+    
+    public function getDealImages($deal_id){
+        $deal_image_data = array();
+        $query = $this->db->query("select * from #__deal_image where deal_id = " . (int)$deal_id . " and image != '' order by sort_order asc");
+
+        if($query->num_rows){
+            foreach($query->rows as $row){
+            $deal_image_data[] = $row['image'];
+            }
+        }
+        return $deal_image_data;
     }
 
 }

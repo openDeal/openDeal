@@ -49,12 +49,14 @@ class ControllerDealDeal extends \Core\Controller {
             $this->load->model('tool/image');
             $this->load->model('deal/company');
             foreach ($deal['images'] as $i => $image) {
-                if($image){
-                $deal['images'][$i] = $this->model_tool_image->resize($image, 715, 480);
-                }else{
+                if ($image) {
+                    $deal['images'][$i] = $this->model_tool_image->resize($image, 715, 480);
+                } else {
                     unset($deal['images'][$i]);
                 }
             }
+
+
             $company = $this->model_deal_company->getCompany($deal['company_id']);
             $deal['company'] = array(
                 'name' => $company['name'],
@@ -71,12 +73,18 @@ class ControllerDealDeal extends \Core\Controller {
             $this->document->addMeta('og:title', '<meta property="og:title" content="' . htmlspecialchars($deal['title'], ENT_QUOTES) . '" />');
             $this->document->addMeta('og:description', '<meta property="og:description" content="' . htmlspecialchars($deal['introduction'], ENT_QUOTES) . '" />');
 
+            $this->document->setTitle($deal['title']);
+            $this->document->setDescription($deal['meta_description']);
+            $this->document->setKeywords($deal['meta_keyword']);
+            $this->document->addLink($this->url->link('deal/deal', 'deal_id=' . $this->request->get['deal_id']), 'canonical');
+
+
 
 
             if (isset($deal['images'][0])) {
                 $this->document->addMeta("og:image", '<meta property="og:image" content="' . $deal['images'][0] . '" />');
             }
-            
+
             $this->data['no_image'] = $this->model_tool_image->resize('no_image.jpg', 715, 480);
 
             $this->data['lang'] = $this->language->get('code');
@@ -306,7 +314,7 @@ class ControllerDealDeal extends \Core\Controller {
             $url .= '&limit=' . $this->request->get['limit'];
         }
 
-        
+
         $deal_total = $this->model_deal_deal->getTotalDeals($data);
 
         $deals = $this->model_deal_deal->getDeals($data);
@@ -334,7 +342,7 @@ class ControllerDealDeal extends \Core\Controller {
         $this->data['limit'] = $limit;
 
         $this->data['no_image'] = $this->model_tool_image->resize('no_image.jpg', 360, 270);
-       // $this->data['no_image'] = $this->model_tool_image->resize('no_image.jpg', 715, 480);
+        // $this->data['no_image'] = $this->model_tool_image->resize('no_image.jpg', 715, 480);
 
         $this->children = array(
             'common/column_left',
@@ -354,9 +362,161 @@ class ControllerDealDeal extends \Core\Controller {
         $this->document->addScript('/public/view/javascript/countdown/jquery.countdown-' . $this->data['lang'] . '.js');
         $this->document->addStyle('/public/view/javascript/countdown/jquery.countdown.css');
 
-        
-        
+
+
         $this->data['text_no_results'] = $this->language->get('text_no_results');
+
+        $this->response->setOutput($this->render());
+    }
+
+    public function buy() {
+        //Ok some specific options
+        //ist is the deal valid
+        $deal_id = (int) $this->request->get['deal_id'];
+        $this->load->model('deal/deal');
+        $deal = $this->model_deal_deal->getDeal($deal_id);
+
+        $this->data['breadcrumbs'] = array();
+
+        $this->data['breadcrumbs'][] = array(
+            'text' => $this->language->get('text_home'),
+            'href' => $this->url->link('common/home'),
+            'separator' => false
+        );
+
+
+        if ($deal && $deal['state'] == ModelDealDeal::DEAL_AVAILABLE) {
+
+            $deal_options = $this->model_deal_deal->getDealOptions($deal_id);
+
+            if (!count($deal_options) && $deal['is_coupon']) {
+                //Add to cart and redirect to the cart
+                //Would be deal_id, 0, -1 (-1 for coupon
+            }
+
+            //Ok here means that we may offer more than one shipping option
+            $deal_shipping = $this->model_deal_deal->getDealShippings($deal_id);
+
+            if (!count($deal_shipping) && !count($deal_options) && $deal['can_collect'] == 1) {
+                //Add to cart and redirect to the cart
+                //Would be deal_id, 0, 0 (0 for collect   
+            }
+
+            if (count($deal_shipping) == 1 && !count($deal_options) && $deal['can_collect'] == 0) {
+                //Add to cart and redirect to the cart
+                $ship = array_shift($deal_shipping);
+                //Would be deal_id, 0, $ship['deal_shipping_id'] (to set the shipping id :-) 
+            }
+
+
+            if (isset($_POST['shipping'])) {
+                $this->data['shipping'] = $_POST['shipping'];
+            } elseif ($deal['can_collect'] == 1) {
+                $this->data['shipping'] = '0';
+            } elseif (count($deal_shipping)) {
+                $this->data['shipping'] = current(array_keys($deal_shipping));
+            }
+
+            if (isset($_POST['option'])) {
+                $this->data['option'] = $_POST['option'];
+            } elseif ($deal_options) {
+                $this->data['option'] = '0';
+            }
+
+
+            $this->data['deal_shipping'] = $deal_shipping;
+            $this->data['deal_can_collect'] = $deal['can_collect'];
+            $this->data['deal_options'] = $deal_options;
+
+            $this->data['text_collect'] = $this->language->get("text_collect");
+
+
+            //Ok this no means we have some choices for the user to make! - so lets display a mini- version of the deal!
+            //Ok deal is valid::
+            //Are there any options
+            //@todo build options subsystem ?
+
+
+            $this->data['breadcrumbs'][] = array(
+                'text' => $deal['title'],
+                'href' => $this->url->link('deal/deal', '&deal_id=' . $deal_id),
+                'separator' => $this->language->get('text_separator')
+            );
+
+            $this->data['breadcrumbs'][] = array(
+                'text' => $this->language->get("button_buy"),
+                'href' => $this->url->link('deal/deal/buy', '&deal_id=' . $deal_id),
+                'separator' => $this->language->get('text_separator')
+            );
+
+            $this->document->setTitle($deal['title']);
+            $this->document->setDescription($deal['meta_description']);
+            $this->document->setKeywords($deal['meta_keyword']);
+            $this->document->addLink($this->url->link('deal/deal/buy', 'deal_id=' . $this->request->get['deal_id']), 'canonical');
+
+
+
+            $this->data['heading_title'] = $this->language->get("heading_purchace_deal");
+            $this->data['text_choose_option'] = $this->language->get("text_choose_option");
+            $this->data['text_choose_shipping'] = $this->language->get("text_choose_shipping");
+
+
+            $this->load->model('tool/image');
+            $this->load->model('deal/company');
+            if (isset($deal['images'][0]) && !empty($deal['images'][0])) {
+                $deal['image'] = $this->model_tool_image->resize($deal['images'][0], 360, 270);
+            } else {
+                $deal['image'] = false;
+            }
+
+            $company = $this->model_deal_company->getCompany($deal['company_id']);
+            $deal['company'] = array(
+                'name' => $company['name'],
+                'website' => $company['website'],
+                'locations' => $this->model_deal_company->getLocations($company['company_id'])
+            );
+            $deal['highlights'] = html_entity_decode($deal['highlights'], ENT_QUOTES, 'UTF-8');
+            $deal['conditions'] = html_entity_decode($deal['conditions'], ENT_QUOTES, 'UTF-8');
+            $deal['details'] = html_entity_decode($deal['details'], ENT_QUOTES, 'UTF-8');
+            $this->data['deal'] = $deal;
+            $this->data['no_image'] = $this->model_tool_image->resize('no_image.jpg', 360, 270);
+
+            $this->data['lang'] = $this->language->get('code');
+            $this->document->addScript('/public/view/javascript/countdown/jquery.plugin.min.js');
+            $this->document->addScript('/public/view/javascript/countdown/jquery.countdown.min.js');
+            $this->document->addScript('/public/view/javascript/countdown/jquery.countdown-' . $this->data['lang'] . '.js');
+            $this->document->addStyle('/public/view/javascript/countdown/jquery.countdown.css');
+
+            $this->template = 'deal/buy.phtml';
+        } else {
+            $this->data['breadcrumbs'][] = array(
+                'text' => $this->language->get('text_error'),
+                'href' => $this->url->link('deal/deal', '&deal_id=' . $deal_id),
+                'separator' => $this->language->get('text_separator')
+            );
+
+            $this->document->setTitle($this->language->get('text_error'));
+
+            $this->data['heading_title'] = $this->language->get('text_error');
+
+            $this->data['text_error'] = $this->language->get('text_error');
+
+            $this->data['button_continue'] = $this->language->get('button_continue');
+
+            $this->data['continue'] = $this->url->link('common/home');
+
+            $this->response->addHeader($this->request->server['SERVER_PROTOCOL'] . '/1.1 404 Not Found');
+
+            $this->template = 'error/not_found.phtml';
+        }
+        $this->children = array(
+            'common/column_left',
+            'common/column_right',
+            'common/content_top',
+            'common/content_bottom',
+            'common/footer',
+            'common/header'
+        );
 
         $this->response->setOutput($this->render());
     }

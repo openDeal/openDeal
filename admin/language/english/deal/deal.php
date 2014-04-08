@@ -28,9 +28,13 @@ $_['entry_conditions'] = 'Deal Conditions';
 $_['entry_details'] = 'Deal Information';
 $_['entry_meta_keyword'] = 'Meta Tag Keywords:';
 $_['entry_meta_description'] = 'Meta Tag Description:';
+$_['entry_option'] = 'Product Options';
+
+$_['entry_option_title'] = 'Option Title';
 
 $_['entry_market_price'] = 'Normal Price';
 $_['entry_deal_price'] = 'Deal Price';
+$_['entry_product_name'] = 'Deal Product Name';
 $_['entry_begin_time'] = 'Deal Starts';
 $_['entry_end_time'] = 'Deal Ends';
 $_['entry_deal_times'] = 'Deal Start / End';
@@ -54,6 +58,10 @@ $_['text_shipping_title'] = "Shipping Title";
 $_['text_shipping_price'] = 'Shipping Price';
 $_['text_shipping_order'] = 'Sort Order';
 $_['button_add_shipping'] = 'Add Shipping Option';
+
+$_['text_option_title'] = 'Option Title';
+
+$_['button_add_option'] = 'Add Product Option';
 
 $_['entry_image'] = "Images";
 $_['tab_image'] = "Images";

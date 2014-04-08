@@ -29,6 +29,7 @@
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="#tab-general" data-toggle="tab"><?php echo $tab_general; ?></a></li>  
                         <li><a href="#tab-data" data-toggle="tab"><?php echo $tab_data; ?></a></li>
+                        <li><a href="#tab-option" data-toggle="tab"><?php echo $tab_option; ?></a></li>
                         <li><a href="#tab-link" data-toggle="tab"><?php echo $tab_link; ?></a></li>
                         <li><a href="#tab-image" data-toggle="tab"><?php echo $tab_image; ?></a></li>
                         <li><a href="#tab-delivery" data-toggle="tab"><?php echo $tab_delivery; ?></a></li>
@@ -121,6 +122,13 @@
                     <div class="tab-pane" id="tab-data" >
 
                         <div class="form-group">
+                            <label for="entry_product_name" class="col-sm-2 control-label required"><?php echo $entry_product_name; ?></label>
+                            <div class="col-sm-9">
+                                <input type="text" name="product_name" value="<?php echo $product_name; ?>" class="form-control required" id="entry_product_name" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label for="entry_market_price" class="col-sm-2 control-label required"><?php echo $entry_market_price; ?></label>
                             <div class="col-sm-9">
                                 <input type="text" name="market_price" value="<?php echo $market_price; ?>" class="form-control required number" id="entry_market_price" />
@@ -195,6 +203,41 @@
                                 </select>
                             </div>
                         </div>
+
+                    </div>
+
+                    <div class="tab-pane" id="tab-option">
+                      
+                        <div class="form-group">
+                                <label for="entry_option" class="col-sm-2 control-label"><?php echo $entry_option; ?></label>
+                                <div class="col-sm-9">
+                                    <table class="table table-bordered table-striped table-responsive" id="deal_option_table">
+                                        <thead>
+                                            <tr>
+                                                <th><?php echo $text_option_title; ?></th>
+                                                <th><?php echo $entry_market_price; ?></th>
+                                                <th><?php echo $entry_deal_price; ?></th>
+                                                <th>&nbsp;</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php $i = 0; ?>
+                                            <?php foreach ($deal_option as  $option): ?>
+                                                <tr>
+                                                    <td><input type="text" class="form-control" name="deal_option[<?php echo $i; ?>][title]" value="<?php echo $option['title']; ?>" /></td>
+                                                    <td><input type="text" class="form-control" name="deal_option[<?php echo $i; ?>][market_price]" value="<?php echo $option['market_price']; ?>" /></td>
+                                                    <td><input type="text" class="form-control" name="deal_option[<?php echo $i; ?>][price]" value="<?php echo $option['price']; ?>" /></td>
+                                                    <td><button class="btn btn-danger remove_option" type="btn">x</button></td>
+                                                </tr>
+                                                <?php $i++; ?>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr><td colspan="4"><button type="button" class="btn btn-primary pull-right" id="add_product_option"><?php echo $button_add_option; ?></button></td></tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
 
                     </div>
 
@@ -458,6 +501,7 @@
 <script type="text/javascript">
                         var deal_img_count = <?php echo count($images); ?>;
                         var deal_shipping_count = <?php echo count($deal_shipping); ?>;
+                        var deal_option_count = <?php echo count($deal_option); ?>;
                         addOnready(function() {
                             var EditorOps = {
                                 filebrowserBrowseUrl: 'index.php?route=common/filemanager&token=<?php echo $token; ?>',
@@ -593,8 +637,8 @@
                                     return false;
                                 }
                             });
-                            
-                            $('#add_shipping_option').on('click', function () { 
+
+                            $('#add_shipping_option').on('click', function() {
                                 deal_shipping_count++;
                                 var xhtml = '<tr>';
                                 xhtml += '<td><input type="text" class="form-control" name="deal_shipping[' + deal_shipping_count + '][title]" value="" /></td>';
@@ -602,18 +646,38 @@
                                 xhtml += '<td><input type="text" class="form-control" name="deal_shipping[' + deal_shipping_count + '][sort_order]" value="" /></td>';
                                 xhtml += '<td><button class="btn btn-danger remove_shipping" type="btn">x</button></td>';
                                 xhtml += '</tr>';
-                                
+
                                 $('#deal_shipping_table tbody').append(xhtml);
-                                 $('.remove_shipping').off('click').on('click', function() { 
-                                $(this).closest('tr').remove();
+                                $('.remove_shipping').off('click').on('click', function() {
+                                    $(this).closest('tr').remove();
+                                });
+
                             });
-                                
+
+                            $('.remove_shipping').on('click', function() {
+                                $(this).closest('tr').remove();
                             });
                             
-                            $('.remove_shipping').on('click', function() { 
+                            $('#add_product_option').on('click', function() {
+                                deal_option_count++;
+                                var xhtml = '<tr>';
+                                xhtml += '<td><input type="text" class="form-control" name="deal_option[' + deal_option_count + '][title]" value="" /></td>';
+                                xhtml += '<td><input type="text" class="form-control" name="deal_option[' + deal_option_count + '][market_price]" value="" /></td>';
+                                xhtml += '<td><input type="text" class="form-control" name="deal_option[' + deal_option_count + '][price]" value="" /></td>';
+                                xhtml += '<td><button class="btn btn-danger remove_option" type="btn">x</button></td>';
+                                xhtml += '</tr>';
+
+                                $('#deal_option_table tbody').append(xhtml);
+                                $('.remove_option').off('click').on('click', function() {
+                                    $(this).closest('tr').remove();
+                                });
+
+                            });
+
+                            $('.remove_option').on('click', function() {
                                 $(this).closest('tr').remove();
                             });
-                                    
+
 
                             $('#deal_city li button').on('click', function() {
 

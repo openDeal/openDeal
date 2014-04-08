@@ -3,19 +3,22 @@
 class ModelAccountCustomer extends \Core\Model {
 
     public function addCustomer($data) {
-        if (isset($data['customer_group_id']) && is_array($this->config->get('config_customer_group_display')) && in_array($data['customer_group_id'], $this->config->get('config_customer_group_display'))) {
-            $customer_group_id = $data['customer_group_id'];
-        } else {
-            $customer_group_id = $this->config->get('config_customer_group_id');
-        }
-
-        $this->load->model('account/customer_group');
-
-        $customer_group_info = $this->model_account_customer_group->getCustomerGroup($customer_group_id);
+        $approved = !$this->config->get('config_customer_approval');
 
         $city_id = $this->city->city;
 
-        $this->db->query("INSERT INTO #__customer SET city_id = '" . (int) $city_id . "', store_id = '" . (int) $this->config->get('config_store_id') . "', firstname = '" . $this->db->escape($data['firstname']) . "', lastname = '" . $this->db->escape($data['lastname']) . "', email = '" . $this->db->escape($data['email']) . "', telephone = '" . $this->db->escape($data['telephone']) . "', fax = '" . $this->db->escape($data['fax']) . "', salt = '" . $this->db->escape($salt = substr(md5(uniqid(rand(), true)), 0, 9)) . "', password = '" . $this->db->escape(sha1($salt . sha1($salt . sha1($data['password'])))) . "', newsletter = '" . (isset($data['newsletter']) ? (int) $data['newsletter'] : 0) . "', customer_group_id = '" . (int) $customer_group_id . "', ip = '" . $this->db->escape($this->request->server['REMOTE_ADDR']) . "', status = '1', approved = '" . (int) !$customer_group_info['approval'] . "', date_added = NOW()");
+        $this->db->query("INSERT INTO #__customer SET city_id = '" . (int) $city_id . "', "
+                . "store_id = '" . (int) $this->config->get('config_store_id') . "', "
+                . "firstname = '" . $this->db->escape($data['firstname']) . "', "
+                . "lastname = '" . $this->db->escape($data['lastname']) . "', "
+                . "email = '" . $this->db->escape($data['email']) . "', "
+                . "telephone = '" . $this->db->escape($data['telephone']) . "', "
+                . "fax = '" . $this->db->escape($data['fax']) . "', "
+                . "salt = '" . $this->db->escape($salt = substr(md5(uniqid(rand(), true)), 0, 9)) . "', "
+                . "password = '" . $this->db->escape(sha1($salt . sha1($salt . sha1($data['password'])))) . "', "
+                . "newsletter = '" . (isset($data['newsletter']) ? (int) $data['newsletter'] : 0) . "', "
+                . "customer_group_id = '0', ip = '" . $this->db->escape($this->request->server['REMOTE_ADDR']) . "', "
+                . "status = '1', approved = '" . (int) $approved . "', date_added = NOW()");
 
         $customer_id = $this->db->getLastId();
 
@@ -31,7 +34,7 @@ class ModelAccountCustomer extends \Core\Model {
 
         $message = sprintf($this->language->get('text_welcome'), $this->config->get('config_name')) . "\n\n";
 
-        if (!$customer_group_info['approval']) {
+        if ($approved) {
             $message .= $this->language->get('text_login') . "\n";
         } else {
             $message .= $this->language->get('text_approval') . "\n";
@@ -63,7 +66,6 @@ class ModelAccountCustomer extends \Core\Model {
             $message .= $this->language->get('text_website') . ' ' . $this->config->get('config_name') . "\n";
             $message .= $this->language->get('text_firstname') . ' ' . $data['firstname'] . "\n";
             $message .= $this->language->get('text_lastname') . ' ' . $data['lastname'] . "\n";
-            $message .= $this->language->get('text_customer_group') . ' ' . $customer_group_info['name'] . "\n";
 
             if ($data['company']) {
                 $message .= $this->language->get('text_company') . ' ' . $data['company'] . "\n";
@@ -98,7 +100,9 @@ class ModelAccountCustomer extends \Core\Model {
     }
 
     public function editPassword($email, $password) {
-        $this->db->query("UPDATE #__customer SET salt = '" . $this->db->escape($salt = substr(md5(uniqid(rand(), true)), 0, 9)) . "', password = '" . $this->db->escape(sha1($salt . sha1($salt . sha1($password)))) . "' WHERE LOWER(email) = '" . $this->db->escape(utf8_strtolower($email)) . "'");
+        $this->db->query("UPDATE #__customer SET salt = '" . $this->db->escape($salt = substr(md5(uniqid(rand(), true)), 0, 9)) . "', "
+                . "password = '" . $this->db->escape(sha1($salt . sha1($salt . sha1($password)))) . "' "
+                . "WHERE LOWER(email) = '" . $this->db->escape(utf8_strtolower($email)) . "'");
     }
 
     public function editNewsletter($newsletter) {
@@ -126,36 +130,34 @@ class ModelAccountCustomer extends \Core\Model {
     }
 
     public function getCustomers($data = array()) {
-        $sql = "SELECT *, CONCAT(c.firstname, ' ', c.lastname) AS name, cg.name AS customer_group FROM #__customer c LEFT JOIN #__customer_group cg ON (c.customer_group_id = cg.customer_group_id) ";
+        $sql = "SELECT *, CONCAT(firstname, ' ', lastname) AS name FROM #__customer  ";
 
         $implode = array();
 
         if (isset($data['filter_name']) && !is_null($data['filter_name'])) {
-            $implode[] = "LCASE(CONCAT(c.firstname, ' ', c.lastname)) LIKE '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "%'";
+            $implode[] = "LCASE(CONCAT(firstname, ' ', lastname)) LIKE '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "%'";
         }
 
         if (isset($data['filter_email']) && !is_null($data['filter_email'])) {
-            $implode[] = "LCASE(c.email) = '" . $this->db->escape(utf8_strtolower($data['filter_email'])) . "'";
+            $implode[] = "LCASE(email) = '" . $this->db->escape(utf8_strtolower($data['filter_email'])) . "'";
         }
 
-        if (isset($data['filter_customer_group_id']) && !is_null($data['filter_customer_group_id'])) {
-            $implode[] = "cg.customer_group_id = '" . $this->db->escape($data['filter_customer_group_id']) . "'";
-        }
+
 
         if (isset($data['filter_status']) && !is_null($data['filter_status'])) {
-            $implode[] = "c.status = '" . (int) $data['filter_status'] . "'";
+            $implode[] = "status = '" . (int) $data['filter_status'] . "'";
         }
 
         if (isset($data['filter_approved']) && !is_null($data['filter_approved'])) {
-            $implode[] = "c.approved = '" . (int) $data['filter_approved'] . "'";
+            $implode[] = "approved = '" . (int) $data['filter_approved'] . "'";
         }
 
         if (isset($data['filter_ip']) && !is_null($data['filter_ip'])) {
-            $implode[] = "c.customer_id IN (SELECT customer_id FROM #__customer_ip WHERE ip = '" . $this->db->escape($data['filter_ip']) . "')";
+            $implode[] = "customer_id IN (SELECT customer_id FROM #__customer_ip WHERE ip = '" . $this->db->escape($data['filter_ip']) . "')";
         }
 
         if (isset($data['filter_date_added']) && !is_null($data['filter_date_added'])) {
-            $implode[] = "DATE(c.date_added) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
+            $implode[] = "DATE(date_added) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
         }
 
         if ($implode) {
@@ -164,11 +166,10 @@ class ModelAccountCustomer extends \Core\Model {
 
         $sort_data = array(
             'name',
-            'c.email',
-            'customer_group',
-            'c.status',
-            'c.ip',
-            'c.date_added'
+            'email',
+            'status',
+            'ip',
+            'date_added'
         );
 
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {

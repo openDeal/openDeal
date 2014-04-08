@@ -12,8 +12,8 @@ class ControllerAccountRegister extends \Core\Controller {
         $this->language->load('account/register');
 
         $this->document->setTitle($this->language->get('heading_title'));
-        $this->document->addScript('catalog/view/javascript/jquery/colorbox/jquery.colorbox-min.js');
-        $this->document->addStyle('catalog/view/javascript/jquery/colorbox/colorbox.css');
+        $this->document->addScript('public/view/javascript/colorbox/jquery.colorbox-min.js');
+        $this->document->addStyle('public/view/javascript/colorbox/colorbox.css');
 
         $this->load->model('account/customer');
 
@@ -135,17 +135,7 @@ class ControllerAccountRegister extends \Core\Controller {
             $this->data['error_confirm'] = '';
         }
 
-        if (isset($this->error['company_id'])) {
-            $this->data['error_company_id'] = $this->error['company_id'];
-        } else {
-            $this->data['error_company_id'] = '';
-        }
-
-        if (isset($this->error['tax_id'])) {
-            $this->data['error_tax_id'] = $this->error['tax_id'];
-        } else {
-            $this->data['error_tax_id'] = '';
-        }
+       
 
         if (isset($this->error['address_1'])) {
             $this->data['error_address_1'] = $this->error['address_1'];
@@ -215,39 +205,7 @@ class ControllerAccountRegister extends \Core\Controller {
             $this->data['company'] = '';
         }
 
-        $this->load->model('account/customer_group');
-
-        $this->data['customer_groups'] = array();
-
-
-        $customer_groups = $this->model_account_customer_group->getCustomerGroups();
-
-        foreach ($customer_groups as $customer_group) {
-          //  if (in_array($customer_group['customer_group_id'], $this->config->get('config_customer_group_display'))) {
-                $this->data['customer_groups'][] = $customer_group;
-          //  }
-        }
-
-
-        if (isset($this->request->post['customer_group_id'])) {
-            $this->data['customer_group_id'] = $this->request->post['customer_group_id'];
-        } else {
-            $this->data['customer_group_id'] = $this->config->get('config_customer_group_id');
-        }
-
-        // Company ID
-        if (isset($this->request->post['company_id'])) {
-            $this->data['company_id'] = $this->request->post['company_id'];
-        } else {
-            $this->data['company_id'] = '';
-        }
-
-        // Tax ID
-        if (isset($this->request->post['tax_id'])) {
-            $this->data['tax_id'] = $this->request->post['tax_id'];
-        } else {
-            $this->data['tax_id'] = '';
-        }
+       
 
         if (isset($this->request->post['address_1'])) {
             $this->data['address_1'] = $this->request->post['address_1'];
@@ -314,9 +272,9 @@ class ControllerAccountRegister extends \Core\Controller {
         }
 
         if ($this->config->get('config_account_id')) {
-            $this->load->model('catalog/information');
+            $this->load->model('public/information');
 
-            $information_info = $this->model_catalog_information->getInformation($this->config->get('config_account_id'));
+            $information_info = $this->model_public_information->getInformation($this->config->get('config_account_id'));
 
             if ($information_info) {
                 $this->data['text_agree'] = sprintf($this->language->get('text_agree'), $this->url->link('information/information/info', 'information_id=' . $this->config->get('config_account_id'), 'SSL'), $information_info['title'], $information_info['title']);
@@ -367,28 +325,6 @@ class ControllerAccountRegister extends \Core\Controller {
             $this->error['telephone'] = $this->language->get('error_telephone');
         }
 
-        // Customer Group
-        $this->load->model('account/customer_group');
-
-        if (isset($this->request->post['customer_group_id']) && is_array($this->config->get('config_customer_group_display')) && in_array($this->request->post['customer_group_id'], $this->config->get('config_customer_group_display'))) {
-            $customer_group_id = $this->request->post['customer_group_id'];
-        } else {
-            $customer_group_id = $this->config->get('config_customer_group_id');
-        }
-
-        $customer_group = $this->model_account_customer_group->getCustomerGroup($customer_group_id);
-
-        if ($customer_group) {
-            // Company ID
-            if ($customer_group['company_id_display'] && $customer_group['company_id_required'] && empty($this->request->post['company_id'])) {
-                $this->error['company_id'] = $this->language->get('error_company_id');
-            }
-
-            // Tax ID 
-            if ($customer_group['tax_id_display'] && $customer_group['tax_id_required'] && empty($this->request->post['tax_id'])) {
-                $this->error['tax_id'] = $this->language->get('error_tax_id');
-            }
-        }
 
         if ((utf8_strlen($this->request->post['address_1']) < 3) || (utf8_strlen($this->request->post['address_1']) > 128)) {
             $this->error['address_1'] = $this->language->get('error_address_1');
@@ -432,9 +368,9 @@ class ControllerAccountRegister extends \Core\Controller {
         }
 
         if ($this->config->get('config_account_id')) {
-            $this->load->model('catalog/information');
+            $this->load->model('public/information');
 
-            $information_info = $this->model_catalog_information->getInformation($this->config->get('config_account_id'));
+            $information_info = $this->model_public_information->getInformation($this->config->get('config_account_id'));
 
             if ($information_info && !isset($this->request->post['agree'])) {
                 $this->error['warning'] = sprintf($this->language->get('error_agree'), $information_info['title']);
@@ -474,5 +410,3 @@ class ControllerAccountRegister extends \Core\Controller {
     }
 
 }
-
-?>

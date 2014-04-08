@@ -34,7 +34,7 @@
                                                     <div class="col-md-12">
                                                         <?php if ($deal['state'] == ModelDealDeal::DEAL_AVAILABLE): ?>
                                                             <div class="button">
-                                                                <a class="buy_button cmbtn btn btn-large btn-block btn-success" href="#<?php echo $deal['deal_id']; ?>"><?php echo $this->language->get('button_buy'); ?></a>
+                                                                <a class="buy_button cmbtn btn btn-large btn-block btn-success" href="<?php echo $this->url->link('deal/deal/buy', 'deal_id=' . $deal['deal_id']); ?>"><?php echo $this->language->get('button_buy'); ?></a>
                                                             </div>
                                                         <?php else : ?>
                                                             <div class="button">

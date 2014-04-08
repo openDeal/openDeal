@@ -25,7 +25,7 @@ define('APP_NAMESPACE', 'public');
 
 // Configuration
 if (file_exists('system/config/config.php')) {
-    
+
     require_once('system/config/config.php');
 }
 // Install 
@@ -67,7 +67,7 @@ $controller = new \Core\Front($registry);
 // Maintenance Mode
 //$controller->addPreAction(new \Core\Action('common/maintenance'));
 // SEO URL's
-$controller->addPreAction(new \Core\Action('common/seo_url'));	
+$controller->addPreAction(new \Core\Action('common/seo_url'));
 // Router
 
 

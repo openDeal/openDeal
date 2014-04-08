@@ -48,6 +48,18 @@ class ModelDealDeal extends \Core\Model {
         return $deal_shipping_data;
     }
 
+    public function getDealOptions($deal_id) {
+        $deal_option_data = array();
+
+        $query = $this->db->query("SELECT * FROM #__deal_option WHERE deal_id = '" . (int) $deal_id . "' order by sort_order asc, deal_option_id asc");
+
+        foreach ($query->rows as $result) {
+            $deal_option_data[] = $result;
+        }
+
+        return $deal_option_data;
+    }
+
     public function getDealLayouts($deal_id) {
         $deal_layout_data = array();
 
@@ -159,12 +171,13 @@ class ModelDealDeal extends \Core\Model {
 
     public function addDeal($data) {
 
-          $times = explode(" - ", $data['deal_times']);
+        $times = explode(" - ", $data['deal_times']);
 
         $data['begin_time'] = strtotime($times[0]);
         $data['end_time'] = strtotime($times[1]);
 
         $this->db->query("Insert into #__deal set "
+                . " product_name = " . $this->db->quote($data['product_name']) . ", "
                 . " market_price = '" . (float) $data['market_price'] . "', "
                 . " deal_price = '" . (float) $data['deal_price'] . "', "
                 . " begin_time = " . $this->db->quote($data['begin_time']) . ", "
@@ -205,9 +218,11 @@ class ModelDealDeal extends \Core\Model {
 
         /** DEAL OPTION TO DO * */
         if (isset($data['deal_option'])) {
-            foreach ($deal['deal_option'] as $option) {
-                $this->db->query("Insert into #__deal_option set deal_id = " . (int) $deal_id . ", "
+            foreach ($data['deal_option'] as $option) {
+                $this->db->query("Insert into #__deal_option set "
+                        . " deal_id = " . (int) $deal_id . ", "
                         . " title = " . $this->db->quote($option['title']) . ", "
+                        . " market_price = " . (float) $option['market_price'] . ", "
                         . " price = " . (float) $option['price']);
             }
         }
@@ -256,14 +271,15 @@ class ModelDealDeal extends \Core\Model {
 
     public function editDeal($deal_id, $data) {
 
-       
-        
-       $times = explode(" - ", $data['deal_times']);
+
+
+        $times = explode(" - ", $data['deal_times']);
 
         $data['begin_time'] = strtotime($times[0]);
         $data['end_time'] = strtotime($times[1]);
 
         $this->db->query("Update #__deal set "
+                . " product_name = " . $this->db->quote($data['product_name']) . ", "
                 . " market_price = '" . (float) $data['market_price'] . "', "
                 . " deal_price = '" . (float) $data['deal_price'] . "', "
                 . " begin_time = " . $this->db->quote($data['begin_time']) . ", "
@@ -279,7 +295,7 @@ class ModelDealDeal extends \Core\Model {
                 . " is_coupon = " . (int) $data['is_coupon'] . ", "
                 . " coupon_expiry = " . $this->db->quote(strtotime($data['coupon_expiry'])) . ", "
                 . " modify_date = " . time()
-                . " where deal_id = " . (int)$deal_id);
+                . " where deal_id = " . (int) $deal_id);
 
 
         $this->db->query("Delete from #__deal_image where deal_id = " . (int) $deal_id);
@@ -306,11 +322,14 @@ class ModelDealDeal extends \Core\Model {
 
         /** DEAL OPTION TO DO * */
         $this->db->query("Delete from #__deal_option where deal_id = " . (int) $deal_id);
+        
         if (isset($data['deal_option'])) {
-            foreach ($deal['deal_option'] as $option) {
-                $this->db->query("Insert into #__deal_option set deal_id = " . (int) $deal_id . ", "
-                        . " title = " . $this->db->quote($option['title']) . ", "
-                        . " price = " . (float) $option['price']);
+            foreach ($data['deal_option'] as $option) {
+                $this->db->query("Insert into #__deal_option set "
+                        . " deal_id = " . (int) $deal_id . ", "
+                        . " `title` = " . $this->db->quote($option['title']) . ", "
+                        . " `market_price` = " . (float) $option['market_price'] . ", "
+                        . " `price` = " . (float) $option['price']);
             }
         }
 

@@ -1,5 +1,5 @@
 <?php 
-class ControllerAccountLogout extends Controller {
+class ControllerAccountLogout extends \Core\Controller {
 	public function index() {
 		if ($this->customer->isLogged()) {
 			$this->customer->logout();

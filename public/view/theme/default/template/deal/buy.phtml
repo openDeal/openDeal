@@ -1,0 +1,173 @@
+<?php echo $header; ?>
+<div class="container">
+    <?php echo $column_left; ?>
+    <?php echo $column_right; ?>
+    <div id="content">
+        <ol class="breadcrumb">
+            <?php $i = 0; ?>
+            <?php foreach ($breadcrumbs as $i => $breadcrumb) { ?>
+                <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo ($i == 0) ? '<i class="fa fa-dashboard"></i> ' : ''; ?><?php echo $breadcrumb['text']; ?></a></li>
+            <?php } ?>
+        </ol>
+        <?php echo $content_top; ?>
+
+
+        <h1><?php echo $deal['title']; ?></h1>
+        <div class="row">
+            <div class="col-xs-4">
+                <img src="<?php echo (($deal['image'])) ? $deal['image'] : $no_image; ?>" class="img-responsive" alt="">
+            </div>
+            <div class="col-xs-8">
+                <ul class="list-group">
+
+                    <li class="list-group-item "><span class="wasprice"><?php echo $this->currency->format($deal['market_price']); ?></span> <span class="nowprice"><?php echo $this->currency->format($deal['deal_price']); ?></span></li>
+                    <li class="list-group-item">
+
+                        <?php if ($deal['state'] == ModelDealDeal::DEAL_AVAILABLE): ?>
+                            <div class="countdown_block">
+                                <div id="deal_countdown_<?php echo $deal['deal_id']; ?>" class="hasCountdown" data-time="<?php echo $deal['time_diff']; ?>"></div>
+                                <script type="text/javascript">
+                                    addOnready(function()
+                                    {
+                                        $('#deal_countdown_<?php echo $deal['deal_id']; ?>').countdown({
+                                            timezone: 0,
+                                            until: +<?php echo $deal['time_diff']; ?>
+
+                                        });
+                                        $('#deal_countdown_<?php echo $deal['deal_id']; ?>').countdown($.countdown.regionalOptions['<?php echo $this->language->get('code'); ?>']);
+                                    });</script>
+                            </div>
+                        <?php else: ?>
+                            <div class="alert alert-danger"><?php echo $this->language->get("deal_state_" . (int) $deal['state']); ?></div>
+                        <?php endif; ?>
+
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+        <hr />
+        <form method="post" action="<?php echo $this->url->link('checkout/cart/add');?>">
+            <input type="hidden" name="deal_id" value="<?php echo $deal['deal_id']; ?>" />
+        <div class="row">
+            <?php if ($deal_options): ?>
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><?php echo $text_choose_option; ?></h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12 ">
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="option" value="0" <?php echo($option == 0) ? 'checked="checked"' : ''; ?>/>
+
+                                            <strong><?php echo $deal['product_name']; ?></strong> <span class="nowprice small"><?php echo $this->currency->format($deal['deal_price']); ?></span>
+                                            <div class="col-md-12">
+                                                <div class="discount_info deal_detail_block row">
+                                                    <div class="discount_info_block deal_value">
+                                                        <dt>Value</dt>
+                                                        <dd><?php echo $this->currency->format($deal['market_price']); ?></dd>
+                                                    </div>
+                                                    <div class="discount_info_block deal_discount">
+                                                        <dt>Discount</dt>
+                                                        <dd><?php echo $deal['discount']; ?>%</dd>
+                                                    </div>
+                                                    <div class="discount_info_block deal_save">
+                                                        <dt>You save</dt>
+                                                        <dd><?php echo $this->currency->format($deal['savings']); ?></dd>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+          
+                        <?php foreach ($deal_options as $deal_option): ?>
+                            <div class="row">
+                                <div class="col-md-12 ">
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="option" value="<?php echo $deal_option['deal_option_id']; ?>" <?php echo($option == $deal_option['deal_option_id']) ? 'checked="checked"' : ''; ?>/>
+
+                                            <strong><?php echo $deal_option['title']; ?></strong> <span class="nowprice small"><?php echo $this->currency->format($deal_option['price']); ?></span>
+                                            <div class="col-md-12">
+                                                <div class="discount_info deal_detail_block row">
+                                                    <div class="discount_info_block deal_value">
+                                                        <dt>Value</dt>
+                                                        <dd><?php echo $this->currency->format($deal_option['market_price']); ?></dd>
+                                                    </div>
+                                                    <div class="discount_info_block deal_discount">
+                                                        <dt>Discount</dt>
+                                                        <dd><?php echo $deal_option['discount']; ?>%</dd>
+                                                    </div>
+                                                    <div class="discount_info_block deal_save">
+                                                        <dt>You save</dt>
+                                                        <dd><?php echo $this->currency->format($deal_option['saving']); ?></dd>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($deal_shipping || $deal_can_collect): ?>
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><?php echo $text_choose_shipping; ?></h3>
+                    </div>
+                    <div class="panel-body">
+                        <?php if ($deal_can_collect): ?>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="shipping" value="0" <?php echo($shipping == 0) ? 'checked="checked"' : ''; ?>/>
+                                    <?php echo $text_collect; ?>
+                                </label>
+                            </div>
+                        <?php endif; ?>
+                        <?php if ($deal_shipping): ?>
+                            <?php foreach ($deal_shipping as $shipping): ?>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="shipping" value="<?php echo $shipping['deal_shipping_id']; ?>" <?php echo($shipping == $shipping['deal_shipping_id']) ? 'checked="checked"' : ''; ?>/>
+                                        <?php echo $shipping['title']; ?> ( <?php echo $this->currency->format($shipping['price']); ?> )
+                                    </label>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+    </div>
+
+    <button class="btn btn-primary pull-right">Add To Cart</button>
+
+    </form>
+    <?php echo $content_bottom; ?></div>
+</div>
+<script>
+    addOnready(function()
+    {
+        $.getScript('/public/view/theme/default/javascript/isotope.pkgd.min.js', function() {
+            $('.deals-list').isotope({
+                itemSelector: '.deal-item'
+            });
+        });
+    });
+</script>
+<?php echo $footer; ?>

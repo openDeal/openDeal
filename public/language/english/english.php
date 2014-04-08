@@ -33,10 +33,11 @@ $_['text_deal_on']          = 'The deal is on!';
 $_['text_deal_tipped_time'] = 'Tipped at %s';
 $_['text_coupons_left']     = 'Only %d coupons left to buy';
 $_['text_coupon_left']     = 'Only %d coupon left to buy';
+$_['text_contact']          = 'Contact Us';
 
 // Buttons
 $_['button_buy']            = 'Buy';
-
+$_['button_continue']       = 'Continue';
 
 // Error
 $_['error_upload_1']        = 'Warning: The uploaded file exceeds the upload_max_filesize directive in php.ini!';

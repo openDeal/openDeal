@@ -55,6 +55,10 @@ h1 {
     text-align:right;
 }
 
+.wasprice.small, .nowprice.small {
+    font-size:100%;
+}
+
 footer{
     background: #333333; /* Old browsers */
     background: -moz-linear-gradient(top,  #000000 0%, #333333  100%); /* FF3.6+ */
