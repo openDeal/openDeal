@@ -95,7 +95,7 @@ class ControllerCheckoutCart extends \Core\Controller {
 
             $this->data['column_image'] = $this->language->get('column_image');
             $this->data['column_name'] = $this->language->get('column_name');
-            $this->data['column_model'] = $this->language->get('column_model');
+            $this->data['column_shipping'] = $this->language->get('column_shipping');
             $this->data['column_quantity'] = $this->language->get('column_quantity');
             $this->data['column_price'] = $this->language->get('column_price');
             $this->data['column_total'] = $this->language->get('column_total');
@@ -159,7 +159,7 @@ class ControllerCheckoutCart extends \Core\Controller {
 
 
                 $price = $this->currency->format($product['price']);
-                $total = $this->currency->format($product['price'] * $product['quantity']);
+                $total = $this->currency->format(($product['price'] + $product['shipping']['price'] )* $product['quantity']);
 
 
 
@@ -169,7 +169,9 @@ class ControllerCheckoutCart extends \Core\Controller {
                     'thumb' => $image,
                     'name' => $product['title'],
                     'option' => $product['option'],
+                    'shipping' => $product['shipping'],
                     'quantity' => $product['quantity'],
+                    'is_coupon' => $product['is_coupon'],
                     'stock' => $product['stock'],
                     'price' => $price,
                     'total' => $total,
@@ -261,6 +263,7 @@ class ControllerCheckoutCart extends \Core\Controller {
             $sort_order = array();
 
             $results = $this->model_setting_extension->getExtensions('total');
+            
 
             foreach ($results as $key => $value) {
                 $sort_order[$key] = $this->config->get($value['code'] . '_sort_order');
@@ -458,30 +461,6 @@ class ControllerCheckoutCart extends \Core\Controller {
         }
     }
 
-    public function country() {
-        $json = array();
-
-        $this->load->model('localisation/country');
-
-        $country_info = $this->model_localisation_country->getCountry($this->request->get['country_id']);
-
-        if ($country_info) {
-            $this->load->model('localisation/zone');
-
-            $json = array(
-                'country_id' => $country_info['country_id'],
-                'name' => $country_info['name'],
-                'iso_code_2' => $country_info['iso_code_2'],
-                'iso_code_3' => $country_info['iso_code_3'],
-                'address_format' => $country_info['address_format'],
-                'postcode_required' => $country_info['postcode_required'],
-                'zone' => $this->model_localisation_zone->getZonesByCountryId($this->request->get['country_id']),
-                'status' => $country_info['status']
-            );
-        }
-
-        $this->response->setOutput(json_encode($json));
-    }
 
 }
 

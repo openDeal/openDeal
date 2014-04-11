@@ -1,5 +1,5 @@
 <?php    
-class ControllerSaleCustomerBanIp extends Controller { 
+class ControllerSaleCustomerBanIp extends \Core\Controller { 
 	private $error = array();
 
 	public function index() {
@@ -252,7 +252,7 @@ class ControllerSaleCustomerBanIp extends Controller {
 		$this->data['sort'] = $sort;
 		$this->data['order'] = $order;
 
-		$this->template = 'sale/customer_ban_ip_list.tpl';
+		$this->template = 'sale/customer_ban_ip_list.phtml';
 		$this->children = array(
 			'common/header',
 			'common/footer'
@@ -329,7 +329,7 @@ class ControllerSaleCustomerBanIp extends Controller {
 			$this->data['ip'] = '';
 		}
 
-		$this->template = 'sale/customer_ban_ip_form.tpl';
+		$this->template = 'sale/customer_ban_ip_form.phtml';
 		$this->children = array(
 			'common/header',
 			'common/footer'

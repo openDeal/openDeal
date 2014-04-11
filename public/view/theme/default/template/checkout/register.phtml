@@ -1,0 +1,227 @@
+
+
+<form action="<?php echo $action; ?>" method="post" class="form-horizontal form-validate" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-6 left">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><?php echo $text_your_details; ?></h3>
+                </div>
+                <div class="panel-body">
+
+                    <div class="form-group">
+                        <label for="firstnameInput" class="control-label col-sm-3 col-md-4 required"><?php echo $entry_firstname; ?></label>
+                        <div class="col-sm-9 col-md-8">
+                            <input type="text" name="firstname" id="firstnameInput" value="" class="form-control required" placeholder="<?php echo $entry_firstname; ?>" />
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastnameInput" class="control-label col-sm-3 col-md-4 required"><?php echo $entry_lastname; ?></label>
+                        <div class="col-sm-9 col-md-8">
+                            <input type="text" name="lastname" id="lastnameInput" value="" class="form-control required" placeholder="<?php echo $entry_lastname; ?>" />
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label for="telephoneInput" class="control-label col-sm-3 col-md-4 required"><?php echo $entry_telephone; ?></label>
+                        <div class="col-sm-9 col-md-8">
+                            <input type="text" name="telephone" id="telephoneInput" value="" class="form-control required" placeholder="<?php echo $entry_telephone; ?>" />
+
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 right">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><?php echo $text_your_password; ?></h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="emailInput" class="control-label col-sm-3 col-md-4 required"><?php echo $entry_email; ?></label>
+                        <div class="col-sm-9 col-md-8">
+                            <input type="email" name="email" id="emailInput" value="" class="form-control required" placeholder="<?php echo $entry_email; ?>" />
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="passwordInput" class="control-label col-sm-3 col-md-4 required"><?php echo $entry_password; ?></label>
+                        <div class="col-sm-9 col-md-8">
+                            <input type="password" name="password" id="passwordInput" value="" class="form-control required" placeholder="<?php echo $entry_password; ?>" />
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmInput" class="control-label col-sm-3 col-md-4 required"><?php echo $entry_confirm; ?></label>
+                        <div class="col-sm-9 col-md-8">
+                            <input type="password" name="confirm" id="confirmInput" value="" class="form-control required" placeholder="<?php echo $entry_confirm; ?>" />
+
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><?php echo $text_your_address; ?></h3>
+                </div>
+                <div class="panel-body">
+
+
+
+
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            <label for="companyInput" class="control-label col-sm-3 col-md-4"><?php echo $entry_company; ?></label>
+                            <div class="col-sm-9 col-md-8">
+                                <input type="text" name="company" id="companyInput" value="" class="form-control " placeholder="<?php echo $entry_company; ?>" />
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="addressInput" class="control-label col-sm-3 col-md-4 required"><?php echo $entry_address_1; ?></label>
+                            <div class="col-sm-9 col-md-8">
+                                <input type="text" name="address_1" id="addressInput" value="" class="form-control required" placeholder="<?php echo $entry_address_1; ?>" />
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address2Input" class="control-label col-sm-3 col-md-4"><?php echo $entry_address_2; ?></label>
+                            <div class="col-sm-9 col-md-8">
+                                <input type="text" name="address_2" id="address2Input" value="" class="form-control " placeholder="<?php echo $entry_address_2; ?>" />
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cityInput" class="control-label col-sm-3 col-md-4 required"><?php echo $entry_city; ?></label>
+                            <div class="col-sm-9 col-md-8">
+                                <input type="text" name="city" id="cityInput" value="" class="form-control required" placeholder="<?php echo $entry_city; ?>" />
+
+                            </div>
+                        </div>
+
+
+
+
+
+                    </div>
+
+                    <div class="col-md-6">
+
+
+
+                        <div class="form-group">
+                            <label for="countryInput" class="control-label col-sm-3 col-md-4 required"><?php echo $entry_country; ?></label>
+                            <div class="col-sm-9 col-md-8">
+                                <select name="country_id" id="countryInput" class="form-control required" >
+                                    <option value=""><?php echo $text_select; ?></option>
+                                    <?php foreach ($countries as $country) { ?>
+                                        <?php if ($country['country_id'] == $country_id) { ?>
+                                            <option value="<?php echo $country['country_id']; ?>" selected="selected"><?php echo $country['name']; ?></option>
+                                        <?php } else { ?>
+                                            <option value="<?php echo $country['country_id']; ?>"><?php echo $country['name']; ?></option>
+                                        <?php } ?>
+                                    <?php } ?>
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="zoneInput" class="control-label col-sm-3 col-md-4 required"><?php echo $entry_zone; ?></label>
+                            <div class="col-sm-9 col-md-8">
+                                <select name="zone_id" id="zoneInput" class="form-control required">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="postcodeInput" class="control-label col-sm-3 col-md-4 required"><?php echo $entry_postcode; ?></label>
+                            <div class="col-sm-9 col-md-8">
+                                <input type="text" name="postcode" id="postcodeInput" value="" class="form-control required" placeholder="<?php echo $entry_postcode; ?>" />
+
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="panel panel-default">
+
+
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-9 col-md-8">
+
+                            <?php if ($shipping_required) { ?>
+                                <div class="checkbox"> <label for="shipping">
+                                        <input type="checkbox" name="shipping_address" value="1" id="shipping" checked="checked" />
+                                        <?php echo $entry_shipping; ?></label></div>
+
+                            <?php } ?>
+
+                            <div class="checkbox">
+                                <label>
+
+                                    <input type="checkbox" name="newsletter" value="1" id="newsletter" />
+
+                                    <?php echo $entry_newsletter; ?>
+                                </label>
+                            </div>
+
+                            <?php if ($text_agree) : ?>
+
+
+                                <div class="checkbox">
+                                    <label>
+
+                                        <input type="checkbox" name="agree" value="1" />
+
+                                        <?php echo $text_agree; ?>
+                                    </label>
+                                </div>
+
+                            <?php endif; ?>
+
+                        </div>
+                        <div class="col-sm-3 col-md-4 pull-right">
+                            <button type="button" id="button-register" class="btn btn-primary pull-right" ><?php echo $button_continue; ?></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

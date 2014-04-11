@@ -54,32 +54,28 @@
                                 <?php } else { ?>
                                     <a href="<?php echo $sort_name; ?>"><?php echo $column_name; ?></a>
                                 <?php } ?></th>
-                            <th class="left"><?php if ($sort == 'c.email') { ?>
+                            <th class="left"><?php if ($sort == 'email') { ?>
                                     <a href="<?php echo $sort_email; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_email; ?></a>
                                 <?php } else { ?>
                                     <a href="<?php echo $sort_email; ?>"><?php echo $column_email; ?></a>
                                 <?php } ?></th>
-                            <th class="left"><?php if ($sort == 'customer_group') { ?>
-                                    <a href="<?php echo $sort_customer_group; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_customer_group; ?></a>
-                                <?php } else { ?>
-                                    <a href="<?php echo $sort_customer_group; ?>"><?php echo $column_customer_group; ?></a>
-                                <?php } ?></th>
-                            <th class="left"><?php if ($sort == 'c.status') { ?>
+                           
+                            <th class="left"><?php if ($sort == 'status') { ?>
                                     <a href="<?php echo $sort_status; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_status; ?></a>
                                 <?php } else { ?>
                                     <a href="<?php echo $sort_status; ?>"><?php echo $column_status; ?></a>
                                 <?php } ?></th>
-                            <th class="left"><?php if ($sort == 'c.approved') { ?>
+                            <th class="left"><?php if ($sort == 'approved') { ?>
                                     <a href="<?php echo $sort_approved; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_approved; ?></a>
                                 <?php } else { ?>
                                     <a href="<?php echo $sort_approved; ?>"><?php echo $column_approved; ?></a>
                                 <?php } ?></th>
-                            <th class="left"><?php if ($sort == 'c.ip') { ?>
+                            <th class="left"><?php if ($sort == 'ip') { ?>
                                     <a href="<?php echo $sort_ip; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_ip; ?></a>
                                 <?php } else { ?>
                                     <a href="<?php echo $sort_ip; ?>"><?php echo $column_ip; ?></a>
                                 <?php } ?></th>
-                            <th class="left"><?php if ($sort == 'c.date_added') { ?>
+                            <th class="left"><?php if ($sort == 'date_added') { ?>
                                     <a href="<?php echo $sort_date_added; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_date_added; ?></a>
                                 <?php } else { ?>
                                     <a href="<?php echo $sort_date_added; ?>"><?php echo $column_date_added; ?></a>
@@ -93,16 +89,7 @@
                             <td></td>
                             <td><input type="text" name="filter_name" value="<?php echo $filter_name; ?>" class="form-control"/></td>
                             <td><input type="text" name="filter_email" value="<?php echo $filter_email; ?>" class="form-control"/></td>
-                            <td><select name="filter_customer_group_id" class="form-control">
-                                    <option value="*"></option>
-                                    <?php foreach ($customer_groups as $customer_group) { ?>
-                                        <?php if ($customer_group['customer_group_id'] == $filter_customer_group_id) { ?>
-                                            <option value="<?php echo $customer_group['customer_group_id']; ?>" selected="selected"><?php echo $customer_group['name']; ?></option>
-                                        <?php } else { ?>
-                                            <option value="<?php echo $customer_group['customer_group_id']; ?>"><?php echo $customer_group['name']; ?></option>
-                                        <?php } ?>
-                                    <?php } ?>
-                                </select></td>
+                            
                             <td><select name="filter_status" class="form-control">
                                     <option value="*"></option>
                                     <?php if ($filter_status) { ?>
@@ -144,7 +131,6 @@
                                         <?php } ?></td>
                                     <td class="left"><?php echo $customer['name']; ?></td>
                                     <td class="left"><?php echo $customer['email']; ?></td>
-                                    <td class="left"><?php echo $customer['customer_group']; ?></td>
                                     <td class="left"><?php echo $customer['status']; ?></td>
                                     <td class="left"><?php echo $customer['approved']; ?></td>
                                     <td class="left"><?php echo $customer['ip']; ?></td>
@@ -158,7 +144,7 @@
                                             <?php } ?>
                                         </select></td>
                                     <td class="right"><?php foreach ($customer['action'] as $action) { ?>
-                                            [ <a href="<?php echo $action['href']; ?>"><?php echo $action['text']; ?></a> ]
+                                             <a href="<?php echo $action['href']; ?>" class="btn btn-primary btn-xs"><?php echo $action['text']; ?></a>
                                         <?php } ?></td>
                                 </tr>
                             <?php } ?>

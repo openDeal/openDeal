@@ -412,3 +412,41 @@ footer h4, footer a {
     left: auto;
     right: 15px;
 }
+
+.btn-square {
+    padding:5px;
+    margin-top: 5px;
+}
+
+th.image, td.image,
+th.price, td.price,
+th.quantity, td.quantity {
+    text-align: center;
+}
+
+th.total, td.total {
+    text-align: right;
+    font-weight: bold;
+}
+
+
+h2.panel-title {
+    font-size: 125%;
+    font-weight: bold;
+    color: #317eac;
+}
+
+.panel-heading p {
+    margin:5px;
+    font-size: 75%;
+        
+}
+
+.checkout-content {
+    display: none;
+}
+
+.wait img {
+    width: 36px;
+    height: 36px;
+}

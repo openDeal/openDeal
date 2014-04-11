@@ -13,7 +13,6 @@ class ModelAccountCustomer extends \Core\Model {
                 . "lastname = '" . $this->db->escape($data['lastname']) . "', "
                 . "email = '" . $this->db->escape($data['email']) . "', "
                 . "telephone = '" . $this->db->escape($data['telephone']) . "', "
-                . "fax = '" . $this->db->escape($data['fax']) . "', "
                 . "salt = '" . $this->db->escape($salt = substr(md5(uniqid(rand(), true)), 0, 9)) . "', "
                 . "password = '" . $this->db->escape(sha1($salt . sha1($salt . sha1($data['password'])))) . "', "
                 . "newsletter = '" . (isset($data['newsletter']) ? (int) $data['newsletter'] : 0) . "', "
@@ -22,7 +21,7 @@ class ModelAccountCustomer extends \Core\Model {
 
         $customer_id = $this->db->getLastId();
 
-        $this->db->query("INSERT INTO #__address SET customer_id = '" . (int) $customer_id . "', firstname = '" . $this->db->escape($data['firstname']) . "', lastname = '" . $this->db->escape($data['lastname']) . "', company = '" . $this->db->escape($data['company']) . "', company_id = '" . $this->db->escape($data['company_id']) . "', tax_id = '" . $this->db->escape($data['tax_id']) . "', address_1 = '" . $this->db->escape($data['address_1']) . "', address_2 = '" . $this->db->escape($data['address_2']) . "', city = '" . $this->db->escape($data['city']) . "', postcode = '" . $this->db->escape($data['postcode']) . "', country_id = '" . (int) $data['country_id'] . "', zone_id = '" . (int) $data['zone_id'] . "'");
+        $this->db->query("INSERT INTO #__address SET customer_id = '" . (int) $customer_id . "', firstname = '" . $this->db->escape($data['firstname']) . "', lastname = '" . $this->db->escape($data['lastname']) . "', company = '" . $this->db->escape($data['company']) . "',  address_1 = '" . $this->db->escape($data['address_1']) . "', address_2 = '" . $this->db->escape($data['address_2']) . "', city = '" . $this->db->escape($data['city']) . "', postcode = '" . $this->db->escape($data['postcode']) . "', country_id = '" . (int) $data['country_id'] . "', zone_id = '" . (int) $data['zone_id'] . "'");
 
         $address_id = $this->db->getLastId();
 

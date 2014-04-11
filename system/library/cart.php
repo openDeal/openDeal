@@ -55,10 +55,13 @@ class Cart {
                     }
 
                     $shipping_price = 0;
+                    $shipping_title = 'Collect';
+                    
                     if ($shipping_id > 0) {
                         $shipping_query = $this->db->query("Select * from #__deal_shipping where deal_shipping_id = " . (int) $shipping_id);
                         if ($shipping_query->num_rows) {
                             $shipping_price = $shipping_query->row['price'];
+                            $shipping_title = $shipping_query->row['title'];
                         } else {
                             $this->remove($key);
                         }
@@ -72,15 +75,17 @@ class Cart {
                         'title' => $deal_query->row['title'],
                         'shipping' => array(
                             'deal_shipping_id' => $shipping_id,
-                            'shippingprice' => $shipping_price
+                            'price' => $shipping_price,
+                            'title' => $shipping_title
                         ),
                         'option' => array(
                             'deal_option_id' => $option_id,
                             'title' => $option_title
                         ),
                         'stock' => $stock,
+                        'is_coupon' => $deal_query->row['is_coupon'],
                         'price' => ($deal_price),
-                        'total' => ($deal_price + $shipping_price) * $quantity,
+                        'total' => ($deal_price) * $quantity,
                         'quantity' => $quantity
                     );
                 } else {
@@ -88,7 +93,6 @@ class Cart {
                 }
             }
         }
-
         
         return $this->data;
     }
@@ -140,10 +144,27 @@ class Cart {
 
         return $total;
     }
+    
+    public function getShippingTotal() {
+        $total = 0;
+
+        foreach ($this->getProducts() as $product) {
+            $total += ($product['shipping']['price'] * $product['quantity']);
+        }
+
+        return $total;
+    }
 
     public function getTotal() {
 
-        return $this->getSubTotal();
+        $total = 0;
+
+        foreach ($this->getProducts() as $product) {
+            $total += $product['total'];
+            $total += ($product['shipping']['price'] * $product['quantity']);
+        }
+
+        return $total;
     }
 
     public function countProducts() {

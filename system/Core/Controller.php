@@ -65,7 +65,9 @@ abstract class Controller {
         $called = explode(" ", splitByCaps(get_called_class(), false));
         array_shift($called);
         $this->template = implode("/", $called) . '.phtml';
+        if($this->registry->has('language')){
         $this->language->load(implode("/", $called));
+        }
     }
 
     /**
@@ -167,16 +169,17 @@ abstract class Controller {
             $this->data[basename($child)] = $this->getChild($child);
         }
 
-
+        
         if (APP_NAMESPACE == 'public' && file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/' . $this->template)) {
             $template = DIR_TEMPLATE . $this->config->get('config_template') . '/template/' . $this->template;
         } elseif (APP_NAMESPACE == 'admin' && file_exists(DIR_TEMPLATE . $this->config->get('config_admin_template') . '/template/' . $this->template)) {
             $template = DIR_TEMPLATE . $this->config->get('config_admin_template') . '/template/' . $this->template;
+        }elseif(APP_NAMESPACE == 'installer') {
+              $template = DIR_TEMPLATE . $this->template;
         } else {
             $template = DIR_TEMPLATE . 'default/template/' . $this->template;
         }
-
-
+        
 
         if (file_exists($template)) {
             extract($this->data);

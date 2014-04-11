@@ -36,10 +36,7 @@ class ControllerSaleCustomer extends \Core\Controller {
                 $url .= '&filter_email=' . urlencode(html_entity_decode($this->request->get['filter_email'], ENT_QUOTES, 'UTF-8'));
             }
 
-            if (isset($this->request->get['filter_customer_group_id'])) {
-                $url .= '&filter_customer_group_id=' . $this->request->get['filter_customer_group_id'];
-            }
-
+          
             if (isset($this->request->get['filter_status'])) {
                 $url .= '&filter_status=' . $this->request->get['filter_status'];
             }
@@ -96,9 +93,7 @@ class ControllerSaleCustomer extends \Core\Controller {
                 $url .= '&filter_email=' . urlencode(html_entity_decode($this->request->get['filter_email'], ENT_QUOTES, 'UTF-8'));
             }
 
-            if (isset($this->request->get['filter_customer_group_id'])) {
-                $url .= '&filter_customer_group_id=' . $this->request->get['filter_customer_group_id'];
-            }
+         
 
             if (isset($this->request->get['filter_status'])) {
                 $url .= '&filter_status=' . $this->request->get['filter_status'];
@@ -158,9 +153,7 @@ class ControllerSaleCustomer extends \Core\Controller {
                 $url .= '&filter_email=' . urlencode(html_entity_decode($this->request->get['filter_email'], ENT_QUOTES, 'UTF-8'));
             }
 
-            if (isset($this->request->get['filter_customer_group_id'])) {
-                $url .= '&filter_customer_group_id=' . $this->request->get['filter_customer_group_id'];
-            }
+            
 
             if (isset($this->request->get['filter_status'])) {
                 $url .= '&filter_status=' . $this->request->get['filter_status'];
@@ -230,10 +223,7 @@ class ControllerSaleCustomer extends \Core\Controller {
                 $url .= '&filter_email=' . urlencode(html_entity_decode($this->request->get['filter_email'], ENT_QUOTES, 'UTF-8'));
             }
 
-            if (isset($this->request->get['filter_customer_group_id'])) {
-                $url .= '&filter_customer_group_id=' . $this->request->get['filter_customer_group_id'];
-            }
-
+    
             if (isset($this->request->get['filter_status'])) {
                 $url .= '&filter_status=' . $this->request->get['filter_status'];
             }
@@ -281,11 +271,7 @@ class ControllerSaleCustomer extends \Core\Controller {
             $filter_email = null;
         }
 
-        if (isset($this->request->get['filter_customer_group_id'])) {
-            $filter_customer_group_id = $this->request->get['filter_customer_group_id'];
-        } else {
-            $filter_customer_group_id = null;
-        }
+    
 
         if (isset($this->request->get['filter_status'])) {
             $filter_status = $this->request->get['filter_status'];
@@ -339,9 +325,7 @@ class ControllerSaleCustomer extends \Core\Controller {
             $url .= '&filter_email=' . urlencode(html_entity_decode($this->request->get['filter_email'], ENT_QUOTES, 'UTF-8'));
         }
 
-        if (isset($this->request->get['filter_customer_group_id'])) {
-            $url .= '&filter_customer_group_id=' . $this->request->get['filter_customer_group_id'];
-        }
+  
 
         if (isset($this->request->get['filter_status'])) {
             $url .= '&filter_status=' . $this->request->get['filter_status'];
@@ -394,7 +378,6 @@ class ControllerSaleCustomer extends \Core\Controller {
         $data = array(
             'filter_name' => $filter_name,
             'filter_email' => $filter_email,
-            'filter_customer_group_id' => $filter_customer_group_id,
             'filter_status' => $filter_status,
             'filter_approved' => $filter_approved,
             'filter_date_added' => $filter_date_added,
@@ -421,7 +404,6 @@ class ControllerSaleCustomer extends \Core\Controller {
                 'customer_id' => $result['customer_id'],
                 'name' => $result['name'],
                 'email' => $result['email'],
-                'customer_group' => $result['customer_group'],
                 'status' => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
                 'approved' => ($result['approved'] ? $this->language->get('text_yes') : $this->language->get('text_no')),
                 'ip' => $result['ip'],
@@ -443,7 +425,6 @@ class ControllerSaleCustomer extends \Core\Controller {
 
         $this->data['column_name'] = $this->language->get('column_name');
         $this->data['column_email'] = $this->language->get('column_email');
-        $this->data['column_customer_group'] = $this->language->get('column_customer_group');
         $this->data['column_status'] = $this->language->get('column_status');
         $this->data['column_approved'] = $this->language->get('column_approved');
         $this->data['column_ip'] = $this->language->get('column_ip');
@@ -482,9 +463,6 @@ class ControllerSaleCustomer extends \Core\Controller {
             $url .= '&filter_email=' . urlencode(html_entity_decode($this->request->get['filter_email'], ENT_QUOTES, 'UTF-8'));
         }
 
-        if (isset($this->request->get['filter_customer_group_id'])) {
-            $url .= '&filter_customer_group_id=' . $this->request->get['filter_customer_group_id'];
-        }
 
         if (isset($this->request->get['filter_status'])) {
             $url .= '&filter_status=' . $this->request->get['filter_status'];
@@ -513,12 +491,11 @@ class ControllerSaleCustomer extends \Core\Controller {
         }
 
         $this->data['sort_name'] = $this->url->link('sale/customer', 'token=' . $this->session->data['token'] . '&sort=name' . $url, 'SSL');
-        $this->data['sort_email'] = $this->url->link('sale/customer', 'token=' . $this->session->data['token'] . '&sort=c.email' . $url, 'SSL');
-        $this->data['sort_customer_group'] = $this->url->link('sale/customer', 'token=' . $this->session->data['token'] . '&sort=customer_group' . $url, 'SSL');
-        $this->data['sort_status'] = $this->url->link('sale/customer', 'token=' . $this->session->data['token'] . '&sort=c.status' . $url, 'SSL');
-        $this->data['sort_approved'] = $this->url->link('sale/customer', 'token=' . $this->session->data['token'] . '&sort=c.approved' . $url, 'SSL');
-        $this->data['sort_ip'] = $this->url->link('sale/customer', 'token=' . $this->session->data['token'] . '&sort=c.ip' . $url, 'SSL');
-        $this->data['sort_date_added'] = $this->url->link('sale/customer', 'token=' . $this->session->data['token'] . '&sort=c.date_added' . $url, 'SSL');
+        $this->data['sort_email'] = $this->url->link('sale/customer', 'token=' . $this->session->data['token'] . '&sort=email' . $url, 'SSL');
+        $this->data['sort_status'] = $this->url->link('sale/customer', 'token=' . $this->session->data['token'] . '&sort=status' . $url, 'SSL');
+        $this->data['sort_approved'] = $this->url->link('sale/customer', 'token=' . $this->session->data['token'] . '&sort=approved' . $url, 'SSL');
+        $this->data['sort_ip'] = $this->url->link('sale/customer', 'token=' . $this->session->data['token'] . '&sort=ip' . $url, 'SSL');
+        $this->data['sort_date_added'] = $this->url->link('sale/customer', 'token=' . $this->session->data['token'] . '&sort=date_added' . $url, 'SSL');
 
         $url = '';
 
@@ -530,9 +507,6 @@ class ControllerSaleCustomer extends \Core\Controller {
             $url .= '&filter_email=' . urlencode(html_entity_decode($this->request->get['filter_email'], ENT_QUOTES, 'UTF-8'));
         }
 
-        if (isset($this->request->get['filter_customer_group_id'])) {
-            $url .= '&filter_customer_group_id=' . $this->request->get['filter_customer_group_id'];
-        }
 
         if (isset($this->request->get['filter_status'])) {
             $url .= '&filter_status=' . $this->request->get['filter_status'];
@@ -569,15 +543,11 @@ class ControllerSaleCustomer extends \Core\Controller {
 
         $this->data['filter_name'] = $filter_name;
         $this->data['filter_email'] = $filter_email;
-        $this->data['filter_customer_group_id'] = $filter_customer_group_id;
         $this->data['filter_status'] = $filter_status;
         $this->data['filter_approved'] = $filter_approved;
         $this->data['filter_ip'] = $filter_ip;
         $this->data['filter_date_added'] = $filter_date_added;
 
-        $this->load->model('sale/customer_group');
-
-        $this->data['customer_groups'] = $this->model_sale_customer_group->getCustomerGroups();
 
         $this->load->model('setting/store');
 
@@ -624,7 +594,6 @@ class ControllerSaleCustomer extends \Core\Controller {
         $this->data['entry_password'] = $this->language->get('entry_password');
         $this->data['entry_confirm'] = $this->language->get('entry_confirm');
         $this->data['entry_newsletter'] = $this->language->get('entry_newsletter');
-        $this->data['entry_customer_group'] = $this->language->get('entry_customer_group');
         $this->data['entry_status'] = $this->language->get('entry_status');
         $this->data['entry_company'] = $this->language->get('entry_company');
         $this->data['entry_company_id'] = $this->language->get('entry_company_id');
@@ -764,9 +733,6 @@ class ControllerSaleCustomer extends \Core\Controller {
             $url .= '&filter_email=' . urlencode(html_entity_decode($this->request->get['filter_email'], ENT_QUOTES, 'UTF-8'));
         }
 
-        if (isset($this->request->get['filter_customer_group_id'])) {
-            $url .= '&filter_customer_group_id=' . $this->request->get['filter_customer_group_id'];
-        }
 
         if (isset($this->request->get['filter_status'])) {
             $url .= '&filter_status=' . $this->request->get['filter_status'];
@@ -866,17 +832,7 @@ class ControllerSaleCustomer extends \Core\Controller {
             $this->data['newsletter'] = '';
         }
 
-        $this->load->model('sale/customer_group');
-
-        $this->data['customer_groups'] = $this->model_sale_customer_group->getCustomerGroups();
-
-        if (isset($this->request->post['customer_group_id'])) {
-            $this->data['customer_group_id'] = $this->request->post['customer_group_id'];
-        } elseif (!empty($customer_info)) {
-            $this->data['customer_group_id'] = $customer_info['customer_group_id'];
-        } else {
-            $this->data['customer_group_id'] = $this->config->get('config_customer_group_id');
-        }
+       
 
         if (isset($this->request->post['status'])) {
             $this->data['status'] = $this->request->post['status'];
