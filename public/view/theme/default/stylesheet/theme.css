@@ -12,6 +12,9 @@ body {
 
 }
 
+#logo img {
+    max-width:100%;
+}
 
 .sub{
     padding:30px 0px 30px;

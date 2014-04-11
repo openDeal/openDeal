@@ -578,7 +578,7 @@
     </div>
     <div class="buttons">
       <div class="right">
-        <input type="submit" value="Continue" class="button" />
+          <button type="submit" class="btn btn-info">Continue</button>
       </div>
     </div>
   </form>

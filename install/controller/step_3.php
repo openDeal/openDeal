@@ -22,14 +22,14 @@ class ControllerStep3 extends \Core\Controller {
             $output .= 'define(\'DIR_LANGUAGE\', DIR_APPLICATION . \'language/\');' . "\n";
             $output .= 'define(\'DIR_TEMPLATE\', DIR_APPLICATION . \'view/theme/\');' . "\n\n";
 
-            $output .= 'define(\'DIR_SYSTEM\', DIR_APPLICATION . \'system/\');' . "\n";
-            $output .= 'define(\'DIR_IMAGE\', DIR_APPLICATION . \'image/\');' . "\n";
-            $output .= 'define(\'DIR_DOWNLOAD\', DIR_APPLICATION . \'download/\');' . "\n\n";
+            $output .= 'define(\'DIR_SYSTEM\', DIR_ROOT . \'system/\');' . "\n";
+            $output .= 'define(\'DIR_IMAGE\', DIR_ROOT . \'image/\');' . "\n";
+            $output .= 'define(\'DIR_DOWNLOAD\', DIR_ROOT . \'download/\');' . "\n\n";
 
-            $output .= 'define(\'DIR_DATABASE\', DIR_APPLICATION . \'database/\');' . "\n";
-            $output .= 'define(\'DIR_CONFIG\', DIR_APPLICATION . \'config/\');' . "\n";
-            $output .= 'define(\'DIR_CACHE\', DIR_APPLICATION . \'cache/\');' . "\n";
-            $output .= 'define(\'DIR_LOGS\', DIR_APPLICATION . \'logs/\');' . "\n\n";
+            $output .= 'define(\'DIR_DATABASE\', DIR_SYSTEM . \'database/\');' . "\n";
+            $output .= 'define(\'DIR_CONFIG\', DIR_SYSTEM . \'config/\');' . "\n";
+            $output .= 'define(\'DIR_CACHE\', DIR_SYSTEM . \'cache/\');' . "\n";
+            $output .= 'define(\'DIR_LOGS\', DIR_SYSTEM . \'logs/\');' . "\n\n";
 
             $output .= 'define(\'DIR_CATALOG\', DIR_ROOT . \'public/\');' . "\n";
             $output .= 'define(\'DIR_MERCHANT\', DIR_ROOT . \'merchant/\');' . "\n";

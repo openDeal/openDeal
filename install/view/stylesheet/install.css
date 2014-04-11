@@ -1,21 +1,13 @@
-html {
-    overflow: -moz-scrollbars-vertical;
-    margin: 0;
-    padding: 0;
-}
-* {
-    font-family: Arial, Verdana, sans-serif;
-}
-body {
-    margin: 0px;
-    padding: 0px;
-    background: #F6F6F6 url('../image/background.png');
-}
-body, p, td, th, input, textarea, select, option {
-    color: #777777;
-    text-decoration: none;
-    font-size: 13px;
-}
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 11, 2014, 8:41:50 PM
+    Author     : craigsmith
+*/
+
 #container > h1 {
 
     background-image: -webkit-linear-gradient(#04519b, #044687 60%, #033769);
@@ -121,6 +113,7 @@ label {
     margin-bottom: 20px;
     min-height: 350px;
 }
+
 #column-right ul, #column-right ul li {
     margin: 0;
     padding: 0;
