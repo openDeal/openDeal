@@ -296,28 +296,7 @@ class ControllerDealCategory extends \Core\Controller {
             $this->data['parent_id'] = 0;
         }
 
-        $this->load->model('deal/filter');
-
-        if (isset($this->request->post['category_filter'])) {
-            $filters = $this->request->post['category_filter'];
-        } elseif (isset($this->request->get['category_id'])) {
-            $filters = $this->model_deal_category->getCategoryFilters($this->request->get['category_id']);
-        } else {
-            $filters = array();
-        }
-
-        $this->data['category_filters'] = array();
-
-        foreach ($filters as $filter_id) {
-            $filter_info = $this->model_deal_filter->getFilter($filter_id);
-
-            if ($filter_info) {
-                $this->data['category_filters'][] = array(
-                    'filter_id' => $filter_info['filter_id'],
-                    'name' => $filter_info['group'] . ' &gt; ' . $filter_info['name']
-                );
-            }
-        }
+        
 
         $this->load->model('setting/store');
 
