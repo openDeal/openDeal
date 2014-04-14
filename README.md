@@ -18,3 +18,9 @@ Templateable
 Extendable
 
 Fast Lightweight framework
+===
+
+Supported Payment Gateways:
+Paypal Standard
+
+Testers Wanted, installer is setup, however the system is still in construction so not all facets working yet
