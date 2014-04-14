@@ -113,9 +113,8 @@ class City {
      */
     public function returnClosest($latitude, $longitude) {
         $db = $this->registry->get('db');
-        $query = sprintf("SELECT c.*, ( 3959 * acos( cos( radians('%s') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( latitude ) ) ) ) AS distance FROM #__city c inner join #__city_to_store cs on c.city_id = cs.city_id where cs.store_id = %d ORDER BY distance LIMIT 1", $this->registry->get('config')->get('store_id'), $db->escape($latitude), $db->escape($longitude), $db->escape($latitude));
+        $query = sprintf("SELECT c.*, ( 3959 * acos( cos( radians('%s') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( latitude ) ) ) ) AS distance FROM #__city c inner join #__city_to_store cs on c.city_id = cs.city_id where cs.store_id = %d ORDER BY distance LIMIT 1", $db->escape($latitude), $db->escape($longitude), $db->escape($latitude), $this->registry->get('config')->get('config_store_id'));
         $result = $db->query($query);
-        print_r($result);
         return $result->row;
     }
     
