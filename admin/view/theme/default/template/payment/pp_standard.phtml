@@ -1,0 +1,129 @@
+<?php echo $header; ?>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1><i class="fa fa-dashboard"></i> <?php echo $heading_title; ?><small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <?php foreach ($breadcrumbs as $i => $breadcrumb) { ?>
+            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo ($i == 0) ? '<i class="fa fa-dashboard"></i> ' : ''; ?><?php echo $breadcrumb['text']; ?></a></li>
+        <?php } ?>
+    </ol>
+</section>
+<section class="page-actions">
+
+    <a onclick="$('#form').submit();" class="btn btn-primary">
+        <i class="fa fa-plus"></i> <?php echo $button_save; ?>
+    </a>
+    <a href="<?php echo $cancel; ?>" class="btn btn-danger" onclick="$('#form').submit();">
+        <i class="fa fa-times"></i> <?php echo $button_cancel; ?>
+    </a>
+
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <?php if ($error_warning) { ?>
+        <div class="alert alert-danger alert-dismissable">
+            <i class="fa fa-ban"></i>
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <?php echo $error_warning; ?>
+        </div>
+    <?php } ?>
+
+    <div id="form-error" class="alert alert-danger alert-dismissable">
+        <i class="fa fa-ban"></i>
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <span></span>
+    </div>
+
+    <div class="box">
+        <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form" class="form-horizontal">
+            <fieldset>
+            <div class="form-group <?php echo ($error_email) ? 'has-error' : ''; ?>">
+                <label for="pp_standard_email" class="col-sm-2 control-label required"><?php echo $entry_email; ?></label>
+                <div class="col-sm-9">
+                    <input type="email" name="pp_standard_email" value="<?php echo $pp_standard_email; ?>" class="form-control required" id="pp_standard_email" />
+                    <?php if ($error_email) { ?>
+                        <span class="error text-danger"><?php echo $error_email; ?></span>
+                    <?php } ?>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="pp_standard_test" class="col-sm-2 control-label"><?php echo $entry_test; ?></label>
+                <div class="col-sm-9">
+                    <select name="pp_standard_test" class="form-control">
+                        <?php if ($pp_standard_test) { ?>
+                            <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                            <option value="0"><?php echo $text_disabled; ?></option>
+                        <?php } else { ?>
+                            <option value="1"><?php echo $text_enabled; ?></option>
+                            <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="pp_standard_transaction" class="col-sm-2 control-label"><?php echo $entry_transaction; ?></label>
+                <div class="col-sm-9">
+                    <select name="pp_standard_transaction" class="form-control">
+                        <?php if (!$pp_standard_transaction) { ?>
+                            <option value="0" selected="selected"><?php echo $text_authorization; ?></option>
+                        <?php } else { ?>
+                            <option value="0"><?php echo $text_authorization; ?></option>
+                        <?php } ?>
+                        <?php if ($pp_standard_transaction) { ?>
+                            <option value="1" selected="selected"><?php echo $text_sale; ?></option>
+                        <?php } else { ?>
+                            <option value="1"><?php echo $text_sale; ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="pp_standard_debug" class="col-sm-2 control-label"><?php echo $entry_debug; ?></label>
+                <div class="col-sm-9">
+                    <select name="pp_standard_debug" class="form-control">
+                        <?php if ($pp_standard_debug) { ?>
+                            <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                            <option value="0"><?php echo $text_disabled; ?></option>
+                        <?php } else { ?>
+                            <option value="1"><?php echo $text_enabled; ?></option>
+                            <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="pp_standard_status" class="col-sm-2 control-label"><?php echo $entry_status; ?></label>
+                <div class="col-sm-9">
+                    <select name="pp_standard_status" class="form-control">
+                        <?php if ($pp_standard_status) { ?>
+                            <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                            <option value="0"><?php echo $text_disabled; ?></option>
+                        <?php } else { ?>
+                            <option value="1"><?php echo $text_enabled; ?></option>
+                            <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="pp_standard_sort_order" class="col-sm-2 control-label"><?php echo $entry_sort_order; ?></label>
+                <div class="col-sm-1">
+                    <input type="text" name="pp_standard_sort_order" value="<?php echo $pp_standard_sort_order; ?>" size="1" class="form-control"/>
+                </div>
+            </div>
+
+        </fieldset>
+        </form>
+
+    </div>
+
+</section><!-- /.content -->
+
+<?php echo $footer; ?>

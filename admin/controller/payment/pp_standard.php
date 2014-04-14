@@ -201,7 +201,7 @@ class ControllerPaymentPPStandard extends \Core\Controller {
 			$this->data['pp_standard_sort_order'] = $this->config->get('pp_standard_sort_order');
 		}
 
-		$this->template = 'payment/pp_standard.tpl';
+		$this->template = 'payment/pp_standard.phtml';
 		$this->children = array(
 			'common/header',
 			'common/footer'
