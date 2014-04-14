@@ -16,7 +16,7 @@ class ModelAccountCustomer extends \Core\Model {
                 . "salt = '" . $this->db->escape($salt = substr(md5(uniqid(rand(), true)), 0, 9)) . "', "
                 . "password = '" . $this->db->escape(sha1($salt . sha1($salt . sha1($data['password'])))) . "', "
                 . "newsletter = '" . (isset($data['newsletter']) ? (int) $data['newsletter'] : 0) . "', "
-                . "customer_group_id = '0', ip = '" . $this->db->escape($this->request->server['REMOTE_ADDR']) . "', "
+                . "ip = '" . $this->db->escape($this->request->server['REMOTE_ADDR']) . "', "
                 . "status = '1', approved = '" . (int) $approved . "', date_added = NOW()");
 
         $customer_id = $this->db->getLastId();

@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <?php if ($informations) : ?>
-                <div class="col-xs-6 col-sm-6 col-lg-3">
+                <div class="col-md-4">
                     <h4 class="line3 center standart-h4title"><span><?php echo $text_information; ?></span></h4>
                     <ul class="footer-links">
                         <?php foreach ($informations as $information) { ?>
@@ -14,7 +14,7 @@
                 </div>
             <?php endif; ?>
 
-            <div class="col-xs-6 col-sm-6 col-lg-3">
+            <div class="col-md-4">
                 <h4 class="line3 center standart-h4title"><span><?php echo $text_service; ?></span></h4>
                 <ul class="footer-links">
                     <li><a href="<?php echo $contact; ?>"><?php echo $text_contact; ?></a></li>
@@ -23,17 +23,9 @@
                 </ul>
             </div>
 
-            <div class="col-xs-6 col-sm-6 col-lg-3">
-                <h4 class="line3 center standart-h4title"><span><?php echo $text_extra; ?></span></h4>
-                <ul class="footer-links">
-                    <li><a href="<?php echo $manufacturer; ?>"><?php echo $text_manufacturer; ?></a></li>
-                    <li><a href="<?php echo $voucher; ?>"><?php echo $text_voucher; ?></a></li>
-                    <li><a href="<?php echo $affiliate; ?>"><?php echo $text_affiliate; ?></a></li>
-                    <li><a href="<?php echo $special; ?>"><?php echo $text_special; ?></a></li>
-                </ul>
-            </div>
+           
 
-            <div class="col-xs-6 col-sm-6 col-lg-3">
+            <div class="col-md-4">
                 <h4 class="line3 center standart-h4title"><span><?php echo $text_account; ?></span></h4>
                 <ul class="footer-links">
                     <li><a href="<?php echo $account; ?>"><?php echo $text_account; ?></a></li>

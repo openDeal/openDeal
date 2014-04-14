@@ -442,7 +442,7 @@ h2.panel-title {
 .panel-heading p {
     margin:5px;
     font-size: 75%;
-        
+
 }
 
 .checkout-content {
@@ -452,4 +452,14 @@ h2.panel-title {
 .wait img {
     width: 36px;
     height: 36px;
+}
+
+.img-responsive {
+    margin: 0 auto;
+}
+
+@media (max-width: 991px) {
+    #header > div {
+        text-align: center;
+    }
 }

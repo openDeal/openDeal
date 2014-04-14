@@ -1,5 +1,5 @@
 <?php echo $header; ?>
-<div class="container">
+<div class="page_container">
     <?php echo $column_left; ?>
     <?php echo $column_right; ?>
     <div id="content">
@@ -14,10 +14,10 @@
 
         <h1><?php echo $deal['title']; ?></h1>
         <div class="row">
-            <div class="col-xs-4">
+            <div class="col-md-4">
                 <img src="<?php echo (($deal['image'])) ? $deal['image'] : $no_image; ?>" class="img-responsive" alt="">
             </div>
-            <div class="col-xs-8">
+            <div class="col-md-8">
                 <ul class="list-group">
 
                     <li class="list-group-item "><span class="wasprice"><?php echo $this->currency->format($deal['market_price']); ?></span> <span class="nowprice"><?php echo $this->currency->format($deal['deal_price']); ?></span></li>

@@ -22,11 +22,11 @@
                 <table class="table table-striped table-bordered table-responsive">
                     <thead>
                         <tr>
-                            <th class="image"><?php echo $column_image; ?></th>
+                            <th class="image hidden-xs hidden-sm"><?php echo $column_image; ?></th>
                             <th class="name"><?php echo $column_name; ?></th>
                             <th class="quantity"><?php echo $column_quantity; ?></th>
-                            <th class="price"><?php echo $column_price; ?></th>
-                            <th class="price"><?php echo $column_shipping; ?></th>
+                            <th class="price hidden-xs hidden-sm"><?php echo $column_price; ?></th>
+                            <th class="price hidden-xs hidden-sm"><?php echo $column_shipping; ?></th>
                             <th class="total"><?php echo $column_total; ?></th>
                         </tr>
                     </thead>
@@ -34,7 +34,7 @@
                         <?php foreach ($products as $product) { ?>
 
                             <tr>
-                                <td class="image"><?php if ($product['thumb']) { ?>
+                                <td class="image  hidden-xs hidden-sm"><?php if ($product['thumb']) { ?>
                                         <a href="<?php echo $product['href']; ?>"><img src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>" /></a>
                                     <?php } ?></td>
                                 <td class="name"><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a>
@@ -56,8 +56,8 @@
                                     <input type="text" name="quantity[<?php echo $product['key']; ?>]" value="<?php echo $product['quantity']; ?>" size="1" class="form-control"/>
                                     <button type="submit" class='btn btn-primary fa-icon-refresh btn-square' title='<?php echo $button_update; ?>'></button>
                                     <a href="<?php echo $product['remove']; ?>" class="btn btn-danger fa-icon-remove btn-square" alt="<?php echo $button_remove; ?>" title="<?php echo $button_remove; ?>" ></a></td>
-                                <td class="price"><?php echo $product['price']; ?></td>
-                                <td class="price"><?php echo ($product['is_coupon'] || $product['shipping']['price'] == 0) ? 'Free' : $this->currency->format($product['shipping']['price']); ?></td>
+                                <td class="price  hidden-xs hidden-sm"><?php echo $product['price']; ?></td>
+                                <td class="price  hidden-xs hidden-sm"><?php echo ($product['is_coupon'] || $product['shipping']['price'] == 0) ? 'Free' : $this->currency->format($product['shipping']['price']); ?></td>
                                 <td class="total"><?php echo $product['total']; ?></td>
                             </tr>
                         <?php } ?>
