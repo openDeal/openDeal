@@ -426,11 +426,7 @@ class ControllerDealDeal extends \Core\Controller {
         } elseif (isset($this->request->get['deal_id'])) {
             $this->data['deal_option'] = $this->model_deal_deal->getDealOptions($this->request->get['deal_id']);
         } else {
-            $this->data['deal_option'] = array(
-                'title' => '',
-                'market_price' => '',
-                'price' => ''
-            );
+            $this->data['deal_option'] = array();
         }
 
 
