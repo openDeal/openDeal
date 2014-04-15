@@ -7,6 +7,8 @@ class ControllerCommonSeoUrl extends \Core\Controller {
         'deal/deal/expired' => 'recent-deals',
         'deal/deal/future' => 'upcomming-deals',
         'information/contact' => 'contact-us',
+        'checkout/cart' => 'shopping-cart',
+        'checkout/checkout' => 'checkout'
     );
     
     public function index() {
