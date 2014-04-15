@@ -75,7 +75,7 @@ class Cart {
                         'title' => $deal_query->row['title'],
                         'shipping' => array(
                             'deal_shipping_id' => $shipping_id,
-                            'price' => $shipping_price,
+                            'price' => (float)$shipping_price,
                             'title' => $shipping_title
                         ),
                         'option' => array(
@@ -84,6 +84,7 @@ class Cart {
                         ),
                         'stock' => $stock,
                         'is_coupon' => $deal_query->row['is_coupon'],
+                        'coupon_expiry' => $deal_query->row['coupon_expiry'],
                         'price' => ($deal_price),
                         'total' => ($deal_price) * $quantity,
                         'quantity' => $quantity

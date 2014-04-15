@@ -54,15 +54,8 @@ class ControllerCheckoutPaymentMethod extends \Core\Controller {
                     $method = $this->{'model_payment_' . $result['code']}->getMethod($payment_address, $total);
 
                     if ($method) {
-                        if ($cart_has_recurring > 0) {
-                            if (method_exists($this->{'model_payment_' . $result['code']}, 'recurringPayments')) {
-                                if ($this->{'model_payment_' . $result['code']}->recurringPayments() == true) {
-                                    $method_data[$result['code']] = $method;
-                                }
-                            }
-                        } else {
-                            $method_data[$result['code']] = $method;
-                        }
+
+                        $method_data[$result['code']] = $method;
                     }
                 }
             }
@@ -151,28 +144,14 @@ class ControllerCheckoutPaymentMethod extends \Core\Controller {
         }
 
         // Validate cart has products and has stock.			
-        if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock() && !$this->config->get('config_stock_checkout'))) {
+        if ((!$this->cart->hasProducts() && empty($this->session->data['vouchers'])) || (!$this->cart->hasStock())) {
             $json['redirect'] = $this->url->link('checkout/cart');
         }
 
         // Validate minimum quantity requirments.			
         $products = $this->cart->getProducts();
 
-        foreach ($products as $product) {
-            $product_total = 0;
-
-            foreach ($products as $product_2) {
-                if ($product_2['product_id'] == $product['product_id']) {
-                    $product_total += $product_2['quantity'];
-                }
-            }
-
-            if ($product['minimum'] > $product_total) {
-                $json['redirect'] = $this->url->link('checkout/cart');
-
-                break;
-            }
-        }
+     
 
         if (!$json) {
             if (!isset($this->request->post['payment_method'])) {
@@ -182,9 +161,9 @@ class ControllerCheckoutPaymentMethod extends \Core\Controller {
             }
 
             if ($this->config->get('config_checkout_id')) {
-                $this->load->model('catalog/information');
+                $this->load->model('public/information');
 
-                $information_info = $this->model_catalog_information->getInformation($this->config->get('config_checkout_id'));
+                $information_info = $this->model_public_information->getInformation($this->config->get('config_checkout_id'));
 
                 if ($information_info && !isset($this->request->post['agree'])) {
                     $json['error']['warning'] = sprintf($this->language->get('error_agree'), $information_info['title']);

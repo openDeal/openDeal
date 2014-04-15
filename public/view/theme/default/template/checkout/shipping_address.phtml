@@ -20,58 +20,58 @@
 <div id="shipping-new" style="display: <?php echo ($addresses ? 'none' : 'block'); ?>;" class="form-horizontal">
 
     <div class="form-group">
-        <label for="paymentFirstname" class="col-sm-2 control-label required"><?php echo $entry_firstname; ?></label>
+        <label for="shippingFirstname" class="col-sm-2 control-label required"><?php echo $entry_firstname; ?></label>
         <div class="col-sm-10">
-            <input type="text" name="firstname" class="form-control required" id="paymentFirstname" placeholder="<?php echo $entry_firstname; ?>">
+            <input type="text" name="firstname" class="form-control required" id="shippingFirstname" placeholder="<?php echo $entry_firstname; ?>">
         </div>
     </div>
 
     <div class="form-group">
-        <label for="paymentLastname" class="col-sm-2 control-label required"><?php echo $entry_lastname; ?></label>
+        <label for="shippingLastname" class="col-sm-2 control-label required"><?php echo $entry_lastname; ?></label>
         <div class="col-sm-10">
-            <input type="text" name="lastname" class="form-control required" id="paymentLastname" placeholder="<?php echo $entry_lastname; ?>">
+            <input type="text" name="lastname" class="form-control required" id="shippingLastname" placeholder="<?php echo $entry_lastname; ?>">
         </div>
     </div>
 
     <div class="form-group">
-        <label for="paymentCompany" class="col-sm-2 control-label "><?php echo $entry_company; ?></label>
+        <label for="shippingCompany" class="col-sm-2 control-label "><?php echo $entry_company; ?></label>
         <div class="col-sm-10">
-            <input type="text" name="company" class="form-control " id="paymentCompany" placeholder="<?php echo $entry_company; ?>">
+            <input type="text" name="company" class="form-control " id="shippingCompany" placeholder="<?php echo $entry_company; ?>">
         </div>
     </div>
 
     <div class="form-group">
-        <label for="paymentaddress_1" class="col-sm-2 control-label required"><?php echo $entry_address_1; ?></label>
+        <label for="shippingaddress_1" class="col-sm-2 control-label required"><?php echo $entry_address_1; ?></label>
         <div class="col-sm-10">
-            <input type="text" name="address_1" class="form-control required" id="paymentaddress_1" placeholder="<?php echo $entry_address_1; ?>">
+            <input type="text" name="address_1" class="form-control required" id="shippingaddress_1" placeholder="<?php echo $entry_address_1; ?>">
         </div>
     </div>
 
     <div class="form-group">
-        <label for="paymentaddress_2" class="col-sm-2 control-label "><?php echo $entry_address_2; ?></label>
+        <label for="shippingaddress_2" class="col-sm-2 control-label "><?php echo $entry_address_2; ?></label>
         <div class="col-sm-10">
-            <input type="text" name="address_2" class="form-control " id="paymentaddress_2" placeholder="<?php echo $entry_address_2; ?>">
+            <input type="text" name="address_2" class="form-control " id="shippingaddress_2" placeholder="<?php echo $entry_address_2; ?>">
         </div>
     </div>
 
     <div class="form-group">
-        <label for="paymentcity" class="col-sm-2 control-label required"><?php echo $entry_city; ?></label>
+        <label for="shippingcity" class="col-sm-2 control-label required"><?php echo $entry_city; ?></label>
         <div class="col-sm-10">
-            <input type="text" name="city" class="form-control required" id="paymentcity" placeholder="<?php echo $entry_city; ?>">
+            <input type="text" name="city" class="form-control required" id="shippingcity" placeholder="<?php echo $entry_city; ?>">
         </div>
     </div>
 
     <div class="form-group">
-        <label for="paymentpostcode" class="col-sm-2 control-label required"><?php echo $entry_postcode; ?></label>
+        <label for="shippingpostcode" class="col-sm-2 control-label required"><?php echo $entry_postcode; ?></label>
         <div class="col-sm-10">
-            <input type="text" name="postcode" class="form-control required" id="paymentpostcode" placeholder="<?php echo $entry_postcode; ?>">
+            <input type="text" name="postcode" class="form-control required" id="shippingpostcode" placeholder="<?php echo $entry_postcode; ?>">
         </div>
     </div>
 
     <div class="form-group">
-        <label for="paymentcountry_id" class="col-sm-2 control-label required"><?php echo $entry_country; ?></label>
+        <label for="shippingcountry_id" class="col-sm-2 control-label required"><?php echo $entry_country; ?></label>
         <div class="col-sm-10">
-            <select name="country_id" class="form-control required" id="paymentcountry_id">
+            <select name="country_id" class="form-control required" id="shippingcountry_id">
                 <option value=""><?php echo $text_select; ?></option>
                 <?php foreach ($countries as $country) { ?>
                     <?php if ($country['country_id'] == $country_id) { ?>
@@ -85,9 +85,9 @@
     </div>
 
     <div class="form-group">
-        <label for="paymentzone_id" class="col-sm-2 control-label required"><?php echo $entry_zone; ?></label>
+        <label for="shippingzone_id" class="col-sm-2 control-label required"><?php echo $entry_zone; ?></label>
         <div class="col-sm-10">
-            <select name="zone_id" class="form-control required" id="paymentzone_id">
+            <select name="zone_id" class="form-control required" id="shippingzone_id">
 
             </select>
         </div>

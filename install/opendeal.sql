@@ -5581,3 +5581,227 @@ CREATE TABLE IF NOT EXISTS `od_zone_to_geo_zone` (
   `date_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`zone_to_geo_zone_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+DROP TABLE IF EXISTS `od_order`;
+CREATE TABLE IF NOT EXISTS `od_order` (
+  `order_id` int(11) NOT NULL AUTO_INCREMENT,
+  `invoice_no` int(11) NOT NULL DEFAULT '0',
+  `invoice_prefix` varchar(26) NOT NULL,
+  `store_id` int(11) NOT NULL DEFAULT '0',
+  `store_name` varchar(64) NOT NULL,
+  `store_url` varchar(255) NOT NULL,
+  `customer_id` int(11) NOT NULL DEFAULT '0',
+  `firstname` varchar(32) NOT NULL,
+  `lastname` varchar(32) NOT NULL,
+  `email` varchar(96) NOT NULL,
+  `telephone` varchar(32) NOT NULL,
+  `fax` varchar(32) NOT NULL,
+  `payment_firstname` varchar(32) NOT NULL,
+  `payment_lastname` varchar(32) NOT NULL,
+  `payment_company` varchar(32) NOT NULL,
+  `payment_address_1` varchar(128) NOT NULL,
+  `payment_address_2` varchar(128) NOT NULL,
+  `payment_city` varchar(128) NOT NULL,
+  `payment_postcode` varchar(10) NOT NULL,
+  `payment_country` varchar(128) NOT NULL,
+  `payment_country_id` int(11) NOT NULL,
+  `payment_zone` varchar(128) NOT NULL,
+  `payment_zone_id` int(11) NOT NULL,
+  `payment_address_format` text NOT NULL,
+  `payment_method` varchar(128) NOT NULL,
+  `payment_code` varchar(128) NOT NULL,
+  `shipping_firstname` varchar(32) NOT NULL,
+  `shipping_lastname` varchar(32) NOT NULL,
+  `shipping_company` varchar(32) NOT NULL,
+  `shipping_address_1` varchar(128) NOT NULL,
+  `shipping_address_2` varchar(128) NOT NULL,
+  `shipping_city` varchar(128) NOT NULL,
+  `shipping_postcode` varchar(10) NOT NULL,
+  `shipping_country` varchar(128) NOT NULL,
+  `shipping_country_id` int(11) NOT NULL,
+  `shipping_zone` varchar(128) NOT NULL,
+  `shipping_zone_id` int(11) NOT NULL,
+  `shipping_address_format` text NOT NULL,
+  `shipping_method` varchar(128) NOT NULL,
+  `shipping_code` varchar(128) NOT NULL,
+  `comment` text NOT NULL,
+  `total` decimal(15,4) NOT NULL DEFAULT '0.0000',
+  `order_status_id` int(11) NOT NULL DEFAULT '0',
+  `affiliate_id` int(11) NOT NULL,
+  `commission` decimal(15,4) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  `currency_id` int(11) NOT NULL,
+  `currency_code` varchar(3) NOT NULL,
+  `currency_value` decimal(15,8) NOT NULL DEFAULT '1.00000000',
+  `ip` varchar(40) NOT NULL,
+  `forwarded_ip` varchar(40) NOT NULL,
+  `user_agent` varchar(255) NOT NULL,
+  `accept_language` varchar(255) NOT NULL,
+  `date_added` datetime NOT NULL,
+  `date_modified` datetime NOT NULL,
+  PRIMARY KEY (`order_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+DROP TABLE IF EXISTS `od_order_fraud`;
+CREATE TABLE IF NOT EXISTS `od_order_fraud` (
+  `order_id` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `country_match` varchar(3) NOT NULL,
+  `country_code` varchar(2) NOT NULL,
+  `high_risk_country` varchar(3) NOT NULL,
+  `distance` int(11) NOT NULL,
+  `ip_region` varchar(255) NOT NULL,
+  `ip_city` varchar(255) NOT NULL,
+  `ip_latitude` decimal(10,6) NOT NULL,
+  `ip_longitude` decimal(10,6) NOT NULL,
+  `ip_isp` varchar(255) NOT NULL,
+  `ip_org` varchar(255) NOT NULL,
+  `ip_asnum` int(11) NOT NULL,
+  `ip_user_type` varchar(255) NOT NULL,
+  `ip_country_confidence` varchar(3) NOT NULL,
+  `ip_region_confidence` varchar(3) NOT NULL,
+  `ip_city_confidence` varchar(3) NOT NULL,
+  `ip_postal_confidence` varchar(3) NOT NULL,
+  `ip_postal_code` varchar(10) NOT NULL,
+  `ip_accuracy_radius` int(11) NOT NULL,
+  `ip_net_speed_cell` varchar(255) NOT NULL,
+  `ip_metro_code` int(3) NOT NULL,
+  `ip_area_code` int(3) NOT NULL,
+  `ip_time_zone` varchar(255) NOT NULL,
+  `ip_region_name` varchar(255) NOT NULL,
+  `ip_domain` varchar(255) NOT NULL,
+  `ip_country_name` varchar(255) NOT NULL,
+  `ip_continent_code` varchar(2) NOT NULL,
+  `ip_corporate_proxy` varchar(3) NOT NULL,
+  `anonymous_proxy` varchar(3) NOT NULL,
+  `proxy_score` int(3) NOT NULL,
+  `is_trans_proxy` varchar(3) NOT NULL,
+  `free_mail` varchar(3) NOT NULL,
+  `carder_email` varchar(3) NOT NULL,
+  `high_risk_username` varchar(3) NOT NULL,
+  `high_risk_password` varchar(3) NOT NULL,
+  `bin_match` varchar(10) NOT NULL,
+  `bin_country` varchar(2) NOT NULL,
+  `bin_name_match` varchar(3) NOT NULL,
+  `bin_name` varchar(255) NOT NULL,
+  `bin_phone_match` varchar(3) NOT NULL,
+  `bin_phone` varchar(32) NOT NULL,
+  `customer_phone_in_billing_location` varchar(8) NOT NULL,
+  `ship_forward` varchar(3) NOT NULL,
+  `city_postal_match` varchar(3) NOT NULL,
+  `ship_city_postal_match` varchar(3) NOT NULL,
+  `score` decimal(10,5) NOT NULL,
+  `explanation` text NOT NULL,
+  `risk_score` decimal(10,5) NOT NULL,
+  `queries_remaining` int(11) NOT NULL,
+  `maxmind_id` varchar(8) NOT NULL,
+  `error` text NOT NULL,
+  `date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`order_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+DROP TABLE IF EXISTS `od_order_history`;
+CREATE TABLE IF NOT EXISTS `od_order_history` (
+  `order_history_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `order_status_id` int(5) NOT NULL,
+  `notify` tinyint(1) NOT NULL DEFAULT '0',
+  `comment` text NOT NULL,
+  `date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`order_history_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+DROP TABLE IF EXISTS `od_order_option`;
+CREATE TABLE IF NOT EXISTS `od_order_option` (
+  `order_option_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `order_deal_id` int(11) NOT NULL,
+  `deal_option_id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+ 
+  PRIMARY KEY (`order_option_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+DROP TABLE IF EXISTS `od_order_shipping`;
+CREATE TABLE IF NOT EXISTS `od_order_shipping` (
+  `order_shipping_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `order_deal_id` int(11) NOT NULL,
+  `deal_shipping_id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `price` decimal(15,4) NOT NULL DEFAULT '0.0000',
+  PRIMARY KEY (`order_shipping_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+DROP TABLE IF EXISTS `od_order_deal`;
+CREATE TABLE IF NOT EXISTS `od_order_deal` (
+  `order_deal_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `deal_id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `quantity` int(4) NOT NULL,
+  `price` decimal(15,4) NOT NULL DEFAULT '0.0000',
+  `total` decimal(15,4) NOT NULL DEFAULT '0.0000',
+  PRIMARY KEY (`order_deal_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+ALTER TABLE  `od_order_deal` ADD  `is_coupon` INT( 1 ) NOT NULL DEFAULT  '0',
+ADD  `is_collect` INT( 1 ) NOT NULL DEFAULT  '0'
+-- --------------------------------------------------------
+
+DROP TABLE IF EXISTS `od_order_total`;
+
+CREATE TABLE IF NOT EXISTS `od_order_total` (
+  `order_total_id` int(10) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `code` varchar(32) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `text` varchar(255) NOT NULL,
+  `value` decimal(15,4) NOT NULL DEFAULT '0.0000',
+  `sort_order` int(3) NOT NULL,
+  PRIMARY KEY (`order_total_id`),
+  KEY `idx_orders_total_orders_id` (`order_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+DROP TABLE IF EXISTS `od_order_voucher`;
+CREATE TABLE IF NOT EXISTS `od_order_voucher` (
+  `order_voucher_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `voucher_id` int(11) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `code` varchar(10) NOT NULL,
+  `from_name` varchar(64) NOT NULL,
+  `from_email` varchar(96) NOT NULL,
+  `to_name` varchar(64) NOT NULL,
+  `to_email` varchar(96) NOT NULL,
+  `voucher_theme_id` int(11) NOT NULL,
+  `message` text NOT NULL,
+  `amount` decimal(15,4) NOT NULL,
+  PRIMARY KEY (`order_voucher_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+DROP TABLE IF EXISTS `od_order_coupon`;
+CREATE TABLE IF NOT EXISTS `od_order_coupon` (
+  `order_coupon_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `order_deal_id` int(11) NOT NULL,
+  `coupon_code` varchar(25) NOT NULL,
+  `coupon_secret` varchar(10) NOT NULL,
+  `coupon_expire` datetime NOT NULL,
+  `coupon_redeemed` int(1) NOT NULL DEFAULT '0',
+  `coupon_active` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`order_coupon_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;

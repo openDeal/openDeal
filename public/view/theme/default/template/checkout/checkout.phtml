@@ -227,8 +227,8 @@
                                         $('#shipping-address .checkout-heading a').remove();
                                         $('#payment-method .checkout-heading a').remove();
 
-                                        $('#shipping-address .checkout-heading').append('<a><?php echo $text_modify; ?></a>');
-                                        $('#payment-address .checkout-heading').append('<a><?php echo $text_modify; ?></a>');
+                                        $('#shipping-address .checkout-heading').append('<a class="pull-right"><?php echo $text_modify; ?></a>');
+                                        $('#payment-address .checkout-heading').append('<a class="pull-right"><?php echo $text_modify; ?></a>');
 
                                         $.ajax({
                                             url: 'index.php?route=checkout/shipping_address',
@@ -261,7 +261,7 @@
                                         $('#shipping-address .checkout-heading a').remove();
                                         $('#payment-method .checkout-heading a').remove();
 
-                                        $('#payment-address .checkout-heading').append('<a><?php echo $text_modify; ?></a>');
+                                        $('#payment-address .checkout-heading').append('<a class="pull-right"><?php echo $text_modify; ?></a>');
                                     },
                                     error: function(xhr, ajaxOptions, thrownError) {
                                         alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -283,7 +283,7 @@
                                     $('#payment-address .checkout-heading a').remove();
                                     $('#payment-method .checkout-heading a').remove();
 
-                                    $('#payment-address .checkout-heading').append('<a><?php echo $text_modify; ?></a>');
+                                    $('#payment-address .checkout-heading').append('<a class="pull-right"><?php echo $text_modify; ?></a>');
                                 },
                                 error: function(xhr, ajaxOptions, thrownError) {
                                     alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -415,7 +415,7 @@
                                     $('#payment-address .checkout-heading a').remove();
                                     $('#payment-method .checkout-heading a').remove();
 
-                                    $('#payment-address .checkout-heading').append('<a><?php echo $text_modify; ?></a>');
+                                    $('#payment-address .checkout-heading').append('<a class="pull-right"><?php echo $text_modify; ?></a>');
                                 },
                                 error: function(xhr, ajaxOptions, thrownError) {
                                     alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -644,8 +644,8 @@ $(document.body).on('click', '#button-shipping-address', function() {
                                         $('#shipping-method .checkout-heading a').remove();
                                         $('#payment-method .checkout-heading a').remove();
 
-                                        $('#payment-address .checkout-heading').append('<a><?php echo $text_modify; ?></a>');
-                                        $('#shipping-address .checkout-heading').append('<a><?php echo $text_modify; ?></a>');
+                                        $('#payment-address .checkout-heading').append('<a class="pull-right"><?php echo $text_modify; ?></a>');
+                                        $('#shipping-address .checkout-heading').append('<a class="pull-right"><?php echo $text_modify; ?></a>');
 
                                         $.ajax({
                                             url: 'index.php?route=checkout/guest_shipping',
@@ -678,7 +678,7 @@ $(document.body).on('click', '#button-shipping-address', function() {
                                         $('#shipping-method .checkout-heading a').remove();
                                         $('#payment-method .checkout-heading a').remove();
 
-                                        $('#payment-address .checkout-heading').append('<a><?php echo $text_modify; ?></a>');
+                                        $('#payment-address .checkout-heading').append('<a class="pull-right"><?php echo $text_modify; ?></a>');
                                     },
                                     error: function(xhr, ajaxOptions, thrownError) {
                                         alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -699,7 +699,7 @@ $(document.body).on('click', '#button-shipping-address', function() {
                                     $('#payment-address .checkout-heading a').remove();
                                     $('#payment-method .checkout-heading a').remove();
 
-                                    $('#payment-address .checkout-heading').append('<a><?php echo $text_modify; ?></a>');
+                                    $('#payment-address .checkout-heading').append('<a class="pull-right"><?php echo $text_modify; ?></a>');
                                 },
                                 error: function(xhr, ajaxOptions, thrownError) {
                                     alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -783,7 +783,7 @@ $(document.body).on('click', '#button-shipping-address', function() {
                                 $('#shipping-method .checkout-heading a').remove();
                                 $('#payment-method .checkout-heading a').remove();
 
-                                $('#shipping-address .checkout-heading').append('<a><?php echo $text_modify; ?></a>');
+                                $('#shipping-address .checkout-heading').append('<a class="pull-right"><?php echo $text_modify; ?></a>');
                             },
                             error: function(xhr, ajaxOptions, thrownError) {
                                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -836,7 +836,7 @@ $(document.body).on('click', '#button-shipping-address', function() {
                                 $('#shipping-method .checkout-heading a').remove();
                                 $('#payment-method .checkout-heading a').remove();
 
-                                $('#shipping-method .checkout-heading').append('<a><?php echo $text_modify; ?></a>');
+                                $('#shipping-method .checkout-heading').append('<a class="pull-right"><?php echo $text_modify; ?></a>');
                             },
                             error: function(xhr, ajaxOptions, thrownError) {
                                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -850,7 +850,7 @@ $(document.body).on('click', '#button-shipping-address', function() {
             });
         });
 
-        $('#button-payment-method').on('click', function() {
+        $(document.body).on('click', '#button-payment-method', function() {
             $.ajax({
                 url: 'index.php?route=checkout/payment_method/validate',
                 type: 'post',
@@ -865,13 +865,13 @@ $(document.body).on('click', '#button-shipping-address', function() {
                     $('.wait').remove();
                 },
                 success: function(json) {
-                    $('.warning, .error').remove();
+                    $('.alert-danger').remove();
 
                     if (json['redirect']) {
                         location = json['redirect'];
                     } else if (json['error']) {
                         if (json['error']['warning']) {
-                            $('#payment-method .checkout-content').prepend('<div class="warning" style="display: none;">' + json['error']['warning'] + '<img src="catalog/view/theme/default/image/close.png" alt="" class="close" /></div>');
+                            $('#payment-method .checkout-content').prepend('<div class="alert alert-danger" style="display: none;">' + json['error']['warning'] + '</div>');
 
                             $('.warning').fadeIn('slow');
                         }
@@ -888,7 +888,7 @@ $(document.body).on('click', '#button-shipping-address', function() {
 
                                 $('#payment-method .checkout-heading a').remove();
 
-                                $('#payment-method .checkout-heading').append('<a><?php echo $text_modify; ?></a>');
+                                $('#payment-method .checkout-heading').append('<a class="pull-right"<?php echo $text_modify; ?></a>');
                             },
                             error: function(xhr, ajaxOptions, thrownError) {
                                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
