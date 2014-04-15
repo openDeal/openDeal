@@ -5868,4 +5868,6 @@ CREATE TABLE IF NOT EXISTS `od_zone_to_geo_zone` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 
-INSERT INTO `opendeal_demo`.`od_setting` (`setting_id`, `store_id`, `group`, `key`, `value`, `serialized`) VALUES (NULL, '0', 'config', 'config_order_status_id', '1', '0');
+INSERT INTO `od_setting` (`setting_id`, `store_id`, `group`, `key`, `value`, `serialized`) VALUES (NULL, '0', 'config', 'config_order_status_id', '1', '0');
+
+ALTER TABLE `od_order_coupon` CHANGE `coupon_expire` `coupon_expire` INT(11) NOT NULL DEFAULT '0';
