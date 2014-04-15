@@ -13,36 +13,36 @@
             </thead>
             <tbody>
                 <?php foreach ($products as $product) { ?>  
-     
+
                     <tr>
                         <td class="name"><a href="<?php echo $product['href']; ?>"><?php echo $product['title']; ?></a>
-                                    <?php if (!$product['stock']) { ?>
-                                        <span class="stock">***</span>
-                                    <?php } ?>
-                                    <div>
-                                        - <small><?php echo $product['option']['title']; ?></small><br />
-                                        <?php if ($product['is_coupon']): ?>
-                                            - <small>Printable Coupon</small>
-                                        <?php else: ?>
-                                            - <small><?php echo $product['shipping']['title']; ?> : <?php echo ($product['shipping']['price'] > 0) ? $this->currency->format($product['shipping']['price']) : 'Free'; ?></small>
+                            <?php if (!$product['stock']) { ?>
+                                <span class="stock">***</span>
+                            <?php } ?>
+                            <div>
+                                - <small><?php echo $product['option']['title']; ?></small><br />
+                                <?php if ($product['is_coupon']): ?>
+                                    - <small>Printable Coupon</small>
+                                <?php else: ?>
+                                    - <small><?php echo $product['shipping']['title']; ?> : <?php echo ($product['shipping']['price'] > 0) ? $this->currency->format($product['shipping']['price']) : 'Free'; ?></small>
 
-                                        <?php endif; ?>
-                                    </div>
+                                <?php endif; ?>
+                            </div>
                         </td>
                         <td class="quantity">
-                                    <input type="text" name="quantity[<?php echo $product['key']; ?>]" value="<?php echo $product['quantity']; ?>" size="1" class="form-control"/>
-                                    <button type="submit" class='btn btn-primary fa-icon-refresh btn-square' title='<?php echo $button_update; ?>'></button>
-                                    <a href="<?php echo $product['remove']; ?>" class="btn btn-danger fa-icon-remove btn-square" alt="<?php echo $button_remove; ?>" title="<?php echo $button_remove; ?>" ></a></td>
-                                <td class="price  hidden-xs hidden-sm"><?php echo $product['price']; ?></td>
-                                <td class="price  hidden-xs hidden-sm"><?php echo ($product['is_coupon'] || $product['shipping']['price'] == 0) ? 'Free' : $this->currency->format($product['shipping']['price']); ?></td>
-                                <td class="total"><?php echo $product['total']; ?></td>
-             
+                            <?php echo $product['quantity']; ?>
+
+                        </td>
+                        <td class="price  hidden-xs hidden-sm"><?php echo $product['price']; ?></td>
+                        <td class="price  hidden-xs hidden-sm"><?php echo ($product['is_coupon'] || $product['shipping']['price'] == 0) ? 'Free' : $this->currency->format($product['shipping']['price']); ?></td>
+                        <td class="total"><?php echo $product['total']; ?></td>
+
                     </tr>
                 <?php } ?>
                 <?php foreach ($vouchers as $voucher) { ?>
                     <tr>
                         <td class="name"><?php echo $voucher['description']; ?></td>
-                        
+
                         <td class="quantity">1</td>
                         <td class="price hidden-xs hidden-sm"><?php echo $voucher['amount']; ?></td>
                         <td class="price hidden-xs hidden-sm"></td>
@@ -65,5 +65,5 @@
 <?php } else { ?>
     <script type="text/javascript"><!--
     location = '<?php echo $redirect; ?>';
-    //--></script> 
+        //--></script> 
 <?php } ?>
