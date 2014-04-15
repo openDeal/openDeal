@@ -5866,3 +5866,6 @@ CREATE TABLE IF NOT EXISTS `od_zone_to_geo_zone` (
   `date_modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`zone_to_geo_zone_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+INSERT INTO `opendeal_demo`.`od_setting` (`setting_id`, `store_id`, `group`, `key`, `value`, `serialized`) VALUES (NULL, '0', 'config', 'config_order_status_id', '1', '0');
