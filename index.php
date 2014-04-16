@@ -60,7 +60,19 @@ if (isset($request->get['tracking'])) {
     setcookie('tracking', $request->get['tracking'], time() + 3600 * 24 * 1000, '/');
 }
 
+/*
+//QR TEST!
+$PNG_TEMP_DIR = DIR_DOWNLOAD;
+$PNG_WEB_DIR = 'download/';
+$filename = $PNG_TEMP_DIR . 'coupon.png';
+$errorCorrectionLevel = 'L';
+$matrixPointSize = 6;
+$qrdat = 'http://demo.rankedbyreview.com.info/?route=coupon/print&coupon_id=25';
+ $filename = $PNG_TEMP_DIR.'coupon'.md5($qrdat.'|'.$errorCorrectionLevel.'|'.$matrixPointSize).'.png';
+        QRcode::png($qrdat, $filename, $errorCorrectionLevel, $matrixPointSize, 2); 
 
+echo '<img src="'.$PNG_WEB_DIR.basename($filename).'" /><hr/>';  
+*/
 // Front Controller 
 $controller = new \Core\Front($registry);
 
