@@ -25,6 +25,7 @@ class ControllerStep2 extends \Core\Controller {
 		$this->data['image_data'] = DIR_OPENDEAL . 'image/data';
 		$this->data['download'] = DIR_OPENDEAL . 'download';
                 $this->data['config'] = DIR_SYSTEM . 'config/config.php';
+                $this->data['plugin'] = DIR_SYSTEM . 'vendor/vqmod';
 
 		$this->data['back'] = $this->url->link('step_1');
 

@@ -147,6 +147,10 @@
           <td><?php echo $download . '/'; ?></td>
           <td><?php echo is_writable($download) ? '<span class="good">Writable</span>' : '<span class="bad">Unwritable</span>'; ?></td>
         </tr>
+        <tr>
+          <td><?php echo $plugin . '/'; ?></td>
+          <td><?php echo is_writable($plugin) ? '<span class="good">Writable</span>' : '<span class="bad">Unwritable</span>'; ?></td>
+        </tr>
       </table>
     </fieldset>
     <div class="buttons">
