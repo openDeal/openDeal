@@ -113,6 +113,15 @@ if (!isset($_SERVER['HTTP_HOST'])) {
 	$_SERVER['HTTP_HOST'] = getenv('HTTP_HOST');
 }
 
+/**
+ * Needed to setup the ability for the instealler
+ */
+Class VQMod {
+    public static function modCheck($file){
+        return $file;
+    }
+}
+
 // Helper
 require_once(DIR_SYSTEM . 'helper/json.php'); 
 require_once(DIR_SYSTEM . 'helper/utf8.php'); 
