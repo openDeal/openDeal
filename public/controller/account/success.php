@@ -53,7 +53,7 @@ class ControllerAccountSuccess extends \Core\Controller {
 			'common/header'	
 		);
                 
-                $this->template("common/success.phtml");
+                $this->template = "common/success.phtml";
 
 		$this->response->setOutput($this->render());				
 	}
