@@ -20,7 +20,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 // Version
-define('VERSION', '1.0.0.1');
+define('VERSION', '1.0.1');
 // Error Reporting
 error_reporting(E_ALL);
 
@@ -245,6 +245,7 @@ if (APP_NAMESPACE == 'admin') {
 }
 // Document
 $registry->set('document', new Document());
+//$registry->set('template', new Template());
 // Currency
 $registry->set('currency', new Currency($registry));
 // Encryption

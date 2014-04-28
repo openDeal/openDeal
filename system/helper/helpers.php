@@ -39,14 +39,15 @@ function autoloader($className) {
     }
     $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
     if (is_file(DIR_SYSTEM . $fileName)) {
-
-        require(DIR_SYSTEM . $fileName);
+        require_once(VQMod::modCheck(DIR_SYSTEM . $fileName));
     } else {
         $fileName = strtolower($fileName);
         if (is_file(DIR_SYSTEM . $fileName)) {
-            require(DIR_SYSTEM . $fileName);
+            require_once(VQMod::modCheck(DIR_SYSTEM . $fileName));
+            // require(DIR_SYSTEM . $fileName);
         } elseif (is_file(DIR_SYSTEM . 'library/' . $fileName)) {
-            require(DIR_SYSTEM . 'library/' . $fileName);
+            require_once(VQMod::modCheck(DIR_SYSTEM . 'library/' . $fileName));
+            //  require(DIR_SYSTEM . 'library/' . $fileName);
         } else {
 
             trigger_error("Could not load class $className ");

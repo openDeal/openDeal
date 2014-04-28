@@ -34,8 +34,13 @@ if (!defined('DIR_APPLICATION')) {
     exit;
 }
 
+//VQMod System::
+require_once(DIR_SYSTEM . 'vendor/vqmod/vqmod.php');
+VQMod::bootup(DIR_ROOT);
+
 // Startup
-require_once(DIR_SYSTEM . 'startup.php');
+//require_once(DIR_SYSTEM . 'startup.php');
+require_once(VQMod::modCheck(DIR_SYSTEM . 'startup.php'));
 
 // Tax
 $registry->set('tax', new Tax($registry));
@@ -61,18 +66,18 @@ if (isset($request->get['tracking'])) {
 }
 
 /*
-//QR TEST!
-$PNG_TEMP_DIR = DIR_DOWNLOAD;
-$PNG_WEB_DIR = 'download/';
-$filename = $PNG_TEMP_DIR . 'coupon.png';
-$errorCorrectionLevel = 'L';
-$matrixPointSize = 6;
-$qrdat = 'http://demo.rankedbyreview.com.info/?route=coupon/print&coupon_id=25';
- $filename = $PNG_TEMP_DIR.'coupon'.md5($qrdat.'|'.$errorCorrectionLevel.'|'.$matrixPointSize).'.png';
-        QRcode::png($qrdat, $filename, $errorCorrectionLevel, $matrixPointSize, 2); 
+  //QR TEST!
+  $PNG_TEMP_DIR = DIR_DOWNLOAD;
+  $PNG_WEB_DIR = 'download/';
+  $filename = $PNG_TEMP_DIR . 'coupon.png';
+  $errorCorrectionLevel = 'L';
+  $matrixPointSize = 6;
+  $qrdat = 'http://demo.rankedbyreview.com.info/?route=coupon/print&coupon_id=25';
+  $filename = $PNG_TEMP_DIR.'coupon'.md5($qrdat.'|'.$errorCorrectionLevel.'|'.$matrixPointSize).'.png';
+  QRcode::png($qrdat, $filename, $errorCorrectionLevel, $matrixPointSize, 2);
 
-echo '<img src="'.$PNG_WEB_DIR.basename($filename).'" /><hr/>';  
-*/
+  echo '<img src="'.$PNG_WEB_DIR.basename($filename).'" /><hr/>';
+ */
 // Front Controller 
 $controller = new \Core\Front($registry);
 

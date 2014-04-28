@@ -113,6 +113,8 @@ class ControllerCommonHeader extends \Core\Controller {
         $this->data['text_openbay_links'] = $this->language->get('text_openbay_links');
         $this->data['text_openbay_report_price'] = $this->language->get('text_openbay_report_price');
         $this->data['text_openbay_order_import'] = $this->language->get('text_openbay_order_import');
+        
+        $this->data['text_plugins'] = $this->language->get('text_plugins');
 
         $this->data['text_paypal_express'] = $this->language->get('text_paypal_manage');
         $this->data['text_paypal_express_search'] = $this->language->get('text_paypal_search');
@@ -149,6 +151,7 @@ class ControllerCommonHeader extends \Core\Controller {
             $this->data['download'] = $this->url->link('catalog/download', 'token=' . $this->session->data['token'], 'SSL');
             $this->data['error_log'] = $this->url->link('tool/error_log', 'token=' . $this->session->data['token'], 'SSL');
             $this->data['feed'] = $this->url->link('extension/feed', 'token=' . $this->session->data['token'], 'SSL');
+            $this->data['plugins'] = $this->url->link('setting/vqmod_manager', 'token=' . $this->session->data['token'], 'SSL');
             $this->data['filter'] = $this->url->link('catalog/filter', 'token=' . $this->session->data['token'], 'SSL');
             $this->data['geo_zone'] = $this->url->link('localisation/geo_zone', 'token=' . $this->session->data['token'], 'SSL');
             $this->data['information'] = $this->url->link('catalog/information', 'token=' . $this->session->data['token'], 'SSL');

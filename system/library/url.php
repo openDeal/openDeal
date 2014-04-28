@@ -11,6 +11,7 @@ class Url {
         $this->ssl = $ssl;
     }
 
+   
     public function addRewrite($rewrite) {
         $this->rewrite[] = $rewrite;
     }
@@ -41,5 +42,3 @@ class Url {
     }
 
 }
-
-?>

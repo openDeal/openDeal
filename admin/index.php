@@ -30,8 +30,16 @@ if (!defined('DIR_APPLICATION')) {
     exit;
 }
 
-require_once(DIR_SYSTEM . 'startup.php');
 
+//VQMod System::
+require_once(DIR_SYSTEM . 'vendor/vqmod/vqmod.php');
+VQMod::bootup(DIR_ROOT);
+
+// Startup
+//require_once(DIR_SYSTEM . 'startup.php');
+require_once(VQMod::modCheck(DIR_SYSTEM . 'startup.php'));
+
+//require_once(DIR_SYSTEM . 'startup.php');
 // Weight
 //$registry->set('weight', new Weight($registry));
 // Length

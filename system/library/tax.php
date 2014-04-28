@@ -3,7 +3,8 @@ final class Tax {
 	private $shipping_address;
 	private $payment_address;
 	private $store_address;
-
+        
+  
 	public function __construct($registry) {
 		$this->config = $registry->get('config');
 		$this->customer = $registry->get('customer');
