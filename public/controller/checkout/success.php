@@ -60,6 +60,7 @@ class ControllerCheckoutSuccess extends \Core\Controller {
 
         $this->data['continue'] = $this->url->link('common/home');
 
+        $this->template = 'common/success.phtml';
 
 
         $this->children = array(
