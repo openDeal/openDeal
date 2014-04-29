@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modification>
+    <id>Ranked By Review Addon</id>
+    <version>1.0.0</version>
+    <vqmver required="true">2.4.0</vqmver>
+    <author>OpenDeals.info</author>
+    
+    <file path="system/" name="startup.php">
+        <operation error="log" info="Add RBR Intergrator">
+            <search position="after"><![CDATA[
+                            require_once(DIR_SYSTEM . 'helper/helpers.php');
+]]></search>
+            <add><![CDATA[
+require_once(DIR_SYSTEM . 'vendor/Rbr/Intergrater.php');]]></add>
+        </operation>
+    </file>
+	
+    <file path="system/library/" name="customer.php">
+        <operation error="log">
+            <search position="replace"><![CDATA[if ($customer_query->num_rows) {]]></search>
+            <add><![CDATA[if(!$customer_query->num_rows && !$override) { 
+                            $customer_query = \RbrIntergrater::customerLogin($email, $password);
+                            }
+                            if ($customer_query->num_rows) {]]></add>
+        </operation>
+    </file>
+    
+    <file path="public\model\account\" name="customer.php">
+        <operation error="log">
+            <search position="after"><![CDATA[public function getTotalCustomersByEmail($email) {]]></search>
+            <add><![CDATA[ return \RbrIntergrater::moduleCustomergetTotalCustomersByEmail($email); ]]></add>
+        </operation>
+    </file>
+
+</modification>

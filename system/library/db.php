@@ -93,6 +93,14 @@ class DB {
         }
         $this->driver = $this->drivers[$identifier];
     }
+    
+        /**
+     * check if there is a database connection
+     * @param string $identifier
+     */
+    public function hasConnection($identifier = 'default') {
+        return isset($this->drivers[$identifier]);
+    }
 
     /**
      * wrapper to connections query method

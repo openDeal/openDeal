@@ -396,6 +396,7 @@ class ControllerDealDeal extends \Core\Controller {
 
             //Ok here means that we may offer more than one shipping option
             $deal_shipping = $this->model_deal_deal->getDealShippings($deal_id);
+          
 
             if (!count($deal_shipping) && !count($deal_options) && $deal['can_collect'] == 1) {
                 //Add to cart and redirect to the cart
@@ -410,12 +411,14 @@ class ControllerDealDeal extends \Core\Controller {
 
 
             if (isset($_POST['shipping'])) {
-                $this->data['shipping'] = $_POST['shipping'];
+                $this->data['shipping_id'] = $_POST['shipping'];
             } elseif ($deal['can_collect'] == 1) {
-                $this->data['shipping'] = '0';
+                $this->data['shipping_id'] = '0';
             } elseif (count($deal_shipping)) {
-                $this->data['shipping'] = current(array_keys($deal_shipping));
+                $this->data['shipping_id'] = current(array_keys($deal_shipping));
             }
+            
+    
 
             if (isset($_POST['option'])) {
                 $this->data['option'] = $_POST['option'];

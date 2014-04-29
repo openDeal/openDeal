@@ -23,7 +23,7 @@ $_['text_pagination']       = 'Showing {start} to {end} of {total} ({pages} Page
 $_['text_separator']        = ' &raquo; ';
 $_['text_all_deals']        = 'Current Deals';
 $_['text_past_deals']       = 'Recent Deals';
-$_['text_future_deals']     = 'Upcomming Deals';
+$_['text_future_deals']     = 'Upcoming Deals';
 $_['text_value']            = 'Value';
 $_['text_discount']         = 'Discount';
 $_['text_you_save']         = 'You save';
@@ -55,3 +55,6 @@ $_['deal_state_1']          = 'Deal Available';
 $_['deal_state_2']          = 'Deal Not Yet Available';
 $_['deal_state_3']          = 'Deal Sold Out';
 $_['deal_state_4']          = 'Deal Closed';
+
+$_['button_shopping'] = 'Back to Shopping';    
+$_['button_checkout'] = 'Checkout';

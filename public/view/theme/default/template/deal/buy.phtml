@@ -134,7 +134,7 @@
                         <?php if ($deal_can_collect): ?>
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="shipping" value="0" <?php echo($shipping == 0) ? 'checked="checked"' : ''; ?>/>
+                                    <input type="radio" name="shipping" value="0" <?php echo($shipping_id == 0) ? 'checked="checked"' : ''; ?>/>
                                     <?php echo $text_collect; ?>
                                 </label>
                             </div>
@@ -143,7 +143,7 @@
                             <?php foreach ($deal_shipping as $shipping): ?>
                                 <div class="radio">
                                     <label>
-                                        <input type="radio" name="shipping" value="<?php echo $shipping['deal_shipping_id']; ?>" <?php echo($shipping == $shipping['deal_shipping_id']) ? 'checked="checked"' : ''; ?>/>
+                                        <input type="radio" name="shipping" value="<?php echo $shipping['deal_shipping_id']; ?>" <?php echo($shipping_id == $shipping['deal_shipping_id']) ? 'checked="checked"' : ''; ?>/>
                                         <?php echo $shipping['title']; ?> ( <?php echo $this->currency->format($shipping['price']); ?> )
                                     </label>
                                 </div>

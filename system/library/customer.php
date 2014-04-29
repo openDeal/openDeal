@@ -63,6 +63,7 @@ class Customer {
     }
 
     public function login($email, $password, $override = false) {
+      
         if ($override) {
             $customer_query = $this->db->query("SELECT * FROM #__customer where LOWER(email) = '" . $this->db->escape(utf8_strtolower($email)) . "' AND status = '1'");
         } else {
