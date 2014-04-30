@@ -5871,3 +5871,62 @@ CREATE TABLE IF NOT EXISTS `od_zone_to_geo_zone` (
 INSERT INTO `od_setting` (`setting_id`, `store_id`, `group`, `key`, `value`, `serialized`) VALUES (NULL, '0', 'config', 'config_order_status_id', '1', '0');
 
 ALTER TABLE `od_order_coupon` CHANGE `coupon_expire` `coupon_expire` INT(11) NOT NULL DEFAULT '0';
+
+DROP TABLE IF EXISTS `od_freepon`;
+CREATE TABLE IF NOT EXISTS `od_freepon` (
+  `freepon_id` int(11) NOT NULL AUTO_INCREMENT,
+  `company_id` int(11) NOT NULL,
+  `download` varchar(250) NOT NULL,
+  `begin_time` bigint(20) NOT NULL,
+  `end_time` bigint(20) NOT NULL,
+  `status` int(1) NOT NULL DEFAULT '0',
+  `create_date` bigint(20) NOT NULL,
+  `modify_date` bigint(20) NOT NULL,
+  `viewed` bigint(20) NOT NULL DEFAULT '0',
+  `downloaded` bigint(20) NOT NULL DEFAULT '0',
+`feature_weight` INT( 11 ) NOT NULL DEFAULT  '0',
+  PRIMARY KEY (`freepod_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `od_freepon_description`
+--
+DROP TABLE IF EXISTS `od_freepon_description`;
+CREATE TABLE IF NOT EXISTS `od_freepon_description` (
+  `freepon_id` bigint(20) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  `name` varchar(250) NOT NULL,
+  `description` text NOT NULL,
+  PRIMARY KEY (`freepon_id`,`language_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `od_freepon_to_city`;
+CREATE TABLE IF NOT EXISTS `od_freepon_to_city` (
+  `freepon_id` int(11) NOT NULL,
+  `city_id` int(11) NOT NULL,
+  UNIQUE KEY `freepon_id` (`freepon_id`,`city_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `od_freepon_to_store`;
+CREATE TABLE IF NOT EXISTS `od_freepon_to_store` (
+  `freepon_id` int(11) NOT NULL,
+  `store_id` int(11) NOT NULL,
+  UNIQUE KEY `freepon_id` (`freepon_id`,`store_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `od_freepon_to_category`;
+CREATE TABLE IF NOT EXISTS `od_freepon_to_category` (
+  `freepon_id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  UNIQUE KEY `freepon_id` (`freepon_id`,`category_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `od_freepon_to_layout`;
+CREATE TABLE IF NOT EXISTS `od_freepon_to_layout` (
+  `freepon_id` int(11) NOT NULL,
+  `store_id` int(11) NOT NULL,
+  `layout_id` int(11) NOT NULL,
+  PRIMARY KEY (`freepon_id`,`store_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;

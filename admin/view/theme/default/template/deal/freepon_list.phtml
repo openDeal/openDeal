@@ -47,34 +47,44 @@
 
 
                             <th width="1" style="text-align: center;"><input class="selectall" type="checkbox" onclick="$('input[name*=\'selected\']').attr('checked', this.checked);" /></th>
-                            <th class="left"><?php if ($sort == 'dd.title') { ?>
-                                    <a href="<?php echo $sort_title; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_title; ?></a>
+                            <th class="left"><?php if ($sort == 'fd.name') { ?>
+                                    <a href="<?php echo $sort_name; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_name; ?></a>
                                 <?php } else { ?>
-                                    <a href="<?php echo $sort_title; ?>"><?php echo $column_title; ?></a>
+                                    <a href="<?php echo $sort_name; ?>"><?php echo $column_name; ?></a>
                                 <?php } ?></th>
-                            <th class="left"><?php echo $column_tip_time; ?></th>
-
-                            <th class="left"><?php if ($sort == 'd.price') { ?>
-                                    <a href="<?php echo $sort_price; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_price; ?></a>
+                            <th class="left"><?php if ($sort == 'c.name') { ?>
+                                    <a href="<?php echo $sort_company; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_company; ?></a>
                                 <?php } else { ?>
-                                    <a href="<?php echo $sort_price; ?>"><?php echo $column_price; ?></a>
+                                    <a href="<?php echo $sort_company; ?>"><?php echo $column_company; ?></a>
                                 <?php } ?></th>
 
-                            <th class="left"><?php if ($sort == 'd.begin_time') { ?>
+                            <th class="left"><?php if ($sort == 'f.viewed') { ?>
+                                    <a href="<?php echo $sort_viewed; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_viewed; ?></a>
+                                <?php } else { ?>
+                                    <a href="<?php echo $sort_viewed; ?>"><?php echo $column_viewed; ?></a>
+                                <?php } ?></th>
+
+                            <th class="left"><?php if ($sort == 'f.downloaded') { ?>
+                                    <a href="<?php echo $sort_downloaded; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_downloaded; ?></a>
+                                <?php } else { ?>
+                                    <a href="<?php echo $sort_downloaded; ?>"><?php echo $column_downloaded; ?></a>
+                                <?php } ?></th>
+
+                            <th class="left"><?php if ($sort == 'f.begin_time') { ?>
                                     <a href="<?php echo $sort_begin; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_begin_time; ?></a>
                                 <?php } else { ?>
                                     <a href="<?php echo $sort_begin; ?>"><?php echo $column_begin_time; ?></a>
                                 <?php } ?></th>
 
-                            <th class="left"><?php if ($sort == 'd.end_time') { ?>
+                            <th class="left"><?php if ($sort == 'f.end_time') { ?>
                                     <a href="<?php echo $sort_end; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_end_time; ?></a>
                                 <?php } else { ?>
                                     <a href="<?php echo $sort_end; ?>"><?php echo $column_end_time; ?></a>
                                 <?php } ?></th>
                             <th class="left"><?php echo $column_status; ?></th>
-                            <th class="left"><?php echo $column_ordered; ?></th>
 
-                            <th class="left"><?php if ($sort == 'd.date_added') { ?>
+
+                            <th class="left"><?php if ($sort == 'f.date_added') { ?>
                                     <a href="<?php echo $sort_date_added; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_date_added; ?></a>
                                 <?php } else { ?>
                                     <a href="<?php echo $sort_date_added; ?>"><?php echo $column_date_added; ?></a>
@@ -83,23 +93,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php if ($deals): ?>
-                            <?php foreach ($deals as $deal): ?>
+                        <?php if ($freepons): ?>
+                            <?php foreach ($freepons as $freepon): ?>
                                 <tr>
-                                    <td style="text-align: center;"><?php if ($deal['selected']) { ?>
-                                            <input type="checkbox" name="selected[]" value="<?php echo $deal['deal_id']; ?>" checked="checked" />
+                                    <td style="text-align: center;"><?php if ($freepon['selected']) { ?>
+                                            <input type="checkbox" name="selected[]" value="<?php echo $freepon['freepon_id']; ?>" checked="checked" />
                                         <?php } else { ?>
-                                            <input type="checkbox" name="selected[]" value="<?php echo $deal['deal_id']; ?>" />
+                                            <input type="checkbox" name="selected[]" value="<?php echo $freepon['freepon_id']; ?>" />
                                         <?php } ?></td>
-                                    <td class="left"><?php echo $deal['title']; ?></td>
-                                    <td class="left"><?php echo $deal['tip_time']; ?></td>
-                                    <td class='left'><span style='text-decoration:line-through;color:#b00'><?php echo $deal['market_price']; ?></span><br /><?php echo $deal['deal_price']; ?></td>
-                                    <td class="left"><?php echo $deal['begin_time']; ?></td>
-                                    <td class="left"><?php echo $deal['end_time']; ?></td>
-                                    <td class="left"><?php echo $deal['status']; ?></td>
-                                    <td class="left"><?php echo $deal['current_orders']; ?></td>
-                                    <td class="left"><?php echo $deal['date_added']; ?></td>
-                                    <td class="right"><?php foreach ($deal['action'] as $action) { ?>
+                                    <td class="left"><?php echo $freepon['name']; ?></td>
+                                    <td class="left"><?php echo $freepon['company_name']; ?></td>
+                                    <td class='left'><?php echo $freepon['views']; ?></td>
+                                    <td class="left"><?php echo $freepon['downloaded']; ?></td>
+                                    <td class="left"><?php echo $freepon['begin_time']; ?></td>
+                                    <td class="left"><?php echo $freepon['end_time']; ?></td>
+                                    <td class="left"><?php echo $freepon['status']; ?></td>
+                                    <td class="left"><?php echo $freepon['date_added']; ?></td>
+                                    <td class="right"><?php foreach ($freepon['action'] as $action) { ?>
                                             <a class="btn btn-xs btn-primary" href="<?php echo $action['href']; ?>"><?php echo $action['text']; ?></a>
                                         <?php } ?></td>
                                 </tr>

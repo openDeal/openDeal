@@ -20,6 +20,26 @@
 <?php } ?>
 <script type="text/javascript">
 
+function file_upload(field, display){
+    $('#dialog').remove();
+	
+	$('body').prepend('<div id="dialog" style="padding: 3px 0px 0px 0px;"><iframe src="index.php?route=common/filemanager&token=<?php echo $token; ?>&field=' + encodeURIComponent(field) + '" style="padding:0; margin: 0; display: block; width: 100%; height: 100%;" frameborder="no" scrolling="auto"></iframe></div>');
+	
+	$('#dialog').dialog({
+		title: '<?php echo $text_image_manager; ?>',
+		close: function (event, ui) {
+			$('#' + display).text($('#' + field).attr('value'));
+				
+			
+		},	
+		bgiframe: false,
+		width: 800,
+		height: 400,
+		resizable: false,
+		modal: false
+	});
+}
+
 function image_upload(field, thumb) {
 	$('#dialog').remove();
 	

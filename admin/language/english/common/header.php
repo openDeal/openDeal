@@ -28,6 +28,7 @@ $_['text_filter']                      = 'Filters';
 $_['text_front']                       = 'Store Front';
 $_['text_geo_zone']                    = 'Geo Zones';
 $_['text_deals']                       = 'Deals';
+$_['text_freepons']                    = 'Free Coupons';
 $_['text_help']                        = 'Help';
 $_['text_information']                 = 'Information';
 $_['text_language']                    = 'Languages';

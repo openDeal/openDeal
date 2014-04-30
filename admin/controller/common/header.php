@@ -22,6 +22,8 @@ class ControllerCommonHeader extends \Core\Controller {
         $this->language->load('common/header');
 
         $this->data['heading_title'] = $this->language->get('heading_title');
+        
+        $this->data['text_freepon'] = $this->language->get('text_freepon');
 
         $this->data['text_affiliate'] = $this->language->get('text_affiliate');
         $this->data['text_backup'] = $this->language->get('text_backup');
@@ -137,6 +139,7 @@ class ControllerCommonHeader extends \Core\Controller {
             $this->data['banner'] = $this->url->link('design/banner', 'token=' . $this->session->data['token'], 'SSL');
             $this->data['category'] = $this->url->link('deal/category', 'token=' . $this->session->data['token'], 'SSL');
             $this->data['deal'] = $this->url->link('deal/deal', 'token=' . $this->session->data['token'], 'SSL');
+            $this->data['freepon'] = $this->url->link('deal/freepon', 'token=' . $this->session->data['token'], 'SSL');
             
             $this->data['country'] = $this->url->link('localisation/country', 'token=' . $this->session->data['token'], 'SSL');
             $this->data['coupon'] = $this->url->link('sale/coupon', 'token=' . $this->session->data['token'], 'SSL');
