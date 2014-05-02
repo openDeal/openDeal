@@ -10,7 +10,7 @@ class ControllerCommonSeoUrl extends \Core\Controller {
         'checkout/cart' => 'shopping-cart',
         'checkout/checkout' => 'checkout'
     );
-    
+
     public function index() {
         // Add rewrite to url class
         if ($this->config->get('config_seo_url')) {
@@ -31,6 +31,10 @@ class ControllerCommonSeoUrl extends \Core\Controller {
                         $this->request->get['deal_id'] = $url[1];
                     }
 
+                    if ($url[0] == 'freepon_id') {
+                        $this->request->get['freepon_id'] = $url[1];
+                    }
+
                     if ($url[0] == 'category_id') {
                         if (!isset($this->request->get['path'])) {
                             $this->request->get['path'] = $url[1];
@@ -42,7 +46,7 @@ class ControllerCommonSeoUrl extends \Core\Controller {
                     if ($url[0] == 'information_id') {
                         $this->request->get['information_id'] = $url[1];
                     }
-                }elseif(in_array($part, $this->core_routes)){
+                } elseif (in_array($part, $this->core_routes)) {
                     $this->request->get['route'] = array_search($part, $this->core_routes);
                 } else {
                     $this->request->get['route'] = 'error/not_found';
@@ -51,6 +55,8 @@ class ControllerCommonSeoUrl extends \Core\Controller {
 
             if (isset($this->request->get['deal_id'])) {
                 $this->request->get['route'] = 'deal/deal';
+            } elseif (isset($this->request->get['freepon_id'])) {
+                $this->request->get['route'] = 'deal/freepon/view';
             } elseif (isset($this->request->get['path'])) {
                 $this->request->get['route'] = 'product/category';
             } elseif (isset($this->request->get['information_id'])) {
@@ -74,7 +80,7 @@ class ControllerCommonSeoUrl extends \Core\Controller {
 
         foreach ($data as $key => $value) {
             if (isset($data['route'])) {
-                if ($data['route'] == 'deal/deal' && $key == 'deal_id' || $data['route'] == 'information/information' && $key = 'information_id') {
+                if ($data['route'] == 'deal/deal' && $key == 'deal_id' || $data['route'] == 'deal/freepon/view' && $key == 'freepon_id' || $data['route'] == 'information/information' && $key = 'information_id') {
                     $query = $this->db->query("SELECT * FROM #__url_alias WHERE `query` = '" . $this->db->escape($key . '=' . (int) $value) . "'");
                     if ($query->num_rows) {
                         $url .= '/' . $query->row['keyword'];
@@ -93,7 +99,7 @@ class ControllerCommonSeoUrl extends \Core\Controller {
                     }
 
                     unset($data[$key]);
-                } elseif(isset($this->core_routes[$data['route']])){
+                } elseif (isset($this->core_routes[$data['route']])) {
                     $url .= '/' . $this->core_routes[$data['route']];
                 }
             }

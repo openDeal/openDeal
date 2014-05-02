@@ -7,3 +7,5 @@ $_['text_logged'] = "Welcome Back %s";
 $_['text_login'] = "Login";
 $_['text_register'] = "Register";
 $_['text_logout'] = "Logout";
+
+$_['text_freepon'] = "Free Coupons";

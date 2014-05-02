@@ -83,14 +83,14 @@ class ModelDealDeal extends \Core\Model {
             "d.feature_weight",
             "d.end_time",
             "d.begin_time",
-            "d.title",
+            "dd.title",
             "d.deal_price",
             "d.market_price",
             "discount"
         );
 
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-            if ($data['sort'] == 'd.title') {
+            if ($data['sort'] == 'dd.title') {
                 $sql .= " ORDER BY LCASE(" . $data['sort'] . ")";
             } else {
                 $sql .= " ORDER BY " . $data['sort'];

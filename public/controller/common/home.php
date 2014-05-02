@@ -91,6 +91,7 @@ class ControllerCommonHome extends \Core\Controller {
                 }
             }
 
+            $this->model_deal_deal->updateView($this->data['deal']['deal_id']);
             $this->document->addMeta('og:title', '<meta property="og:title" content="' . htmlspecialchars($this->data['deal']['title'], ENT_QUOTES) . '" />');
             $this->document->addMeta('og:description', '<meta property="og:description" content="' . htmlspecialchars($this->data['deal']['introduction'], ENT_QUOTES) . '" />');
 

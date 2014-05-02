@@ -18,8 +18,8 @@ class ControllerDealFreepon extends \Core\Controller {
         $this->load->model('deal/freepon');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
-            
-     ;
+
+            ;
 
             $this->model_deal_freepon->addFreepon($this->request->post);
 
@@ -51,7 +51,7 @@ class ControllerDealFreepon extends \Core\Controller {
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
 
-            $this->model_deal_deal->editFreepon($this->request->get['freepon_id'], $this->request->post);
+            $this->model_deal_freepon->editFreepon($this->request->get['freepon_id'], $this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
 
@@ -82,7 +82,7 @@ class ControllerDealFreepon extends \Core\Controller {
 
         if (isset($this->request->post['selected']) && $this->validateDelete()) {
             foreach ($this->request->post['selected'] as $freepon_id) {
-                $this->model_deal_deal->deleteFreepon($freepon_id);
+                $this->model_deal_freepon->deleteFreepon($freepon_id);
             }
 
             $this->session->data['success'] = $this->language->get('text_success');
@@ -378,8 +378,8 @@ class ControllerDealFreepon extends \Core\Controller {
             $freepon_info = $this->model_deal_freepon->getFreepon($this->request->get['freepon_id']);
         }
 
-        
-        
+
+
         $this->data['token'] = $this->session->data['token'];
 
         $this->load->model('localisation/language');
@@ -394,7 +394,7 @@ class ControllerDealFreepon extends \Core\Controller {
             $this->data['freepon_description'] = array();
         }
 
- 
+
 
         if (isset($this->request->post['company_id'])) {
             $this->data['company_id'] = $this->request->post['company_id'];
@@ -594,6 +594,22 @@ class ControllerDealFreepon extends \Core\Controller {
 
 
 
+        if (!$this->error) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    protected function validateDelete() {
+        if (!$this->user->hasPermission('modify', 'deal/freepon')) {
+            $this->error['warning'] = $this->language->get('error_permission');
+        }
+        
+        if ($this->error && !isset($this->error['warning'])) {
+            $this->error['warning'] = $this->language->get('error_warning');
+        }
+        
         if (!$this->error) {
             return true;
         } else {

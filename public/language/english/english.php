@@ -34,6 +34,10 @@ $_['text_deal_tipped_time'] = 'Tipped at %s';
 $_['text_coupons_left']     = 'Only %d coupons left to buy';
 $_['text_coupon_left']     = 'Only %d coupon left to buy';
 $_['text_contact']          = 'Contact Us';
+$_['text_sort'] = 'Sort by:';
+$_['text_limit'] = 'Show:';
+$_['text_default'] = 'Default';
+
 
 // Buttons
 $_['button_buy']            = 'Buy';
@@ -58,3 +62,4 @@ $_['deal_state_4']          = 'Deal Closed';
 
 $_['button_shopping'] = 'Back to Shopping';    
 $_['button_checkout'] = 'Checkout';
+$_['text_no_results'] = "No Results";

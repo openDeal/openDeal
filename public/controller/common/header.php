@@ -41,6 +41,7 @@ class ControllerCommonHeader extends \Core\Controller {
         $this->data['text_all_deals'] = $this->language->get('text_all_deals');
         $this->data['text_past_deals'] = $this->language->get('text_past_deals');
         $this->data['text_future_deals'] = $this->language->get('text_future_deals');
+        $this->data['text_freepon'] = $this->language->get('text_freepon');
 
         $this->data['logged'] = $this->customer->isLogged();
 
@@ -51,6 +52,7 @@ class ControllerCommonHeader extends \Core\Controller {
         $this->data['current_deals'] = $this->url->link("deal/deal/current");
         $this->data['future_deals'] = $this->url->link("deal/deal/future");
         $this->data['past_deals'] = $this->url->link("deal/deal/expired");
+        $this->data['freepon'] = $this->url->link("deal/freepon");
 
         $this->data['link_login'] = $this->url->link('account/login', '', 'SSL');
         $this->data['text_login'] = $this->language->get('text_login');

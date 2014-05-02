@@ -92,6 +92,8 @@ class ControllerDealDeal extends \Core\Controller {
             $this->document->addScript('/public/view/javascript/countdown/jquery.countdown.min.js');
             $this->document->addScript('/public/view/javascript/countdown/jquery.countdown-' . $this->data['lang'] . '.js');
             $this->document->addStyle('/public/view/javascript/countdown/jquery.countdown.css');
+
+            $this->model_deal_deal->updateView($this->request->get['deal_id']);
         } else {
             $this->data['breadcrumbs'][] = array(
                 'text' => $this->language->get('text_error'),
@@ -137,6 +139,7 @@ class ControllerDealDeal extends \Core\Controller {
     }
 
     public function expired() {
+        
 //displays expired deals
         $data = array(
             'filter_expired' => true
@@ -150,6 +153,7 @@ class ControllerDealDeal extends \Core\Controller {
         $data = array(
             'filter_future' => true
         );
+        $this->language->load('deal/future');
         $this->data['heading_title'] = $this->language->get('heading_title_future');
         $this->getList($data, 'future');
     }
@@ -223,38 +227,44 @@ class ControllerDealDeal extends \Core\Controller {
             'separator' => $this->language->get('text_separator')
         );
 
-        $this->data['sorts'][] = array(
+        $this->data['sorts']['d.feature_weight-DESC'] = array(
             'text' => $this->language->get('text_default'),
             'value' => 'd.feature_weight-DESC',
             'href' => $this->url->link('deal/deal/' . $current, '&sort=d.feature_weight&order=DESC')
         );
 
-        $this->data['sorts'][] = array(
+         if(!isset($data['filter_expired'])) { 
+        
+        $this->data['sorts']['d.begin_time-ASC'] = array(
             'text' => $this->language->get('text_start_time_asc'),
             'value' => 'd.begin_time-ASC',
             'href' => $this->url->link('deal/deal/' . $current, 'sort=d.begin_time&order=ASC')
         );
-        $this->data['sorts'][] = array(
+        if(!isset($data['filter_future'])) { 
+        $this->data['sorts']['d.begin_time-DESC'] = array(
             'text' => $this->language->get('text_start_time_desc'),
             'value' => 'd.begin_time-DESC',
             'href' => $this->url->link('deal/deal/' . $current, 'sort=d.begin_time&order=DESC')
         );
-        $this->data['sorts'][] = array(
+        
+        $this->data['sorts']['d.end_time-ASC'] = array(
             'text' => $this->language->get('text_end_time_asc'),
             'value' => 'd.end_time-ASC',
             'href' => $this->url->link('deal/deal/' . $current, 'sort=d.end_time&order=ASC')
         );
-        $this->data['sorts'][] = array(
+        $this->data['sorts']['d.end_time-DESC'] = array(
             'text' => $this->language->get('text_end_time_desc'),
             'value' => 'd.end_time-DESC',
             'href' => $this->url->link('deal/deal/' . $current, 'sort=d.end_time&order=DESC')
         );
-        $this->data['sorts'][] = array(
+        }
+         }
+        $this->data['sorts']['dd.title-ASC'] = array(
             'text' => $this->language->get('text_title_asc'),
             'value' => 'dd.title-ASC',
             'href' => $this->url->link('deal/deal/' . $current, 'sort=dd.title&order=ASC')
         );
-        $this->data['sorts'][] = array(
+        $this->data['sorts']['dd.title-DESC'] = array(
             'text' => $this->language->get('text_title_desc'),
             'value' => 'dd.title-DESC',
             'href' => $this->url->link('deal/deal/' . $current, 'sort=dd.title&order=DESC')
@@ -363,7 +373,8 @@ class ControllerDealDeal extends \Core\Controller {
         $this->document->addStyle('/public/view/javascript/countdown/jquery.countdown.css');
 
 
-
+        $this->data['text_limit'] = $this->language->get('text_limit');
+        $this->data['text_sort'] = $this->language->get('text_sort');
         $this->data['text_no_results'] = $this->language->get('text_no_results');
 
         $this->response->setOutput($this->render());
@@ -396,7 +407,7 @@ class ControllerDealDeal extends \Core\Controller {
 
             //Ok here means that we may offer more than one shipping option
             $deal_shipping = $this->model_deal_deal->getDealShippings($deal_id);
-          
+
 
             if (!count($deal_shipping) && !count($deal_options) && $deal['can_collect'] == 1) {
                 //Add to cart and redirect to the cart
@@ -417,8 +428,8 @@ class ControllerDealDeal extends \Core\Controller {
             } elseif (count($deal_shipping)) {
                 $this->data['shipping_id'] = current(array_keys($deal_shipping));
             }
-            
-    
+
+
 
             if (isset($_POST['option'])) {
                 $this->data['option'] = $_POST['option'];
