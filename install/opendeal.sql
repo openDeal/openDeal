@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 15, 2014 at 04:03 PM
+-- Generation Time: May 02, 2014 at 02:43 PM
 -- Server version: 5.5.31
 -- PHP Version: 5.4.6-1ubuntu1.2
 
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `od_address` (
   `zone_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`address_id`),
   KEY `customer_id` (`customer_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -657,7 +657,7 @@ CREATE TABLE IF NOT EXISTS `od_customer` (
   `token` varchar(255) NOT NULL,
   `date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`customer_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -719,7 +719,7 @@ CREATE TABLE IF NOT EXISTS `od_customer_ip` (
   `date_added` datetime NOT NULL,
   PRIMARY KEY (`customer_ip_id`),
   KEY `ip` (`ip`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 -- --------------------------------------------------------
 
@@ -865,7 +865,7 @@ CREATE TABLE IF NOT EXISTS `od_deal` (
 --
 
 INSERT INTO `od_deal` (`deal_id`, `product_name`, `market_price`, `deal_price`, `begin_time`, `end_time`, `tip_point`, `tip_time`, `stock`, `user_max`, `company_id`, `status`, `commission`, `feature_weight`, `current_orders`, `can_collect`, `is_coupon`, `coupon_expiry`, `create_date`, `modify_date`, `viewed`) VALUES
-(1, 'Four-course dinner for two', 131.0000, 99.0000, 1396310400, 1427760000, 5, 0, 0, 1, 1, 1, 0.00, 0, 0, 0, 1, 0, 1397433000, 1397433036, 0),
+(1, 'Four-course dinner for two', 131.0000, 99.0000, 1396310400, 1427760000, 5, 0, 0, 1, 1, 1, 0.00, 0, 0, 0, 1, 0, 1397433000, 1397433036, 6),
 (2, 'Full set of faux mink eyelash extensions', 275.0000, 85.0000, 1396310400, 1427760000, 8, 0, 55, 0, 2, 1, 0.00, 0, 0, 0, 1, 1420023600, 1397433452, 0, 0),
 (3, '30ml MD3 Vitamin C Anti-Age Serum', 480.0000, 270.0000, 1396310400, 1427760000, 1, 0, 100, 4, 2, 1, 0.00, 0, 0, 0, 0, 0, 1397433996, 0, 0);
 
@@ -1070,7 +1070,7 @@ CREATE TABLE IF NOT EXISTS `od_extension` (
   `type` varchar(32) NOT NULL,
   `code` varchar(32) NOT NULL,
   PRIMARY KEY (`extension_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=432 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=433 ;
 
 --
 -- Dumping data for table `od_extension`
@@ -1083,7 +1083,169 @@ INSERT INTO `od_extension` (`extension_id`, `type`, `code`) VALUES
 (430, 'module', 'category'),
 (389, 'total', 'coupon'),
 (398, 'total', 'voucher'),
-(428, 'total', 'shipping');
+(428, 'total', 'shipping'),
+(432, 'module', 'vqmod_manager');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `od_freepon`
+--
+
+DROP TABLE IF EXISTS `od_freepon`;
+CREATE TABLE IF NOT EXISTS `od_freepon` (
+  `freepon_id` int(11) NOT NULL AUTO_INCREMENT,
+  `company_id` int(11) NOT NULL,
+  `download` varchar(250) NOT NULL,
+  `begin_time` bigint(20) NOT NULL,
+  `end_time` bigint(20) NOT NULL,
+  `status` int(1) NOT NULL DEFAULT '0',
+  `create_date` bigint(20) NOT NULL,
+  `modify_date` bigint(20) NOT NULL,
+  `viewed` bigint(20) NOT NULL DEFAULT '0',
+  `downloaded` bigint(20) NOT NULL DEFAULT '0',
+  `feature_weight` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`freepon_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+
+--
+-- Dumping data for table `od_freepon`
+--
+
+INSERT INTO `od_freepon` (`freepon_id`, `company_id`, `download`, `begin_time`, `end_time`, `status`, `create_date`, `modify_date`, `viewed`, `downloaded`, `feature_weight`) VALUES
+(1, 2, 'data/USB-Retro-Designed-Microphone1.jpg', 0, 0, 1, 1398828280, 0, 0, 0, 0),
+(2, 2, 'data/USB-Retro-Designed-Microphone1.jpg', 1396310400, 1430352000, 1, 1398828317, 0, 0, 0, 0),
+(3, 2, 'data/USB-Retro-Designed-Microphone1.jpg', 1396310400, 1430352000, 1, 1398828373, 0, 0, 0, 0),
+(4, 2, 'data/USB-Retro-Designed-Microphone1.jpg', 1396310400, 1430352000, 1, 1398828399, 0, 0, 0, 0),
+(6, 2, 'data/din1.jpg', 1398902400, 1401494400, 1, 1398985622, 0, 0, 0, 0),
+(7, 1, '', 1398902400, 1401494400, 1, 1398985740, 0, 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `od_freepon_description`
+--
+
+DROP TABLE IF EXISTS `od_freepon_description`;
+CREATE TABLE IF NOT EXISTS `od_freepon_description` (
+  `freepon_id` bigint(20) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  `name` varchar(250) NOT NULL,
+  `description` text NOT NULL,
+  `meta_keyword` varchar(255) NOT NULL,
+  `meta_description` varchar(255) NOT NULL,
+  PRIMARY KEY (`freepon_id`,`language_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `od_freepon_description`
+--
+
+INSERT INTO `od_freepon_description` (`freepon_id`, `language_id`, `name`, `description`, `meta_keyword`, `meta_description`) VALUES
+(6, 1, '15% OFF Regular Cakes/Occassion Cakes', '&lt;p&gt;Get 15% OFF Regular Cakes/Occassion Cakes simply print this coupon and bring instore to redeem.&amp;nbsp;&lt;/p&gt;\r\n', 'meta', 'meta'),
+(7, 1, 'Free Infuser with orders over $30', '&lt;p&gt;Lorem Ipsum ....&lt;/p&gt;\r\n\r\n&lt;h3&gt;Terms and Conditions&lt;/h3&gt;\r\n\r\n&lt;p&gt;While stocks last. Not valid with any other offers. Valid online only.&lt;/p&gt;\r\n', 'asfd', 'asdf');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `od_freepon_image`
+--
+
+DROP TABLE IF EXISTS `od_freepon_image`;
+CREATE TABLE IF NOT EXISTS `od_freepon_image` (
+  `freepon_image_id` bigint(11) NOT NULL AUTO_INCREMENT,
+  `freepon_id` bigint(11) NOT NULL,
+  `image` text NOT NULL,
+  `sort_order` int(5) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`freepon_image_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
+
+--
+-- Dumping data for table `od_freepon_image`
+--
+
+INSERT INTO `od_freepon_image` (`freepon_image_id`, `freepon_id`, `image`, `sort_order`) VALUES
+(9, 4, 'data/din1.jpg', 0),
+(10, 4, 'data/din2.jpg', 0),
+(17, 6, 'data/din2.jpg', 0),
+(18, 7, 'data/eyes.jpg', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `od_freepon_to_category`
+--
+
+DROP TABLE IF EXISTS `od_freepon_to_category`;
+CREATE TABLE IF NOT EXISTS `od_freepon_to_category` (
+  `freepon_id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  UNIQUE KEY `freepon_id` (`freepon_id`,`category_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `od_freepon_to_category`
+--
+
+INSERT INTO `od_freepon_to_category` (`freepon_id`, `category_id`) VALUES
+(6, 1),
+(7, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `od_freepon_to_city`
+--
+
+DROP TABLE IF EXISTS `od_freepon_to_city`;
+CREATE TABLE IF NOT EXISTS `od_freepon_to_city` (
+  `freepon_id` int(11) NOT NULL,
+  `city_id` int(11) NOT NULL,
+  UNIQUE KEY `freepon_id` (`freepon_id`,`city_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `od_freepon_to_city`
+--
+
+INSERT INTO `od_freepon_to_city` (`freepon_id`, `city_id`) VALUES
+(6, 1),
+(7, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `od_freepon_to_layout`
+--
+
+DROP TABLE IF EXISTS `od_freepon_to_layout`;
+CREATE TABLE IF NOT EXISTS `od_freepon_to_layout` (
+  `freepon_id` int(11) NOT NULL,
+  `store_id` int(11) NOT NULL,
+  `layout_id` int(11) NOT NULL,
+  PRIMARY KEY (`freepon_id`,`store_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `od_freepon_to_store`
+--
+
+DROP TABLE IF EXISTS `od_freepon_to_store`;
+CREATE TABLE IF NOT EXISTS `od_freepon_to_store` (
+  `freepon_id` int(11) NOT NULL,
+  `store_id` int(11) NOT NULL,
+  UNIQUE KEY `freepon_id` (`freepon_id`,`store_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `od_freepon_to_store`
+--
+
+INSERT INTO `od_freepon_to_store` (`freepon_id`, `store_id`) VALUES
+(6, 0),
+(7, 0);
 
 -- --------------------------------------------------------
 
@@ -1406,7 +1568,7 @@ CREATE TABLE IF NOT EXISTS `od_order_coupon` (
   `coupon_redeemed` int(1) NOT NULL DEFAULT '0',
   `coupon_active` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`order_coupon_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1621,90 +1783,6 @@ CREATE TABLE IF NOT EXISTS `od_order_voucher` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `od_setting`
---
-
-DROP TABLE IF EXISTS `od_setting`;
-CREATE TABLE IF NOT EXISTS `od_setting` (
-  `setting_id` int(11) NOT NULL AUTO_INCREMENT,
-  `store_id` int(11) NOT NULL DEFAULT '0',
-  `group` varchar(32) NOT NULL,
-  `key` varchar(64) NOT NULL,
-  `value` text NOT NULL,
-  `serialized` tinyint(1) NOT NULL,
-  PRIMARY KEY (`setting_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=170 ;
-
---
--- Dumping data for table `od_setting`
---
-
-INSERT INTO `od_setting` (`setting_id`, `store_id`, `group`, `key`, `value`, `serialized`) VALUES
-(16, 0, 'config', 'config_google_analytics', '', 0),
-(17, 0, 'config', 'config_error_filename', 'error.txt', 0),
-(18, 0, 'config', 'config_error_log', '1', 0),
-(19, 0, 'config', 'config_error_display', '1', 0),
-(20, 0, 'config', 'config_compression', '0', 0),
-(163, 0, 'config', 'config_encryption', '2d7978857bedd85b6d216b6ef8140dfe', 0),
-(22, 0, 'config', 'config_maintenance', '0', 0),
-(24, 0, 'config', 'config_alert_emails', '', 0),
-(25, 0, 'config', 'config_secure', '0', 0),
-(26, 0, 'config', 'config_seo_url', '1', 0),
-(29, 0, 'config', 'config_alert_mail', '0', 0),
-(30, 0, 'config', 'config_smtp_username', '', 0),
-(31, 0, 'config', 'config_smtp_password', '', 0),
-(32, 0, 'config', 'config_smtp_port', '25', 0),
-(33, 0, 'config', 'config_smtp_timeout', '5', 0),
-(44, 0, 'config', 'config_smtp_host', '', 0),
-(45, 0, 'config', 'config_image_cart_height', '47', 0),
-(46, 0, 'config', 'config_mail_protocol', 'mail', 0),
-(47, 0, 'config', 'config_mail_parameter', '', 0),
-(49, 0, 'config', 'config_image_cart_width', '47', 0),
-(72, 0, 'config', 'config_icon', 'data/cart.png', 0),
-(73, 0, 'config', 'config_logo', 'data/logo.png', 0),
-(110, 0, 'config', 'config_name', 'Your OpenDeal', 0),
-(111, 0, 'config', 'config_owner', 'Your Name', 0),
-(112, 0, 'config', 'config_address', 'Address 1', 0),
-(161, 0, 'config', 'config_email', 'vxdhost@gmail.com', 0),
-(114, 0, 'config', 'config_telephone', '123456789', 0),
-(115, 0, 'config', 'config_fax', '', 0),
-(116, 0, 'config', 'config_title', 'Your Store', 0),
-(117, 0, 'config', 'config_meta_description', 'My Store', 0),
-(118, 0, 'config', 'config_template', 'default', 0),
-(119, 0, 'config', 'config_layout_id', '4', 0),
-(122, 0, 'config', 'config_language', 'en', 0),
-(123, 0, 'config', 'config_admin_language', 'en', 0),
-(128, 0, 'config', 'config_robots', 'abot\r\ndbot\r\nebot\r\nhbot\r\nkbot\r\nlbot\r\nmbot\r\nnbot\r\nobot\r\npbot\r\nrbot\r\nsbot\r\ntbot\r\nvbot\r\nybot\r\nzbot\r\nbot.\r\nbot/\r\n_bot\r\n.bot\r\n/bot\r\n-bot\r\n:bot\r\n(bot\r\ncrawl\r\nslurp\r\nspider\r\nseek\r\naccoona\r\nacoon\r\nadressendeutschland\r\nah-ha.com\r\nahoy\r\naltavista\r\nananzi\r\nanthill\r\nappie\r\narachnophilia\r\narale\r\naraneo\r\naranha\r\narchitext\r\naretha\r\narks\r\nasterias\r\natlocal\r\natn\r\natomz\r\naugurfind\r\nbackrub\r\nbannana_bot\r\nbaypup\r\nbdfetch\r\nbig brother\r\nbiglotron\r\nbjaaland\r\nblackwidow\r\nblaiz\r\nblog\r\nblo.\r\nbloodhound\r\nboitho\r\nbooch\r\nbradley\r\nbutterfly\r\ncalif\r\ncassandra\r\nccubee\r\ncfetch\r\ncharlotte\r\nchurl\r\ncienciaficcion\r\ncmc\r\ncollective\r\ncomagent\r\ncombine\r\ncomputingsite\r\ncsci\r\ncurl\r\ncusco\r\ndaumoa\r\ndeepindex\r\ndelorie\r\ndepspid\r\ndeweb\r\ndie blinde kuh\r\ndigger\r\nditto\r\ndmoz\r\ndocomo\r\ndownload express\r\ndtaagent\r\ndwcp\r\nebiness\r\nebingbong\r\ne-collector\r\nejupiter\r\nemacs-w3 search engine\r\nesther\r\nevliya celebi\r\nezresult\r\nfalcon\r\nfelix ide\r\nferret\r\nfetchrover\r\nfido\r\nfindlinks\r\nfireball\r\nfish search\r\nfouineur\r\nfunnelweb\r\ngazz\r\ngcreep\r\ngenieknows\r\ngetterroboplus\r\ngeturl\r\nglx\r\ngoforit\r\ngolem\r\ngrabber\r\ngrapnel\r\ngralon\r\ngriffon\r\ngromit\r\ngrub\r\ngulliver\r\nhamahakki\r\nharvest\r\nhavindex\r\nhelix\r\nheritrix\r\nhku www octopus\r\nhomerweb\r\nhtdig\r\nhtml index\r\nhtml_analyzer\r\nhtmlgobble\r\nhubater\r\nhyper-decontextualizer\r\nia_archiver\r\nibm_planetwide\r\nichiro\r\niconsurf\r\niltrovatore\r\nimage.kapsi.net\r\nimagelock\r\nincywincy\r\nindexer\r\ninfobee\r\ninformant\r\ningrid\r\ninktomisearch.com\r\ninspector web\r\nintelliagent\r\ninternet shinchakubin\r\nip3000\r\niron33\r\nisraeli-search\r\nivia\r\njack\r\njakarta\r\njavabee\r\njetbot\r\njumpstation\r\nkatipo\r\nkdd-explorer\r\nkilroy\r\nknowledge\r\nkototoi\r\nkretrieve\r\nlabelgrabber\r\nlachesis\r\nlarbin\r\nlegs\r\nlibwww\r\nlinkalarm\r\nlink validator\r\nlinkscan\r\nlockon\r\nlwp\r\nlycos\r\nmagpie\r\nmantraagent\r\nmapoftheinternet\r\nmarvin/\r\nmattie\r\nmediafox\r\nmediapartners\r\nmercator\r\nmerzscope\r\nmicrosoft url control\r\nminirank\r\nmiva\r\nmj12\r\nmnogosearch\r\nmoget\r\nmonster\r\nmoose\r\nmotor\r\nmultitext\r\nmuncher\r\nmuscatferret\r\nmwd.search\r\nmyweb\r\nnajdi\r\nnameprotect\r\nnationaldirectory\r\nnazilla\r\nncsa beta\r\nnec-meshexplorer\r\nnederland.zoek\r\nnetcarta webmap engine\r\nnetmechanic\r\nnetresearchserver\r\nnetscoop\r\nnewscan-online\r\nnhse\r\nnokia6682/\r\nnomad\r\nnoyona\r\nnutch\r\nnzexplorer\r\nobjectssearch\r\noccam\r\nomni\r\nopen text\r\nopenfind\r\nopenintelligencedata\r\norb search\r\nosis-project\r\npack rat\r\npageboy\r\npagebull\r\npage_verifier\r\npanscient\r\nparasite\r\npartnersite\r\npatric\r\npear.\r\npegasus\r\nperegrinator\r\npgp key agent\r\nphantom\r\nphpdig\r\npicosearch\r\npiltdownman\r\npimptrain\r\npinpoint\r\npioneer\r\npiranha\r\nplumtreewebaccessor\r\npogodak\r\npoirot\r\npompos\r\npoppelsdorf\r\npoppi\r\npopular iconoclast\r\npsycheclone\r\npublisher\r\npython\r\nrambler\r\nraven search\r\nroach\r\nroad runner\r\nroadhouse\r\nrobbie\r\nrobofox\r\nrobozilla\r\nrules\r\nsalty\r\nsbider\r\nscooter\r\nscoutjet\r\nscrubby\r\nsearch.\r\nsearchprocess\r\nsemanticdiscovery\r\nsenrigan\r\nsg-scout\r\nshai''hulud\r\nshark\r\nshopwiki\r\nsidewinder\r\nsift\r\nsilk\r\nsimmany\r\nsite searcher\r\nsite valet\r\nsitetech-rover\r\nskymob.com\r\nsleek\r\nsmartwit\r\nsna-\r\nsnappy\r\nsnooper\r\nsohu\r\nspeedfind\r\nsphere\r\nsphider\r\nspinner\r\nspyder\r\nsteeler/\r\nsuke\r\nsuntek\r\nsupersnooper\r\nsurfnomore\r\nsven\r\nsygol\r\nszukacz\r\ntach black widow\r\ntarantula\r\ntempleton\r\n/teoma\r\nt-h-u-n-d-e-r-s-t-o-n-e\r\ntheophrastus\r\ntitan\r\ntitin\r\ntkwww\r\ntoutatis\r\nt-rex\r\ntutorgig\r\ntwiceler\r\ntwisted\r\nucsd\r\nudmsearch\r\nurl check\r\nupdated\r\nvagabondo\r\nvalkyrie\r\nverticrawl\r\nvictoria\r\nvision-search\r\nvolcano\r\nvoyager/\r\nvoyager-hc\r\nw3c_validator\r\nw3m2\r\nw3mir\r\nwalker\r\nwallpaper\r\nwanderer\r\nwauuu\r\nwavefire\r\nweb core\r\nweb hopper\r\nweb wombat\r\nwebbandit\r\nwebcatcher\r\nwebcopy\r\nwebfoot\r\nweblayers\r\nweblinker\r\nweblog monitor\r\nwebmirror\r\nwebmonkey\r\nwebquest\r\nwebreaper\r\nwebsitepulse\r\nwebsnarf\r\nwebstolperer\r\nwebvac\r\nwebwalk\r\nwebwatch\r\nwebwombat\r\nwebzinger\r\nwhizbang\r\nwhowhere\r\nwild ferret\r\nworldlight\r\nwwwc\r\nwwwster\r\nxenu\r\nxget\r\nxift\r\nxirq\r\nyandex\r\nyanga\r\nyeti\r\nyodao\r\nzao\r\nzippp\r\nzyborg', 0),
-(129, 0, 'config', 'config_password', '1', 0),
-(164, 0, 'pp_standard', 'pp_standard_email', 'vxdhost@gmail.com', 0),
-(130, 0, 'config', 'config_city', '1', 0),
-(131, 0, 'config', 'config_show_welcome', '1', 0),
-(132, 0, 'config', 'config_deals_home_count', '4', 0),
-(133, 0, 'config', 'config_currency', 'NZD', 0),
-(134, 0, 'config', 'config_admin_limit', '20', 0),
-(135, 0, 'config', 'config_default_commission', '20', 0),
-(136, 0, 'config', 'config_catalog_limit', '6', 0),
-(137, 0, 'config', 'config_country_id', '153', 0),
-(138, 0, 'config', 'config_customer_group_id', '1', 0),
-(139, 0, 'config', 'config_account_id', '3', 0),
-(140, 0, 'config', 'config_customer_approval', '0', 0),
-(141, 0, 'total', 'sub_total_status', '1', 0),
-(142, 0, 'total', 'sub_total_sort_order', '0', 0),
-(143, 0, 'total', 'total_status', '1', 0),
-(144, 0, 'total', 'total_sort_order', '10', 0),
-(145, 0, 'total', 'shipping_status', '1', 0),
-(146, 0, 'total', 'shipping_sort_order', '4', 0),
-(148, 0, 'category', 'category_module', 'a:2:{i:0;a:4:{s:9:"layout_id";s:1:"4";s:8:"position";s:14:"content_bottom";s:6:"status";s:1:"1";s:10:"sort_order";s:1:"0";}i:1;a:4:{s:9:"layout_id";s:1:"1";s:8:"position";s:14:"content_bottom";s:6:"status";s:1:"1";s:10:"sort_order";s:0:"";}}', 1),
-(162, 0, 'config', 'config_url', 'http://opendeal/', 0),
-(165, 0, 'pp_standard', 'pp_standard_test', '0', 0),
-(166, 0, 'pp_standard', 'pp_standard_transaction', '0', 0),
-(167, 0, 'pp_standard', 'pp_standard_debug', '1', 0),
-(168, 0, 'pp_standard', 'pp_standard_status', '1', 0),
-(169, 0, 'pp_standard', 'pp_standard_sort_order', '0', 0);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `od_store`
 --
 
@@ -1729,7 +1807,7 @@ CREATE TABLE IF NOT EXISTS `od_url_alias` (
   `query` varchar(255) NOT NULL,
   `keyword` varchar(255) NOT NULL,
   PRIMARY KEY (`url_alias_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `od_url_alias`
@@ -1739,7 +1817,9 @@ INSERT INTO `od_url_alias` (`url_alias_id`, `query`, `keyword`) VALUES
 (1, 'category_id=1', 'food-and-drink'),
 (3, 'deal_id=1', 'dinner-for-four'),
 (4, 'deal_id=2', 'beautiful-soul-2'),
-(5, 'deal_id=3', 'md3-vitamin-c-anti-age-serum');
+(5, 'deal_id=3', 'md3-vitamin-c-anti-age-serum'),
+(9, 'freepon_id=6', 'free-deal-one'),
+(10, 'freepon_id=7', 'deal-2-free');
 
 -- --------------------------------------------------------
 
@@ -1769,7 +1849,7 @@ CREATE TABLE IF NOT EXISTS `od_user` (
 --
 
 INSERT INTO `od_user` (`user_id`, `user_group_id`, `username`, `password`, `salt`, `firstname`, `lastname`, `email`, `code`, `ip`, `status`, `date_added`) VALUES
-(1, 1, 'superadmin', 'bc0e162485bdce027d875d7ca3b6050a2418537e', '245a3b4af', 'Admin', 'Admin', 'admin@opendeals.info', '', '192.168.1.65', 1, '2014-04-11 20:57:02');
+(1, 1, 'superadmin', 'bc0e162485bdce027d875d7ca3b6050a2418537e', '245a3b4af', 'Admin', 'Admin', 'admin@opendeals.info', '', '192.168.1.73', 1, '2014-04-11 20:57:02');
 
 -- --------------------------------------------------------
 
@@ -1790,7 +1870,7 @@ CREATE TABLE IF NOT EXISTS `od_user_group` (
 --
 
 INSERT INTO `od_user_group` (`user_group_id`, `name`, `permission`) VALUES
-(1, 'Top Administrator', 'a:2:{s:6:"access";a:19:{i:0;s:18:"common/filemanager";i:1;s:13:"deal/category";i:2;s:12:"deal/company";i:3;s:9:"deal/deal";i:4;s:14:"extension/feed";i:5;s:17:"extension/manager";i:6;s:16:"extension/module";i:7;s:17:"extension/payment";i:8;s:15:"extension/total";i:9;s:17:"localisation/city";i:10;s:15:"module/category";i:11;s:19:"payment/pp_standard";i:12;s:13:"sale/customer";i:13;s:20:"sale/customer_ban_ip";i:14;s:15:"setting/setting";i:15;s:13:"setting/store";i:16;s:21:"setting/vqmod_manager";i:17;s:9:"user/user";i:18;s:20:"user/user_permission";}s:6:"modify";a:19:{i:0;s:18:"common/filemanager";i:1;s:13:"deal/category";i:2;s:12:"deal/company";i:3;s:9:"deal/deal";i:4;s:14:"extension/feed";i:5;s:17:"extension/manager";i:6;s:16:"extension/module";i:7;s:17:"extension/payment";i:8;s:15:"extension/total";i:9;s:17:"localisation/city";i:10;s:15:"module/category";i:11;s:19:"payment/pp_standard";i:12;s:13:"sale/customer";i:13;s:20:"sale/customer_ban_ip";i:14;s:15:"setting/setting";i:15;s:13:"setting/store";i:16;s:21:"setting/vqmod_manager";i:17;s:9:"user/user";i:18;s:20:"user/user_permission";}}'),
+(1, 'Top Administrator', 'a:2:{s:6:"access";a:20:{i:0;s:18:"common/filemanager";i:1;s:13:"deal/category";i:2;s:12:"deal/company";i:3;s:9:"deal/deal";i:4;s:12:"deal/freepon";i:5;s:14:"extension/feed";i:6;s:17:"extension/manager";i:7;s:16:"extension/module";i:8;s:17:"extension/payment";i:9;s:15:"extension/total";i:10;s:17:"localisation/city";i:11;s:15:"module/category";i:12;s:19:"payment/pp_standard";i:13;s:13:"sale/customer";i:14;s:20:"sale/customer_ban_ip";i:15;s:15:"setting/setting";i:16;s:13:"setting/store";i:17;s:21:"setting/vqmod_manager";i:18;s:9:"user/user";i:19;s:20:"user/user_permission";}s:6:"modify";a:20:{i:0;s:18:"common/filemanager";i:1;s:13:"deal/category";i:2;s:12:"deal/company";i:3;s:9:"deal/deal";i:4;s:12:"deal/freepon";i:5;s:14:"extension/feed";i:6;s:17:"extension/manager";i:7;s:16:"extension/module";i:8;s:17:"extension/payment";i:9;s:15:"extension/total";i:10;s:17:"localisation/city";i:11;s:15:"module/category";i:12;s:19:"payment/pp_standard";i:13;s:13:"sale/customer";i:14;s:20:"sale/customer_ban_ip";i:15;s:15:"setting/setting";i:16;s:13:"setting/store";i:17;s:21:"setting/vqmod_manager";i:18;s:9:"user/user";i:19;s:20:"user/user_permission";}}'),
 (10, 'Demonstration', 'a:1:{s:6:"access";a:6:{i:0;s:18:"common/filemanager";i:1;s:13:"deal/category";i:2;s:15:"setting/setting";i:3;s:13:"setting/store";i:4;s:9:"user/user";i:5;s:20:"user/user_permission";}}');
 
 -- --------------------------------------------------------
@@ -5867,66 +5947,81 @@ CREATE TABLE IF NOT EXISTS `od_zone_to_geo_zone` (
   PRIMARY KEY (`zone_to_geo_zone_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-
-INSERT INTO `od_setting` (`setting_id`, `store_id`, `group`, `key`, `value`, `serialized`) VALUES (NULL, '0', 'config', 'config_order_status_id', '1', '0');
-
-ALTER TABLE `od_order_coupon` CHANGE `coupon_expire` `coupon_expire` INT(11) NOT NULL DEFAULT '0';
-
-DROP TABLE IF EXISTS `od_freepon`;
-CREATE TABLE IF NOT EXISTS `od_freepon` (
-  `freepon_id` int(11) NOT NULL AUTO_INCREMENT,
-  `company_id` int(11) NOT NULL,
-  `download` varchar(250) NOT NULL,
-  `begin_time` bigint(20) NOT NULL,
-  `end_time` bigint(20) NOT NULL,
-  `status` int(1) NOT NULL DEFAULT '0',
-  `create_date` bigint(20) NOT NULL,
-  `modify_date` bigint(20) NOT NULL,
-  `viewed` bigint(20) NOT NULL DEFAULT '0',
-  `downloaded` bigint(20) NOT NULL DEFAULT '0',
-`feature_weight` INT( 11 ) NOT NULL DEFAULT  '0',
-  PRIMARY KEY (`freepod_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
+DROP TABLE IF EXISTS `od_setting`;
+CREATE TABLE IF NOT EXISTS `od_setting` (
+  `setting_id` int(11) NOT NULL AUTO_INCREMENT,
+  `store_id` int(11) NOT NULL DEFAULT '0',
+  `group` varchar(32) NOT NULL,
+  `key` varchar(64) NOT NULL,
+  `value` text NOT NULL,
+  `serialized` tinyint(1) NOT NULL,
+  PRIMARY KEY (`setting_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=174 ;
 
 --
--- Table structure for table `od_freepon_description`
+-- Dumping data for table `od_setting`
 --
-DROP TABLE IF EXISTS `od_freepon_description`;
-CREATE TABLE IF NOT EXISTS `od_freepon_description` (
-  `freepon_id` bigint(20) NOT NULL,
-  `language_id` int(11) NOT NULL,
-  `name` varchar(250) NOT NULL,
-  `description` text NOT NULL,
-  PRIMARY KEY (`freepon_id`,`language_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `od_freepon_to_city`;
-CREATE TABLE IF NOT EXISTS `od_freepon_to_city` (
-  `freepon_id` int(11) NOT NULL,
-  `city_id` int(11) NOT NULL,
-  UNIQUE KEY `freepon_id` (`freepon_id`,`city_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-DROP TABLE IF EXISTS `od_freepon_to_store`;
-CREATE TABLE IF NOT EXISTS `od_freepon_to_store` (
-  `freepon_id` int(11) NOT NULL,
-  `store_id` int(11) NOT NULL,
-  UNIQUE KEY `freepon_id` (`freepon_id`,`store_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-DROP TABLE IF EXISTS `od_freepon_to_category`;
-CREATE TABLE IF NOT EXISTS `od_freepon_to_category` (
-  `freepon_id` int(11) NOT NULL,
-  `category_id` int(11) NOT NULL,
-  UNIQUE KEY `freepon_id` (`freepon_id`,`category_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-DROP TABLE IF EXISTS `od_freepon_to_layout`;
-CREATE TABLE IF NOT EXISTS `od_freepon_to_layout` (
-  `freepon_id` int(11) NOT NULL,
-  `store_id` int(11) NOT NULL,
-  `layout_id` int(11) NOT NULL,
-  PRIMARY KEY (`freepon_id`,`store_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+INSERT INTO `od_setting` (`setting_id`, `store_id`, `group`, `key`, `value`, `serialized`) VALUES
+(16, 0, 'config', 'config_google_analytics', '', 0),
+(17, 0, 'config', 'config_error_filename', 'error.txt', 0),
+(18, 0, 'config', 'config_error_log', '1', 0),
+(19, 0, 'config', 'config_error_display', '1', 0),
+(20, 0, 'config', 'config_compression', '0', 0),
+(173, 0, 'config', 'config_encryption', 'b354224fd79eed72c82415b4a5da2404', 0),
+(22, 0, 'config', 'config_maintenance', '0', 0),
+(24, 0, 'config', 'config_alert_emails', '', 0),
+(25, 0, 'config', 'config_secure', '0', 0),
+(26, 0, 'config', 'config_seo_url', '1', 0),
+(29, 0, 'config', 'config_alert_mail', '0', 0),
+(30, 0, 'config', 'config_smtp_username', '', 0),
+(31, 0, 'config', 'config_smtp_password', '', 0),
+(32, 0, 'config', 'config_smtp_port', '25', 0),
+(33, 0, 'config', 'config_smtp_timeout', '5', 0),
+(44, 0, 'config', 'config_smtp_host', '', 0),
+(45, 0, 'config', 'config_image_cart_height', '47', 0),
+(46, 0, 'config', 'config_mail_protocol', 'mail', 0),
+(47, 0, 'config', 'config_mail_parameter', '', 0),
+(49, 0, 'config', 'config_image_cart_width', '47', 0),
+(72, 0, 'config', 'config_icon', 'data/cart.png', 0),
+(73, 0, 'config', 'config_logo', 'data/logo.png', 0),
+(110, 0, 'config', 'config_name', 'Your OpenDeal', 0),
+(111, 0, 'config', 'config_owner', 'Your Name', 0),
+(112, 0, 'config', 'config_address', 'Address 1', 0),
+(171, 0, 'config', 'config_email', 'vxdhost@gmail.com', 0),
+(114, 0, 'config', 'config_telephone', '123456789', 0),
+(115, 0, 'config', 'config_fax', '', 0),
+(116, 0, 'config', 'config_title', 'Your Store', 0),
+(117, 0, 'config', 'config_meta_description', 'My Store', 0),
+(118, 0, 'config', 'config_template', 'default', 0),
+(119, 0, 'config', 'config_layout_id', '4', 0),
+(122, 0, 'config', 'config_language', 'en', 0),
+(123, 0, 'config', 'config_admin_language', 'en', 0),
+(128, 0, 'config', 'config_robots', 'abot\r\ndbot\r\nebot\r\nhbot\r\nkbot\r\nlbot\r\nmbot\r\nnbot\r\nobot\r\npbot\r\nrbot\r\nsbot\r\ntbot\r\nvbot\r\nybot\r\nzbot\r\nbot.\r\nbot/\r\n_bot\r\n.bot\r\n/bot\r\n-bot\r\n:bot\r\n(bot\r\ncrawl\r\nslurp\r\nspider\r\nseek\r\naccoona\r\nacoon\r\nadressendeutschland\r\nah-ha.com\r\nahoy\r\naltavista\r\nananzi\r\nanthill\r\nappie\r\narachnophilia\r\narale\r\naraneo\r\naranha\r\narchitext\r\naretha\r\narks\r\nasterias\r\natlocal\r\natn\r\natomz\r\naugurfind\r\nbackrub\r\nbannana_bot\r\nbaypup\r\nbdfetch\r\nbig brother\r\nbiglotron\r\nbjaaland\r\nblackwidow\r\nblaiz\r\nblog\r\nblo.\r\nbloodhound\r\nboitho\r\nbooch\r\nbradley\r\nbutterfly\r\ncalif\r\ncassandra\r\nccubee\r\ncfetch\r\ncharlotte\r\nchurl\r\ncienciaficcion\r\ncmc\r\ncollective\r\ncomagent\r\ncombine\r\ncomputingsite\r\ncsci\r\ncurl\r\ncusco\r\ndaumoa\r\ndeepindex\r\ndelorie\r\ndepspid\r\ndeweb\r\ndie blinde kuh\r\ndigger\r\nditto\r\ndmoz\r\ndocomo\r\ndownload express\r\ndtaagent\r\ndwcp\r\nebiness\r\nebingbong\r\ne-collector\r\nejupiter\r\nemacs-w3 search engine\r\nesther\r\nevliya celebi\r\nezresult\r\nfalcon\r\nfelix ide\r\nferret\r\nfetchrover\r\nfido\r\nfindlinks\r\nfireball\r\nfish search\r\nfouineur\r\nfunnelweb\r\ngazz\r\ngcreep\r\ngenieknows\r\ngetterroboplus\r\ngeturl\r\nglx\r\ngoforit\r\ngolem\r\ngrabber\r\ngrapnel\r\ngralon\r\ngriffon\r\ngromit\r\ngrub\r\ngulliver\r\nhamahakki\r\nharvest\r\nhavindex\r\nhelix\r\nheritrix\r\nhku www octopus\r\nhomerweb\r\nhtdig\r\nhtml index\r\nhtml_analyzer\r\nhtmlgobble\r\nhubater\r\nhyper-decontextualizer\r\nia_archiver\r\nibm_planetwide\r\nichiro\r\niconsurf\r\niltrovatore\r\nimage.kapsi.net\r\nimagelock\r\nincywincy\r\nindexer\r\ninfobee\r\ninformant\r\ningrid\r\ninktomisearch.com\r\ninspector web\r\nintelliagent\r\ninternet shinchakubin\r\nip3000\r\niron33\r\nisraeli-search\r\nivia\r\njack\r\njakarta\r\njavabee\r\njetbot\r\njumpstation\r\nkatipo\r\nkdd-explorer\r\nkilroy\r\nknowledge\r\nkototoi\r\nkretrieve\r\nlabelgrabber\r\nlachesis\r\nlarbin\r\nlegs\r\nlibwww\r\nlinkalarm\r\nlink validator\r\nlinkscan\r\nlockon\r\nlwp\r\nlycos\r\nmagpie\r\nmantraagent\r\nmapoftheinternet\r\nmarvin/\r\nmattie\r\nmediafox\r\nmediapartners\r\nmercator\r\nmerzscope\r\nmicrosoft url control\r\nminirank\r\nmiva\r\nmj12\r\nmnogosearch\r\nmoget\r\nmonster\r\nmoose\r\nmotor\r\nmultitext\r\nmuncher\r\nmuscatferret\r\nmwd.search\r\nmyweb\r\nnajdi\r\nnameprotect\r\nnationaldirectory\r\nnazilla\r\nncsa beta\r\nnec-meshexplorer\r\nnederland.zoek\r\nnetcarta webmap engine\r\nnetmechanic\r\nnetresearchserver\r\nnetscoop\r\nnewscan-online\r\nnhse\r\nnokia6682/\r\nnomad\r\nnoyona\r\nnutch\r\nnzexplorer\r\nobjectssearch\r\noccam\r\nomni\r\nopen text\r\nopenfind\r\nopenintelligencedata\r\norb search\r\nosis-project\r\npack rat\r\npageboy\r\npagebull\r\npage_verifier\r\npanscient\r\nparasite\r\npartnersite\r\npatric\r\npear.\r\npegasus\r\nperegrinator\r\npgp key agent\r\nphantom\r\nphpdig\r\npicosearch\r\npiltdownman\r\npimptrain\r\npinpoint\r\npioneer\r\npiranha\r\nplumtreewebaccessor\r\npogodak\r\npoirot\r\npompos\r\npoppelsdorf\r\npoppi\r\npopular iconoclast\r\npsycheclone\r\npublisher\r\npython\r\nrambler\r\nraven search\r\nroach\r\nroad runner\r\nroadhouse\r\nrobbie\r\nrobofox\r\nrobozilla\r\nrules\r\nsalty\r\nsbider\r\nscooter\r\nscoutjet\r\nscrubby\r\nsearch.\r\nsearchprocess\r\nsemanticdiscovery\r\nsenrigan\r\nsg-scout\r\nshai''hulud\r\nshark\r\nshopwiki\r\nsidewinder\r\nsift\r\nsilk\r\nsimmany\r\nsite searcher\r\nsite valet\r\nsitetech-rover\r\nskymob.com\r\nsleek\r\nsmartwit\r\nsna-\r\nsnappy\r\nsnooper\r\nsohu\r\nspeedfind\r\nsphere\r\nsphider\r\nspinner\r\nspyder\r\nsteeler/\r\nsuke\r\nsuntek\r\nsupersnooper\r\nsurfnomore\r\nsven\r\nsygol\r\nszukacz\r\ntach black widow\r\ntarantula\r\ntempleton\r\n/teoma\r\nt-h-u-n-d-e-r-s-t-o-n-e\r\ntheophrastus\r\ntitan\r\ntitin\r\ntkwww\r\ntoutatis\r\nt-rex\r\ntutorgig\r\ntwiceler\r\ntwisted\r\nucsd\r\nudmsearch\r\nurl check\r\nupdated\r\nvagabondo\r\nvalkyrie\r\nverticrawl\r\nvictoria\r\nvision-search\r\nvolcano\r\nvoyager/\r\nvoyager-hc\r\nw3c_validator\r\nw3m2\r\nw3mir\r\nwalker\r\nwallpaper\r\nwanderer\r\nwauuu\r\nwavefire\r\nweb core\r\nweb hopper\r\nweb wombat\r\nwebbandit\r\nwebcatcher\r\nwebcopy\r\nwebfoot\r\nweblayers\r\nweblinker\r\nweblog monitor\r\nwebmirror\r\nwebmonkey\r\nwebquest\r\nwebreaper\r\nwebsitepulse\r\nwebsnarf\r\nwebstolperer\r\nwebvac\r\nwebwalk\r\nwebwatch\r\nwebwombat\r\nwebzinger\r\nwhizbang\r\nwhowhere\r\nwild ferret\r\nworldlight\r\nwwwc\r\nwwwster\r\nxenu\r\nxget\r\nxift\r\nxirq\r\nyandex\r\nyanga\r\nyeti\r\nyodao\r\nzao\r\nzippp\r\nzyborg', 0),
+(129, 0, 'config', 'config_password', '1', 0),
+(164, 0, 'pp_standard', 'pp_standard_email', 'vxdhost@gmail.com', 0),
+(130, 0, 'config', 'config_city', '1', 0),
+(131, 0, 'config', 'config_show_welcome', '1', 0),
+(132, 0, 'config', 'config_deals_home_count', '4', 0),
+(133, 0, 'config', 'config_currency', 'NZD', 0),
+(134, 0, 'config', 'config_admin_limit', '20', 0),
+(135, 0, 'config', 'config_default_commission', '20', 0),
+(136, 0, 'config', 'config_catalog_limit', '6', 0),
+(137, 0, 'config', 'config_country_id', '153', 0),
+(138, 0, 'config', 'config_customer_group_id', '1', 0),
+(139, 0, 'config', 'config_account_id', '3', 0),
+(140, 0, 'config', 'config_customer_approval', '0', 0),
+(141, 0, 'total', 'sub_total_status', '1', 0),
+(142, 0, 'total', 'sub_total_sort_order', '0', 0),
+(143, 0, 'total', 'total_status', '1', 0),
+(144, 0, 'total', 'total_sort_order', '10', 0),
+(145, 0, 'total', 'shipping_status', '1', 0),
+(146, 0, 'total', 'shipping_sort_order', '4', 0),
+(148, 0, 'category', 'category_module', 'a:2:{i:0;a:4:{s:9:"layout_id";s:1:"4";s:8:"position";s:14:"content_bottom";s:6:"status";s:1:"1";s:10:"sort_order";s:1:"0";}i:1;a:4:{s:9:"layout_id";s:1:"1";s:8:"position";s:14:"content_bottom";s:6:"status";s:1:"1";s:10:"sort_order";s:0:"";}}', 1),
+(172, 0, 'config', 'config_url', 'http://demo.opendeals.info/', 0),
+(165, 0, 'pp_standard', 'pp_standard_test', '0', 0),
+(166, 0, 'pp_standard', 'pp_standard_transaction', '0', 0),
+(167, 0, 'pp_standard', 'pp_standard_debug', '1', 0),
+(168, 0, 'pp_standard', 'pp_standard_status', '1', 0),
+(169, 0, 'pp_standard', 'pp_standard_sort_order', '0', 0),
+(170, 0, 'config', 'config_order_status_id', '1', 0);
