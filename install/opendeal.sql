@@ -1097,6 +1097,7 @@ CREATE TABLE IF NOT EXISTS `od_freepon` (
   `freepon_id` int(11) NOT NULL AUTO_INCREMENT,
   `company_id` int(11) NOT NULL,
   `download` varchar(250) NOT NULL,
+  `code` varchar(25) NOT NULL,
   `begin_time` bigint(20) NOT NULL,
   `end_time` bigint(20) NOT NULL,
   `status` int(1) NOT NULL DEFAULT '0',
@@ -6025,3 +6026,12 @@ INSERT INTO `od_setting` (`setting_id`, `store_id`, `group`, `key`, `value`, `se
 (168, 0, 'pp_standard', 'pp_standard_status', '1', 0),
 (169, 0, 'pp_standard', 'pp_standard_sort_order', '0', 0),
 (170, 0, 'config', 'config_order_status_id', '1', 0);
+
+
+DROP TABLE IF EXISTS `od_freepon_claim`;
+CREATE TABLE IF NOT EXISTS `od_freepon_claim` (
+  `freepon_id` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `timestamp` int(11) NOT NULL,
+  UNIQUE KEY `freepon_id` (`freepon_id`,`customer_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

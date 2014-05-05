@@ -166,4 +166,17 @@ class ModelDealFreepon extends \Core\Model {
         return $query->row['total'];
     }
 
+    public function updateView($freepon_id) {
+        $this->db->query("UPDATE #__freepon SET viewed = (viewed + 1) WHERE freepon_id = '" . (int) $freepon_id . "'");
+    }
+
+    public function updateClaim($freepon_id, $customer_id) {
+        $repeat = $this->db->query("Select count(*) as total from #__freepon_claim where freepon_id = '" . (int) $freepon_id . "' and customer_id = '" . (int) $customer_id . "'");
+        if ($repeat->row['total'] == 0) {
+            $this->db->query("insert into #__freepon_claim SET freepon_id = '" . (int) $freepon_id . "', customer_id = '" . $customer_id . "', timestamp = '" . time() . "'");
+            //If !user->hasClaim
+            $this->db->query("UPDATE #__freepon SET downloaded = (downloaded + 1) WHERE freepon_id = '" . (int) $freepon_id . "'");
+        }
+    }
+
 }

@@ -1,0 +1,221 @@
+<?php echo $header; ?>
+<div class="page_container">
+    <?php echo $column_left; ?>
+    <?php echo $column_right; ?>
+    <div id="content">
+        <ol class="breadcrumb">
+            <?php $i = 0; ?>
+            <?php foreach ($breadcrumbs as $i => $breadcrumb) { ?>
+                <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo ($i == 0) ? '<i class="fa fa-dashboard"></i> ' : ''; ?><?php echo $breadcrumb['text']; ?></a></li>
+            <?php } ?>
+        </ol>
+        <?php echo $content_top; ?>
+        <div class="container">
+            <div class="cm_deals_content_container">
+                <div class="cm_deals_content">
+
+                    <div class="deal_detail row">
+                        <div class="col-md-12">
+                            <h3 class="deal_name"><?php echo $freepon['name']; ?></h3>
+                            
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-4">
+                                        <div class="price_block deal_detail_block">
+                                            <div class="tag">
+                                                <div class="tag_background"></div>
+                                                <div class="tag_background_repeat"></div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="price_container"><div class="price"><a href="<?php echo $claim_coupon; ?>" class="text-white"><?php echo $text_get_coupon; ?></a></div></div>
+                                                    </div>
+                                                </div>
+                                                
+                                                
+                                            </div>
+                                        </div>
+
+                                        <div class="remaining_time_block deal_detail_block">
+                                            <div class="countdown_block">
+                                                <h3><?php echo $this->language->get("heading_time_left_to_buy"); ?></h3>
+                                                
+                                                    <div id="deal_countdown" class="hasCountdown" data-time="<?php echo $freepon['time_diff']; ?>"></div>
+                                           
+                                            </div>
+                                        </div>
+                                        <div class="bought_block deal_detail_block row">
+                                            <h3>
+                                                <?php echo sprintf($this->language->get('text_bought'), $freepon['downloaded']); ?>	
+                                            </h3>
+                                               
+
+
+
+
+                                        </div>
+
+                                        <div class="share_buttons">
+                                            <ul>
+                                                <li>
+                                                <g:plusone size="medium" annotation="none"></g:plusone>
+
+                                                </li>
+                                                <li>
+
+                                                    <div>
+                                                        <a class="custom_tweet_button" href="https://twitter.com/share?url=<?php echo urlencode($this->url->link("deal/freepon/view", array("freepon_id" => $freepon['freepon_id'], "city_id" => $this->city->city))); ?>" target="_blank"></a>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="fb-like" data-href="<?php echo $this->url->link("deal/freepon/view", array("freepon_id" => $freepon['freepon_id'], "city_id" => $this->city->city)); ?>" data-send="true" data-layout="button_count" data-width="100" data-show-faces="false"></div>    
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div id="deal_slideshow" class="cmslideshow carousel slide">
+                                            <div class="carousel-inner">
+                                                
+                                                <?php if ($freepon['images']): ?>
+                                                    <?php foreach ($freepon['images'] as $i => $image): ?>
+                                                        <div class="item<?php echo ($i == 0) ? ' active' : ''; ?>">
+                                                            <img src="<?php echo $image; ?>">
+                                                        </div>
+                                                    <?php endforeach; ?>
+                                                <?php else: ?>
+                                                    <div class="item active">
+                                                        <img src="<?php echo $no_image; ?>">
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+                                            <?php if (count($freepon['images']) > 1): ?>
+                                                <a class="left carousel-control" href="#deal_slideshow" data-slide="prev">‹</a>
+                                                <a class="right carousel-control" href="#deal_slideshow" data-slide="next">›</a>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="deal_description">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-8">
+
+
+                                            <h2>The Deal</h2>
+                                            <?php echo $freepon['description']; ?>					
+
+                                          
+
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h2><?php echo $freepon['company']['name']; ?></h2>
+                                            <?php if ($freepon['company']['website']): ?>
+                                                <a target="_blank" href="<?php echo $freepon['company']['website']; ?>"><?php echo $freepon['company']['website']; ?></a>
+                                            <?php endif; ?>
+
+                                            <script type="text/javascript">
+                                                var map;
+                                                function initialize()
+                                                {
+                                                    var latlng = new google.maps.LatLng(<?php echo $freepon['company']['locations'][0]['latitude']; ?>, <?php echo $freepon['company']['locations'][0]['longitude']; ?>);
+                                                    var myOptions = {
+                                                        zoom: 15,
+                                                        center: latlng,
+                                                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                                                    };
+                                                    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+<?php foreach ($freepon['company']['locations'] as $l => $location): ?>
+                                                        var latlng<?php echo $l; ?> = new google.maps.LatLng(<?php echo $location['latitude']; ?>, <?php echo $location['longitude']; ?>);
+                                                        var marker<?php echo $l; ?> = new google.maps.Marker({
+                                                            position: latlng<?php echo $l; ?>,
+                                                            map: map,
+                                                            title: '<?php echo $deal['company']['name']; ?>'});
+<?php endforeach; ?>
+                                                }
+
+                                                function markerTrigger(coordinateString)
+                                                {
+                                                    coordinateArray = coordinateString.split(",");
+                                                    var point = new google.maps.LatLng(
+                                                            parseFloat(coordinateArray[0]),
+                                                            parseFloat(coordinateArray[1]));
+                                                    window.map.setCenter(point);
+                                                }
+
+                                                addOnready(function()
+                                                {
+                                                    initialize();
+                                                });</script>
+
+                                            <div class="partner_address">
+                                                <div class='list-group-item'>
+                                                    <div id="map_canvas" style='width: 100%;height:350px;'></div>
+                                                </div>
+                                                <?php foreach ($freepon['company']['locations'] as $location): ?>
+                                                    <div class='list-group-item'>
+                                                        <div class="address_name">
+                                                            <strong onclick="markerTrigger('<?php echo $location['latitude']; ?>,<?php echo $location['longitude']; ?>')"><?php echo $location['address']; ?></strong>
+                                                        </div>
+                                                        <abbr title='phone'>P:</abbr>(123) 4567890<br />
+                                                        <a class="btn btn-sm " href="//maps.google.com/maps?f=d&amp;daddr=<?php echo urlencode($location['address']); ?>" target="_blank">Get directions</a>
+                                                    </div>
+                                                <?php endforeach; ?>
+
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="fb-root"></div>
+
+
+
+                    </div>
+                </div>
+
+            </div>
+
+
+            <?php echo $content_bottom; ?></div>
+    </div>
+
+    <script type="text/javascript">
+        addOnready(function()
+        {
+            $('#deal_countdown').countdown({
+                timezone: 0,
+                until: +<?php echo $freepon['time_diff'];
+            ?>,
+                expiryUrl: '<?php echo $this->url->link("deal/freepon"); ?>'
+            });
+            $('#deal_countdown').countdown($.countdown.regionalOptions['<?php echo $lang; ?>']);
+        });</script>
+    <script type="text/javascript">
+        (function() {
+            var po = document.createElement('script');
+            po.type = 'text/javascript';
+            po.async = true;
+            po.src = 'https://apis.google.com/js/plusone.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(po, s);
+        })();</script>
+    <script src="//platform.twitter.com/widgets.js" type="text/javascript"></script>
+    <script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+
+    <?php echo $footer; ?>

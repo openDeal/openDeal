@@ -70,6 +70,7 @@ class ControllerAccountLogin extends \Core\Controller {
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
 			unset($this->session->data['guest']);
+                        unset($this->session->data['redirect']);
 
 			// Default Shipping Address
 			$this->load->model('account/address');
@@ -153,7 +154,7 @@ class ControllerAccountLogin extends \Core\Controller {
 		} elseif (isset($this->session->data['redirect'])) {
 			$this->data['redirect'] = $this->session->data['redirect'];
 
-			unset($this->session->data['redirect']);		  	
+		//	unset($this->session->data['redirect']);		  	
 		} else {
 			$this->data['redirect'] = '';
 		}

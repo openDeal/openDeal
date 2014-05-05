@@ -467,3 +467,7 @@ h2.panel-title {
         text-align: center;
     }
 }
+
+.text-white {
+    color: #fff !important;
+}
