@@ -471,3 +471,9 @@ h2.panel-title {
 .text-white {
     color: #fff !important;
 }
+
+label.required:after {
+    content: " *";
+    color: red;
+    font-weight: bold;
+}
