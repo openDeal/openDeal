@@ -130,16 +130,15 @@ function generateRandomString($length = 1) {
     return $string;
 }
 
-
 function getFileExtension($filename, $dot = true, $lowercase = true) {
-        $file_ext = strrchr($filename, '.');
-        if ($file_ext) {
-            if (!$dot) {
-                $file_ext = str_replace('.', '', $file_ext);
-            }
-            if ($lowercase) {
-                $file_ext = strtolower($file_ext);
-            }
+    $file_ext = strrchr($filename, '.');
+    if ($file_ext) {
+        if (!$dot) {
+            $file_ext = str_replace('.', '', $file_ext);
         }
-        return $file_ext;
+        if ($lowercase) {
+            $file_ext = strtolower($file_ext);
+        }
     }
+    return $file_ext;
+}

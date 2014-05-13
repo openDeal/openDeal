@@ -399,6 +399,7 @@ class ControllerCommonHome extends \Core\Controller {
                 'error/permission'
             );
             
+            
             if (!in_array($route, $ignore) && !$this->user->hasPermission('access', $route)) {
                 return $this->forward('error/permission');
             }
