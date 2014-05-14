@@ -383,37 +383,7 @@ class ControllerAccountAddress extends \Core\Controller {
             $this->data['company'] = '';
         }
 
-        if (isset($this->request->post['company_id'])) {
-            $this->data['company_id'] = $this->request->post['company_id'];
-        } elseif (!empty($address_info)) {
-            $this->data['company_id'] = $address_info['company_id'];
-        } else {
-            $this->data['company_id'] = '';
-        }
 
-        if (isset($this->request->post['tax_id'])) {
-            $this->data['tax_id'] = $this->request->post['tax_id'];
-        } elseif (!empty($address_info)) {
-            $this->data['tax_id'] = $address_info['tax_id'];
-        } else {
-            $this->data['tax_id'] = '';
-        }
-
-        $this->load->model('account/customer_group');
-
-        $customer_group_info = $this->model_account_customer_group->getCustomerGroup($this->customer->getCustomerGroupId());
-
-        if ($customer_group_info) {
-            $this->data['company_id_display'] = $customer_group_info['company_id_display'];
-        } else {
-            $this->data['company_id_display'] = '';
-        }
-
-        if ($customer_group_info) {
-            $this->data['tax_id_display'] = $customer_group_info['tax_id_display'];
-        } else {
-            $this->data['tax_id_display'] = '';
-        }
 
         if (isset($this->request->post['address_1'])) {
             $this->data['address_1'] = $this->request->post['address_1'];
@@ -477,11 +447,9 @@ class ControllerAccountAddress extends \Core\Controller {
 
         $this->data['back'] = $this->url->link('account/address', '', 'SSL');
 
-        if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/account/address_form.tpl')) {
-            $this->template = $this->config->get('config_template') . '/template/account/address_form.tpl';
-        } else {
-            $this->template = 'default/template/account/address_form.tpl';
-        }
+
+        $this->template = 'account/address_form.phtml';
+
 
         $this->children = array(
             'common/column_left',
@@ -519,13 +487,6 @@ class ControllerAccountAddress extends \Core\Controller {
         if ($country_info) {
             if ($country_info['postcode_required'] && (utf8_strlen($this->request->post['postcode']) < 2) || (utf8_strlen($this->request->post['postcode']) > 10)) {
                 $this->error['postcode'] = $this->language->get('error_postcode');
-            }
-
-            // VAT Validation
-            $this->load->helper('vat');
-
-            if ($this->config->get('config_vat') && !empty($this->request->post['tax_id']) && (vat_validation($country_info['iso_code_2'], $this->request->post['tax_id']) == 'invalid')) {
-                $this->error['tax_id'] = $this->language->get('error_vat');
             }
         }
 

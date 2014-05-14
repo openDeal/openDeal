@@ -1,0 +1,31 @@
+<?php echo $header; ?>
+<div class="page_container">
+    <?php echo $column_left; ?><?php echo $column_right; ?>
+    <div id="content"><?php echo $content_top; ?>
+        <div class="breadcrumb">
+            <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+                <?php echo $breadcrumb['separator']; ?><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a>
+            <?php } ?>
+        </div>
+        <h1><?php echo $heading_title; ?></h1>
+        <form action="<?php echo $action; ?>" method="post" class="form-horizontal form-validate" enctype="multipart/form-data">
+            <fieldset>
+                <legend><?php echo $text_edit_address; ?></legend>
+                <div class="content row">
+
+                    <div class="clearfix buttons">
+                        <a href="<?php echo $back; ?>" class="btn btn-default"><?php echo $button_back; ?></a>
+                        <button type="submit" class="btn btn-primary pull-right"><?php echo $button_continue; ?></button>
+
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+
+
+
+
+    </div>
+
+    <?php echo $content_bottom; ?></div>
+<?php echo $footer; ?>
