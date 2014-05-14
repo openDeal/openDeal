@@ -1,6 +1,6 @@
 <?php
 
-class ControllerAccountPassword extends Controller {
+class ControllerAccountPassword extends \Core\Controller {
 
     private $error = array();
 

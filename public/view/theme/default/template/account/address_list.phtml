@@ -1,0 +1,43 @@
+<?php echo $header; ?>
+<?php if ($success) { ?>
+    <div class="success"><?php echo $success; ?></div>
+<?php } ?>
+<?php if ($error_warning) { ?>
+    <div class="warning"><?php echo $error_warning; ?></div>
+<?php } ?>
+<?php echo $column_left; ?><?php echo $column_right; ?>
+<div id="content"><?php echo $content_top; ?>
+    <div class="breadcrumb">
+        <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+            <?php echo $breadcrumb['separator']; ?><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a>
+        <?php } ?>
+    </div>
+    <h1><?php echo $heading_title; ?></h1>
+    <legend><?php echo $text_address_book; ?></legend>
+    <div class="content row">
+        <div class="list-group">
+            <?php foreach ($addresses as $result) : ?>
+                <div class="list-group-item row">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <?php echo $result['address']; ?>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="btn-group pull-right">
+                                <a href="<?php echo $result['update']; ?>" class="btn btn-primary"><?php echo $button_edit; ?></a>
+                                <a href="<?php echo $result['delete']; ?>" class="btn btn-danger"><?php echo $button_delete; ?></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <div class="clearfix buttons">
+            <a href="<?php echo $back; ?>" class="btn btn-default"><?php echo $button_back; ?></a>
+            <a href="<?php echo $insert; ?>" class="btn btn-primary pull-right"><?php echo $button_new_address; ?></a>
+
+        </div>
+    </div>
+
+    <?php echo $content_bottom; ?></div>
+<?php echo $footer; ?>
