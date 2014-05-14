@@ -62,7 +62,7 @@
 
                         <div class="panel panel-default">
                             <!-- Default panel contents -->
-                            <div class="panel-heading"><h4 class="text-center nowrap"><i class="icon-fullscreen"></i> <?php echo $deal['title']; ?></h4></div>
+                            <div class="panel-heading"><h4 class="text-center nowrap"><i class="icon-fullscreen"></i> <a href="<?php echo $deal['url']; ?>" ><?php echo $deal['title']; ?></a></h4></div>
                             <div class="panel-body nopad">
                                 <div class="thumbnail nopad">
                                     <img src="<?php echo (($deal['image'])) ? $deal['image'] : $no_image; ?>" class="img-responsive" alt="">
