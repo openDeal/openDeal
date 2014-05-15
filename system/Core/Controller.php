@@ -66,7 +66,7 @@ abstract class Controller {
         array_shift($called);
         $this->template = implode("/", $called) . '.phtml';
         if($this->registry->has('language')){
-        $this->language->load(implode("/", $called));
+            $this->language->load(implode("/", $called));
         }
     }
 

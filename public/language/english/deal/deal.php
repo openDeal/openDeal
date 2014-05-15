@@ -10,3 +10,5 @@ $_['text_end_time_asc'] = 'Ending Soon';
 $_['text_end_time_desc']  = 'Most Time Left';
 $_['text_title_asc'] = 'Title (A - Z)';
 $_['text_title_desc'] = 'Title (Z - A)';
+
+$_['text_print'] = 'Print Coupon';

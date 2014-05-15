@@ -60,6 +60,12 @@ class ControllerCommonHeader extends \Core\Controller {
         $this->data['text_register'] = $this->language->get('text_register');
         $this->data['link_logout'] = $this->url->link('account/logout', '', 'SSL');
         $this->data['text_logout'] = $this->language->get('text_logout');
+        
+        $this->data['text_account'] = $this->language->get('text_account');
+         $this->data['text_edit_account'] = $this->language->get('text_edit_account');
+         $this->data['text_edit_password'] = $this->language->get('text_edit_password');
+         $this->data['text_address_book'] = $this->language->get('text_address_book');
+        
 
         if ($this->config->get('config_icon') && file_exists(DIR_IMAGE . $this->config->get('config_icon'))) {
             $this->data['icon'] = $server . 'image/' . $this->config->get('config_icon');

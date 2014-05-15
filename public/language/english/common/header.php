@@ -9,3 +9,7 @@ $_['text_register'] = "Register";
 $_['text_logout'] = "Logout";
 
 $_['text_freepon'] = "Free Coupons";
+
+$_['text_edit_account'] = 'Edit Account';
+$_['text_edit_password'] = 'Change Password';
+$_['text_address_book'] = 'Address Book';

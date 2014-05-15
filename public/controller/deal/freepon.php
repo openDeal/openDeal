@@ -361,9 +361,9 @@ class ControllerDealFreepon extends \Core\Controller {
         $this->load->model('deal/freepon');
         $freepon = $this->model_deal_freepon->getFreepon($freepon_id);
         if ($freepon) {
-            
-            
-            
+
+
+
             $this->model_deal_freepon->updateClaim($freepon_id, $this->customer->getId());
             //is is a download or a code ?
             if ($freepon['download'] && is_file(DIR_IMAGE . $freepon['download'])) {
@@ -428,6 +428,9 @@ class ControllerDealFreepon extends \Core\Controller {
                 $this->data['text_scan'] = $this->language->get('text_scan');
 
 
+                $this->data['heading_title'] = $freepon['name'];
+                $this->document->setTitle($freepon['name']);
+
                 $PNG_TEMP_DIR = DIR_DOWNLOAD;
                 $PNG_WEB_DIR = 'download/';
                 $filename = $PNG_TEMP_DIR . 'coupon.png';
@@ -438,11 +441,11 @@ class ControllerDealFreepon extends \Core\Controller {
                 QRcode::png($qrdat, $filename, $errorCorrectionLevel, $matrixPointSize, 2);
                 $this->data['qrcode'] = $PNG_WEB_DIR . basename($filename);
 
-               
-                 $this->load->model('deal/company');
-                 $locations = $this->model_deal_company->getLocations($freepon['company_id']);
-                 $this->data['text_location'] = $this->language->get((count($locations) > 1)?'text_locations':'text_location');
-                 $this->data['locations'] = $locations;
+
+                $this->load->model('deal/company');
+                $locations = $this->model_deal_company->getLocations($freepon['company_id']);
+                $this->data['text_location'] = $this->language->get((count($locations) > 1) ? 'text_locations' : 'text_location');
+                $this->data['locations'] = $locations;
 
                 $this->response->setOutput($this->render());
             }

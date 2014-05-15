@@ -21,3 +21,5 @@ $_['text_scan'] = 'Scan this code display the coupon code on your phone';
 
 $_['text_location'] = 'Location';
 $_['text_locations'] = 'Locations';
+
+$_['text_print'] = 'Print Coupon';

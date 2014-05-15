@@ -104,13 +104,13 @@
                                 <?php else: ?>
                                     <li><a><?php echo $text_logged; ?></a></li>
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <b class="caret"></b></a>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $text_account; ?> <b class="caret"></b></a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="<?php echo $this->url->link('account/account'); ?>">Account</a></li>
-                                            <li><a href="#">Another action</a></li>
-                                            <li><a href="#">Something else here</a></li>
-                                            <li><a href="#">Separated link</a></li>
-                                            <li><a href="#">One more separated link</a></li>
+                                            <li><a href="<?php echo $this->url->link('account/account'); ?>"><?php echo $text_account; ?></a></li>
+                                            <li><a href="<?php echo $this->url->link('account/edit'); ?>"><?php echo $text_edit_account; ?></a></li>
+                                            <li><a href="<?php echo $this->url->link('account/password'); ?>"><?php echo $text_edit_password; ?></a></li>
+                                            <li><a href="<?php echo $this->url->link('account/address'); ?>"><?php echo $text_address_book; ?></a></li>
+                                            <li><a href="<?php echo $this->url->link('account/logout'); ?>"><?php echo $text_logout; ?></a></li>
                                         </ul>
                                     </li>
                                 <?php endif; ?>
