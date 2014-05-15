@@ -95,7 +95,7 @@ class ControllerCommonFooter extends \Core\Controller {
         foreach ($query->rows as $row) {
             $this->data['cities'][$row['city_id']] = $row;
         }
-
+        
         $this->data['showWelcome'] = false;
 
        /* if ($this->config->get('config_show_welcome')) {
@@ -111,6 +111,8 @@ class ControllerCommonFooter extends \Core\Controller {
                
             }
         }*/
+        
+        $this->data['text_email'] = $this->language->get('text_email');
 
         $this->render();
     }

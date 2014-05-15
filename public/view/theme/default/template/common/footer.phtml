@@ -22,7 +22,7 @@
                 </ul>
             </div>
 
-           
+
 
             <div class="col-md-4">
                 <h4 class="line3 center standart-h4title"><span><?php echo $text_account; ?></span></h4>
@@ -80,46 +80,50 @@
 
             <?php echo $google_analytics; ?>
 
-            <?php if ($showWelcome): ?>
 
 
-                <div class="modal fade" id="landing_popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title" id="myModalLabel"><?php echo $this->language->get("heading_select_region"); ?></h4>
-                            </div>
-                            <div class="modal-body">
-                                <p>Select your Region and optionally add your email address to be subscribed to new deal notifications for the selected region </p>     
-                                <form class="form-horizontal" role="form">
-                                    <div class="form-group">
-                                        <label class="control-label" for="subscription_location">Select your location:</label>
-                                        <div class="controls col-sm-10 col-sm-offset-1">
-                                            <select name="odcity" id="landing_odcity" class="form-control">
-                                                <option value="1">New York</option><option value="2">Washington</option>
-                                            </select>
-                                        </div>
+
+            <div class="modal fade" id="landing_popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel"><?php echo $this->language->get("heading_select_region"); ?></h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Select your Region and optionally add your email address to be subscribed to new deal notifications for the selected region </p>     
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label class="control-label required" for="modalEmailInput"><?php echo $text_email; ?></label>
+                                    <div class="controls col-sm-10 col-sm-offset-1">
+                                        <input name="citysubscribe" id="modalEmailInput" class="form-control required" type="email" >
                                     </div>
-                                    <div class="form-group">
-                                        <label class="control-label" for="subscription_location">Optional Email</label>
-                                        <div class="controls col-sm-10 col-sm-offset-1">
-                                            <input name="odcitysubscribe" id="landing_odcitysubscribe" class="form-control" type="email">
-                                        </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="subscription_location">Select your location:</label>
+                                    <div class="controls col-sm-10 col-sm-offset-1">
+                                        <select name="odcity" id="landing_odcity" class="form-control">
+                                            <?php foreach($cities as $city): ?>
+                                            <option value="<?php echo $city['city_id']; ?>"><?php echo $city['city_name'];?></option>
+                                            <?php endforeach; ?>
+                                            <option value="1">New York</option><option value="2">Washington</option>
+                                        </select>
                                     </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->language->get("button_close"); ?></button>
-                                <button type="button" class="btn btn-primary"><?php echo $this->language->get("button_ok"); ?></button>
-                            </div>
+                                </div>
+                                
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->language->get("button_close"); ?></button>
+                            <button type="button" class="btn btn-primary"><?php echo $this->language->get("button_ok"); ?></button>
                         </div>
                     </div>
                 </div>
-
+            </div>
+            <?php if ($showWelcome): ?>
                 <script>
-                    $(document).ready(function() {
-                        $('#landing_popup').modal();
-                    });
+                $(document).ready(function() {
+                    $('#landing_popup').modal();
+                });
                 </script>
             <?php endif; ?>
 

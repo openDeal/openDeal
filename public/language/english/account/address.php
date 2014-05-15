@@ -35,4 +35,10 @@ $_['error_postcode']    = 'Postcode must be between 2 and 10 characters!';
 $_['error_city']        = 'City must be between 2 and 128 characters!';
 $_['error_country']     = 'Please select a country!';
 $_['error_zone']        = 'Please select a region / state!';
+
+$_['button_edit'] = "Edit";
+$_['button_delete'] = "Delete";
+$_['button_new_address'] = 'Add Address';
+$_['button_back'] = 'Back';
+$_['button_continue'] = 'Save';
 ?>
