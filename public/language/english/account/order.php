@@ -33,4 +33,8 @@ $_['column_action']         = 'Action';
 $_['column_date_added']     = 'Date Added';
 $_['column_status']         = 'Status';
 $_['column_comment']        = 'Comment';
+$_['column_delivery']       = 'Delivery';
+
+$_['text_collect'] = 'Collect';
+$_['button_coupon'] = 'View Coupon';
 ?>

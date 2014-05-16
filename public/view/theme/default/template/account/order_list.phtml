@@ -1,0 +1,51 @@
+<?php echo $header; ?>
+<div class="page_container">
+
+    <?php echo $column_left; ?><?php echo $column_right; ?>
+
+
+    <div id="content"><?php echo $content_top; ?>
+        <div class="breadcrumb">
+            <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+                <?php echo $breadcrumb['separator']; ?><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a>
+            <?php } ?>
+        </div>
+        <h1><?php echo $heading_title; ?></h1>
+
+        <div class="content list-group">
+            <?php if ($orders) : ?>
+                <?php foreach ($orders as $order) : ?>
+                    <div class="order-list row list-group-item">
+                        <div class="order-id col-sm-2 ">
+                            <b><?php echo $text_order_id; ?></b> #<?php echo $order['order_id']; ?><br />
+                            <b><?php echo $text_status; ?></b> <?php echo $order['status']; ?>
+                        </div>
+                        <div class="order-content col-sm-4">
+                            <b><?php echo $text_date_added; ?></b> <?php echo $order['date_added']; ?><br />
+                            <b><?php echo $text_products; ?></b> <?php echo $order['products']; ?>
+                        </div>
+                        <div class="order-content col-sm-4">
+                            <b><?php echo $text_customer; ?></b> <?php echo $order['name']; ?><br />
+                            <b><?php echo $text_total; ?></b> <?php echo $order['total']; ?>
+                        </div>
+                        <div class="order-info col-sm-2">
+                            <a href="<?php echo $order['href']; ?>" class="btn btn-primary pull-right"><?php echo $button_view; ?></a>
+                            
+                        </div>
+                    </div>
+            <?php endforeach; ?>
+            <div class="pagination-container row">
+                <?php echo $pagination; ?>
+            </div>
+        <?php else: ?>
+            <div class="alert alert-info"><?php echo $text_empty; ?></div>
+        <?php endif; ?>
+        
+    </div>
+        <div class="clearfix buttons">
+            <a href="<?php echo $continue; ?>" class="btn btn-primary pull-right"><?php echo $button_continue; ?></a>
+
+        </div>
+
+    <?php echo $content_bottom; ?></div>
+<?php echo $footer; ?>

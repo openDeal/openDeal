@@ -63,3 +63,5 @@ $_['deal_state_4']          = 'Deal Closed';
 $_['button_shopping'] = 'Back to Shopping';    
 $_['button_checkout'] = 'Checkout';
 $_['text_no_results'] = "No Results";
+$_['button_login'] = "Login";
+$_['button_confirm'] = 'Confirm';

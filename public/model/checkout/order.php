@@ -83,7 +83,7 @@ class ModelCheckoutOrder extends \Core\Model {
                         . "order_deal_id = " . (int) $order_deal_id . ", "
                         . "deal_shipping_id = '" . (int) $product['shipping']['deal_shipping_id'] . "', "
                         . "price = '" . (float) $product['shipping']['price'] . "', "
-                        . "title = " . $this->db->quote($product['option']['title']));
+                        . "title = " . $this->db->quote($product['shipping']['title']));
             } else {
                 if ($product['is_coupon']) {
                     //code = order_deal_id + 2 random letter + order_id + 2 random letter;

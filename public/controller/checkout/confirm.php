@@ -169,6 +169,7 @@ class ControllerCheckoutConfirm extends \Core\Controller {
                 $data['shipping_country_id'] = $shipping_address['country_id'];
                 $data['shipping_address_format'] = $shipping_address['address_format'];
 
+                
                 if (isset($this->session->data['shipping_method']['title'])) {
                     $data['shipping_method'] = $this->session->data['shipping_method']['title'];
                 } else {
