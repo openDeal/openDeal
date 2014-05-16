@@ -115,6 +115,9 @@ class ControllerCommonHome extends \Core\Controller {
 
 
         $this->data['text_no_results'] = sprintf($this->language->get('text_no_results'), $this->city->city_name);
+        
+        
+    
 
 
         $this->children = array(

@@ -113,6 +113,19 @@ class ControllerCommonFooter extends \Core\Controller {
         }*/
         
         $this->data['text_email'] = $this->language->get('text_email');
+        $this->data['text_subscribe'] = $this->language->get('text_subscribe');
+        $this->data['text_location'] = $this->language->get('text_location');
+        $this->data['text_select_region'] = $this->language->get('text_select_region');
+        $this->data['home'] = $this->url->link('common/home');
+        
+        if($this->customer->isLogged()){
+            $this->data['email_address'] = $this->customer->getEmail();
+        }else{
+            $this->data['email_address'] = '';
+        }
+        
+        
+        $this->data['action'] = $this->url->link('account/newsletter/subscribe');
 
         $this->render();
     }

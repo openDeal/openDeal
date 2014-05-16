@@ -80,50 +80,80 @@
 
             <?php echo $google_analytics; ?>
 
-
-
-
-            <div class="modal fade" id="landing_popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <div class="modal fade" id="city_popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title" id="myModalLabel"><?php echo $this->language->get("heading_select_region"); ?></h4>
                         </div>
                         <div class="modal-body">
-                            <p>Select your Region and optionally add your email address to be subscribed to new deal notifications for the selected region </p>     
-                            <form class="form-horizontal" role="form">
+                            <p><?php echo $text_select_region; ?></p>     
+                            <form action="<?php echo $home;?>" class="form-horizontal form-validate" role="form" id="city_modal_form" method="GET">
+                                
                                 <div class="form-group">
-                                    <label class="control-label required" for="modalEmailInput"><?php echo $text_email; ?></label>
+                                    
                                     <div class="controls col-sm-10 col-sm-offset-1">
-                                        <input name="citysubscribe" id="modalEmailInput" class="form-control required" type="email" >
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label" for="subscription_location">Select your location:</label>
-                                    <div class="controls col-sm-10 col-sm-offset-1">
-                                        <select name="odcity" id="landing_odcity" class="form-control">
-                                            <?php foreach($cities as $city): ?>
-                                            <option value="<?php echo $city['city_id']; ?>"><?php echo $city['city_name'];?></option>
+                                        <select name="city_id" id="city_change" class="form-control">
+                                            <?php foreach ($cities as $city): ?>
+                                                <option value="<?php echo $city['city_id']; ?>"><?php echo $city['city_name']; ?></option>
                                             <?php endforeach; ?>
-                                            <option value="1">New York</option><option value="2">Washington</option>
+
                                         </select>
                                     </div>
                                 </div>
-                                
+
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->language->get("button_close"); ?></button>
-                            <button type="button" class="btn btn-primary"><?php echo $this->language->get("button_ok"); ?></button>
+                            <button type="button" class="btn btn-primary" onclick="$('#city_modal_form').submit();"><?php echo $this->language->get("button_select_region"); ?></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="modal fade" id="landing_popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel"><?php echo $this->language->get("heading_subscribe_region"); ?></h4>
+                        </div>
+                        <div class="modal-body">
+                            <p><?php echo $text_subscribe; ?></p>     
+                            <form action="<?php echo $action;?>" class="form-horizontal form-validate" role="form" id="newsletter_modal_form" method="POST">
+                                <div class="form-group">
+                                    <label class="control-label required col-sm-3" for="modalEmailInput"><?php echo $text_email; ?></label>
+                                    <div class="controls col-sm-9 ">
+                                        <input name="odcitysubscribe" id="modalEmailInput" class="form-control required" type="email" value="<?php echo $email_address; ?>" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3" for="subscription_location"><?php echo $text_location; ?></label>
+                                    <div class="controls col-sm-9 ">
+                                        <select name="odcity" id="landing_odcity" class="form-control">
+                                            <?php foreach ($cities as $city): ?>
+                                                <option value="<?php echo $city['city_id']; ?>"><?php echo $city['city_name']; ?></option>
+                                            <?php endforeach; ?>
+
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->language->get("button_close"); ?></button>
+                            <button type="button" class="btn btn-primary" onclick="$('#newsletter_modal_form').submit();"><?php echo $this->language->get("button_ok"); ?></button>
                         </div>
                     </div>
                 </div>
             </div>
             <?php if ($showWelcome): ?>
                 <script>
-                $(document).ready(function() {
-                    $('#landing_popup').modal();
-                });
+                    $(document).ready(function() {
+                        $('#landing_popup').modal();
+                    });
                 </script>
             <?php endif; ?>
 
