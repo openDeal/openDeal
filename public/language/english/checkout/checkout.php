@@ -98,4 +98,5 @@ $_['error_no_payment']               = 'Warning: No Payment options are availabl
 $_['text_trial']                    = '%s every %s %s for %s payments then ';
 $_['text_recurring']                = '%s every %s %s';
 $_['text_length']                   = ' for %s payments';
+$_['column_shipping']               = 'Shipping';
 ?>

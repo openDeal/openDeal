@@ -335,6 +335,8 @@ class ControllerCheckoutConfirm extends \Core\Controller {
 
         $this->response->setOutput($this->render());
     }
+    
+ 
 
 }
 

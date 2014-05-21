@@ -1,9 +1,10 @@
 <?php
 // Text
 $_['text_new_subject']          = '%s - Order %s';
-$_['text_new_greeting']         = 'Thank you for your interest in %s deals. Your order has been received and will be processed once payment has been confirmed.';
+$_['text_new_greeting']         = "Dear %s \n\nThank you for placing an order on %s. \n\n"
+        . 'Your order has been received and will be processed once both the deal has been tipped and payment has been confirmed.';
 $_['text_new_received']         = 'You have received an order.';
-$_['text_new_link']             = 'To view your order click on the link below:';
+$_['text_new_link']             = 'Please take a moment to check over your order details below, and get in touch straight away if you require any further assistance:';
 $_['text_new_order_detail']     = 'Order Details';
 $_['text_new_instruction']      = 'Instructions';
 $_['text_new_order_id']         = 'Order ID:';
@@ -15,6 +16,10 @@ $_['text_new_email']  			= 'Email:';
 $_['text_new_telephone']  		= 'Telephone:';
 $_['text_new_ip']  				= 'IP Address:';
 $_['text_new_payment_address']  = 'Payment Address';
+$_['text_coupon']  = 'Printable Coupon';
+$_['text_collect']  = 'Collect';
+$_['text_delivery'] = 'Delivery Method';
+$_['text_option'] = 'Deal Option';
 $_['text_new_shipping_address'] = 'Shipping Address';
 $_['text_new_products']         = 'Products';
 $_['text_new_product']          = 'Product';
@@ -25,7 +30,7 @@ $_['text_new_order_total']      = 'Order Totals';
 $_['text_new_total']            = 'Total';	
 $_['text_new_download']         = 'Once your payment has been confirmed you can click on the link below to access your downloadable products:';
 $_['text_new_comment']          = 'The comments for your order are:';
-$_['text_new_footer']           = 'Please reply to this email if you have any questions.';
+$_['text_new_footer']           = 'Coupons will be available from your order details page once the deal is tipped and your payment has been confirmed. Thanks again for using Deals Amplified: happy bargain hunting!.';
 $_['text_new_powered']          = 'Powered By <a href="http://www.opendeals.info">OpenDeal</a>.';
 $_['text_update_subject']       = '%s - Order Update %s';
 $_['text_update_order']         = 'Order ID:';
@@ -34,4 +39,5 @@ $_['text_update_order_status']  = 'Your order has been updated to the following 
 $_['text_update_comment']       = 'The comments for your order are:';
 $_['text_update_link']          = 'To view your order click on the link below:';
 $_['text_update_footer']        = 'Please reply to this email if you have any questions.';
+$_['text_product_total']        = 'Total Price';
 ?>
