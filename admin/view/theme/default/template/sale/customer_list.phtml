@@ -172,6 +172,11 @@
 <script type="text/javascript">
     addOnready(function() {
         $('#date').datepicker();
+        $('#form input').keydown(function(e) {
+	if (e.keyCode == 13) {
+		filter();
+	}
+});
     });
 </script>
 

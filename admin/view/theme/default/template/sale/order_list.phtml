@@ -1,0 +1,242 @@
+<?php echo $header; ?>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1><i class="fa fa-dashboard"></i> <?php echo $heading_title; ?><small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <?php foreach ($breadcrumbs as $i => $breadcrumb) { ?>
+            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo ($i == 0) ? '<i class="fa fa-dashboard"></i> ' : ''; ?><?php echo $breadcrumb['text']; ?></a></li>
+        <?php } ?>
+    </ol>
+</section>
+<section class="page-actions">
+
+    <a onclick="$('#form').attr('action', '<?php echo $invoice; ?>');
+            $('#form').attr('target', '_blank');
+            $('#form').submit();" class="btn btn-primary"><?php echo $button_invoice; ?></a>
+
+
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <?php if ($error_warning) { ?>
+        <div class="alert alert-danger alert-dismissable">
+            <i class="fa fa-ban"></i>
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <?php echo $error_warning; ?>
+        </div>
+    <?php } ?>
+
+    <?php if ($success) { ?>
+        <div class="alert alert-success alert-dismissable">
+            <i class="fa fa-check"></i>
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <?php echo $success; ?>
+        </div>
+    <?php } ?>
+
+    <div id="form-error" class="alert alert-danger alert-dismissable">
+        <i class="fa fa-ban"></i>
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <span></span>
+    </div>
+
+    <div class="box">
+        <form action="" method="post" enctype="multipart/form-data" id="form" class="form-horizontal">
+            <table class="list table table-responsive table-bordered">
+                <thead>
+                    <tr>
+                        <th width="1" style="text-align: center;"><input type="checkbox" class="selectall" /></th>
+                        <th class="right"><?php if ($sort == 'o.order_id') { ?>
+                                <a href="<?php echo $sort_order; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_order_id; ?></a>
+                            <?php } else { ?>
+                                <a href="<?php echo $sort_order; ?>"><?php echo $column_order_id; ?></a>
+                            <?php } ?></th>
+                        <th class="left"><?php if ($sort == 'customer') { ?>
+                                <a href="<?php echo $sort_customer; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_customer; ?></a>
+                            <?php } else { ?>
+                                <a href="<?php echo $sort_customer; ?>"><?php echo $column_customer; ?></a>
+                            <?php } ?></th>
+                        <th class="left"><?php if ($sort == 'status') { ?>
+                                <a href="<?php echo $sort_status; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_status; ?></a>
+                            <?php } else { ?>
+                                <a href="<?php echo $sort_status; ?>"><?php echo $column_status; ?></a>
+                            <?php } ?></th>
+                        <th class="right"><?php if ($sort == 'o.total') { ?>
+                                <a href="<?php echo $sort_total; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_total; ?></a>
+                            <?php } else { ?>
+                                <a href="<?php echo $sort_total; ?>"><?php echo $column_total; ?></a>
+                            <?php } ?></th>
+                        <th class="left"><?php if ($sort == 'o.date_added') { ?>
+                                <a href="<?php echo $sort_date_added; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_date_added; ?></a>
+                            <?php } else { ?>
+                                <a href="<?php echo $sort_date_added; ?>"><?php echo $column_date_added; ?></a>
+                            <?php } ?></th>
+                        <th class="left"><?php if ($sort == 'o.date_modified') { ?>
+                                <a href="<?php echo $sort_date_modified; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_date_modified; ?></a>
+                            <?php } else { ?>
+                                <a href="<?php echo $sort_date_modified; ?>"><?php echo $column_date_modified; ?></a>
+                            <?php } ?></th>
+                        <th class="right"><?php echo $column_action; ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="filter">
+                        <td></td>
+                        <td align="right"><input type="text" name="filter_order_id" value="<?php echo $filter_order_id; ?>" size="4" style="text-align: right;" class="form-control" /></td>
+                        <td><input type="text" name="filter_customer" value="<?php echo $filter_customer; ?>" class="form-control"/></td>
+                        <td><select name="filter_order_status_id" class="form-control">
+                                <option value="*"></option>
+                                <?php if ($filter_order_status_id == '0') { ?>
+                                    <option value="0" selected="selected"><?php echo $text_missing; ?></option>
+                                <?php } else { ?>
+                                    <option value="0"><?php echo $text_missing; ?></option>
+                                <?php } ?>
+                                <?php foreach ($order_statuses as $order_status) { ?>
+                                    <?php if ($order_status['order_status_id'] == $filter_order_status_id) { ?>
+                                        <option value="<?php echo $order_status['order_status_id']; ?>" selected="selected"><?php echo $order_status['name']; ?></option>
+                                    <?php } else { ?>
+                                        <option value="<?php echo $order_status['order_status_id']; ?>"><?php echo $order_status['name']; ?></option>
+                                    <?php } ?>
+                                <?php } ?>
+                            </select></td>
+                        <td align="right"><input type="text" name="filter_total" value="<?php echo $filter_total; ?>" size="4" style="text-align: right;" class="form-control"/></td>
+                        <td>
+                            <input type="text" name="filter_date_added" value="<?php echo $filter_date_added; ?>" data-date="<?php echo $filter_date_added; ?>" size="12" id="date" class="form-control" data-date-format="yyyy-mm-dd"/>
+                     <td>
+                         <input type="text" name="filter_date_modified" value="<?php echo $filter_date_modified; ?>" data-date="<?php echo $filter_date_added; ?>" size="12" id="date2" class="form-control" data-date-format="yyyy-mm-dd"/>
+                         </td>
+                        <td align="right"><button onclick="filter();" class="btn btn-primary btn-sm"><?php echo $button_filter; ?></button></td>
+                    </tr>
+                    <?php if ($orders) { ?>
+                        <?php foreach ($orders as $order) { ?>
+                            <tr>
+                                <td style="text-align: center;"><?php if ($order['selected']) { ?>
+                                        <input type="checkbox" name="selected[]" value="<?php echo $order['order_id']; ?>" checked="checked" />
+                                    <?php } else { ?>
+                                        <input type="checkbox" name="selected[]" value="<?php echo $order['order_id']; ?>" />
+                                    <?php } ?></td>
+                                <td class="right"><?php echo $order['order_id']; ?></td>
+                                <td class="left"><?php echo $order['customer']; ?></td>
+                                <td class="left"><?php echo $order['status']; ?></td>
+                                <td class="right"><?php echo $order['total']; ?></td>
+                                <td class="left"><?php echo $order['date_added']; ?></td>
+                                <td class="left"><?php echo $order['date_modified']; ?></td>
+                                <td class="right"><?php foreach ($order['action'] as $action) { ?>
+                                        <a class="btn btn-sm btn-primary" href="<?php echo $action['href']; ?>"><?php echo $action['text']; ?></a>
+                                    <?php } ?></td>
+                            </tr>
+                        <?php } ?>
+                    <?php } else { ?>
+                        <tr>
+                            <td class="center" colspan="8"><?php echo $text_no_results; ?></td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </form>
+
+    </div>
+
+</section><!-- /.content -->
+<script type="text/javascript"><!--
+function filter() {
+        url = 'index.php?route=sale/order&token=<?php echo $token; ?>';
+
+        var filter_order_id = $('input[name=\'filter_order_id\']').attr('value');
+
+        if (filter_order_id) {
+            url += '&filter_order_id=' + encodeURIComponent(filter_order_id);
+        }
+
+        var filter_customer = $('input[name=\'filter_customer\']').attr('value');
+
+        if (filter_customer) {
+            url += '&filter_customer=' + encodeURIComponent(filter_customer);
+        }
+
+        var filter_order_status_id = $('select[name=\'filter_order_status_id\']').attr('value');
+
+        if (filter_order_status_id != '*') {
+            url += '&filter_order_status_id=' + encodeURIComponent(filter_order_status_id);
+        }
+
+        var filter_total = $('input[name=\'filter_total\']').attr('value');
+
+        if (filter_total) {
+            url += '&filter_total=' + encodeURIComponent(filter_total);
+        }
+
+        var filter_date_added = $('input[name=\'filter_date_added\']').attr('value');
+
+        if (filter_date_added) {
+            url += '&filter_date_added=' + encodeURIComponent(filter_date_added);
+        }
+
+        var filter_date_modified = $('input[name=\'filter_date_modified\']').attr('value');
+
+        if (filter_date_modified) {
+            url += '&filter_date_modified=' + encodeURIComponent(filter_date_modified);
+        }
+
+        location = url;
+    }
+//--></script>  
+<script type="text/javascript"><!--
+    addOnready(function() {
+        $('#date').datepicker();
+        $('#date2').datepicker();
+        $('#form input').keydown(function(e) {
+            if (e.keyCode == 13) {
+                filter();
+            }
+
+        });
+
+        $.widget('custom.catcomplete', $.ui.autocomplete, {
+            _renderMenu: function(ul, items) {
+                var self = this, currentCategory = '';
+
+                $.each(items, function(index, item) {
+                    if (item.category != currentCategory) {
+                        ul.append('<li class="ui-autocomplete-category">' + item.category + '</li>');
+
+                        currentCategory = item.category;
+                    }
+
+                    self._renderItem(ul, item);
+                });
+            }
+        });
+
+        $('input[name=\'filter_customer\']').catcomplete({
+            delay: 500,
+            source: function(request, response) {
+                $.ajax({
+                    url: 'index.php?route=sale/customer/autocomplete&token=<?php echo $token; ?>&filter_name=' + encodeURIComponent(request.term),
+                    dataType: 'json',
+                    success: function(json) {
+                        response($.map(json, function(item) {
+                            return {
+                                category: item.customer_group,
+                                label: item.name,
+                                value: item.customer_id
+                            }
+                        }));
+                    }
+                });
+            },
+            select: function(event, ui) {
+                $('input[name=\'filter_customer\']').val(ui.item.label);
+
+                return false;
+            },
+            focus: function(event, ui) {
+                return false;
+            }
+        });
+    });
+</script>
+
+<?php echo $footer; ?>
