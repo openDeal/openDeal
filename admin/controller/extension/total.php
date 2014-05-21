@@ -1,5 +1,5 @@
 <?php
-class ControllerExtensionTotal extends Controller {
+class ControllerExtensionTotal extends \Core\Controller {
 	public function index() {
 		$this->language->load('extension/total');
 
@@ -55,7 +55,9 @@ class ControllerExtensionTotal extends Controller {
 
 				unset($extensions[$key]);
 			}
+                        
 		}
+            
 
 		$this->data['extensions'] = array();
 
@@ -95,7 +97,7 @@ class ControllerExtensionTotal extends Controller {
 			}
 		}
 
-		$this->template = 'extension/total.tpl';
+		$this->template = 'extension/total.phtml';
 		$this->children = array(
 			'common/header',
 			'common/footer'

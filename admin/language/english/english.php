@@ -27,6 +27,7 @@ $_['text_edit']                     = 'Edit';
 $_['text_view']                     = 'View';
 $_['text_home']                     = 'Home';
 $_['text_toggle_navigation']        = 'Toggle navigation';
+$_['text_general']                  = 'General Settings';
 
 // Button
 $_['button_insert']                 = 'Add New';
