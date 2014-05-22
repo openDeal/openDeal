@@ -199,4 +199,10 @@ $_['error_upload']                            = 'Upload required!';
 $_['error_filename']                          = 'Filename must be between 3 and 128 characters!';
 $_['error_filetype']                          = 'Invalid file type!';
 $_['error_action']                            = 'Warning: Could not complete this action!';
+
+
+$_['text_option'] = 'Deal Option';
+$_['text_delivery'] = 'Deal Delivery';
+$_['text_collect'] = 'Collection';
+$_['text_coupon'] = 'Coupon';
 ?>

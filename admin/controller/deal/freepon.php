@@ -307,6 +307,7 @@ class ControllerDealFreepon extends \Core\Controller {
         $this->data['entry_city'] = $this->language->get('entry_city');
         $this->data['entry_store'] = $this->language->get('entry_store');
         $this->data['entry_download'] = $this->language->get('entry_download');
+        $this->data['entry_code'] = $this->language->get('entry_code');
 
         $this->data['entry_deal_times'] = $this->language->get('entry_deal_times');
 
@@ -428,6 +429,14 @@ class ControllerDealFreepon extends \Core\Controller {
         } else {
             $this->data['freepon_download'] = '';
         }
+        
+         if (isset($this->request->post['freepon_code'])) {
+            $this->data['freepon_code'] = $this->request->post['freepon_code'];
+        } elseif (!empty($freepon_info)) {
+            $this->data['freepon_code'] = $freepon_info['code'];
+        } else {
+            $this->data['freepon_code'] = '';
+        }
 
 
         if (isset($this->request->post['feature_weight'])) {
@@ -540,7 +549,7 @@ class ControllerDealFreepon extends \Core\Controller {
         }
 
         if (isset($this->request->post['freepon_layout'])) {
-            $this->data['freepon_layout'] = $this->request->post['deal_layout'];
+            $this->data['freepon_layout'] = $this->request->post['freepon_layout'];
         } elseif (isset($this->request->get['deal_id'])) {
             $this->data['freepon_layout'] = $this->model_deal_freepon->getFreeponLayouts($this->request->get['freeon_id']);
         } else {
@@ -586,10 +595,16 @@ class ControllerDealFreepon extends \Core\Controller {
         if (!isset($_POST['company_id']) || (int) $_POST['company_id'] < 1) {
             $this->error['company_id'] = $this->language->get('error_company');
         }
+        
+        if(empty($this->request->post['freepon_code']) && empty($this->request->post['freepon_download'])){
+            $this->error['warning'] = $this->language->get('error_coupon_code_download');
+        }
 
         if ($this->error && !isset($this->error['warning'])) {
             $this->error['warning'] = $this->language->get('error_warning');
         }
+        
+        
 
 
 

@@ -79,8 +79,6 @@ class ControllerSettingSetting extends \Core\Controller {
         $this->data['entry_tax_default'] = $this->language->get('entry_tax_default');
         $this->data['entry_tax_customer'] = $this->language->get('entry_tax_customer');
         $this->data['entry_customer_online'] = $this->language->get('entry_customer_online');
-        $this->data['entry_customer_group'] = $this->language->get('entry_customer_group');
-        $this->data['entry_customer_group_display'] = $this->language->get('entry_customer_group_display');
         $this->data['entry_customer_price'] = $this->language->get('entry_customer_price');
         $this->data['entry_account'] = $this->language->get('entry_account');
         $this->data['entry_cart_weight'] = $this->language->get('entry_cart_weight');
@@ -199,11 +197,7 @@ class ControllerSettingSetting extends \Core\Controller {
             $this->data['error_title'] = '';
         }
 
-        if (isset($this->error['customer_group_display'])) {
-            $this->data['error_customer_group_display'] = $this->error['customer_group_display'];
-        } else {
-            $this->data['error_customer_group_display'] = '';
-        }
+       
 
         if (isset($this->error['voucher_min'])) {
             $this->data['error_voucher_min'] = $this->error['voucher_min'];
@@ -576,23 +570,9 @@ class ControllerSettingSetting extends \Core\Controller {
             $this->data['config_customer_online'] = $this->config->get('config_customer_online');
         }
 
-        if (isset($this->request->post['config_customer_group_id'])) {
-            $this->data['config_customer_group_id'] = $this->request->post['config_customer_group_id'];
-        } else {
-            $this->data['config_customer_group_id'] = $this->config->get('config_customer_group_id');
-        }
+       
 
-        $this->load->model('sale/customer_group');
-
-        $this->data['customer_groups'] = $this->model_sale_customer_group->getCustomerGroups();
-
-        if (isset($this->request->post['config_customer_group_display'])) {
-            $this->data['config_customer_group_display'] = $this->request->post['config_customer_group_display'];
-        } elseif ($this->config->get('config_customer_group_display')) {
-            $this->data['config_customer_group_display'] = $this->config->get('config_customer_group_display');
-        } else {
-            $this->data['config_customer_group_display'] = array();
-        }
+     
 
         if (isset($this->request->post['config_customer_price'])) {
             $this->data['config_customer_price'] = $this->request->post['config_customer_price'];
@@ -610,12 +590,7 @@ class ControllerSettingSetting extends \Core\Controller {
 
         $this->data['informations'] = $this->model_catalog_information->getInformations();
 
-        if (isset($this->request->post['config_cart_weight'])) {
-            $this->data['config_cart_weight'] = $this->request->post['config_cart_weight'];
-        } else {
-            $this->data['config_cart_weight'] = $this->config->get('config_cart_weight');
-        }
-
+    
         if (isset($this->request->post['config_guest_checkout'])) {
             $this->data['config_guest_checkout'] = $this->request->post['config_guest_checkout'];
         } else {

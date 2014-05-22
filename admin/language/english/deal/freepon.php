@@ -24,7 +24,7 @@ $_['entry_end_time'] = 'Deal Ends';
 $_['entry_deal_times'] = 'Deal Start / End';
 $_['entry_priority'] = 'Deal Priority';
 $_['entry_priority_about'] = 'Higher values will make deal appear higher on the list';
-$_['entry_download'] = 'Downloadable File';
+$_['entry_download'] = 'Coupon File';
 $_['entry_name'] = 'Deal Name';
 $_['entry_description'] = 'Details';
 $_['entry_company'] = 'Company (autocomplete)';
@@ -38,6 +38,7 @@ $_['tab_image'] = "Images";
 $_['text_add_image'] = 'Add Image';
 
 $_['entry_layout'] = 'Design';
+$_['entry_code'] = 'Coupon Code';
 
 $_['error_name'] = 'Please enter a name';
 $_['error_company'] = 'Please select a company';
@@ -45,3 +46,4 @@ $_['error_company'] = 'Please select a company';
 
 $_['entry_meta_keyword'] = 'Meta Tag Keywords:';
 $_['entry_meta_description'] = 'Meta Tag Description:';
+$_['error_coupon_code_download'] = 'Please supply either a coupon code or coupon file for this Deal';
