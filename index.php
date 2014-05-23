@@ -82,7 +82,7 @@ if (isset($request->get['tracking'])) {
 $controller = new \Core\Front($registry);
 
 // Maintenance Mode
-//$controller->addPreAction(new \Core\Action('common/maintenance'));
+$controller->addPreAction(new \Core\Action('common/maintenance'));
 // SEO URL's
 $controller->addPreAction(new \Core\Action('common/seo_url'));
 // Router
