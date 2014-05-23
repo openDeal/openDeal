@@ -412,7 +412,7 @@ class ControllerInformationInformation extends \Core\Controller {
 
 		$this->data['layouts'] = $this->model_design_layout->getLayouts();
 
-		$this->template = 'information/information_form.tpl';
+		$this->template = 'information/information_form.phtml';
 		$this->children = array(
 			'common/header',
 			'common/footer'
