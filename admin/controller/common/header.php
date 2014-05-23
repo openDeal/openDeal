@@ -117,6 +117,7 @@ class ControllerCommonHeader extends \Core\Controller {
         $this->data['text_openbay_order_import'] = $this->language->get('text_openbay_order_import');
         
         $this->data['text_plugins'] = $this->language->get('text_plugins');
+         $this->data['menu_language'] = $this->language->get('menu_language');
 
         $this->data['text_paypal_express'] = $this->language->get('text_paypal_manage');
         $this->data['text_paypal_express_search'] = $this->language->get('text_paypal_search');
@@ -203,6 +204,7 @@ class ControllerCommonHeader extends \Core\Controller {
             $this->data['length_class'] = $this->url->link('localisation/length_class', 'token=' . $this->session->data['token'], 'SSL');
             $this->data['zone'] = $this->url->link('localisation/zone', 'token=' . $this->session->data['token'], 'SSL');
 
+            $this->data['language_edit'] = $this->url->link('setting/language', 'token=' . $this->session->data['token'], 'SSL');
 
 
             $this->data['paypal_express'] = $this->url->link('payment/pp_express', 'token=' . $this->session->data['token'], 'SSL');
