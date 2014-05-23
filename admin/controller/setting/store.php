@@ -296,11 +296,7 @@ class ControllerSettingStore extends \Core\Controller {
 			$this->data['error_title'] = '';
 		}
 
-		if (isset($this->error['customer_group_display'])) {
-			$this->data['error_customer_group_display'] = $this->error['customer_group_display'];
-		} else {
-			$this->data['error_customer_group_display'] = '';
-		}
+		
 
 		if (isset($this->error['image_category'])) {
 			$this->data['error_image_category'] = $this->error['image_category'];
@@ -584,34 +580,10 @@ class ControllerSettingStore extends \Core\Controller {
 			$this->data['config_tax_customer'] = '';
 		}
 
-		if (isset($this->request->post['config_customer_group_id'])) {
-			$this->data['config_customer_group_id'] = $this->request->post['config_customer_group_id'];
-		} elseif (isset($store_info['config_customer_group_id'])) {
-			$this->data['config_customer_group_id'] = $store_info['config_customer_group_id'];			
-		} else {
-			$this->data['config_customer_group_id'] = '';
-		}
+		
 
-		$this->load->model('sale/customer_group');
-
-		$this->data['customer_groups'] = $this->model_sale_customer_group->getCustomerGroups();
-
-		if (isset($this->request->post['config_customer_group_display'])) {
-			$this->data['config_customer_group_display'] = $this->request->post['config_customer_group_display'];
-		} elseif (isset($store_info['config_customer_group_display'])) {
-			$this->data['config_customer_group_display'] = $store_info['config_customer_group_display'];	
-		} else {
-			$this->data['config_customer_group_display'] = array();			
-		}
-
-		if (isset($this->request->post['config_customer_price'])) {
-			$this->data['config_customer_price'] = $this->request->post['config_customer_price'];
-		} elseif (isset($store_info['config_customer_price'])) {
-			$this->data['config_customer_price'] = $store_info['config_customer_price'];			
-		} else {
-			$this->data['config_customer_price'] = '';
-		}
-
+		
+		
 		if (isset($this->request->post['config_account_id'])) {
 			$this->data['config_account_id'] = $this->request->post['config_account_id'];
 		} elseif (isset($store_info['config_account_id'])) {
@@ -620,17 +592,11 @@ class ControllerSettingStore extends \Core\Controller {
 			$this->data['config_account_id'] = '';
 		}		
 
-		$this->load->model('catalog/information');
+		$this->load->model('information/information');
 
-		$this->data['informations'] = $this->model_catalog_information->getInformations();
+		$this->data['informations'] = $this->model_information_information->getInformations();
 
-		if (isset($this->request->post['config_cart_weight'])) {
-			$this->data['config_cart_weight'] = $this->request->post['config_cart_weight'];
-		} elseif (isset($store_info['config_cart_weight'])) {
-			$this->data['config_cart_weight'] = $store_info['config_cart_weight'];	
-		} else {
-			$this->data['config_cart_weight'] = '';
-		}
+		
 
 		if (isset($this->request->post['config_guest_checkout'])) {
 			$this->data['config_guest_checkout'] = $this->request->post['config_guest_checkout'];

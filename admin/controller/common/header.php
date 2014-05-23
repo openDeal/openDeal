@@ -157,7 +157,7 @@ class ControllerCommonHeader extends \Core\Controller {
             $this->data['plugins'] = $this->url->link('setting/vqmod_manager', 'token=' . $this->session->data['token'], 'SSL');
             $this->data['filter'] = $this->url->link('catalog/filter', 'token=' . $this->session->data['token'], 'SSL');
             $this->data['geo_zone'] = $this->url->link('localisation/geo_zone', 'token=' . $this->session->data['token'], 'SSL');
-            $this->data['information'] = $this->url->link('catalog/information', 'token=' . $this->session->data['token'], 'SSL');
+            $this->data['information'] = $this->url->link('information/information', 'token=' . $this->session->data['token'], 'SSL');
             $this->data['language'] = $this->url->link('localisation/language', 'token=' . $this->session->data['token'], 'SSL');
             $this->data['layout'] = $this->url->link('design/layout', 'token=' . $this->session->data['token'], 'SSL');
             $this->data['logout'] = $this->url->link('common/logout', 'token=' . $this->session->data['token'], 'SSL');

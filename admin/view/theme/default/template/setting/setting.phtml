@@ -9,18 +9,11 @@
         <?php } ?>
     </ol>
 </section>
-<section class="page-actions">
-    <a href="#nogo" onclick="$('#form').submit();" class="btn btn-primary">
-        <i class="fa fa-check"></i> <?php echo $button_save; ?>
-    </a>
-    <a href="<?php echo $cancel; ?>" class="btn btn-danger">
-        <i class="fa fa-times"></i> <?php echo $button_cancel; ?>
-    </a>
 
-</section>
 <!-- Main content -->
 <section class="content">
     <div class="box">
+        <div class="box-body">
         <div class='row'>
             <div class='col-xs-12'>
                 <div class="nav-tabs-custom">
@@ -33,7 +26,7 @@
                         <li><a href="#tab-image" data-toggle="tab"><?php echo $tab_image; ?></a></li>  
                         <li><a href="#tab-ftp" data-toggle="tab"><?php echo $tab_ftp; ?></a></li>  
                         <li><a href="#tab-mail" data-toggle="tab"><?php echo $tab_mail; ?></a></li>  
-                        <li><a href="#tab-fraud" data-toggle="tab"><?php echo $tab_fraud; ?></a></li>  
+                       <!-- <li><a href="#tab-fraud" data-toggle="tab"><?php echo $tab_fraud; ?></a></li>  -->
                         <li><a href="#tab-server" data-toggle="tab"><?php echo $tab_server; ?></a></li>                               
                     </ul>
                     <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form" class="form-horizontal">
@@ -75,7 +68,7 @@
                                 <div class="form-group">
                                     <label for="config_telephone" class="col-sm-2 control-label required"><?php echo $entry_telephone; ?></label>
                                     <div class="col-sm-9">
-                                        <input type="tel" name="config_telephone" value="<?php echo $config_telephone; ?>" class="form-control required" id="config_telephone" />
+                                        <input type="text" name="config_telephone" value="<?php echo $config_telephone; ?>" class="form-control required" id="config_telephone" />
                                         <?php if ($error_telephone) { ?>
                                             <span class="error text-danger"><?php echo $error_telephone; ?></span>
                                         <?php } ?>
@@ -85,7 +78,7 @@
                                 <div class="form-group">
                                     <label for="config_fax" class="col-sm-2 control-label"><?php echo $entry_fax; ?></label>
                                     <div class="col-sm-9">
-                                        <input type="tel" name="config_fax" value="<?php echo $config_fax; ?>" class="form-control" id="config_fax" />
+                                        <input type="text" name="config_fax" value="<?php echo $config_fax; ?>" class="form-control" id="config_fax" />
 
                                     </div>
                                 </div>
@@ -100,7 +93,7 @@
                                 <div class="form-group">
                                     <label for="config_title" class="col-sm-2 control-label required"><?php echo $entry_title; ?></label>
                                     <div class="col-sm-9">
-                                        <input type="tel" name="config_title" value="<?php echo $config_title; ?>" class="form-control" id="config_title" />
+                                        <input type="text" name="config_title" value="<?php echo $config_title; ?>" class="form-control" id="config_title" />
                                         <?php if ($error_title) { ?>
                                             <span class="error text-danger"><?php echo $error_title; ?></span>
                                         <?php } ?>
@@ -274,606 +267,529 @@
                                 <div class="form-group">
                                     <label for="config_admin_limit" class="col-sm-2 control-label required"><?php echo $entry_customer_online; ?></label>
                                     <div class="col-sm-9"><?php if ($config_customer_online) { ?>
-                                                <input type="radio" name="config_customer_online" value="1" checked="checked" />
-                                                <?php echo $text_yes; ?>
-                                                <input type="radio" name="config_customer_online" value="0" />
-                                                <?php echo $text_no; ?>
-                                            <?php } else { ?>
-                                                <input type="radio" name="config_customer_online" value="1" />
-                                                <?php echo $text_yes; ?>
-                                                <input type="radio" name="config_customer_online" value="0" checked="checked" />
-                                                <?php echo $text_no; ?>
-                                            <?php } ?></div>
+                                            <input type="radio" name="config_customer_online" value="1" checked="checked" />
+                                            <?php echo $text_yes; ?>
+                                            <input type="radio" name="config_customer_online" value="0" />
+                                            <?php echo $text_no; ?>
+                                        <?php } else { ?>
+                                            <input type="radio" name="config_customer_online" value="1" />
+                                            <?php echo $text_yes; ?>
+                                            <input type="radio" name="config_customer_online" value="0" checked="checked" />
+                                            <?php echo $text_no; ?>
+                                        <?php } ?></div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="config_account_id" class="col-sm-2 control-label required"><?php echo $entry_account; ?></label>
                                     <div class="col-sm-9">
                                         <select name="config_account_id" class="form-control">
-                                                <option value="0"><?php echo $text_none; ?></option>
-                                                <?php foreach ($informations as $information) { ?>
-                                                    <?php if ($information['information_id'] == $config_account_id) { ?>
-                                                        <option value="<?php echo $information['information_id']; ?>" selected="selected"><?php echo $information['title']; ?></option>
-                                                    <?php } else { ?>
-                                                        <option value="<?php echo $information['information_id']; ?>"><?php echo $information['title']; ?></option>
-                                                    <?php } ?>
+                                            <option value="0"><?php echo $text_none; ?></option>
+                                            <?php foreach ($informations as $information) { ?>
+                                                <?php if ($information['information_id'] == $config_account_id) { ?>
+                                                    <option value="<?php echo $information['information_id']; ?>" selected="selected"><?php echo $information['title']; ?></option>
+                                                <?php } else { ?>
+                                                    <option value="<?php echo $information['information_id']; ?>"><?php echo $information['title']; ?></option>
                                                 <?php } ?>
-                                            </select>
+                                            <?php } ?>
+                                        </select>
                                     </div>
                                 </div>
                                 <legend><?php echo $text_checkout; ?></legend>
-                                <table class="form">
-                                   
-                                    <tr>
-                                        <td><?php echo $entry_guest_checkout; ?></td>
-                                        <td><?php if ($config_guest_checkout) { ?>
-                                                <input type="radio" name="config_guest_checkout" value="1" checked="checked" />
-                                                <?php echo $text_yes; ?>
-                                                <input type="radio" name="config_guest_checkout" value="0" />
-                                                <?php echo $text_no; ?>
-                                            <?php } else { ?>
-                                                <input type="radio" name="config_guest_checkout" value="1" />
-                                                <?php echo $text_yes; ?>
-                                                <input type="radio" name="config_guest_checkout" value="0" checked="checked" />
-                                                <?php echo $text_no; ?>
-                                            <?php } ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_checkout; ?></td>
-                                        <td><select name="config_checkout_id">
-                                                <option value="0"><?php echo $text_none; ?></option>
-                                                <?php foreach ($informations as $information) { ?>
-                                                    <?php if ($information['information_id'] == $config_checkout_id) { ?>
-                                                        <option value="<?php echo $information['information_id']; ?>" selected="selected"><?php echo $information['title']; ?></option>
-                                                    <?php } else { ?>
-                                                        <option value="<?php echo $information['information_id']; ?>"><?php echo $information['title']; ?></option>
-                                                    <?php } ?>
+
+
+                                <div class="form-group">
+                                    <label for="config_admin_limit" class="col-sm-2 control-label required"><?php echo $entry_guest_checkout; ?></label>
+                                    <div class="col-sm-9"><?php if ($config_guest_checkout) { ?>
+                                            <input type="radio" name="config_guest_checkout" value="1" checked="checked" />
+                                            <?php echo $text_yes; ?>
+                                            <input type="radio" name="config_guest_checkout" value="0" />
+                                            <?php echo $text_no; ?>
+                                        <?php } else { ?>
+                                            <input type="radio" name="config_guest_checkout" value="1" />
+                                            <?php echo $text_yes; ?>
+                                            <input type="radio" name="config_guest_checkout" value="0" checked="checked" />
+                                            <?php echo $text_no; ?>
+                                        <?php } ?></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="config_checkout_id" class="col-sm-2 control-label required"><?php echo $entry_checkout; ?></label>
+                                    <div class="col-sm-9">
+                                        <select name="config_checkout_id" class="form-control">
+                                            <option value="0"><?php echo $text_none; ?></option>
+                                            <?php foreach ($informations as $information) { ?>
+                                                <?php if ($information['information_id'] == $config_checkout_id) { ?>
+                                                    <option value="<?php echo $information['information_id']; ?>" selected="selected"><?php echo $information['title']; ?></option>
+                                                <?php } else { ?>
+                                                    <option value="<?php echo $information['information_id']; ?>"><?php echo $information['title']; ?></option>
                                                 <?php } ?>
-                                            </select></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_order_edit; ?></td>
-                                        <td><input type="text" name="config_order_edit" value="<?php echo $config_order_edit; ?>" size="3" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_invoice_prefix; ?></td>
-                                        <td><input type="text" name="config_invoice_prefix" value="<?php echo $config_invoice_prefix; ?>" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_order_status; ?></td>
-                                        <td><select name="config_order_status_id">
-                                                <?php foreach ($order_statuses as $order_status) { ?>
-                                                    <?php if ($order_status['order_status_id'] == $config_order_status_id) { ?>
-                                                        <option value="<?php echo $order_status['order_status_id']; ?>" selected="selected"><?php echo $order_status['name']; ?></option>
-                                                    <?php } else { ?>
-                                                        <option value="<?php echo $order_status['order_status_id']; ?>"><?php echo $order_status['name']; ?></option>
-                                                    <?php } ?>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="config_invoice_prefix" class="col-sm-2 control-label"><?php echo $entry_invoice_prefix; ?></label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="config_invoice_prefix" value="<?php echo $config_invoice_prefix; ?>" class="form-control" id="config_invoice_prefix" />
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="config_order_status_id" class="col-sm-2 control-label required"><?php echo $entry_order_status; ?></label>
+                                    <div class="col-sm-9">
+                                        <select name="config_order_status_id" class="form-control">
+                                            <?php foreach ($order_statuses as $order_status) { ?>
+                                                <?php if ($order_status['order_status_id'] == $config_order_status_id) { ?>
+                                                    <option value="<?php echo $order_status['order_status_id']; ?>" selected="selected"><?php echo $order_status['name']; ?></option>
+                                                <?php } else { ?>
+                                                    <option value="<?php echo $order_status['order_status_id']; ?>"><?php echo $order_status['name']; ?></option>
                                                 <?php } ?>
-                                            </select></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_complete_status; ?></td>
-                                        <td><select name="config_complete_status_id">
-                                                <?php foreach ($order_statuses as $order_status) { ?>
-                                                    <?php if ($order_status['order_status_id'] == $config_complete_status_id) { ?>
-                                                        <option value="<?php echo $order_status['order_status_id']; ?>" selected="selected"><?php echo $order_status['name']; ?></option>
-                                                    <?php } else { ?>
-                                                        <option value="<?php echo $order_status['order_status_id']; ?>"><?php echo $order_status['name']; ?></option>
-                                                    <?php } ?>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="config_complete_status_id" class="col-sm-2 control-label required"><?php echo $entry_complete_status; ?></label>
+                                    <div class="col-sm-9">
+                                        <select name="config_complete_status_id" class="form-control">
+                                            <?php foreach ($order_statuses as $order_status) { ?>
+                                                <?php if ($order_status['order_status_id'] == $config_complete_status_id) { ?>
+                                                    <option value="<?php echo $order_status['order_status_id']; ?>" selected="selected"><?php echo $order_status['name']; ?></option>
+                                                <?php } else { ?>
+                                                    <option value="<?php echo $order_status['order_status_id']; ?>"><?php echo $order_status['name']; ?></option>
                                                 <?php } ?>
-                                            </select></td>
-                                    </tr>
-                                </table>
-                                <h2><?php echo $text_stock; ?></h2>
-                                <table class="form">
-                                    <tr>
-                                        <td><?php echo $entry_stock_display; ?></td>
-                                        <td><?php if ($config_stock_display) { ?>
-                                                <input type="radio" name="config_stock_display" value="1" checked="checked" />
-                                                <?php echo $text_yes; ?>
-                                                <input type="radio" name="config_stock_display" value="0" />
-                                                <?php echo $text_no; ?>
-                                            <?php } else { ?>
-                                                <input type="radio" name="config_stock_display" value="1" />
-                                                <?php echo $text_yes; ?>
-                                                <input type="radio" name="config_stock_display" value="0" checked="checked" />
-                                                <?php echo $text_no; ?>
-                                            <?php } ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_stock_warning; ?></td>
-                                        <td><?php if ($config_stock_warning) { ?>
-                                                <input type="radio" name="config_stock_warning" value="1" checked="checked" />
-                                                <?php echo $text_yes; ?>
-                                                <input type="radio" name="config_stock_warning" value="0" />
-                                                <?php echo $text_no; ?>
-                                            <?php } else { ?>
-                                                <input type="radio" name="config_stock_warning" value="1" />
-                                                <?php echo $text_yes; ?>
-                                                <input type="radio" name="config_stock_warning" value="0" checked="checked" />
-                                                <?php echo $text_no; ?>
-                                            <?php } ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_stock_checkout; ?></td>
-                                        <td><?php if ($config_stock_checkout) { ?>
-                                                <input type="radio" name="config_stock_checkout" value="1" checked="checked" />
-                                                <?php echo $text_yes; ?>
-                                                <input type="radio" name="config_stock_checkout" value="0" />
-                                                <?php echo $text_no; ?>
-                                            <?php } else { ?>
-                                                <input type="radio" name="config_stock_checkout" value="1" />
-                                                <?php echo $text_yes; ?>
-                                                <input type="radio" name="config_stock_checkout" value="0" checked="checked" />
-                                                <?php echo $text_no; ?>
-                                            <?php } ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_stock_status; ?></td>
-                                        <td><select name="config_stock_status_id">
-                                                <?php foreach ($stock_statuses as $stock_status) { ?>
-                                                    <?php if ($stock_status['stock_status_id'] == $config_stock_status_id) { ?>
-                                                        <option value="<?php echo $stock_status['stock_status_id']; ?>" selected="selected"><?php echo $stock_status['name']; ?></option>
-                                                    <?php } else { ?>
-                                                        <option value="<?php echo $stock_status['stock_status_id']; ?>"><?php echo $stock_status['name']; ?></option>
-                                                    <?php } ?>
-                                                <?php } ?>
-                                            </select></td>
-                                    </tr>
-                                </table>
-                                <h2><?php echo $text_affiliate; ?></h2>
-                                <table class="form">
-                                    <tr>
-                                        <td><?php echo $entry_affiliate; ?></td>
-                                        <td><select name="config_affiliate_id">
-                                                <option value="0"><?php echo $text_none; ?></option>
-                                                <?php foreach ($informations as $information) { ?>
-                                                    <?php if ($information['information_id'] == $config_affiliate_id) { ?>
-                                                        <option value="<?php echo $information['information_id']; ?>" selected="selected"><?php echo $information['title']; ?></option>
-                                                    <?php } else { ?>
-                                                        <option value="<?php echo $information['information_id']; ?>"><?php echo $information['title']; ?></option>
-                                                    <?php } ?>
-                                                <?php } ?>
-                                            </select></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_commission; ?></td>
-                                        <td><input type="text" name="config_commission" value="<?php echo $config_commission; ?>" size="3" /></td>
-                                    </tr>
-                                </table>
-                                <h2><?php echo $text_return; ?></h2>
-                                <table class="form">
-                                    <tr>
-                                        <td><?php echo $entry_return; ?></td>
-                                        <td><select name="config_return_id">
-                                                <option value="0"><?php echo $text_none; ?></option>
-                                                <?php foreach ($informations as $information) { ?>
-                                                    <?php if ($information['information_id'] == $config_return_id) { ?>
-                                                        <option value="<?php echo $information['information_id']; ?>" selected="selected"><?php echo $information['title']; ?></option>
-                                                    <?php } else { ?>
-                                                        <option value="<?php echo $information['information_id']; ?>"><?php echo $information['title']; ?></option>
-                                                    <?php } ?>
-                                                <?php } ?>
-                                            </select></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_return_status; ?></td>
-                                        <td><select name="config_return_status_id">
-                                                <?php foreach ($return_statuses as $return_status) { ?>
-                                                    <?php if ($return_status['return_status_id'] == $config_return_status_id) { ?>
-                                                        <option value="<?php echo $return_status['return_status_id']; ?>" selected="selected"><?php echo $return_status['name']; ?></option>
-                                                    <?php } else { ?>
-                                                        <option value="<?php echo $return_status['return_status_id']; ?>"><?php echo $return_status['name']; ?></option>
-                                                    <?php } ?>
-                                                <?php } ?>
-                                            </select></td>
-                                    </tr>
-                                </table>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+
                             </div>
 
                             <div class="tab-pane" id="tab-image">
-                                <table class="form">
-                                    <tr>
-                                        <td><?php echo $entry_logo; ?></td>
-                                        <td><div class="image"><img src="<?php echo $logo; ?>" alt="" id="thumb-logo" />
-                                                <input type="hidden" name="config_logo" value="<?php echo $config_logo; ?>" id="logo" />
-                                                <br />
-                                                <a onclick="image_upload('logo', 'thumb-logo');"><?php echo $text_browse; ?></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a onclick="$('#thumb-logo').attr('src', '<?php echo $no_image; ?>');
-                                                        $('#logo').attr('value', '');"><?php echo $text_clear; ?></a></div></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_icon; ?></td>
-                                        <td><div class="image"><img src="<?php echo $icon; ?>" alt="" id="thumb-icon" />
-                                                <input type="hidden" name="config_icon" value="<?php echo $config_icon; ?>" id="icon" />
-                                                <br />
-                                                <a onclick="image_upload('icon', 'thumb-icon');"><?php echo $text_browse; ?></a>&nbsp;&nbsp;|&nbsp;&nbsp;<a onclick="$('#thumb-icon').attr('src', '<?php echo $no_image; ?>');
-                                                        $('#icon').attr('value', '');"><?php echo $text_clear; ?></a></div></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="required">*</span> <?php echo $entry_image_category; ?></td>
-                                        <td><input type="text" name="config_image_category_width" value="<?php echo $config_image_category_width; ?>" size="3" />
-                                            x
-                                            <input type="text" name="config_image_category_height" value="<?php echo $config_image_category_height; ?>" size="3" />
-                                            <?php if ($error_image_category) { ?>
-                                                <span class="error"><?php echo $error_image_category; ?></span>
-                                            <?php } ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="required">*</span> <?php echo $entry_image_thumb; ?></td>
-                                        <td><input type="text" name="config_image_thumb_width" value="<?php echo $config_image_thumb_width; ?>" size="3" />
-                                            x
-                                            <input type="text" name="config_image_thumb_height" value="<?php echo $config_image_thumb_height; ?>" size="3" />
-                                            <?php if ($error_image_thumb) { ?>
-                                                <span class="error"><?php echo $error_image_thumb; ?></span>
-                                            <?php } ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="required">*</span> <?php echo $entry_image_popup; ?></td>
-                                        <td><input type="text" name="config_image_popup_width" value="<?php echo $config_image_popup_width; ?>" size="3" />
-                                            x
-                                            <input type="text" name="config_image_popup_height" value="<?php echo $config_image_popup_height; ?>" size="3" />
-                                            <?php if ($error_image_popup) { ?>
-                                                <span class="error"><?php echo $error_image_popup; ?></span>
-                                            <?php } ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="required">*</span> <?php echo $entry_image_product; ?></td>
-                                        <td><input type="text" name="config_image_product_width" value="<?php echo $config_image_product_width; ?>" size="3" />
-                                            x
-                                            <input type="text" name="config_image_product_height" value="<?php echo $config_image_product_height; ?>" size="3" />
-                                            <?php if ($error_image_product) { ?>
-                                                <span class="error"><?php echo $error_image_product; ?></span>
-                                            <?php } ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="required">*</span> <?php echo $entry_image_additional; ?></td>
-                                        <td><input type="text" name="config_image_additional_width" value="<?php echo $config_image_additional_width; ?>" size="3" />
-                                            x
-                                            <input type="text" name="config_image_additional_height" value="<?php echo $config_image_additional_height; ?>" size="3" />
-                                            <?php if ($error_image_additional) { ?>
-                                                <span class="error"><?php echo $error_image_additional; ?></span>
-                                            <?php } ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="required">*</span> <?php echo $entry_image_related; ?></td>
-                                        <td><input type="text" name="config_image_related_width" value="<?php echo $config_image_related_width; ?>" size="3" />
-                                            x
-                                            <input type="text" name="config_image_related_height" value="<?php echo $config_image_related_height; ?>" size="3" />
-                                            <?php if ($error_image_related) { ?>
-                                                <span class="error"><?php echo $error_image_related; ?></span>
-                                            <?php } ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="required">*</span> <?php echo $entry_image_compare; ?></td>
-                                        <td><input type="text" name="config_image_compare_width" value="<?php echo $config_image_compare_width; ?>" size="3" />
-                                            x
-                                            <input type="text" name="config_image_compare_height" value="<?php echo $config_image_compare_height; ?>" size="3" />
-                                            <?php if ($error_image_compare) { ?>
-                                                <span class="error"><?php echo $error_image_compare; ?></span>
-                                            <?php } ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="required">*</span> <?php echo $entry_image_wishlist; ?></td>
-                                        <td><input type="text" name="config_image_wishlist_width" value="<?php echo $config_image_wishlist_width; ?>" size="3" />
-                                            x
-                                            <input type="text" name="config_image_wishlist_height" value="<?php echo $config_image_wishlist_height; ?>" size="3" />
-                                            <?php if ($error_image_wishlist) { ?>
-                                                <span class="error"><?php echo $error_image_wishlist; ?></span>
-                                            <?php } ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="required">*</span> <?php echo $entry_image_cart; ?></td>
-                                        <td><input type="text" name="config_image_cart_width" value="<?php echo $config_image_cart_width; ?>" size="3" />
-                                            x
-                                            <input type="text" name="config_image_cart_height" value="<?php echo $config_image_cart_height; ?>" size="3" />
-                                            <?php if ($error_image_cart) { ?>
-                                                <span class="error"><?php echo $error_image_cart; ?></span>
-                                            <?php } ?></td>
-                                    </tr>
-                                </table>
+                                <div class="form-group">
+                                    <label for="imageInput" class="col-sm-2 control-label "><?php echo $entry_logo; ?></label>
+                                    <div class="col-sm-9">
+                                        <div class="row" id="deal-img-container">
+
+                                            <div class="image well well-sm pull-left">
+                                                <img src="<?php echo $logo; ?>" alt="" id="thumb-logo" />
+                                                <input type="hidden" name="config_logo" value="<?php echo $config_logo; ?>" id="logo" /><br />
+                                                <button type="button" class="btn btn-primary btn-sm" onclick="image_upload('logo', 'thumb-logo');"><?php echo $text_browse; ?></button>
+                                                <button type="button" class="btn btn-danger btn-sm" onclick="$('#thumb-logo').attr('src', '<?php echo $no_image; ?>');
+                                                        $('#logo').attr('value', '');"><?php echo $text_clear; ?></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="iconInput" class="col-sm-2 control-label "><?php echo $entry_icon; ?></label>
+                                    <div class="col-sm-9">
+                                        <div class="row" id="deal-img-container">
+
+                                            <div class="image well well-sm pull-left">
+                                                <img src="<?php echo $icon; ?>" alt="" id="thumb-icon" />
+                                                <input type="hidden" name="config_icon" value="<?php echo $config_icon; ?>" id="icon" /><br />
+                                                <button type="button" class="btn btn-primary btn-sm" onclick="image_upload('icon', 'thumb-icon');"><?php echo $text_browse; ?></button>
+                                                <button type="button" class="btn btn-danger btn-sm" onclick="$('#thumb-icon').attr('src', '<?php echo $no_image; ?>');
+                                                        $('#icon').attr('value', '');"><?php echo $text_clear; ?></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="config_image_cart_width" class="col-sm-2 control-label required"><?php echo $entry_image_cart; ?></label>
+                                    <div class="col-sm-1">
+                                        <input class="form-control" type="number" name="config_image_cart_width" value="<?php echo $config_image_cart_width; ?>" size="3" />
+                                    </div>
+                                    <div class="pull-left text-center" style="line-height:2.5;">X</div>
+                                    <div class="col-sm-1">
+                                        <input class="form-control" type="number" name="config_image_cart_height" value="<?php echo $config_image_cart_height; ?>" size="3" />
+                                    </div>
+                                </div>
+
+
                             </div>
 
                             <div class="tab-pane" id="tab-ftp">
-                                <table class="form">
-                                    <tr>
-                                        <td><?php echo $entry_ftp_host; ?></td>
-                                        <td><input type="text" name="config_ftp_host" value="<?php echo $config_ftp_host; ?>" />
-                                            <?php if ($error_ftp_host) { ?>
-                                                <span class="error"><?php echo $error_ftp_host; ?></span>
-                                            <?php } ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_ftp_port; ?></td>
-                                        <td><input type="text" name="config_ftp_port" value="<?php echo $config_ftp_port; ?>" />
-                                            <?php if ($error_ftp_port) { ?>
-                                                <span class="error"><?php echo $error_ftp_port; ?></span>
-                                            <?php } ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_ftp_username; ?></td>
-                                        <td><input type="text" name="config_ftp_username" value="<?php echo $config_ftp_username; ?>" />
-                                            <?php if ($error_ftp_username) { ?>
-                                                <span class="error"><?php echo $error_ftp_username; ?></span>
-                                            <?php } ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_ftp_password; ?></td>
-                                        <td><input type="text" name="config_ftp_password" value="<?php echo $config_ftp_password; ?>" />
-                                            <?php if ($error_ftp_password) { ?>
-                                                <span class="error"><?php echo $error_ftp_password; ?></span>
-                                            <?php } ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_ftp_root; ?></td>
-                                        <td><input type="text" name="config_ftp_root" value="<?php echo $config_ftp_root; ?>" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_ftp_status; ?></td>
-                                        <td><?php if ($config_ftp_status) { ?>
-                                                <input type="radio" name="config_ftp_status" value="1" checked="checked" />
-                                                <?php echo $text_yes; ?>
-                                                <input type="radio" name="config_ftp_status" value="0" />
-                                                <?php echo $text_no; ?>
-                                            <?php } else { ?>
-                                                <input type="radio" name="config_ftp_status" value="1" />
-                                                <?php echo $text_yes; ?>
-                                                <input type="radio" name="config_ftp_status" value="0" checked="checked" />
-                                                <?php echo $text_no; ?>
-                                            <?php } ?></td>
-                                    </tr>
-                                </table>
+
+                                <div class="form-group">
+                                    <label for="config_ftp_host" class="col-sm-2 control-label"><?php echo $entry_ftp_host; ?></label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="config_ftp_host" value="<?php echo $config_ftp_host; ?>" class="form-control" id="config_ftp_host" />
+                                        <?php if ($error_ftp_host) { ?>
+                                            <span class="error"><?php echo $error_ftp_host; ?></span>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="config_ftp_port" class="col-sm-2 control-label"><?php echo $entry_ftp_port; ?></label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="config_ftp_port" value="<?php echo $config_ftp_port; ?>" class="form-control" id="config_ftp_port" />
+                                        <?php if ($error_ftp_port) { ?>
+                                            <span class="error"><?php echo $error_ftp_port; ?></span>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="config_ftp_username" class="col-sm-2 control-label"><?php echo $entry_ftp_username; ?></label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="config_ftp_username" value="<?php echo $config_ftp_username; ?>" class="form-control" id="config_ftp_username" />
+                                        <?php if ($error_ftp_username) { ?>
+                                            <span class="error"><?php echo $error_ftp_username; ?></span>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="config_ftp_password" class="col-sm-2 control-label"><?php echo $entry_ftp_password; ?></label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="config_ftp_password" value="<?php echo $config_ftp_password; ?>" class="form-control" id="config_ftp_password" />
+                                        <?php if ($error_ftp_password) { ?>
+                                            <span class="error"><?php echo $error_ftp_password; ?></span>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="config_ftp_root" class="col-sm-2 control-label"><?php echo $entry_ftp_root; ?></label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="config_ftp_root" value="<?php echo $config_ftp_root; ?>" class="form-control" id="config_ftp_root" />
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="config_ftp_status" class="col-sm-2 control-label"><?php echo $entry_ftp_status; ?></label>
+                                    <div class="col-sm-9">
+                                        <?php if ($config_ftp_status) { ?>
+                                            <input type="radio" name="config_ftp_status" value="1" checked="checked" />
+                                            <?php echo $text_yes; ?>
+                                            <input type="radio" name="config_ftp_status" value="0" />
+                                            <?php echo $text_no; ?>
+                                        <?php } else { ?>
+                                            <input type="radio" name="config_ftp_status" value="1" />
+                                            <?php echo $text_yes; ?>
+                                            <input type="radio" name="config_ftp_status" value="0" checked="checked" />
+                                            <?php echo $text_no; ?>
+                                        <?php } ?>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="tab-pane" id="tab-mail">
-                                <table class="form">
-                                    <tr>
-                                        <td><?php echo $entry_mail_protocol; ?></td>
-                                        <td><select name="config_mail_protocol">
-                                                <?php if ($config_mail_protocol == 'mail') { ?>
-                                                    <option value="mail" selected="selected"><?php echo $text_mail; ?></option>
-                                                <?php } else { ?>
-                                                    <option value="mail"><?php echo $text_mail; ?></option>
-                                                <?php } ?>
-                                                <?php if ($config_mail_protocol == 'smtp') { ?>
-                                                    <option value="smtp" selected="selected"><?php echo $text_smtp; ?></option>
-                                                <?php } else { ?>
-                                                    <option value="smtp"><?php echo $text_smtp; ?></option>
-                                                <?php } ?>
-                                            </select></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_mail_parameter; ?></td>
-                                        <td><input type="text" name="config_mail_parameter" value="<?php echo $config_mail_parameter; ?>" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_smtp_host; ?></td>
-                                        <td><input type="text" name="config_smtp_host" value="<?php echo $config_smtp_host; ?>" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_smtp_username; ?></td>
-                                        <td><input type="text" name="config_smtp_username" value="<?php echo $config_smtp_username; ?>" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_smtp_password; ?></td>
-                                        <td><input type="text" name="config_smtp_password" value="<?php echo $config_smtp_password; ?>" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_smtp_port; ?></td>
-                                        <td><input type="text" name="config_smtp_port" value="<?php echo $config_smtp_port; ?>" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_smtp_timeout; ?></td>
-                                        <td><input type="text" name="config_smtp_timeout" value="<?php echo $config_smtp_timeout; ?>" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_alert_mail; ?></td>
-                                        <td><?php if ($config_alert_mail) { ?>
-                                                <input type="radio" name="config_alert_mail" value="1" checked="checked" />
-                                                <?php echo $text_yes; ?>
-                                                <input type="radio" name="config_alert_mail" value="0" />
-                                                <?php echo $text_no; ?>
+
+                                <div class="form-group">
+                                    <label for="config_mail_protocol" class="col-sm-2 control-label"><?php echo $entry_mail_protocol; ?></label>
+                                    <div class="col-sm-9">
+                                        <select name="config_mail_protocol" class="form-control">
+                                            <?php if ($config_mail_protocol == 'mail') { ?>
+                                                <option value="mail" selected="selected"><?php echo $text_mail; ?></option>
                                             <?php } else { ?>
-                                                <input type="radio" name="config_alert_mail" value="1" />
-                                                <?php echo $text_yes; ?>
-                                                <input type="radio" name="config_alert_mail" value="0" checked="checked" />
-                                                <?php echo $text_no; ?>
-                                            <?php } ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_account_mail; ?></td>
-                                        <td><?php if ($config_account_mail) { ?>
-                                                <input type="radio" name="config_account_mail" value="1" checked="checked" />
-                                                <?php echo $text_yes; ?>
-                                                <input type="radio" name="config_account_mail" value="0" />
-                                                <?php echo $text_no; ?>
+                                                <option value="mail"><?php echo $text_mail; ?></option>
+                                            <?php } ?>
+                                            <?php if ($config_mail_protocol == 'smtp') { ?>
+                                                <option value="smtp" selected="selected"><?php echo $text_smtp; ?></option>
                                             <?php } else { ?>
-                                                <input type="radio" name="config_account_mail" value="1" />
-                                                <?php echo $text_yes; ?>
-                                                <input type="radio" name="config_account_mail" value="0" checked="checked" />
-                                                <?php echo $text_no; ?>
-                                            <?php } ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_alert_emails; ?></td>
-                                        <td><textarea name="config_alert_emails" cols="40" rows="5"><?php echo $config_alert_emails; ?></textarea></td>
-                                    </tr>
-                                </table>
+                                                <option value="smtp"><?php echo $text_smtp; ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="config_mail_parameter" class="col-sm-2 control-label"><?php echo $entry_mail_parameter; ?></label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="config_mail_parameter" value="<?php echo $config_mail_parameter; ?>" class="form-control" id="config_mail_parameter" />
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="config_smtp_host" class="col-sm-2 control-label"><?php echo $entry_smtp_host; ?></label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="config_smtp_host" value="<?php echo $config_smtp_host; ?>" class="form-control" id="config_smtp_host" />
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="config_smtp_username" class="col-sm-2 control-label"><?php echo $entry_smtp_username; ?></label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="config_smtp_username" value="<?php echo $config_smtp_username; ?>" class="form-control" id="config_smtp_username" />
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="config_smtp_password" class="col-sm-2 control-label"><?php echo $entry_smtp_password; ?></label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="config_smtp_password" value="<?php echo $config_smtp_password; ?>" class="form-control" id="config_smtp_password" />
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="config_smtp_port" class="col-sm-2 control-label"><?php echo $entry_smtp_port; ?></label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="config_smtp_port" value="<?php echo $config_smtp_port; ?>" class="form-control" id="config_smtp_port" />
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="config_smtp_timeout" class="col-sm-2 control-label"><?php echo $entry_smtp_timeout; ?></label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="config_smtp_timeout" value="<?php echo $config_smtp_timeout; ?>" class="form-control" id="config_smtp_timeout" />
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="config_alert_mail" class="col-sm-2 control-label"><?php echo $entry_alert_mail; ?></label>
+                                    <div class="col-sm-9">
+                                        <?php if ($config_alert_mail) { ?>
+                                            <input type="radio" name="config_alert_mail" value="1" checked="checked" />
+                                            <?php echo $text_yes; ?>
+                                            <input type="radio" name="config_alert_mail" value="0" />
+                                            <?php echo $text_no; ?>
+                                        <?php } else { ?>
+                                            <input type="radio" name="config_alert_mail" value="1" />
+                                            <?php echo $text_yes; ?>
+                                            <input type="radio" name="config_alert_mail" value="0" checked="checked" />
+                                            <?php echo $text_no; ?>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="config_account_mail" class="col-sm-2 control-label"><?php echo $entry_account_mail; ?></label>
+                                    <div class="col-sm-9">
+                                        <?php if ($config_account_mail) { ?>
+                                            <input type="radio" name="config_account_mail" value="1" checked="checked" />
+                                            <?php echo $text_yes; ?>
+                                            <input type="radio" name="config_account_mail" value="0" />
+                                            <?php echo $text_no; ?>
+                                        <?php } else { ?>
+                                            <input type="radio" name="config_account_mail" value="1" />
+                                            <?php echo $text_yes; ?>
+                                            <input type="radio" name="config_account_mail" value="0" checked="checked" />
+                                            <?php echo $text_no; ?>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="config_alert_emails" class="col-sm-2 control-label"><?php echo $entry_alert_emails; ?></label>
+                                    <div class="col-sm-9">
+                                        <textarea name="config_alert_emails" class="form-control" rows="5"><?php echo $config_alert_emails; ?></textarea>
+
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="tab-pane" id="tab-fraud">
-                                <table class="form">
-                                    <tr>
-                                        <td><?php echo $entry_fraud_detection; ?></td>
-                                        <td><?php if ($config_fraud_detection) { ?>
-                                                <input type="radio" name="config_fraud_detection" value="1" checked="checked" />
-                                                <?php echo $text_yes; ?>
-                                                <input type="radio" name="config_fraud_detection" value="0" />
-                                                <?php echo $text_no; ?>
-                                            <?php } else { ?>
-                                                <input type="radio" name="config_fraud_detection" value="1" />
-                                                <?php echo $text_yes; ?>
-                                                <input type="radio" name="config_fraud_detection" value="0" checked="checked" />
-                                                <?php echo $text_no; ?>
-                                            <?php } ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_fraud_key; ?></td>
-                                        <td><input type="text" name="config_fraud_key" value="<?php echo $config_fraud_key; ?>" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_fraud_score; ?></td>
-                                        <td><input type="text" name="config_fraud_score" value="<?php echo $config_fraud_score; ?>" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_fraud_status; ?></td>
-                                        <td><select name="config_fraud_status_id">
-                                                <?php foreach ($order_statuses as $order_status) { ?>
-                                                    <?php if ($order_status['order_status_id'] == $config_fraud_status_id) { ?>
-                                                        <option value="<?php echo $order_status['order_status_id']; ?>" selected="selected"><?php echo $order_status['name']; ?></option>
-                                                    <?php } else { ?>
-                                                        <option value="<?php echo $order_status['order_status_id']; ?>"><?php echo $order_status['name']; ?></option>
-                                                    <?php } ?>
+
+                                <div class="form-group">
+                                    <label for="config_fraud_detection" class="col-sm-2 control-label"><?php echo $entry_fraud_detection; ?></label>
+                                    <div class="col-sm-9"><?php if ($config_fraud_detection) { ?>
+                                            <input type="radio" name="config_fraud_detection" value="1" checked="checked" />
+                                            <?php echo $text_yes; ?>
+                                            <input type="radio" name="config_fraud_detection" value="0" />
+                                            <?php echo $text_no; ?>
+                                        <?php } else { ?>
+                                            <input type="radio" name="config_fraud_detection" value="1" />
+                                            <?php echo $text_yes; ?>
+                                            <input type="radio" name="config_fraud_detection" value="0" checked="checked" />
+                                            <?php echo $text_no; ?>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="config_fraud_key" class="col-sm-2 control-label"><?php echo $entry_fraud_key; ?></label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="config_fraud_key" value="<?php echo $config_fraud_key; ?>" class="form-control" id="config_fraud_key" />
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="config_fraud_score" class="col-sm-2 control-label"><?php echo $entry_fraud_score; ?></label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="config_fraud_score" value="<?php echo $config_fraud_score; ?>" class="form-control" id="config_fraud_score" />
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="config_fraud_status" class="col-sm-2 control-label"><?php echo $entry_fraud_status; ?></label>
+                                    <div class="col-sm-9">
+                                        <select name="config_fraud_status_id" class="form-control">
+                                            <?php foreach ($order_statuses as $order_status) { ?>
+                                                <?php if ($order_status['order_status_id'] == $config_fraud_status_id) { ?>
+                                                    <option value="<?php echo $order_status['order_status_id']; ?>" selected="selected"><?php echo $order_status['name']; ?></option>
+                                                <?php } else { ?>
+                                                    <option value="<?php echo $order_status['order_status_id']; ?>"><?php echo $order_status['name']; ?></option>
                                                 <?php } ?>
-                                            </select></td>
-                                    </tr>
-                                </table>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="tab-pane" id="tab-server">
-                                <table class="form">
-                                    <tr>
-                                        <td><?php echo $entry_secure; ?></td>
-                                        <td><?php if ($config_secure) { ?>
-                                                <input type="radio" name="config_secure" value="1" checked="checked" />
-                                                <?php echo $text_yes; ?>
-                                                <input type="radio" name="config_secure" value="0" />
-                                                <?php echo $text_no; ?>
-                                            <?php } else { ?>
-                                                <input type="radio" name="config_secure" value="1" />
-                                                <?php echo $text_yes; ?>
-                                                <input type="radio" name="config_secure" value="0" checked="checked" />
-                                                <?php echo $text_no; ?>
-                                            <?php } ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_shared; ?></td>
-                                        <td><?php if ($config_shared) { ?>
-                                                <input type="radio" name="config_shared" value="1" checked="checked" />
-                                                <?php echo $text_yes; ?>
-                                                <input type="radio" name="config_shared" value="0" />
-                                                <?php echo $text_no; ?>
-                                            <?php } else { ?>
-                                                <input type="radio" name="config_shared" value="1" />
-                                                <?php echo $text_yes; ?>
-                                                <input type="radio" name="config_shared" value="0" checked="checked" />
-                                                <?php echo $text_no; ?>
-                                            <?php } ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_robots; ?></td>
-                                        <td><textarea name="config_robots" cols="40" rows="5"><?php echo $config_robots; ?></textarea></td>
-                                    </tr>                    
-                                    <tr>
-                                        <td><?php echo $entry_seo_url; ?></td>
-                                        <td><?php if ($config_seo_url) { ?>
-                                                <input type="radio" name="config_seo_url" value="1" checked="checked" />
-                                                <?php echo $text_yes; ?>
-                                                <input type="radio" name="config_seo_url" value="0" />
-                                                <?php echo $text_no; ?>
-                                            <?php } else { ?>
-                                                <input type="radio" name="config_seo_url" value="1" />
-                                                <?php echo $text_yes; ?>
-                                                <input type="radio" name="config_seo_url" value="0" checked="checked" />
-                                                <?php echo $text_no; ?>
-                                            <?php } ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_file_extension_allowed; ?></td>
-                                        <td><textarea name="config_file_extension_allowed" cols="40" rows="5"><?php echo $config_file_extension_allowed; ?></textarea></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_file_mime_allowed; ?></td>
-                                        <td><textarea name="config_file_mime_allowed" cols="60" rows="5"><?php echo $config_file_mime_allowed; ?></textarea></td>
-                                    </tr>              
-                                    <tr>
-                                        <td><?php echo $entry_maintenance; ?></td>
-                                        <td><?php if ($config_maintenance) { ?>
-                                                <input type="radio" name="config_maintenance" value="1" checked="checked" />
-                                                <?php echo $text_yes; ?>
-                                                <input type="radio" name="config_maintenance" value="0" />
-                                                <?php echo $text_no; ?>
-                                            <?php } else { ?>
-                                                <input type="radio" name="config_maintenance" value="1" />
-                                                <?php echo $text_yes; ?>
-                                                <input type="radio" name="config_maintenance" value="0" checked="checked" />
-                                                <?php echo $text_no; ?>
-                                            <?php } ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_password; ?></td>
-                                        <td><?php if ($config_password) { ?>
-                                                <input type="radio" name="config_password" value="1" checked="checked" />
-                                                <?php echo $text_yes; ?>
-                                                <input type="radio" name="config_password" value="0" />
-                                                <?php echo $text_no; ?>
-                                            <?php } else { ?>
-                                                <input type="radio" name="config_password" value="1" />
-                                                <?php echo $text_yes; ?>
-                                                <input type="radio" name="config_password" value="0" checked="checked" />
-                                                <?php echo $text_no; ?>
-                                            <?php } ?></td>
-                                    </tr>            
-                                    <tr>
-                                        <td><?php echo $entry_encryption; ?></td>
-                                        <td><input type="text" name="config_encryption" value="<?php echo $config_encryption; ?>" />
-                                            <?php if ($error_encryption) { ?>
-                                                <span class="error"><?php echo $error_encryption; ?></span>
-                                            <?php } ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_compression; ?></td>
-                                        <td><input type="text" name="config_compression" value="<?php echo $config_compression; ?>" size="3" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_error_display; ?></td>
-                                        <td><?php if ($config_error_display) { ?>
-                                                <input type="radio" name="config_error_display" value="1" checked="checked" />
-                                                <?php echo $text_yes; ?>
-                                                <input type="radio" name="config_error_display" value="0" />
-                                                <?php echo $text_no; ?>
-                                            <?php } else { ?>
-                                                <input type="radio" name="config_error_display" value="1" />
-                                                <?php echo $text_yes; ?>
-                                                <input type="radio" name="config_error_display" value="0" checked="checked" />
-                                                <?php echo $text_no; ?>
-                                            <?php } ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_error_log; ?></td>
-                                        <td><?php if ($config_error_log) { ?>
-                                                <input type="radio" name="config_error_log" value="1" checked="checked" />
-                                                <?php echo $text_yes; ?>
-                                                <input type="radio" name="config_error_log" value="0" />
-                                                <?php echo $text_no; ?>
-                                            <?php } else { ?>
-                                                <input type="radio" name="config_error_log" value="1" />
-                                                <?php echo $text_yes; ?>
-                                                <input type="radio" name="config_error_log" value="0" checked="checked" />
-                                                <?php echo $text_no; ?>
-                                            <?php } ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="required">*</span> <?php echo $entry_error_filename; ?></td>
-                                        <td><input type="text" name="config_error_filename" value="<?php echo $config_error_filename; ?>" />
-                                            <?php if ($error_error_filename) { ?>
-                                                <span class="error"><?php echo $error_error_filename; ?></span>
-                                            <?php } ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $entry_google_analytics; ?></td>
-                                        <td><textarea name="config_google_analytics" cols="40" rows="5"><?php echo $config_google_analytics; ?></textarea></td>
-                                    </tr>
-                                </table>
+
+                                <div class="form-group">
+                                    <label for="config_secure" class="col-sm-2 control-label"><?php echo $entry_secure; ?></label>
+                                    <div class="col-sm-9">
+                                        <?php if ($config_secure) { ?>
+                                            <input type="radio" name="config_secure" value="1" checked="checked" />
+                                            <?php echo $text_yes; ?>
+                                            <input type="radio" name="config_secure" value="0" />
+                                            <?php echo $text_no; ?>
+                                        <?php } else { ?>
+                                            <input type="radio" name="config_secure" value="1" />
+                                            <?php echo $text_yes; ?>
+                                            <input type="radio" name="config_secure" value="0" checked="checked" />
+                                            <?php echo $text_no; ?>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="config_shared" class="col-sm-2 control-label"><?php echo $entry_shared; ?></label>
+                                    <div class="col-sm-9">
+                                        <?php if ($config_shared) { ?>
+                                            <input type="radio" name="config_shared" value="1" checked="checked" />
+                                            <?php echo $text_yes; ?>
+                                            <input type="radio" name="config_shared" value="0" />
+                                            <?php echo $text_no; ?>
+                                        <?php } else { ?>
+                                            <input type="radio" name="config_shared" value="1" />
+                                            <?php echo $text_yes; ?>
+                                            <input type="radio" name="config_shared" value="0" checked="checked" />
+                                            <?php echo $text_no; ?>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="config_robots" class="col-sm-2 control-label"><?php echo $entry_robots; ?></label>
+                                    <div class="col-sm-9">
+                                        <textarea class="form-control" name="config_robots" cols="40" rows="5"><?php echo $config_robots; ?></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="config_seo_url" class="col-sm-2 control-label"><?php echo $entry_seo_url; ?></label>
+                                    <div class="col-sm-9">
+                                        <?php if ($config_seo_url) { ?>
+                                            <input type="radio" name="config_seo_url" value="1" checked="checked" />
+                                            <?php echo $text_yes; ?>
+                                            <input type="radio" name="config_seo_url" value="0" />
+                                            <?php echo $text_no; ?>
+                                        <?php } else { ?>
+                                            <input type="radio" name="config_seo_url" value="1" />
+                                            <?php echo $text_yes; ?>
+                                            <input type="radio" name="config_seo_url" value="0" checked="checked" />
+                                            <?php echo $text_no; ?>
+                                        <?php } ?>  
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="config_maintenance" class="col-sm-2 control-label"><?php echo $entry_maintenance; ?></label>
+                                    <div class="col-sm-9">
+                                        <?php if ($config_maintenance) { ?>
+                                            <input type="radio" name="config_maintenance" value="1" checked="checked" />
+                                            <?php echo $text_yes; ?>
+                                            <input type="radio" name="config_maintenance" value="0" />
+                                            <?php echo $text_no; ?>
+                                        <?php } else { ?>
+                                            <input type="radio" name="config_maintenance" value="1" />
+                                            <?php echo $text_yes; ?>
+                                            <input type="radio" name="config_maintenance" value="0" checked="checked" />
+                                            <?php echo $text_no; ?>
+                                        <?php } ?>  
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="config_encryption" class="col-sm-2 control-label required"><?php echo $entry_encryption; ?></label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="config_encryption" value="<?php echo $config_encryption; ?>" class="form-control" id="config_encryption" />
+                                        <?php if ($error_encryption) { ?>
+                                            <span class="error text-danger"><?php echo $error_encryption; ?></span>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="config_compression" class="col-sm-2 control-label "><?php echo $entry_compression; ?></label>
+                                    <div class="col-sm-1">
+                                        <input min="0" max="9" type="number" name="config_compression" value="<?php echo $config_compression; ?>" class="form-control" id="config_compression" />
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="config_error_display" class="col-sm-2 control-label "><?php echo $entry_error_display; ?></label>
+                                    <div class="col-sm-9">
+                                        <?php if ($config_error_display) { ?>
+                                            <input type="radio" name="config_error_display" value="1" checked="checked" />
+                                            <?php echo $text_yes; ?>
+                                            <input type="radio" name="config_error_display" value="0" />
+                                            <?php echo $text_no; ?>
+                                        <?php } else { ?>
+                                            <input type="radio" name="config_error_display" value="1" />
+                                            <?php echo $text_yes; ?>
+                                            <input type="radio" name="config_error_display" value="0" checked="checked" />
+                                            <?php echo $text_no; ?>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="config_error_log" class="col-sm-2 control-label "><?php echo $entry_error_log; ?></label>
+                                    <div class="col-sm-9">
+                                        <?php if ($config_error_log) { ?>
+                                            <input type="radio" name="config_error_log" value="1" checked="checked" />
+                                            <?php echo $text_yes; ?>
+                                            <input type="radio" name="config_error_log" value="0" />
+                                            <?php echo $text_no; ?>
+                                        <?php } else { ?>
+                                            <input type="radio" name="config_error_log" value="1" />
+                                            <?php echo $text_yes; ?>
+                                            <input type="radio" name="config_error_log" value="0" checked="checked" />
+                                            <?php echo $text_no; ?>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="config_error_filename" class="col-sm-2 control-label required"><?php echo $entry_error_filename; ?></label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="config_error_filename" value="<?php echo $config_error_filename; ?>" class="form-control" id="config_error_filename" />
+                                        <?php if ($error_error_filename) { ?>
+                                            <span class="error text-danger"><?php echo $error_error_filename; ?></span>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+
+                                 <div class="form-group">
+                                    <label for="config_google_analytics" class="col-sm-2 control-label "><?php echo $entry_google_analytics; ?></label>
+                                    <div class="col-sm-9">
+                                       <textarea class="form-control" name="config_google_analytics" cols="40" rows="5"><?php echo $config_google_analytics; ?></textarea>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </form>
@@ -881,34 +797,27 @@
             </div>
         </div>
     </div>
+        
+        <div class="box-footer">
+            <div class="box-footer clearfix">
+                    <div id="form-error" class="alert alert-danger alert-dismissable">
+                        <i class="fa fa-ban"></i>
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <span></span>
+                    </div>
+                    <button class="btn btn-primary col-sm-offset-2" onclick="$('#form').submit();" >
+                        <i class="fa fa-check"></i> <?php echo $button_save; ?>
+                    </button>
+                    <a href="<?php echo $cancel; ?>" class="btn btn-danger">
+        <i class="fa fa-times"></i> <?php echo $button_cancel; ?>
+    </a>
+                </div>
+        </div>
+    </div>
 </section><!-- /.content -->
 
 <script type="text/javascript"><!--
-    function image_upload(field, thumb) {
-        $('#dialog').remove();
-
-        $('body').prepend('<div id="dialog" style="padding: 3px 0px 0px 0px;"><iframe src="index.php?route=common/filemanager&token=<?php echo $token; ?>&field=' + encodeURIComponent(field) + '" style="padding:0; margin: 0; display: block; width: 100%; height: 100%;" frameborder="no" scrolling="auto"></iframe></div>');
-
-        $('#dialog').dialog({
-            title: '<?php echo $text_image_manager; ?>',
-            close: function(event, ui) {
-                if ($('#' + field).attr('value')) {
-                    $.ajax({
-                        url: 'index.php?route=common/filemanager/image&token=<?php echo $token; ?>&image=' + encodeURIComponent($('#' + field).val()),
-                        dataType: 'text',
-                        success: function(data) {
-                            $('#' + thumb).replaceWith('<img src="' + data + '" alt="" id="' + thumb + '" />');
-                        }
-                    });
-                }
-            },
-            bgiframe: false,
-            width: 800,
-            height: 400,
-            resizable: false,
-            modal: false
-        });
-    }
+    
 
     addOnready(function() {
         $('#template').load('index.php?route=setting/setting/template&token=<?php echo $token; ?>&template=' + encodeURIComponent($('#config_template').val()));

@@ -586,9 +586,9 @@ class ControllerSettingSetting extends \Core\Controller {
             $this->data['config_account_id'] = $this->config->get('config_account_id');
         }
 
-        $this->load->model('catalog/information');
+        $this->load->model('information/information');
 
-        $this->data['informations'] = $this->model_catalog_information->getInformations();
+        $this->data['informations'] = $this->model_information_information->getInformations();
 
     
         if (isset($this->request->post['config_guest_checkout'])) {
@@ -631,9 +631,9 @@ class ControllerSettingSetting extends \Core\Controller {
             $this->data['config_complete_status_id'] = $this->config->get('config_complete_status_id');
         }
 
-        /* $this->load->model('localisation/order_status');
+         $this->load->model('localisation/order_status');
 
-          $this->data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses(); */
+          $this->data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses(); 
 
         if (isset($this->request->post['config_stock_display'])) {
             $this->data['config_stock_display'] = $this->request->post['config_stock_display'];
@@ -1083,45 +1083,7 @@ class ControllerSettingSetting extends \Core\Controller {
             $this->error['customer_group_display'] = $this->language->get('error_customer_group_display');
         }
 
-        if (!$this->request->post['config_voucher_min']) {
-            $this->error['voucher_min'] = $this->language->get('error_voucher_min');
-        }
 
-        if (!$this->request->post['config_voucher_max']) {
-            $this->error['voucher_max'] = $this->language->get('error_voucher_max');
-        }
-
-        if (!$this->request->post['config_image_category_width'] || !$this->request->post['config_image_category_height']) {
-            $this->error['image_category'] = $this->language->get('error_image_category');
-        }
-
-        if (!$this->request->post['config_image_thumb_width'] || !$this->request->post['config_image_thumb_height']) {
-            $this->error['image_thumb'] = $this->language->get('error_image_thumb');
-        }
-
-        if (!$this->request->post['config_image_popup_width'] || !$this->request->post['config_image_popup_height']) {
-            $this->error['image_popup'] = $this->language->get('error_image_popup');
-        }
-
-        if (!$this->request->post['config_image_product_width'] || !$this->request->post['config_image_product_height']) {
-            $this->error['image_product'] = $this->language->get('error_image_product');
-        }
-
-        if (!$this->request->post['config_image_additional_width'] || !$this->request->post['config_image_additional_height']) {
-            $this->error['image_additional'] = $this->language->get('error_image_additional');
-        }
-
-        if (!$this->request->post['config_image_related_width'] || !$this->request->post['config_image_related_height']) {
-            $this->error['image_related'] = $this->language->get('error_image_related');
-        }
-
-        if (!$this->request->post['config_image_compare_width'] || !$this->request->post['config_image_compare_height']) {
-            $this->error['image_compare'] = $this->language->get('error_image_compare');
-        }
-
-        if (!$this->request->post['config_image_wishlist_width'] || !$this->request->post['config_image_wishlist_height']) {
-            $this->error['image_wishlist'] = $this->language->get('error_image_wishlist');
-        }
 
         if (!$this->request->post['config_image_cart_width'] || !$this->request->post['config_image_cart_height']) {
             $this->error['image_cart'] = $this->language->get('error_image_cart');

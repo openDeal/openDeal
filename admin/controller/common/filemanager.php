@@ -43,6 +43,7 @@ class ControllerCommonFilemanager extends \Core\Controller {
     }
 
     public function connector() {
+        $this->config->set('config_error_display',0);
         error_reporting(0);
         include_once DIR_SYSTEM . 'vendor/elfinder' . DIRECTORY_SEPARATOR . 'elFinderConnector.class.php';
         include_once DIR_SYSTEM . 'vendor/elfinder' . DIRECTORY_SEPARATOR . 'elFinder.class.php';
