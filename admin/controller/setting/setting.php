@@ -141,6 +141,9 @@ class ControllerSettingSetting extends \Core\Controller {
         $this->data['entry_error_log'] = $this->language->get('entry_error_log');
         $this->data['entry_error_filename'] = $this->language->get('entry_error_filename');
         $this->data['entry_google_analytics'] = $this->language->get('entry_google_analytics');
+        
+        $this->data['text_longitude'] = $this->language->get('text_longitude');
+        $this->data['text_latitude'] = $this->language->get('text_latitude');
 
         $this->data['button_save'] = $this->language->get('button_save');
         $this->data['button_cancel'] = $this->language->get('button_cancel');
@@ -375,6 +378,18 @@ class ControllerSettingSetting extends \Core\Controller {
             $this->data['config_fax'] = $this->request->post['config_fax'];
         } else {
             $this->data['config_fax'] = $this->config->get('config_fax');
+        }
+        
+         if (isset($this->request->post['config_map_longitude'])) {
+            $this->data['config_map_longitude'] = $this->request->post['config_map_longitude'];
+        } else {
+            $this->data['config_map_longitude'] = $this->config->get('config_map_longitude');
+        }
+        
+         if (isset($this->request->post['config_map_latitude'])) {
+            $this->data['config_map_latitude'] = $this->request->post['config_map_latitude'];
+        } else {
+            $this->data['config_map_latitude'] = $this->config->get('config_map_latitude');
         }
 
         if (isset($this->request->post['config_gttimezone'])) {

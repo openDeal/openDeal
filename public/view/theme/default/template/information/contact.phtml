@@ -12,11 +12,11 @@
         <h1><?php echo $heading_title; ?></h1>
 
         <form action="<?php echo $action; ?>" method="post" class="form-horizontal" enctype="multipart/form-data">
-            <h2><?php echo $text_location; ?></h2>
-            <div class="contact-info">
+            <div class="row">
+                <div class="col-md-8">
+                    <legend><?php echo $text_location; ?></legend>
+                    <div class="contact-info">
 
-                <div class="row">
-                    <div class="col-md-6 left">
                         <address>
                             <strong><?php echo $store; ?></strong><br />
                             <?php echo $address; ?><br />
@@ -30,65 +30,112 @@
                             <?php endif; ?>
                         </address>
 
-                    </div>
-                    <div class="col-md-6 right">
-                        MAP SHOULD GO HERE
+
                     </div>
 
+                    <legend><?php echo $text_contact; ?></legend>
+                    <div class="content">
+
+                        <div class="form-group">
+                            <label for="inputContactName" class="col-sm-2 control-label"><?php echo $entry_name; ?></label>
+                            <div class="col-sm-10">
+                                <input type="text" id="inputContactName" class="form-control required" name="name" value="<?php echo $name; ?>" />
+                                <?php if ($error_name) { ?>
+                                    <span class="text-danger"><?php echo $error_name; ?></span>
+                                <?php } ?>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputContactEmail" class="col-sm-2 control-label"><?php echo $entry_email; ?></label>
+                            <div class="col-sm-10">
+                                <input type="email" id="inputContactEmail" class="form-control required" name="email" value="<?php echo $email; ?>" />
+                                <?php if ($error_email) { ?>
+                                    <span class="text-danger"><?php echo $error_email; ?></span>
+                                <?php } ?>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputContactEnquiry" class="col-sm-2 control-label"><?php echo $entry_enquiry; ?></label>
+                            <div class="col-sm-10">
+                                <textarea id="inputContactEnquiry" name="enquiry"  rows="10" class="form-control required"><?php echo $enquiry; ?></textarea>
+
+                                <?php if ($error_enquiry) { ?>
+                                    <span class="text-danger"><?php echo $error_enquiry; ?></span>
+                                <?php } ?>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputContactCaptcha" class="col-sm-2 control-label"><?php echo $entry_captcha; ?></label>
+                            <div class="col-sm-10">
+                                <input type="text" id="inputContactCaptcha" class="form-control required" name="captcha" value="<?php echo $captcha; ?>" />
+                                <img src="index.php?route=information/contact/captcha" alt="" />
+                                <?php if ($error_captcha) { ?>
+                                    <span class="text-danger"><?php echo $error_captcha; ?></span>
+                                <?php } ?>
+                            </div>
+                        </div>
+
+                        <div class="form-group buttons">
+                            <div class="col-sm-offset-2"><button type="submit" class="btn btn-primary"><?php echo $button_continue; ?></button></div>
+                        </div>
+
+
+                    </div>
                 </div>
+
+                <div class="col-md-4">
+                    <div id="map-canvas" style='width:100%;height:365px'> </div>
+                </div>
+
             </div>
-            <h2><?php echo $text_contact; ?></h2>
-            <div class="content">
-
-                <div class="form-group">
-                    <label for="inputContactName" class="col-sm-2 control-label"><?php echo $entry_name; ?></label>
-                    <div class="col-sm-10">
-                        <input type="text" id="inputContactName" class="form-control required" name="name" value="<?php echo $name; ?>" />
-                        <?php if ($error_name) { ?>
-                            <span class="text-danger"><?php echo $error_name; ?></span>
-                        <?php } ?>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputContactEmail" class="col-sm-2 control-label"><?php echo $entry_email; ?></label>
-                    <div class="col-sm-10">
-                        <input type="email" id="inputContactEmail" class="form-control required" name="email" value="<?php echo $email; ?>" />
-                        <?php if ($error_email) { ?>
-                            <span class="text-danger"><?php echo $error_email; ?></span>
-                        <?php } ?>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="inputContactEnquiry" class="col-sm-2 control-label"><?php echo $entry_enquiry; ?></label>
-                    <div class="col-sm-10">
-                        <textarea id="inputContactEnquiry" name="enquiry"  rows="10" class="form-control required"><?php echo $enquiry; ?></textarea>
-
-                        <?php if ($error_enquiry) { ?>
-                            <span class="text-danger"><?php echo $error_enquiry; ?></span>
-                        <?php } ?>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="inputContactCaptcha" class="col-sm-2 control-label"><?php echo $entry_captcha; ?></label>
-                    <div class="col-sm-10">
-                        <input type="text" id="inputContactCaptcha" class="form-control required" name="captcha" value="<?php echo $captcha; ?>" />
-                        <img src="index.php?route=information/contact/captcha" alt="" />
-                        <?php if ($error_captcha) { ?>
-                            <span class="text-danger"><?php echo $error_captcha; ?></span>
-                        <?php } ?>
-                    </div>
-                </div>
 
 
-            </div>
-            <div class="buttons">
-                <div class="right"><input type="submit" value="<?php echo $button_continue; ?>" class="button" /></div>
-            </div>
+
         </form>
 
         <?php echo $content_bottom; ?></div>
 </div>
+<?php if($map_latitude): ?>
+<script>
+    function initialize() {
+        var myLatlng = new google.maps.LatLng(<?php echo $map_latitude; ?>,<?php echo $map_longitude; ?>);
+        var mapOptions = {
+            zoom: 15,
+            center: myLatlng
+        };
 
+        var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+        var contentString = '<div id="content">' +
+                '<div id="siteNotice">' +
+                '</div>' +
+                '<legend><?php echo $store; ?></legend>' +
+                '<div id="bodyContent">' +
+                '<p><snall><?php echo $address; ?></small></p>' +
+                '<p><?php echo $text_about; ?></p>';
+        '</div>' +
+                '</div>';
+
+        var infowindow = new google.maps.InfoWindow({
+            content: contentString
+        });
+
+        var marker = new google.maps.Marker({
+            position: myLatlng,
+            map: map,
+            title: '<?php echo $store; ?>'
+        });
+        //google.maps.event.addListener(marker, 'click', function() {
+        infowindow.open(map, marker);
+        //});
+    }
+
+    addOnready(function() {
+        google.maps.event.addDomListener(window, 'load', initialize);
+    });
+
+</script>
+<?php endif; ?>
 <?php echo $footer; ?>

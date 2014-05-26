@@ -109,6 +109,10 @@ class ControllerInformationContact extends \Core\Controller {
 			$this->data['captcha'] = '';
 		}		
 
+                
+                $this->data['text_about'] = $this->language->get('text_about');
+                $this->data['map_longitude'] = $this->config->get('config_map_longitude');
+                $this->data['map_latitude'] = $this->config->get('config_map_latitude');
 		
 
 		$this->children = array(
@@ -150,11 +154,9 @@ class ControllerInformationContact extends \Core\Controller {
 
 		$this->data['continue'] = $this->url->link('common/home');
 
-		if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/common/success.tpl')) {
-			$this->template = $this->config->get('config_template') . '/template/common/success.tpl';
-		} else {
-			$this->template = 'default/template/common/success.tpl';
-		}
+	
+			$this->template = 'common/success.phtml';
+	
 
 		$this->children = array(
 			'common/column_left',
