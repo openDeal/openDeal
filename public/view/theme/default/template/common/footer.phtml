@@ -77,6 +77,23 @@
                     });
                 });
 //--></script>
+            
+            <script src="public/view/theme/default/javascript/jquery.ui.totop.min.js" type="text/javascript"></script>
+					<script type="text/javascript">
+						$(document).ready(function() {
+							/*
+							var defaults = {
+								containerID: 'toTop', // fading element id
+								containerHoverID: 'toTopHover', // fading element hover id
+								scrollSpeed: 1200,
+								easingType: 'linear' 
+							};
+							*/
+							
+							$().UItoTop({ easingType: 'linear' });
+							
+						});
+					</script>
 
             <?php echo $google_analytics; ?>
 
