@@ -66,3 +66,6 @@ $_['text_no_results'] = "No Results";
 $_['button_login'] = "Login";
 $_['button_confirm'] = 'Confirm';
 $_['button_back'] = 'Back';
+
+$_['text_choose_option']  = 'Select Deal Option';
+$_['text_choose_shipping'] = 'Select Delivery Method';
