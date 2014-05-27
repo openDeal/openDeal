@@ -8,5 +8,6 @@ $_['text_newsletter']  = 'Newsletter';
 $_['text_success']     = 'Success: Your newsletter subscription has been successfully updated!';
 
 // Entry
-$_['entry_newsletter'] = 'Subscribe:';
+$_['entry_newsletter'] = 'General Newsletter:';
+$_['legend_cities'] = 'City Subscription'
 ?>

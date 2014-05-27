@@ -10,9 +10,47 @@
             <?php } ?>
         </div>
         <h1><?php echo $heading_title; ?></h1>
-       TODO 
- 
-       
+        <div class="row">
+            <div class="col-md-6">
+                <ul class="list-group">
+                    <li class="list-group-item"><a href="<?php echo $home; ?>"><?php echo $text_home; ?></a></li>
+                    <li class="list-group-item"><?php echo $text_deals; ?>
+                        <ul>
+                            <li><a href='<?php echo $current_deal; ?>'><?php echo $text_current_deal; ?></a></li>
+                            <li><a href='<?php echo $future_deal; ?>'><?php echo $text_future_deal; ?></a></li>
+                            <li><a href='<?php echo $past_deal; ?>'><?php echo $text_past_deal; ?></a></li>
+                            <li><a href='<?php echo $freepon; ?>'><?php echo $text_freepon; ?></a></li>
+                        </ul></li>
+                    <li  class="list-group-item"><a href="<?php echo $account; ?>"><?php echo $text_account; ?></a>
+                        <ul>
+                            <li><a href="<?php echo $edit; ?>"><?php echo $text_edit; ?></a></li>
+                            <li><a href="<?php echo $password; ?>"><?php echo $text_password; ?></a></li>
+                            <li><a href="<?php echo $address; ?>"><?php echo $text_address; ?></a></li>
+                            <li><a href="<?php echo $history; ?>"><?php echo $text_history; ?></a></li>
+                            <li><a href="<?php echo $newsletter; ?>"><?php echo $text_newsletter; ?></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <ul class="list-group">
+                    <li class="list-group-item"><a href="<?php echo $cart; ?>"><?php echo $text_cart; ?></a></li>
+                    <li class="list-group-item"><a href="<?php echo $checkout; ?>"><?php echo $text_checkout; ?></a></li>
+                    <li class="list-group-item"><?php echo $text_information; ?>
+                        <ul>
+                            <?php foreach ($informations as $information) { ?>
+                                <li><a href="<?php echo $information['href']; ?>"><?php echo $information['title']; ?></a></li>
+                            <?php } ?>
+                            <li><a href="<?php echo $contact; ?>"><?php echo $text_contact; ?></a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+
+
         <?php echo $content_bottom; ?></div>
 </div>
 <?php echo $footer; ?>

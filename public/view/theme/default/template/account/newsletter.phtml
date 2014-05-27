@@ -1,0 +1,61 @@
+<?php echo $header; ?>
+<div class="page_container">
+    <?php echo $column_left; ?>
+    <?php echo $column_right; ?>
+    <div id="content">
+        <?php echo $content_top; ?>
+        <div class="breadcrumb">
+            <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+                <?php echo $breadcrumb['separator']; ?><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a>
+            <?php } ?>
+        </div>
+        <h1><?php echo $heading_title; ?></h1>
+
+        <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="newsletter-form" class="form-horizontal">
+
+            <div class="form-group">
+                <label class="control-label col-md-3" for="general-newsletter"><?php echo $entry_newsletter; ?></label>
+                <div class="col-md-9">
+                    <?php if ($newsletter) { ?>
+                        <label class="checkbox-inline"><input type="radio" name="newsletter" value="1" checked="checked" />
+                            <?php echo $text_yes; ?></label>&nbsp;
+                        <label class="checkbox-inline"><input type="radio" name="newsletter" value="0" />
+                            <?php echo $text_no; ?></label>
+                    <?php } else { ?>
+                        <label class="checkbox-inline"><input type="radio" name="newsletter" value="1" />
+                            <?php echo $text_yes; ?></label>&nbsp;
+                        <label class="checkbox-inline"><input type="radio" name="newsletter" value="0" checked="checked" />
+                            <?php echo $text_no; ?></label>
+                    <?php } ?>
+                </div>
+            </div>
+            <legend><?php echo $legend_cities; ?></legend>
+            <?php foreach($cities as $city): ?>
+            <div class="form-group">
+                <label class="control-label col-md-3" for="city-newsletter-<?php echo $city['city_id'];?>"><?php echo $city['city_name']; ?></label>
+                <div class="col-md-9">
+                    <?php if ($city['subscribed']) { ?>
+                        <label class="checkbox-inline"><input type="radio" name="city[<?php echo $city['city_id'];?>]" value="1" checked="checked" />
+                            <?php echo $text_yes; ?></label>&nbsp;
+                        <label class="checkbox-inline"><input type="radio" name="city[<?php echo $city['city_id'];?>]" value="0" />
+                            <?php echo $text_no; ?></label>
+                    <?php } else { ?>
+                        <label class="checkbox-inline"><input type="radio" name="city[<?php echo $city['city_id'];?>]" value="1" />
+                            <?php echo $text_yes; ?></label>&nbsp;
+                        <label class="checkbox-inline"><input type="radio" name="city[<?php echo $city['city_id'];?>]" value="0" checked="checked" />
+                            <?php echo $text_no; ?></label>
+                    <?php } ?>
+                </div>
+            </div>
+            <?php endforeach; ?>
+
+            <div class="form-group buttons">
+                <div class="col-xs-6 left"><a href="<?php echo $back; ?>" class="btn btn-default"><?php echo $button_back; ?></a></div>
+                <div class="col-xs-6  text-right"><button type="submit" value="<?php echo $button_continue; ?>" class="btn btn-primary"><?php echo $button_continue; ?></button></div>
+            </div>
+        </form>
+
+
+        <?php echo $content_bottom; ?></div>
+</div>
+<?php echo $footer; ?>

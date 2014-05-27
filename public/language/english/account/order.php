@@ -37,4 +37,5 @@ $_['column_delivery']       = 'Delivery';
 
 $_['text_collect'] = 'Collect';
 $_['button_coupon'] = 'View Coupon';
+$_['button_view'] = 'View Order';
 ?>

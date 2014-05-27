@@ -107,6 +107,13 @@ class ModelAccountCustomer extends \Core\Model {
     public function editNewsletter($newsletter) {
         $this->db->query("UPDATE #__customer SET newsletter = '" . (int) $newsletter . "' WHERE customer_id = '" . (int) $this->customer->getId() . "'");
     }
+    
+    public function editCityNewsletters($cities){
+
+        foreach($cities as $city_id=>$subscribe){
+          $this->db->query("replace into #__customer_newsletter SET city_id = '" . (int) $city_id . "', customer_id = '" . (int) $this->customer->getId() . "', subscribed = '" . (int)$subscribe . "'");
+        }
+    }
 
     public function getCustomer($customer_id) {
         $query = $this->db->query("SELECT * FROM #__customer WHERE customer_id = '" . (int) $customer_id . "'");
@@ -128,6 +135,25 @@ class ModelAccountCustomer extends \Core\Model {
         return $query->row;
     }
 
+    public function getCitySubscriptions(){
+         $city_ids = array();
+         $subs = array();
+        
+        $query = $this->db->query("Select c.* from #__city c inner join #__city_to_store cs on c.city_id = cs.city_id where  c.status = 1 and cs.store_id = '" . (int) $this->config->get('config_store_id') . "' order by c.city_name asc");
+        foreach ($query->rows as $row) {
+            $subs[$row['city_id']] = $row;
+            $subs[$row['city_id']]['subscribed'] = '0';
+            $city_ids[] = $row['city_id'];
+        }
+        if($subs){
+            $query = $this->db->query("Select * from #__customer_newsletter where city_id in (" . implode(",", $city_ids) . ") and customer_id = '" . (int)$this->customer->getId() . "'");
+            foreach($query->rows as $row){
+                $subs[$row['city_id']]['subscribed'] = $row['subscribed'];
+            }
+        }
+        return $subs;
+    }
+    
     public function getCustomers($data = array()) {
         $sql = "SELECT *, CONCAT(firstname, ' ', lastname) AS name FROM #__customer  ";
 

@@ -6035,3 +6035,11 @@ CREATE TABLE IF NOT EXISTS `od_freepon_claim` (
   `timestamp` int(11) NOT NULL,
   UNIQUE KEY `freepon_id` (`freepon_id`,`customer_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+CREATE TABLE IF NOT EXISTS `od_customer_newsletter` (
+  `customer_id` int(11) NOT NULL,
+  `city_id` int(11) NOT NULL,
+  `subscribed` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`customer_id`,`city_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

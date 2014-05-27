@@ -1,0 +1,51 @@
+<?php echo $header; ?>
+<div class="page_container">
+    <?php echo $column_left; ?>
+    <?php echo $column_right; ?>
+    <div id="content">
+        <?php echo $content_top; ?>
+        <div class="breadcrumb">
+            <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+                <?php echo $breadcrumb['separator']; ?><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a>
+            <?php } ?>
+        </div>
+
+        <?php if ($error_warning) { ?>
+            <div class="alert alert-danger"><?php echo $error_warning; ?></div>
+        <?php } ?>
+
+        <h1><?php echo $heading_title; ?></h1>
+        <form class="form-validate form-horizontal" action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
+
+
+
+            <div class="row">
+
+                <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"> <p><?php echo $text_email; ?></p></h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label class="control-label col-md-3 required"><?php echo $entry_email; ?></label>
+                            <div class="col-md-9">
+                                <input type="email" name="email" value="" class="form-control required" />
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="panel-footer clearfix">
+                        <a href="<?php echo $back; ?>" class="btn btn-default"><?php echo $button_back; ?></a>
+                        <button type="submit" value="<?php echo $button_continue; ?>" class="btn btn-primary pull-right"><?php echo $button_continue; ?></button>
+                    </div>
+                </div>
+
+            </div>
+            </div>
+        </form>
+
+
+        <?php echo $content_bottom; ?></div>
+</div>
+<?php echo $footer; ?>

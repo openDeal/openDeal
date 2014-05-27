@@ -27,13 +27,19 @@ class ControllerInformationSitemap extends \Core\Controller {
 		$this->data['text_password'] = $this->language->get('text_password');
 		$this->data['text_address'] = $this->language->get('text_address');
 		$this->data['text_history'] = $this->language->get('text_history');
-		$this->data['text_download'] = $this->language->get('text_download');
+		$this->data['text_newsletter'] = $this->language->get('text_newsletter');
 		$this->data['text_cart'] = $this->language->get('text_cart');
 		$this->data['text_checkout'] = $this->language->get('text_checkout');
 		$this->data['text_search'] = $this->language->get('text_search');
 		$this->data['text_information'] = $this->language->get('text_information');
 		$this->data['text_contact'] = $this->language->get('text_contact');
-
+                
+                $this->data['text_home'] = $this->language->get('text_home');
+                $this->data['text_deals'] = $this->language->get('text_deals');
+                $this->data['text_current_deal'] = $this->language->get('text_current_deal');
+                $this->data['text_future_deal'] = $this->language->get('text_future_deal');
+                $this->data['text_past_deal'] = $this->language->get('text_past_deal');
+                $this->data['text_freepon'] = $this->language->get('text_freepon');
 	/*	$this->load->model('catalog/category');
 		$this->load->model('catalog/product');
 
@@ -72,17 +78,22 @@ class ControllerInformationSitemap extends \Core\Controller {
 			);
 		}
 */
-		$this->data['special'] = $this->url->link('product/special');
+	//	$this->data['special'] = $this->url->link('product/special');
+                $this->data['home'] = $this->url->link('common/home');
+                $this->data['current_deal'] = $this->url->link('deal/deal/current');
+                $this->data['future_deal'] = $this->url->link('deal/deal/future');
+                $this->data['past_deal'] = $this->url->link('deal/deal/expired');
+                $this->data['freepon'] = $this->url->link('deal/freepon');
 		$this->data['account'] = $this->url->link('account/account', '', 'SSL');
 		$this->data['edit'] = $this->url->link('account/edit', '', 'SSL');
 		$this->data['password'] = $this->url->link('account/password', '', 'SSL');
 		$this->data['address'] = $this->url->link('account/address', '', 'SSL');
 		$this->data['history'] = $this->url->link('account/order', '', 'SSL');
-		$this->data['download'] = $this->url->link('account/download', '', 'SSL');
+		$this->data['newsletter'] = $this->url->link('account/newsletter', '', 'SSL');
 		$this->data['cart'] = $this->url->link('checkout/cart');
 		$this->data['checkout'] = $this->url->link('checkout/checkout', '', 'SSL');
-		$this->data['search'] = $this->url->link('product/search');
-		$this->data['contact'] = $this->url->link('information/contact');
+	//	$this->data['search'] = $this->url->link('product/search');
+	//	$this->data['contact'] = $this->url->link('information/contact');
 
 		$this->load->model('public/information');
 

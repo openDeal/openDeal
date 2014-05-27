@@ -66,6 +66,8 @@ class ControllerCommonHeader extends \Core\Controller {
          $this->data['text_edit_password'] = $this->language->get('text_edit_password');
          $this->data['text_address_book'] = $this->language->get('text_address_book');
         
+         
+         $this->data['newsletter'] = $this->url->link('account/newsletter','','SSL');
 
         if ($this->config->get('config_icon') && file_exists(DIR_IMAGE . $this->config->get('config_icon'))) {
             $this->data['icon'] = $server . 'image/' . $this->config->get('config_icon');
