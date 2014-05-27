@@ -160,6 +160,9 @@ class DB {
      * @return string
      */
     public function prepair($sql) {
+        if(!defined('DB_PREFIX')){
+            return $sql;
+        }
         return str_replace("#__", DB_PREFIX, $sql);
     }
 
