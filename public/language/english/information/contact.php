@@ -26,5 +26,5 @@ $_['error_email']    = 'E-Mail Address does not appear to be valid!';
 $_['error_enquiry']  = 'Enquiry must be between 10 and 3000 characters!';
 $_['error_captcha']  = 'Verification code does not match the image!';
 
-$_['text_about'] = 'Deals Amplified is xxx';
+$_['text_about'] = 'Deals Amplified is a Dunedin Based Company';
 ?>

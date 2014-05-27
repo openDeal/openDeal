@@ -87,6 +87,9 @@
                             <label for="keyword" class="col-sm-2 control-label "><?php echo $entry_keyword; ?></label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" name="keyword" id="keyword" value="<?php echo $keyword; ?>"/>
+                                <?php if ($error_duplicate_seo) { ?>
+                                    <span class="error text-danger"><?php echo $error_duplicate_seo; ?></span>
+                                <?php } ?>
                             </div><!-- /.input group -->
                         </div><!-- /.form group -->
 
@@ -232,6 +235,14 @@
 <script type="text/javascript">
 
     addOnready(function() {
+
+        $('#information_description_0_name').on('keyup', function() {
+            var inputname = $(this).val();
+            inputname = inputname.replace(/[^A-Za-z0-9\s]+/g, '');
+            $('#keyword').val( inputname.replace(/\s+/g, '-').toLowerCase());
+        });
+
+
         var EditorOps = {
             filebrowserBrowseUrl: 'index.php?route=common/filemanager&token=<?php echo $token; ?>',
             filebrowserImageBrowseUrl: 'index.php?route=common/filemanager&token=<?php echo $token; ?>',

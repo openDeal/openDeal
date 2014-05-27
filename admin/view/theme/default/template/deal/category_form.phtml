@@ -102,7 +102,9 @@
                             <label for="keyword" class="col-sm-2 control-label"><?php echo $entry_keyword; ?></label>
                             <div class="col-sm-9">
                                 <input id='keyword' type="text" name="keyword" value="<?php echo $keyword; ?>" class="form-control"/>
-
+                                <?php if ($error_duplicate_seo) { ?>
+                                    <span class="error text-danger"><?php echo $error_duplicate_seo; ?></span>
+                                <?php } ?>
                             </div>
                         </div>
                         <div class="form-group">
@@ -238,7 +240,16 @@
 
 <script type="text/javascript">
 
+
+
                         addOnready(function() {
+
+                            $('#category_description_0_name').on('keyup', function() {
+                                var inputname = $(this).val();
+                                inputname = inputname.replace(/[^A-Za-z0-9\s]+/g, '');
+                                $('#keyword').val("cat-" + inputname.replace(/\s+/g, '-').toLowerCase());
+                            });
+
 <?php $i = 0; ?>
 <?php foreach ($languages as $language) : ?>
                                 CKEDITOR.replace('category_description_<?php echo $i++; ?>_description', {

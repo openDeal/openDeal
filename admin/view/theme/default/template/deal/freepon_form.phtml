@@ -74,7 +74,7 @@
                                     </div>
                                     
                                      <div class="form-group">
-                                        <label for="freepon_description_<?php echo $i; ?>_meta_keyw" class="col-sm-2 control-label"><?php echo $entry_meta_description; ?></label>
+                                        <label for="freepon_description_<?php echo $i; ?>_meta_keyw" class="col-sm-2 control-label"><?php echo $entry_meta_keyword; ?></label>
                                         <div class="col-sm-9">
                                             <textarea id="freepon_description_<?php echo $i; ?>_meta_keyw" class="form-control" name="freepon_description[<?php echo $language['language_id']; ?>][meta_keyword]" cols="40" rows="5"><?php echo isset($freepon_description[$language['language_id']]) ? $freepon_description[$language['language_id']]['meta_keyword'] : ''; ?></textarea>
                                         </div>
@@ -167,7 +167,9 @@
                             <label for="keyword" class="col-sm-2 control-label"><?php echo $entry_keyword; ?></label>
                             <div class="col-sm-9">
                                 <input id='keyword' type="text" name="keyword" value="<?php echo $keyword; ?>" class="form-control"/>
-
+                                <?php if ($error_duplicate_seo) { ?>
+                                    <span class="error text-danger"><?php echo $error_duplicate_seo; ?></span>
+                                <?php } ?>
                             </div>
                         </div>
 
@@ -353,6 +355,14 @@
                         var deal_img_count = <?php echo count($images); ?>;
 
                         addOnready(function() {
+                            
+                            
+                            $('#freepon_description_0_name').on('keyup', function() {
+                                var inputname = $(this).val();
+                                inputname = inputname.replace(/[^A-Za-z0-9\s]+/g, '');
+                                $('#keyword').val("coupon-" + inputname.replace(/\s+/g, '-').toLowerCase());
+                            });
+                            
                             var EditorOps = {
                                 filebrowserBrowseUrl: 'index.php?route=common/filemanager&token=<?php echo $token; ?>',
                                 filebrowserImageBrowseUrl: 'index.php?route=common/filemanager&token=<?php echo $token; ?>',

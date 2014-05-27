@@ -240,6 +240,12 @@ class ControllerDealCategory extends \Core\Controller {
             $this->data['error_name'] = array();
         }
 
+        if (isset($this->error['duplicate_seo'])) {
+            $this->data['error_duplicate_seo'] = $this->error['duplicate_seo'];
+        } else {
+            $this->data['error_duplicate_seo'] = array();
+        }
+
         $this->data['breadcrumbs'] = array();
 
         $this->data['breadcrumbs'][] = array(
@@ -296,7 +302,7 @@ class ControllerDealCategory extends \Core\Controller {
             $this->data['parent_id'] = 0;
         }
 
-        
+
 
         $this->load->model('setting/store');
 
@@ -399,6 +405,19 @@ class ControllerDealCategory extends \Core\Controller {
         foreach ($this->request->post['category_description'] as $language_id => $value) {
             if ((utf8_strlen($value['name']) < 2) || (utf8_strlen($value['name']) > 255)) {
                 $this->error['name'][$language_id] = $this->language->get('error_name');
+            }
+        }
+
+        $this->load->model('tool/seo');
+
+        if ($this->request->post['keyword']) {
+            if (isset($this->request->get['category_id'])) {
+                $category_info = $this->model_deal_category->getCategory($this->request->get['category_id']);
+            } else {
+                $category_info['keyword'] = '';
+            }
+            if ($this->request->post['keyword'] != $category_info['keyword'] && $this->model_tool_seo->keywordExists($this->request->post['keyword'])) {
+                $this->error['duplicate_seo'] = $this->language->get('error_same_seo_keyword');
             }
         }
 

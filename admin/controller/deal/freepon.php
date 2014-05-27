@@ -339,6 +339,12 @@ class ControllerDealFreepon extends \Core\Controller {
             $this->data['error_title'] = '';
         }
 
+        if (isset($this->error['duplicate_seo'])) {
+            $this->data['error_duplicate_seo'] = $this->error['duplicate_seo'];
+        } else {
+            $this->data['error_duplicate_seo'] = array();
+        }
+
         $url = '';
 
         if (isset($this->request->get['sort'])) {
@@ -429,8 +435,8 @@ class ControllerDealFreepon extends \Core\Controller {
         } else {
             $this->data['freepon_download'] = '';
         }
-        
-         if (isset($this->request->post['freepon_code'])) {
+
+        if (isset($this->request->post['freepon_code'])) {
             $this->data['freepon_code'] = $this->request->post['freepon_code'];
         } elseif (!empty($freepon_info)) {
             $this->data['freepon_code'] = $freepon_info['code'];
@@ -595,16 +601,30 @@ class ControllerDealFreepon extends \Core\Controller {
         if (!isset($_POST['company_id']) || (int) $_POST['company_id'] < 1) {
             $this->error['company_id'] = $this->language->get('error_company');
         }
-        
-        if(empty($this->request->post['freepon_code']) && empty($this->request->post['freepon_download'])){
+
+        if (empty($this->request->post['freepon_code']) && empty($this->request->post['freepon_download'])) {
             $this->error['warning'] = $this->language->get('error_coupon_code_download');
         }
+
+        $this->load->model('tool/seo');
+
+        if ($this->request->post['keyword']) {
+            if (isset($this->request->get['freepon_id'])) {
+                $_info = $this->model_deal_freepon->getFreepon($this->request->get['freepon_id']);
+            } else {
+                $_info['keyword'] = '';
+            }
+            if ($this->request->post['keyword'] != $_info['keyword'] && $this->model_tool_seo->keywordExists($this->request->post['keyword'])) {
+                $this->error['duplicate_seo'] = $this->language->get('error_same_seo_keyword');
+            }
+        }
+
 
         if ($this->error && !isset($this->error['warning'])) {
             $this->error['warning'] = $this->language->get('error_warning');
         }
-        
-        
+
+
 
 
 
@@ -620,11 +640,11 @@ class ControllerDealFreepon extends \Core\Controller {
         if (!$this->user->hasPermission('modify', 'deal/freepon')) {
             $this->error['warning'] = $this->language->get('error_permission');
         }
-        
+
         if ($this->error && !isset($this->error['warning'])) {
             $this->error['warning'] = $this->language->get('error_warning');
         }
-        
+
         if (!$this->error) {
             return true;
         } else {

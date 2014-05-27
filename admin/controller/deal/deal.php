@@ -334,7 +334,7 @@ class ControllerDealDeal extends \Core\Controller {
         $this->data['text_shipping_price'] = $this->language->get('text_shipping_price');
         $this->data['text_shipping_order'] = $this->language->get('text_shipping_order');
 
-        
+
         $this->data['entry_option'] = $this->language->get("entry_option");
         $this->data['text_option_title'] = $this->language->get("text_option_title");
 
@@ -365,6 +365,12 @@ class ControllerDealDeal extends \Core\Controller {
             $this->data['error_title'] = $this->error['title'];
         } else {
             $this->data['error_title'] = '';
+        }
+
+        if (isset($this->error['duplicate_seo'])) {
+            $this->data['error_duplicate_seo'] = $this->error['duplicate_seo'];
+        } else {
+            $this->data['error_duplicate_seo'] = array();
         }
 
         $url = '';
@@ -697,6 +703,20 @@ class ControllerDealDeal extends \Core\Controller {
 
         if (!isset($_POST['company_id']) || (int) $_POST['company_id'] < 1) {
             $this->error['company_id'] = $this->language->get('error_company');
+        }
+
+
+        $this->load->model('tool/seo');
+
+        if ($this->request->post['keyword']) {
+            if (isset($this->request->get['deal_id'])) {
+                $_info = $this->model_deal_deal->getDeal($this->request->get['deal_id']);
+            } else {
+                $_info['keyword'] = '';
+            }
+            if ($this->request->post['keyword'] != $_info['keyword'] && $this->model_tool_seo->keywordExists($this->request->post['keyword'])) {
+                $this->error['duplicate_seo'] = $this->language->get('error_same_seo_keyword');
+            }
         }
 
         if ($this->error && !isset($this->error['warning'])) {
