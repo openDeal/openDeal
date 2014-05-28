@@ -380,5 +380,11 @@ class ModelDealDeal extends \Core\Model {
 
         $this->cache->delete('deal');
     }
+    
+    
+    public function countActiveDeals(){
+        $query = $this->db->query("select count(*) as total from #__deal where status = 1 and begin_time <= '" . time() . "' and end_time >= '" . time() . "'");
+        return $query->row['total'];
+    }
 
 }

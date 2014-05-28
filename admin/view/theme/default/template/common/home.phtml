@@ -19,17 +19,17 @@
             <div class="small-box bg-aqua">
                 <div class="inner">
                     <h3>
-                        150
+                        <?php echo $total_order; ?>
                     </h3>
                     <p>
-                        New Orders
+                        <?php echo $text_total_order; ?>
                     </p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-bag"></i>
                 </div>
-                <a href="#" class="small-box-footer">
-                    More info <i class="fa fa-arrow-circle-right"></i>
+                <a href="<?php echo $order; ?>" class="small-box-footer">
+                    <?php echo $text_more_info; ?> <i class="fa fa-arrow-circle-right"></i>
                 </a>
             </div>
         </div><!-- ./col -->
@@ -38,17 +38,17 @@
             <div class="small-box bg-green">
                 <div class="inner">
                     <h3>
-                        53<sup style="font-size: 20px">%</sup>
+                       <?php echo $total_deals; ?>
                     </h3>
                     <p>
-                        Bounce Rate
+                        <?php echo $text_active_deals; ?>
                     </p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-stats-bars"></i>
                 </div>
-                <a href="#" class="small-box-footer">
-                    More info <i class="fa fa-arrow-circle-right"></i>
+                <a href="<?php echo $deal; ?>" class="small-box-footer">
+                    <?php echo $text_more_info; ?> <i class="fa fa-arrow-circle-right"></i>
                 </a>
             </div>
         </div><!-- ./col -->
@@ -57,45 +57,77 @@
             <div class="small-box bg-yellow">
                 <div class="inner">
                     <h3>
-                        44
+                        <?php echo $total_customer; ?>
                     </h3>
                     <p>
-                        User Registrations
+                        <?php echo $text_total_customer; ?>
                     </p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-person-add"></i>
                 </div>
-                <a href="#" class="small-box-footer">
-                    More info <i class="fa fa-arrow-circle-right"></i>
+                <a href="<?php echo $customer; ?>" class="small-box-footer">
+                    <?php echo $text_more_info; ?> <i class="fa fa-arrow-circle-right"></i>
                 </a>
             </div>
         </div><!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-            <!-- small box -->
-            <div class="small-box bg-red">
-                <div class="inner">
-                    <h3>
-                        65
-                    </h3>
-                    <p>
-                        Unique Visitors
-                    </p>
+        <?php if ($online_report): ?>
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-red">
+                    <div class="inner">
+                        <h3>
+                            <?php echo $customers_online; ?>
+                        </h3>
+                        <p>
+                            <?php echo $text_customers_online; ?>
+                        </p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-pie-graph"></i>
+                    </div>
+                    <a href="<?php echo $online; ?>" class="small-box-footer">
+                        <?php echo $text_more_info; ?> <i class="fa fa-arrow-circle-right"></i>
+                    </a>
                 </div>
-                <div class="icon">
-                    <i class="ion ion-pie-graph"></i>
-                </div>
-                <a href="#" class="small-box-footer">
-                    More info <i class="fa fa-arrow-circle-right"></i>
-                </a>
-            </div>
-        </div><!-- ./col -->
+            </div><!-- ./col -->
+        <?php endif; ?>
     </div><!-- /.row -->
 
     <div class="box">
         <div class="box-body">
-            Table with latest orders here<br />
-            Task List or similar - IE - Deals waiting approval, deals about to close etc type of thing.
+           <table class="table table-responsive table-bordered">
+            <thead>
+              <tr>
+                <th class="right" width="25"><?php echo $column_order; ?></th>
+                <th class="left"><?php echo $column_customer; ?></th>
+                <th class="left"><?php echo $column_status; ?></th>
+                <th class="left"><?php echo $column_date_added; ?></th>
+                <th class="right"><?php echo $column_total; ?></th>
+                <th class="right"><?php echo $column_action; ?></th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php if ($orders) { ?>
+              <?php foreach ($orders as $order) { ?>
+              <tr>
+                <td class="right"><?php echo $order['order_id']; ?></td>
+                <td class="left"><?php echo $order['customer']; ?></td>
+                <td class="left"><?php echo $order['status']; ?></td>
+                <td class="left"><?php echo $order['date_added']; ?></td>
+                <td class="right"><?php echo $order['total']; ?></td>
+                <td class="right"><?php foreach ($order['action'] as $action) { ?>
+                  <a href="<?php echo $action['href']; ?>" class="btn btn-primary btn-sm"><?php echo $action['text']; ?></a>
+                  <?php } ?></td>
+              </tr>
+              <?php } ?>
+              <?php } else { ?>
+              <tr>
+                <td class="center" colspan="6"><?php echo $text_no_results; ?></td>
+              </tr>
+              <?php } ?>
+            </tbody>
+          </table>
         </div>
     </div>
 

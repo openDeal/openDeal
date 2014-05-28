@@ -25,6 +25,8 @@ class ControllerCommonHome extends \Core\Controller {
         $this->data['text_month'] = $this->language->get('text_month');
         $this->data['text_year'] = $this->language->get('text_year');
         $this->data['text_no_results'] = $this->language->get('text_no_results');
+        $this->data['text_more_info'] = $this->language->get('text_more_info');
+        $this->data['text_active_deals'] = $this->language->get('text_active_deals');
 
         $this->data['column_order'] = $this->language->get('column_order');
         $this->data['column_customer'] = $this->language->get('column_customer');
@@ -139,7 +141,7 @@ class ControllerCommonHome extends \Core\Controller {
 
         $this->data['token'] = $this->session->data['token'];
 
-       /* $this->load->model('sale/order');
+        $this->load->model('sale/order');
 
         $this->data['total_sale'] = $this->currency->format($this->model_sale_order->getTotalSales(), $this->config->get('config_currency'));
         $this->data['total_sale_year'] = $this->currency->format($this->model_sale_order->getTotalSalesByYear(date('Y')), $this->config->get('config_currency'));
@@ -150,15 +152,23 @@ class ControllerCommonHome extends \Core\Controller {
         $this->data['total_customer'] = $this->model_sale_customer->getTotalCustomers();
         $this->data['total_customer_approval'] = $this->model_sale_customer->getTotalCustomersAwaitingApproval();
 
-        $this->load->model('catalog/review');
+        $this->data['order'] = $this->url->link('sale/order', 'token=' . $this->session->data['token'], 'SSL');
+        $this->data['customer'] = $this->url->link('sale/customer', 'token=' . $this->session->data['token'], 'SSL');
+        $this->data['online'] = $this->url->link('report/online', 'token=' . $this->session->data['token'], 'SSL');
+        $this->data['deal'] = $this->url->link('deal/deal', 'token=' . $this->session->data['token'], 'SSL');
 
-        $this->data['total_review'] = $this->model_catalog_review->getTotalReviews();
-        $this->data['total_review_approval'] = $this->model_catalog_review->getTotalReviewsAwaitingApproval();
+        $this->load->model('deal/deal');
+        $this->data['total_deals'] = $this->model_deal_deal->countActiveDeals();
 
-        $this->load->model('sale/affiliate');
+        /*  $this->load->model('catalog/review');
 
-        $this->data['total_affiliate'] = $this->model_sale_affiliate->getTotalAffiliates();
-        $this->data['total_affiliate_approval'] = $this->model_sale_affiliate->getTotalAffiliatesAwaitingApproval();
+          $this->data['total_review'] = $this->model_catalog_review->getTotalReviews();
+          $this->data['total_review_approval'] = $this->model_catalog_review->getTotalReviewsAwaitingApproval(); */
+
+        /* $this->load->model('sale/affiliate');
+
+          $this->data['total_affiliate'] = $this->model_sale_affiliate->getTotalAffiliates();
+          $this->data['total_affiliate_approval'] = $this->model_sale_affiliate->getTotalAffiliatesAwaitingApproval(); */
 
         $this->data['orders'] = array();
 
@@ -195,8 +205,15 @@ class ControllerCommonHome extends \Core\Controller {
             $this->model_localisation_currency->updateCurrencies();
         }
 
-        $this->template = 'common/home.tpl';*/
-        
+        $this->data['online_report'] = $this->config->get('config_customer_online');
+        if ($this->config->get('config_customer_online')) {
+            $this->load->model('report/online');
+            $this->data['customers_online'] = $this->model_report_online->getTotalCustomersOnline();
+            $this->data['text_customers_online'] = $this->language->get('text_customers_online');
+        }
+
+        $this->template = 'common/home.phtml';
+
         $this->children = array(
             'common/header',
             'common/footer'
@@ -398,8 +415,8 @@ class ControllerCommonHome extends \Core\Controller {
                 'error/not_found',
                 'error/permission'
             );
-            
-            
+
+
             if (!in_array($route, $ignore) && !$this->user->hasPermission('access', $route)) {
                 return $this->forward('error/permission');
             }
