@@ -24,12 +24,14 @@
 <br />
 <?php if ($text_agree) { ?>
 <div class="buttons clearfix">
-  <div class="pull-right"><?php echo $text_agree; ?>
+  <div class="">
+      <div class="checkbox">
+      <label ><?php echo $text_agree; ?>
     <?php if ($agree) { ?>
     <input type="checkbox" name="agree" value="1" checked="checked" />
     <?php } else { ?>
     <input type="checkbox" name="agree" value="1" />
-    <?php } ?>
+    <?php } ?></label></div>
     <input type="button" value="<?php echo $button_continue; ?>" id="button-payment-method" class="btn btn-primary pull-right" />
   </div>
 </div>

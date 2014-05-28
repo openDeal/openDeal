@@ -871,9 +871,9 @@ $(document.body).on('click', '#button-shipping-address', function() {
                         location = json['redirect'];
                     } else if (json['error']) {
                         if (json['error']['warning']) {
-                            $('#payment-method .checkout-content').prepend('<div class="alert alert-danger" style="display: none;">' + json['error']['warning'] + '</div>');
+                            $('#button-payment-method').before('<div class="alert alert-danger" style="display: none;">' + json['error']['warning'] + '</div>');
 
-                            $('.warning').fadeIn('slow');
+                            $('.alert-danger').fadeIn('slow');
                         }
                     } else {
                         $.ajax({

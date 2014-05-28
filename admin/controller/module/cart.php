@@ -1,18 +1,18 @@
 <?php
 
-class ControllerModuleCategory extends \Core\Controller {
+class ControllerModuleCart extends \Core\Controller {
 
     private $error = array();
 
     public function index() {
-        $this->language->load('module/category');
+        $this->load->language('module/cart');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-            $this->model_setting_setting->editSetting('category', $this->request->post);
+            $this->model_setting_setting->editSetting('cart', $this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
 
@@ -28,6 +28,7 @@ class ControllerModuleCategory extends \Core\Controller {
         $this->data['text_column_left'] = $this->language->get('text_column_left');
         $this->data['text_column_right'] = $this->language->get('text_column_right');
 
+        $this->data['entry_ajax'] = $this->language->get('entry_ajax');
         $this->data['entry_layout'] = $this->language->get('entry_layout');
         $this->data['entry_position'] = $this->language->get('entry_position');
         $this->data['entry_status'] = $this->language->get('entry_status');
@@ -60,37 +61,37 @@ class ControllerModuleCategory extends \Core\Controller {
 
         $this->data['breadcrumbs'][] = array(
             'text' => $this->language->get('heading_title'),
-            'href' => $this->url->link('module/category', 'token=' . $this->session->data['token'], 'SSL'),
+            'href' => $this->url->link('module/cart', 'token=' . $this->session->data['token'], 'SSL'),
             'separator' => ' :: '
         );
 
-        $this->data['action'] = $this->url->link('module/category', 'token=' . $this->session->data['token'], 'SSL');
+        $this->data['action'] = $this->url->link('module/cart', 'token=' . $this->session->data['token'], 'SSL');
 
         $this->data['cancel'] = $this->url->link('extension/module', 'token=' . $this->session->data['token'], 'SSL');
 
         $this->data['modules'] = array();
 
-        if (isset($this->request->post['category_module'])) {
-            $this->data['modules'] = $this->request->post['category_module'];
-        } elseif ($this->config->get('category_module')) {
-            $this->data['modules'] = $this->config->get('category_module');
+        if (isset($this->request->post['cart_module'])) {
+            $this->data['modules'] = $this->request->post['cart_module'];
+        } elseif ($this->config->get('cart_module')) {
+            $this->data['modules'] = $this->config->get('cart_module');
         }
 
         $this->load->model('design/layout');
 
         $this->data['layouts'] = $this->model_design_layout->getLayouts();
 
-        $this->template = 'module/category.phtml';
+        $this->template = 'module/cart.phtml';
         $this->children = array(
             'common/header',
-            'common/footer'
+            'common/footer',
         );
 
         $this->response->setOutput($this->render());
     }
 
-    protected function validate() {
-        if (!$this->user->hasPermission('modify', 'module/category')) {
+    private function validate() {
+        if (!$this->user->hasPermission('modify', 'module/cart')) {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 

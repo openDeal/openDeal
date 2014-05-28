@@ -174,6 +174,7 @@ class ControllerSettingLanguage extends \Core\Controller {
     //Update a string value
     public function update_value($str, $strval, $edit_lang, $edit_file) {
 
+  
         $filename = USE_DIR . 'language/' . $edit_lang . "/" . $edit_file . ".php";
         $current_vars = $this->get_file_vars($filename);
         $current_var_value = $current_vars[$str];
@@ -184,20 +185,35 @@ class ControllerSettingLanguage extends \Core\Controller {
             $line = $file_array[$i];
 
             $editing_var = '$_[\'' . $str . '\']';
+            
+            
 
             if (substr($line, 0, strlen($str) + 6) == $editing_var) {
                 $line_spacing = explode("=", str_replace($editing_var, "", $line));
+     
                 $line_spacing = $line_spacing[0];
 
-                $replacement_entry = $editing_var . $line_spacing . "= '" . addslashes($strval) . "';";
+                $replacement_entry = $editing_var . $line_spacing . "= '" . addslashes(html_entity_decode($strval)) . "';";
+         
                 break;
             }
         }
+        
+        
 
         $current_entry = '$_[\'' . $str . '\']' . $line_spacing . "= '" . addslashes($current_var_value) . "';";
-        $content = implode($file_array);
+        $current_entry_backup = '$_[\'' . $str . '\']' . $line_spacing . "= '" . $current_var_value . "';";
+        
 
-        $content = str_replace($current_entry, $replacement_entry, $content);
+        
+        
+        
+        $content = implode($file_array);
+       
+        $content = str_replace(array($current_entry,$current_entry_backup), $replacement_entry, $content);
+        
+        $content = str_replace('\"', '"', $content);
+
         $handler = fopen($filename, 'w+');
 
         if (fwrite($handler, html_entity_decode($content, ENT_QUOTES, "UTF-8"))) {

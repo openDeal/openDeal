@@ -1,12 +1,12 @@
 <?php
-// Heading 
+// Heading
 $_['heading_title'] = 'Shopping Cart';
 
-// Text
-$_['text_items']    = '%s item(s) - %s';
-$_['text_empty']    = 'Your shopping cart is empty!';
-$_['text_cart']     = 'View Cart';
+// Text 
+$_['text_subtotal'] = 'Sub-Total:';
+$_['text_empty']      = 'Your shopping cart is empty!';
+$_['text_confirm']  = 'Confirm?';
+$_['text_remove']   = 'Remove';
+$_['text_cart']  	= 'View Cart';
 $_['text_checkout'] = 'Checkout';
-
-$_['text_payment_profile'] = 'Payment Profile';
 ?>

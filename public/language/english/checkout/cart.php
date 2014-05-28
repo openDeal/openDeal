@@ -3,13 +3,13 @@
 $_['heading_title']          = 'Shopping Cart';
 
 // Text
-$_['text_success']           = 'Success: You have added <a href="%s">%s</a> to your <a href="%s">shopping cart</a>!';
+$_['text_success']           = '<strong>Success</strong>: You have added <a href="%s">%s</a> to your <a href="%s">shopping cart</a>!';
 $_['text_remove']            = 'Success: You have modified your shopping cart!';
 $_['text_coupon']            = 'Success: Your coupon discount has been applied!';
 $_['text_voucher']           = 'Success: Your gift voucher discount has been applied!';
 $_['text_reward']            = 'Success: Your reward points discount has been applied!';
 $_['text_shipping']          = 'Success: Your shipping estimate has been applied!';
-$_['text_login']             = 'Attention: You must <a href="%s">login</a> or <a href="%s">create an account</a> to view prices!';
+$_['text_login']             = 'Attention: You should <a href="%s">login</a> or <a href="%s">create an account</a> to view prices!';
 $_['text_points']            = 'Reward Points: %s';
 $_['text_items']             = '%s item(s) - %s';
 $_['text_next']              = 'What would you like to do next?';
@@ -17,7 +17,7 @@ $_['text_next_choice']       = 'Choose if you have a discount code or reward poi
 $_['text_use_coupon']        = 'Use Coupon Code';
 $_['text_use_voucher']       = 'Use Gift Voucher';
 $_['text_use_reward']        = 'Use Reward Points (Available %s)';
-$_['text_shipping_estimate'] = 'Estimate Shipping &amp; Taxes';
+$_['text_shipping_estimate'] = 'Estimate Shipping & Taxes';
 $_['text_shipping_detail']   = 'Enter your destination to get a shipping estimate.';
 $_['text_shipping_method']   = 'Please select the preferred shipping method to use on this order.';
 $_['text_empty']             = 'Your shopping cart is empty!';

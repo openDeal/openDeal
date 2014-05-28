@@ -517,19 +517,19 @@ background-color: #2fa4e7;
 @media (min-width: 768px) {
 #module-column-left {
 	float: left;
-	width: 180px;
+	width: 220px;
 }
 
 #module-column-right {
 	float: right;
-	width: 180px;
+	width: 220px;
 }
 
 #module-column-left + #module-column-right + #content, #module-column-left + #content {
-	margin-left: 195px;
+	margin-left: 230px;
 }
 #module-column-right + #content {
-	margin-right: 195px;
+	margin-right: 230px;
 }
 }
 
@@ -544,3 +544,7 @@ background-color: #2fa4e7;
     height:65px;
 }
 
+#module-column-right .panel-body, 
+#module-column-left .panel-body {
+    padding:5px;
+}

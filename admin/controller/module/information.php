@@ -1,18 +1,18 @@
 <?php
 
-class ControllerModuleCategory extends \Core\Controller {
+class ControllerModuleInformation extends \Core\Controller {
 
     private $error = array();
 
     public function index() {
-        $this->language->load('module/category');
+        $this->language->load('module/information');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
         $this->load->model('setting/setting');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-            $this->model_setting_setting->editSetting('category', $this->request->post);
+            $this->model_setting_setting->editSetting('information', $this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
 
@@ -60,27 +60,27 @@ class ControllerModuleCategory extends \Core\Controller {
 
         $this->data['breadcrumbs'][] = array(
             'text' => $this->language->get('heading_title'),
-            'href' => $this->url->link('module/category', 'token=' . $this->session->data['token'], 'SSL'),
+            'href' => $this->url->link('module/information', 'token=' . $this->session->data['token'], 'SSL'),
             'separator' => ' :: '
         );
 
-        $this->data['action'] = $this->url->link('module/category', 'token=' . $this->session->data['token'], 'SSL');
+        $this->data['action'] = $this->url->link('module/information', 'token=' . $this->session->data['token'], 'SSL');
 
         $this->data['cancel'] = $this->url->link('extension/module', 'token=' . $this->session->data['token'], 'SSL');
 
         $this->data['modules'] = array();
 
-        if (isset($this->request->post['category_module'])) {
-            $this->data['modules'] = $this->request->post['category_module'];
-        } elseif ($this->config->get('category_module')) {
-            $this->data['modules'] = $this->config->get('category_module');
+        if (isset($this->request->post['information_module'])) {
+            $this->data['modules'] = $this->request->post['information_module'];
+        } elseif ($this->config->get('information_module')) {
+            $this->data['modules'] = $this->config->get('information_module');
         }
 
         $this->load->model('design/layout');
 
         $this->data['layouts'] = $this->model_design_layout->getLayouts();
 
-        $this->template = 'module/category.phtml';
+        $this->template = 'module/information.tpl';
         $this->children = array(
             'common/header',
             'common/footer'
@@ -90,7 +90,7 @@ class ControllerModuleCategory extends \Core\Controller {
     }
 
     protected function validate() {
-        if (!$this->user->hasPermission('modify', 'module/category')) {
+        if (!$this->user->hasPermission('modify', 'module/information')) {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 

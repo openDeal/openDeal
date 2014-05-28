@@ -1,0 +1,139 @@
+<?php echo $header; ?>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1><i class="fa fa-dashboard"></i> <?php echo $heading_title; ?><small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <?php foreach ($breadcrumbs as $i => $breadcrumb) { ?>
+            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo ($i == 0) ? '<i class="fa fa-dashboard"></i> ' : ''; ?><?php echo $breadcrumb['text']; ?></a></li>
+        <?php } ?>
+    </ol>
+</section>
+<section class="page-actions">
+    <button type="button" onclick="$('#form').submit();" class="btn btn-primary">
+        <i class="fa fa-plus"></i> <?php echo $button_save; ?>
+    </button>
+    <a href="<?php echo $cancel; ?>" class="btn btn-danger" >
+        <i class="fa fa-times"></i> <?php echo $button_cancel; ?>
+    </a>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <?php if ($error_warning) { ?>
+        <div class="alert alert-danger alert-dismissable">
+            <i class="fa fa-ban"></i>
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <?php echo $error_warning; ?>
+        </div>
+    <?php } ?>
+
+    <div id="form-error" class="alert alert-danger alert-dismissable">
+        <i class="fa fa-ban"></i>
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <span></span>
+    </div>
+
+    <div class="box">
+        <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form">
+
+
+
+            <table id="module" class="list">
+                <table id="module" class="table table-bordered table-striped table-responsive">
+                    <thead>
+                        <tr>
+                            <th class="left"><?php echo $entry_layout; ?></th>
+                            <th class="left"><?php echo $entry_position; ?></th>
+                            <th class="left"><?php echo $entry_status; ?></th>
+                            <th class="right"><?php echo $entry_sort_order; ?></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <?php $module_row = 0; ?>
+                    <?php foreach ($modules as $module) { ?>
+                        <tbody id="module-row<?php echo $module_row; ?>">
+                            <tr>
+                                <td class="left"><select class="form-control" name="cart_module[<?php echo $module_row; ?>][layout_id]">
+                                        <?php foreach ($layouts as $layout) { ?>
+                                            <?php if ($layout['layout_id'] == $module['layout_id']) { ?>
+                                                <option value="<?php echo $layout['layout_id']; ?>" selected="selected"><?php echo $layout['name']; ?></option>
+                                            <?php } else { ?>
+                                                <option value="<?php echo $layout['layout_id']; ?>"><?php echo $layout['name']; ?></option>
+                                            <?php } ?>
+                                        <?php } ?>
+                                    </select></td>
+                                <td class="left"><select class="form-control" name="cart_module[<?php echo $module_row; ?>][position]">  
+                                        <?php if ($module['position'] == 'column_left') { ?>
+                                            <option value="column_left" selected="selected"><?php echo $text_column_left; ?></option>
+                                        <?php } else { ?>
+                                            <option value="column_left"><?php echo $text_column_left; ?></option>
+                                        <?php } ?>
+                                        <?php if ($module['position'] == 'column_right') { ?>
+                                            <option value="column_right" selected="selected"><?php echo $text_column_right; ?></option>
+                                        <?php } else { ?>
+                                            <option value="column_right"><?php echo $text_column_right; ?></option>
+                                        <?php } ?>
+                                    </select></td>
+                                <td class="left"><select class="form-control" name="cart_module[<?php echo $module_row; ?>][status]">
+                                        <?php if ($module['status']) { ?>
+                                            <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                                            <option value="0"><?php echo $text_disabled; ?></option>
+                                        <?php } else { ?>
+                                            <option value="1"><?php echo $text_enabled; ?></option>
+                                            <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                                        <?php } ?>
+                                    </select></td>
+                                <td class="right"><input class="form-control" type="text" name="cart_module[<?php echo $module_row; ?>][sort_order]" value="<?php echo $module['sort_order']; ?>" size="3" /></td>
+                                <td class="left"><a onclick="$('#module-row<?php echo $module_row; ?>').remove();" class="btn btn-danger"><?php echo $button_remove; ?></a></td>
+                            </tr>
+                        </tbody>
+                        <?php $module_row++; ?>
+                    <?php } ?>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4"></td>
+                            <td class="left"><a onclick="addModule();" class="btn btn-primary"><?php echo $button_add_module; ?></a></td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+
+
+        </form>
+
+    </div>
+
+</section><!-- /.content -->
+
+<script type="text/javascript"><!--
+var module_row = <?php echo $module_row; ?>;
+
+function addModule() {	
+	html  = '<tbody id="module-row' + module_row + '">';
+	html += '  <tr>';
+	html += '    <td class="left"><select class="form-control" name="cart_module[' + module_row + '][layout_id]">';
+	<?php foreach ($layouts as $layout) { ?>
+	html += '      <option value="<?php echo $layout['layout_id']; ?>"><?php echo $layout['name']; ?></option>';
+	<?php } ?>
+	html += '    </select></td>';
+	html += '    <td class="left"><select class="form-control" name="cart_module[' + module_row + '][position]">';
+	html += '      <option value="column_left"><?php echo $text_column_left; ?></option>';
+	html += '      <option value="column_right"><?php echo $text_column_right; ?></option>';
+	html += '    </select></td>';
+	html += '    <td class="left"><select class="form-control" name="cart_module[' + module_row + '][status]">';
+    html += '      <option value="1" selected="selected"><?php echo $text_enabled; ?></option>';
+    html += '      <option value="0"><?php echo $text_disabled; ?></option>';
+    html += '    </select></td>';
+	html += '    <td class="right"><input type="text" class="form-control" name="cart_module[' + module_row + '][sort_order]" value="" size="3" /></td>';
+	html += '    <td class="left"><a onclick="$(\'#module-row' + module_row + '\').remove();" class="btn btn-danger"><?php echo $button_remove; ?></a></td>';
+	html += '  </tr>';
+	html += '</tbody>';
+	
+	$('#module tfoot').before(html);
+	
+	module_row++;
+}
+//--></script>
+<?php echo $footer; ?>
