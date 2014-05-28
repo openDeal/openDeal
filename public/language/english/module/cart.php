@@ -8,5 +8,6 @@ $_['text_empty']      = 'Your shopping cart is empty!';
 $_['text_confirm']  = 'Confirm?';
 $_['text_remove']   = 'Remove';
 $_['text_cart']  	= 'View Cart';
+$_['button_remove'] = 'Remove';
 $_['text_checkout'] = 'Checkout';
 ?>

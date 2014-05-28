@@ -55,7 +55,8 @@ class ControllerModuleCart extends \Core\Controller {
                 'stock' => $product['stock'],
                 'price' => $price,
                 'total' => $total,
-                'href' => $this->url->link('deal/deal', 'deal_id=' . $product['deal_id'])
+                'href' => $this->url->link('deal/deal', 'deal_id=' . $product['deal_id']),
+                'remove' => $this->url->link('checkout/cart', 'remove=' . $product['key'])
             );
         }
 
@@ -67,7 +68,8 @@ class ControllerModuleCart extends \Core\Controller {
                 $this->data['vouchers'][] = array(
                     'key' => $key,
                     'description' => $voucher['description'],
-                    'amount' => $this->currency->format($voucher['amount'])
+                    'amount' => $this->currency->format($voucher['amount']),
+                    'remove' => $this->url->link('checkout/cart', 'remove=' . $key)
                 );
             }
         }
