@@ -19,12 +19,14 @@
                                             <div class="tag">
                                                 <div class="tag_background"></div>
                                                 <div class="tag_background_repeat"></div>
-                                                <div class="row">
+                                        
+                                                <div class="row price_container-row">
                                                     <div class="col-md-12">
                                                         <div class="price_container"><div class="price"><?php echo $this->currency->format($deal['deal_price']); ?></div></div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
+                                            
+                                                <div class="row buy_button-row">
                                                     <div class="col-md-12">
                                                         <?php if ($deal['state'] == ModelDealDeal::DEAL_AVAILABLE): ?>
                                                             <div class="button">
@@ -40,7 +42,7 @@
 
                                                     </div>
                                                 </div>
-                                                <div class="row">
+                                                <div class="row discount_info-row">
                                                     <div class="col-md-12">
                                                         <div class="discount_info">
                                                             <div class="discount_info_block deal_value">
@@ -269,7 +271,7 @@
             <?php if ($deals) : ?>
             <div class="deals-list row">
                 <?php foreach ($deals as $deal): ?>
-                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 deal-item">
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 deal-item">
 
                         <div class="panel panel-default">
                             <!-- Default panel contents -->

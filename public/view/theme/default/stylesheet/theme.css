@@ -513,3 +513,34 @@ label.required:after {
     color: #fff;
 background-color: #2fa4e7;
 }
+
+@media (min-width: 768px) {
+#module-column-left {
+	float: left;
+	width: 180px;
+}
+
+#module-column-right {
+	float: right;
+	width: 180px;
+}
+
+#module-column-left + #module-column-right + #content, #module-column-left + #content {
+	margin-left: 195px;
+}
+#module-column-right + #content {
+	margin-right: 195px;
+}
+}
+
+.price_container-row {
+    height:80px;
+}
+.buy_button-row {
+    height: 46px;
+}
+
+.discount_info-row {
+    height:65px;
+}
+
