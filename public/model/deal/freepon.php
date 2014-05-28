@@ -170,6 +170,16 @@ class ModelDealFreepon extends \Core\Model {
         $this->db->query("UPDATE #__freepon SET viewed = (viewed + 1) WHERE freepon_id = '" . (int) $freepon_id . "'");
     }
 
+    public function getFreeponLayoutId($freepon_id) {
+        $query = $this->db->query("SELECT * FROM #__freepon_to_layout WHERE freepon_id = '" . (int) $freepon_id . "' AND store_id = '" . (int) $this->config->get('config_store_id') . "'");
+
+        if ($query->num_rows) {
+            return $query->row['layout_id'];
+        } else {
+            return false;
+        }
+    }
+
     public function updateClaim($freepon_id, $customer_id) {
         $repeat = $this->db->query("Select count(*) as total from #__freepon_claim where freepon_id = '" . (int) $freepon_id . "' and customer_id = '" . (int) $customer_id . "'");
         if ($repeat->row['total'] == 0) {

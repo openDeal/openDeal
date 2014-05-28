@@ -508,3 +508,8 @@ label.required:after {
 #toTop:active, #toTop:focus {
 	outline:none;
 }
+
+.panel-ul-category .badge {
+    color: #fff;
+background-color: #2fa4e7;
+}

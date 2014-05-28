@@ -191,7 +191,7 @@ class ModelDealDeal extends \Core\Model {
 
 
             $deal['images'] = $this->getDealImages($deal_id);
-        
+
             //MAke sure the end_time is later than now
             if ($deal['end_time'] < $deal['begin_time']) {
                 $deal['end_time'] = $deal['begin_time'];
@@ -269,8 +269,8 @@ class ModelDealDeal extends \Core\Model {
         }
         return $deal_option_data;
     }
-    
-    public function getDealShippings($deal_id){
+
+    public function getDealShippings($deal_id) {
         $deal_shipping_data = array();
         $query = $this->db->query("Select * from #__deal_shipping where deal_id = " . (int) $deal_id . " order by sort_order asc");
         if ($query->num_rows) {
@@ -284,17 +284,27 @@ class ModelDealDeal extends \Core\Model {
         }
         return $deal_shipping_data;
     }
-    
-    public function getDealImages($deal_id){
-        $deal_image_data = array();
-        $query = $this->db->query("select * from #__deal_image where deal_id = " . (int)$deal_id . " and image != '' order by sort_order asc");
 
-        if($query->num_rows){
-            foreach($query->rows as $row){
-            $deal_image_data[] = $row['image'];
+    public function getDealImages($deal_id) {
+        $deal_image_data = array();
+        $query = $this->db->query("select * from #__deal_image where deal_id = " . (int) $deal_id . " and image != '' order by sort_order asc");
+
+        if ($query->num_rows) {
+            foreach ($query->rows as $row) {
+                $deal_image_data[] = $row['image'];
             }
         }
         return $deal_image_data;
+    }
+
+    public function getDealLayoutId($deal_id) {
+        $query = $this->db->query("SELECT * FROM #__deal_to_layout WHERE deal_id = '" . (int) $deal_id . "' AND store_id = '" . (int) $this->config->get('config_store_id') . "'");
+
+        if ($query->num_rows) {
+            return $query->row['layout_id'];
+        } else {
+            return false;
+        }
     }
 
 }

@@ -49,7 +49,8 @@ function autoloader($className) {
             require_once(VQMod::modCheck(DIR_SYSTEM . 'library/' . $fileName));
             //  require(DIR_SYSTEM . 'library/' . $fileName);
         } else {
-
+            echo '<pre>';
+            debug_print_backtrace();
             trigger_error("Could not load class $className ");
         }
     }
