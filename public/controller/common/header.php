@@ -103,6 +103,11 @@ class ControllerCommonHeader extends \Core\Controller {
         }
 
 
+        
+        /**
+         *         $('head').append('<meta fb:admins="<?php echo $adminuid; ?>">');
+        $('head').append('<meta fb:app_id="<?php echo $appid; ?>">');
+         */
 
 
         $this->render();

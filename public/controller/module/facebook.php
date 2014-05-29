@@ -9,6 +9,19 @@ class ControllerModuleFacebook extends \Core\Controller {
 		$this->data['adminuid'] = $this->config->get('adminuid');
 		
 		$this->data['appid'] = $this->config->get('appid');
+                
+                if($this->config->get('adminuid')){
+                $this->document->addMeta('fb:admins', '<meta property="fb:admins" content="' . $this->config->get('adminuid') .'"/>');
+                }
+                if($this->config->get('appid')){
+                $this->document->addMeta('fb:appid', '<meta property="fb:admins" content="' . $this->config->get('appid') .'"/>');
+                }
+                /*
+                 * $this->data['adminuid'] = $this->config->get('adminuid');
+		
+		$this->data['appid'] = $this->config->get('appid');
+                 */
+                
 		
 		$this->data['width'] = $setting['width'];
 		
