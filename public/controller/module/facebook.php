@@ -14,7 +14,7 @@ class ControllerModuleFacebook extends \Core\Controller {
                 $this->document->addMeta('fb:admins', '<meta property="fb:admins" content="' . $this->config->get('adminuid') .'"/>');
                 }
                 if($this->config->get('appid')){
-                $this->document->addMeta('fb:appid', '<meta property="fb:admins" content="' . $this->config->get('appid') .'"/>');
+                $this->document->addMeta('fb:appid', '<meta property="fb:appid" content="' . $this->config->get('appid') .'"/>');
                 }
                 /*
                  * $this->data['adminuid'] = $this->config->get('adminuid');
