@@ -435,8 +435,14 @@ class ControllerAccountOrder extends \Core\Controller {
             if ($order_info['order_status_id'] == $this->config->get('config_complete_status_id')) {
                 //debugPre($order_info);
                 //OK order product
-                $coupon_info = $this->model_account_order->getOrderCoupon($order_id,$order_deal_id);
-                debugPre($coupon_info);
+                $coupon_info = $this->model_account_order->getOrderCoupon($order_id, $order_deal_id);
+                if ($coupon_info) {
+                    
+                    $this->template = 'account/order_coupon.phtml';
+                } else {
+                    $show_error_page = true;
+                    $this->data['text_error'] = $this->language->get('text_error');
+                }
             } else {
                 $show_error_page = true;
                 $this->data['text_error'] = $this->language->get('text_error_order_status');
@@ -497,9 +503,8 @@ class ControllerAccountOrder extends \Core\Controller {
                 'common/footer',
                 'common/header'
             );
-
-            $this->response->setOutput($this->render());
         }
+        $this->response->setOutput($this->render());
     }
 
 }

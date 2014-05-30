@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html dir="<?php echo $direction; ?>" lang="<?php echo $lang; ?>">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <title><?php echo $heading_title; ?></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="author" content="Craig G Smith - OmniHostNZ">
+        <base href="<?php echo $base; ?>" />
+
+        <link rel="stylesheet" type="text/css" href="public/view/theme/default/stylesheet/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="public/view/theme/default/stylesheet/theme.css" />
+        <link rel="stylesheet" type="text/css" href="public/view/theme/default/stylesheet/font-awesome.min.css" />
+
+
+        <!--[if lt IE 7]>
+                <link href="assets/css/font-awesome-ie7.min.css" rel="stylesheet">
+                <![endif]-->
+        <!-- Fav and touch icons -->
+
+
+        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+              <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+            <![endif]-->
+        <!-- Le fav and touch icons -->
+
+
+
+        <style type="text/css">
+
+            #ecard{ max-width:660px;  border:2px solid #45aeea; margin-top:40px;margin-left:auto;margin-right:auto;padding:15px;border-radius:15px;box-shadow:0 0 15px #45aeea;background: rgba(69, 174, 234, 0.1);}
+            #econ{ width:100%; margin:0 auto; margin-bottom:10px; overflow:hidden;}
+            #etop{ min-height:80px; border-bottom:1px solid #45aeea;}
+
+            #welcome{ color: #008fd5;  font-weight:bold; font-size:26px; vertical-align:middle ;text-align:right; }
+            #teamtitle{ width:100%; text-align:left; font-size:20px; font-weight:bold; margin-top:8px; margin-bottom:10px;color:#008fd5; }
+            #main{padding-bottom: 15px;border-bottom:1px solid #45aeea;}
+            #mleft{line-height:150%; }
+            #name{ font-size:20px; font-weight:bold; margin-top:10px;}
+            #scan{ font-size:14px; margin-top:20px;}
+            #scanimg { argin-bottom:15px}
+            #scanimg img {
+                max-width: 100%; 
+            }
+            #relname{ font-size:14px; padding-left:8px;}
+            #coupon{ margin-top:20px; font-size:26px; font-family:"bold"; font-weight:bold; text-align:left;}
+            #coupon p { line-height:120%; }
+            #mright{}
+            #notice{font-size:14px;padding-top:8px;}
+            #notice ul{ margin:0px; list-style:none; padding-left:0px;}
+            #notice ul li{ line-height:26px;}
+            #server{ background-color:#fff; min-height:20px; font-size:14px; color:#008fd5; margin-top:20px; line-height:20px; text-align:center; padding:10px;border-radius:10px;font-weight: bold;}
+
+            @media print { 
+                .noprint{display:none;}
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="ecard" >
+            <div id="econ" class="container-fluid">
+                <!--top -->
+                <div id="etop" class="row">
+                    <div id="logo" class="col-md-8"><img src="<?php echo $logo; ?>" /></div>
+                    <div id="welcome" class="col-md-4"># <?php echo $code; ?> </div>
+                </div>
+                <!--endtop -->
+                <div id="teamtitle"><span><?php echo $name; ?></span></div>
+                <!--main -->
+                <div id="main" class="row">
+
+                    <div id="mleft" class="col-md-6">
+                        <div id="name"><?php echo $text_recipient; ?></div>
+                        <div id="relname"><?php echo $recipient; ?></div>
+
+                        <div id="name"><?php echo $text_expires; ?></div>
+                        <div id="relname"><?php echo $expires; ?></div>
+                        <div id="name"><?php echo $text_usage; ?></div>
+                        <div id="notice">
+                            <?php echo $text_usage_text; ?>
+                        </div>
+
+
+                    </div>
+                    <!--right -->
+                    <div id="mright" class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-7" id="scanimg">
+                                <img src="<?php echo $qrcode; ?>" alt="<?php echo $code; ?>" />
+                            </div>
+                            <div class="col-md-5" id="scan">
+                                <?php echo $text_scan; ?>
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+                <!--endmain -->
+                <div class="clearfix">
+                    <h3><?php echo $text_location; ?></h3>
+                    <ul id="server" class="list-unstyled">
+                        <?php foreach ($locations as $location): ?>
+                            <li><?php echo $location['address']; ?></li>
+                        <?php endforeach; ?></ul>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="noprint" style="text-align:center; margin:20px;">
+            <button class="btn btn-primary btn-lg" onclick="window.print();"><?php echo $text_print; ?></button></div>
+    </body></html>
