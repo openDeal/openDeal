@@ -298,7 +298,7 @@ class ControllerAccountOrder extends \Core\Controller {
                 $this->data['products'][] = array(
                     'name' => $product['title'],
                     'option' => $option,
-                    'is_coupon' => ($is_coupon)? $this->url->link('account/order/coupon','order_deal_id=' . $product['order_deal_id'], 'SSL') : false,
+                    'is_coupon' => ($is_coupon) ? $this->url->link('account/order/coupon', 'order_id=' . $order_id . '&order_deal_id=' . $product['order_deal_id'], 'SSL') : false,
                     'is_collect' => $is_collect,
                     'shipping_method' => $shipping_method,
                     'quantity' => $product['quantity'],
@@ -408,12 +408,88 @@ class ControllerAccountOrder extends \Core\Controller {
             $this->response->setOutput($this->render());
         }
     }
-    
-    
-    public function coupon(){
-        $order_deal_id = $this->request->get['order_deal_id'];
-        var_dump($order_deal_id);
-        var_dump($this->config->get('config_complete_status_id'));
+
+    public function coupon() {
+
+        $this->language->load('account/order');
+
+        if (isset($this->request->get['order_id'])) {
+            $order_id = $this->request->get['order_id'];
+        } else {
+            $order_id = 0;
+        }
+
+        $order_deal_id = isset($this->request->get['order_deal_id']) ? $this->request->get['order_deal_id'] : '0';
+
+
+        if (!$this->customer->isLogged()) {
+            $this->session->data['redirect'] = $this->url->link('account/order/coupon', 'order_id=' . $order_id . '&order_deal_id=' . $order_deal_id, 'SSL');
+
+            $this->redirect($this->url->link('account/login', '', 'SSL'));
+        }
+
+        $this->load->model('account/order');
+
+        $order_info = $this->model_account_order->getOrder($order_id);
+
+        if ($order_info) {
+            debugPre($order_info);
+        } else {
+            $this->document->setTitle($this->language->get('text_order'));
+
+            $this->data['heading_title'] = $this->language->get('text_order');
+
+            $this->data['text_error'] = $this->language->get('text_error');
+
+            $this->data['button_continue'] = $this->language->get('button_continue');
+
+            $this->data['breadcrumbs'] = array();
+
+            $this->data['breadcrumbs'][] = array(
+                'text' => $this->language->get('text_home'),
+                'href' => $this->url->link('common/home'),
+                'separator' => false
+            );
+
+            $this->data['breadcrumbs'][] = array(
+                'text' => $this->language->get('text_account'),
+                'href' => $this->url->link('account/account', '', 'SSL'),
+                'separator' => $this->language->get('text_separator')
+            );
+
+            $this->data['breadcrumbs'][] = array(
+                'text' => $this->language->get('heading_title'),
+                'href' => $this->url->link('account/order', '', 'SSL'),
+                'separator' => $this->language->get('text_separator')
+            );
+
+            $this->data['breadcrumbs'][] = array(
+                'text' => $this->language->get('text_order'),
+                'href' => $this->url->link('account/order/info', 'order_id=' . $order_id, 'SSL'),
+                'separator' => $this->language->get('text_separator')
+            );
+
+            $this->data['continue'] = $this->url->link('account/order', '', 'SSL');
+
+            $this->response->addHeader($this->request->server['SERVER_PROTOCOL'] . '/1.1 404 Not Found');
+
+            if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/error/not_found.tpl')) {
+                $this->template = $this->config->get('config_template') . '/template/error/not_found.tpl';
+            } else {
+                $this->template = 'default/template/error/not_found.tpl';
+            }
+
+            $this->children = array(
+                'common/column_left',
+                'common/column_right',
+                'common/content_top',
+                'common/content_bottom',
+                'common/footer',
+                'common/header'
+            );
+
+            $this->response->setOutput($this->render());
+        }
     }
 
 }
