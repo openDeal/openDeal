@@ -438,6 +438,19 @@ class ControllerAccountOrder extends \Core\Controller {
                 $coupon_info = $this->model_account_order->getOrderCoupon($order_id, $order_deal_id);
                 if ($coupon_info) {
                     
+                    $this->data['base'] = $server;
+                    $this->data['text_print'] = $this->language->get('text_print');
+                    if ($this->config->get('config_logo') && (substr($this->config->get('config_logo'), 0, 4) == "http" || file_exists(DIR_IMAGE . $this->config->get('config_logo')))) {
+
+                    if (substr($this->config->get('config_logo'), 0, 4) == "http") {
+                        $this->data['logo'] = $this->config->get('config_logo');
+                    } else {
+                        $this->data['logo'] = $server . 'image/' . $this->config->get('config_logo');
+                    }
+                } else {
+                    $this->data['logo'] = '';
+                }
+                    
                     $this->template = 'account/order_coupon.phtml';
                 } else {
                     $show_error_page = true;
