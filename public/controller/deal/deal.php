@@ -139,7 +139,7 @@ class ControllerDealDeal extends \Core\Controller {
     }
 
     public function expired() {
-        
+
 //displays expired deals
         $data = array(
             'filter_expired' => true
@@ -233,32 +233,32 @@ class ControllerDealDeal extends \Core\Controller {
             'href' => $this->url->link('deal/deal/' . $current, '&sort=d.feature_weight&order=DESC')
         );
 
-         if(!isset($data['filter_expired'])) { 
-        
-        $this->data['sorts']['d.begin_time-ASC'] = array(
-            'text' => $this->language->get('text_start_time_asc'),
-            'value' => 'd.begin_time-ASC',
-            'href' => $this->url->link('deal/deal/' . $current, 'sort=d.begin_time&order=ASC')
-        );
-        if(!isset($data['filter_future'])) { 
-        $this->data['sorts']['d.begin_time-DESC'] = array(
-            'text' => $this->language->get('text_start_time_desc'),
-            'value' => 'd.begin_time-DESC',
-            'href' => $this->url->link('deal/deal/' . $current, 'sort=d.begin_time&order=DESC')
-        );
-        
-        $this->data['sorts']['d.end_time-ASC'] = array(
-            'text' => $this->language->get('text_end_time_asc'),
-            'value' => 'd.end_time-ASC',
-            'href' => $this->url->link('deal/deal/' . $current, 'sort=d.end_time&order=ASC')
-        );
-        $this->data['sorts']['d.end_time-DESC'] = array(
-            'text' => $this->language->get('text_end_time_desc'),
-            'value' => 'd.end_time-DESC',
-            'href' => $this->url->link('deal/deal/' . $current, 'sort=d.end_time&order=DESC')
-        );
+        if (!isset($data['filter_expired'])) {
+
+            $this->data['sorts']['d.begin_time-ASC'] = array(
+                'text' => $this->language->get('text_start_time_asc'),
+                'value' => 'd.begin_time-ASC',
+                'href' => $this->url->link('deal/deal/' . $current, 'sort=d.begin_time&order=ASC')
+            );
+            if (!isset($data['filter_future'])) {
+                $this->data['sorts']['d.begin_time-DESC'] = array(
+                    'text' => $this->language->get('text_start_time_desc'),
+                    'value' => 'd.begin_time-DESC',
+                    'href' => $this->url->link('deal/deal/' . $current, 'sort=d.begin_time&order=DESC')
+                );
+
+                $this->data['sorts']['d.end_time-ASC'] = array(
+                    'text' => $this->language->get('text_end_time_asc'),
+                    'value' => 'd.end_time-ASC',
+                    'href' => $this->url->link('deal/deal/' . $current, 'sort=d.end_time&order=ASC')
+                );
+                $this->data['sorts']['d.end_time-DESC'] = array(
+                    'text' => $this->language->get('text_end_time_desc'),
+                    'value' => 'd.end_time-DESC',
+                    'href' => $this->url->link('deal/deal/' . $current, 'sort=d.end_time&order=DESC')
+                );
+            }
         }
-         }
         $this->data['sorts']['dd.title-ASC'] = array(
             'text' => $this->language->get('text_title_asc'),
             'value' => 'dd.title-ASC',
@@ -400,24 +400,37 @@ class ControllerDealDeal extends \Core\Controller {
 
             $deal_options = $this->model_deal_deal->getDealOptions($deal_id);
 
+            //No Options and is a coupon - so lets add to cart straight off:::
             if (!count($deal_options) && $deal['is_coupon']) {
                 //Add to cart and redirect to the cart
                 //Would be deal_id, 0, -1 (-1 for coupon
+                $this->language->load('checkout/cart');
+                $this->cart->add($deal_id, 1, '0', '0');
+                $data['success'] = sprintf($this->language->get('text_success'), $this->url->link('deal/deal', 'deal_id=' . $deal_id), $deal['title'], $this->url->link('checkout/cart'));
+                $data['redirect'] = $this->url->link('checkout/cart');
             }
 
             //Ok here means that we may offer more than one shipping option
             $deal_shipping = $this->model_deal_deal->getDealShippings($deal_id);
 
 
+            //Can collect, not shipping and no no ptions - add directly to cart
             if (!count($deal_shipping) && !count($deal_options) && $deal['can_collect'] == 1) {
-                //Add to cart and redirect to the cart
-                //Would be deal_id, 0, 0 (0 for collect   
+                $this->language->load('checkout/cart');
+                $this->cart->add($deal_id, 1, '0', '0');
+                $data['success'] = sprintf($this->language->get('text_success'), $this->url->link('deal/deal', 'deal_id=' . $deal_id), $deal['title'], $this->url->link('checkout/cart'));
+                $data['redirect'] = $this->url->link('checkout/cart');
             }
 
+            //only one shipping option,no deal options and not collect -- add direct to cart
             if (count($deal_shipping) == 1 && !count($deal_options) && $deal['can_collect'] == 0) {
                 //Add to cart and redirect to the cart
                 $ship = array_shift($deal_shipping);
                 //Would be deal_id, 0, $ship['deal_shipping_id'] (to set the shipping id :-) 
+                $this->language->load('checkout/cart');
+                $this->cart->add($deal_id, 1, '0', $ship['deal_shipping_id']);
+                $data['success'] = sprintf($this->language->get('text_success'), $this->url->link('deal/deal', 'deal_id=' . $deal_id), $deal['title'], $this->url->link('checkout/cart'));
+                $data['redirect'] = $this->url->link('checkout/cart');
             }
 
 
