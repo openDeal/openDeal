@@ -617,7 +617,7 @@ class ControllerDealDeal extends \Core\Controller {
         if (isset($this->request->post['coupon_expiry'])) {
             $this->data['coupon_expiry'] = $this->request->post['coupon_expiry'];
         } elseif (!empty($deal_info)) {
-            $this->data['coupon_expiry'] = Date("Y/m/d H:i A", $deal_info['is_coupon']);
+            $this->data['coupon_expiry'] = Date("Y/m/d H:i A", $deal_info['coupon_expiry']);
         } else {
             $this->data['coupon_expiry'] = Date("Y/m/d H:i A", strtotime("+ 60 days"));
         }
