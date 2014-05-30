@@ -456,6 +456,8 @@ class ControllerAccountOrder extends \Core\Controller {
                     }
 
                     $this->data['code'] = $coupon_info['coupon_code'];
+                    $this->data['secret_code'] = $coupon_info['coupon_secret'];
+                    $this->data['text_security_code'] = $this->language->get('text_security_code');
                     // $this->data['code'] = 'asd4f';
                     $this->data['name'] = $coupon_info['title'];
 

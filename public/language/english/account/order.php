@@ -38,4 +38,18 @@ $_['column_delivery']       = 'Delivery';
 $_['text_collect'] = 'Collect';
 $_['button_coupon'] = 'View Coupon';
 $_['button_view'] = 'View Order';
+
+
+$_['text_security_code'] = 'Coupon Security Code';
+$_['text_recipient'] = 'Recipient';
+$_['text_expires'] = 'Expires';
+$_['text_usage'] = 'How To Use';
+$_['text_usage_text'] = 'Print and take with, or show merchant on your mobile';
+$_['text_scan'] = 'Scan this code display the coupon code on your phone';
+
+$_['text_location'] = 'Location';
+$_['text_locations'] = 'Locations';
+
+$_['text_print'] = 'Print Coupon';
+
 ?>
