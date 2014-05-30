@@ -183,7 +183,7 @@ class ControllerDealFreepon extends \Core\Controller {
                 'freepon_id' => $result['freepon_id'],
                 'name' => $result['name'],
                 'company_name' => $result['company_name'],
-                'status' => ($result['status']) ? $this->language->get('text_enabled') : $this->language->get('text_disbled'),
+                'status' => ($result['status']) ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
                 'views' => $result['viewed'],
                 'downloaded' => $result['downloaded'],
                 'date_added' => date($this->language->get('date_format_short'), $result['create_date']),
