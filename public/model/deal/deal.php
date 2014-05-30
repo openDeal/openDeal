@@ -207,6 +207,8 @@ class ModelDealDeal extends \Core\Model {
 
             $time_diff = $deal['end_time'] - $now;
             $deal['time_diff'] = $time_diff;
+            
+            
 
             $deal['state'] = $this->getDealState($deal);
 
