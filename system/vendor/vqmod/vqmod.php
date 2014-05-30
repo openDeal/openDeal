@@ -719,7 +719,7 @@ class VQModObject {
 					} else {
 						if ($error == 'log' || $error == 'abort') {
 							$skip = ($error == 'log') ? ' (SKIPPED)' : ' (ABORTING MOD)';
-							VQMod::$log->write('VQModObject::parseMods - Could not resolve path for [' . $fileToMod . ']' . $skip, $this);
+							VQMod::$log->write('VQModObject::parseMods - Could not resolve path for [' . VQMod::getCwd() . $fileToMod . ']' . $skip, $this);
 						}
 	
 						if ($error == 'log' || $error == 'skip') {
