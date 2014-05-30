@@ -5,7 +5,7 @@ class ControllerCommonSeoUrl extends \Core\Controller {
     public $core_routes = array(
         'deal/deal/current' => 'current-deals',
         'deal/deal/expired' => 'recent-deals',
-        'deal/deal/future' => 'upcomming-deals',
+        'deal/deal/future' => 'future-deals',
         'information/contact' => 'contact-us',
         'checkout/cart' => 'shopping-cart',
         'checkout/checkout' => 'checkout'
