@@ -18,6 +18,8 @@ class ControllerCommonFooter extends \Core\Controller {
         if (!$this->user->isLogged() || !isset($this->request->get['token']) || !isset($this->session->data['token']) || ($this->request->get['token'] != $this->session->data['token'])) {
             $this->template = "common/alt-footer.phtml";
         }
+        
+        $this->data['server_time'] = DATE("Y-m-d H:i:s");
 
         $this->render();
     }
