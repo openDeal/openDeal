@@ -94,7 +94,7 @@ class ModelCheckoutOrder extends \Core\Model {
                             . "order_deal_id = " . (int) $order_deal_id . ", "
                             . "coupon_code = " . $this->db->quote($code) . ", "
                             . "coupon_secret = " . $this->db->quote($secret) . ", "
-                            . "coupon_expire = '" . $product['coupon_expiry'] . "', "
+                            . "coupon_expire = '" . DATE("Y-m-d H:i:s", $product['coupon_expiry']) . "', "
                             . "coupon_redeemed = '0', coupon_active = '0'");
                 }
             }

@@ -120,6 +120,13 @@ class ModelAccountOrder extends \Core\Model {
 
 		return $query->rows;
 	}
+        
+        public function getOrderCoupon($order_id,$order_deal_id){
+            $query = $this->db->query("SELECT * FROM  `#__order_coupon` oc 
+                INNER JOIN od_order_deal od ON od.order_deal_id = oc.order_deal_id 
+                WHERE oc.order_deal_id = '" . (int)$order_deal_id . "' and oc.order_id = '" . $order_id . "'");
+            return $query->row;
+        }
 
 	public function getOrderOption($order_id, $order_deal_id) {
 		$query = $this->db->query("SELECT * FROM #__order_option WHERE order_id = '" . (int)$order_id . "' AND order_deal_id = '" . (int)$order_deal_id . "'");

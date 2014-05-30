@@ -200,9 +200,12 @@ class ControllerCheckoutConfirm extends \Core\Controller {
 
             $product_data = array();
 
+            
             foreach ($this->cart->getProducts() as $product) {
 
 
+                $product_expiry = $product['coupon_expiry'];
+               
 
                 $product_data[] = array(
                     'deal_id' => $product['deal_id'],
@@ -213,7 +216,7 @@ class ControllerCheckoutConfirm extends \Core\Controller {
                     'total' => $product['total'],
                     'shipping' => $product['shipping'],
                     'is_coupon' => $product['is_coupon'],
-                    'coupon_expiry' => $product['coupon_expiry']
+                    'coupon_expiry' => $product_expiry
                 );
             }
 

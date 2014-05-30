@@ -390,11 +390,9 @@ class ControllerAccountOrder extends \Core\Controller {
 
             $this->response->addHeader($this->request->server['SERVER_PROTOCOL'] . '/1.1 404 Not Found');
 
-            if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/error/not_found.tpl')) {
-                $this->template = $this->config->get('config_template') . '/template/error/not_found.tpl';
-            } else {
-                $this->template = 'default/template/error/not_found.tpl';
-            }
+
+            $this->template = 'error/not_found.phtml';
+
 
             $this->children = array(
                 'common/column_left',
@@ -432,14 +430,28 @@ class ControllerAccountOrder extends \Core\Controller {
 
         $order_info = $this->model_account_order->getOrder($order_id);
 
+        $show_error_page = false;
         if ($order_info) {
-            debugPre($order_info);
+            if ($order_info['order_status_id'] == $this->config->get('config_complete_status_id')) {
+                //debugPre($order_info);
+                //OK order product
+                $coupon_info = $this->model_account_order->getOrderCoupon($order_id,$order_deal_id);
+                debugPre($coupon_info);
+            } else {
+                $show_error_page = true;
+                $this->data['text_error'] = $this->language->get('text_error_order_status');
+            }
         } else {
+            $show_error_page = true;
+            $this->data['text_error'] = $this->language->get('text_error');
+        }
+
+        if ($show_error_page) {
             $this->document->setTitle($this->language->get('text_order'));
 
             $this->data['heading_title'] = $this->language->get('text_order');
 
-            $this->data['text_error'] = $this->language->get('text_error');
+
 
             $this->data['button_continue'] = $this->language->get('button_continue');
 
@@ -469,15 +481,13 @@ class ControllerAccountOrder extends \Core\Controller {
                 'separator' => $this->language->get('text_separator')
             );
 
-            $this->data['continue'] = $this->url->link('account/order', '', 'SSL');
+            $this->data['continue'] = $this->url->link('account/order/info', 'order_id=' . $order_id, 'SSL');
 
-            $this->response->addHeader($this->request->server['SERVER_PROTOCOL'] . '/1.1 404 Not Found');
+            //  $this->response->addHeader($this->request->server['SERVER_PROTOCOL'] . '/1.1 404 Not Found');
 
-            if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/error/not_found.tpl')) {
-                $this->template = $this->config->get('config_template') . '/template/error/not_found.tpl';
-            } else {
-                $this->template = 'default/template/error/not_found.tpl';
-            }
+
+            $this->template = 'error/not_found.phtml';
+
 
             $this->children = array(
                 'common/column_left',
