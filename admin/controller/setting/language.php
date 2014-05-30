@@ -183,7 +183,7 @@ class ControllerSettingLanguage extends \Core\Controller {
         
         $content = '<?php' . "\n\n";
         foreach($current_vars as $key => $trans){
-            $content .= '$_[\'' . $key . '\'] = \'' . $trans . '\'' . ";\n";
+            $content .= '$_[\'' . $key . '\'] = \'' . str_replace('\"', '"',addslashes($trans)) . '\'' . ";\n";
         }
                 
        $handler = fopen($filename, 'w+');
