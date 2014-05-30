@@ -450,6 +450,10 @@ class ControllerAccountOrder extends \Core\Controller {
                 } else {
                     $this->data['logo'] = '';
                 }
+                
+                 $this->data['code'] = $coupon_info['coupon_code'];
+               // $this->data['code'] = 'asd4f';
+                $this->data['name'] = $coupon_info['title'];
                     
                     $this->template = 'account/order_coupon.phtml';
                 } else {
