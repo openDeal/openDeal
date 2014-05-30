@@ -9,7 +9,7 @@ class ModelDealFreepon extends \Core\Model {
 
     public function getFreepons($data = array()) {
 
-        $sql = "Select *,fd.name as name, c.name as company_name from #__freepon f inner join #__freepon_description fd on f.freepon_id = fd.freepon_id "
+        $sql = "Select *,fd.name as name, c.name as company_name, f.status as status from #__freepon f inner join #__freepon_description fd on f.freepon_id = fd.freepon_id "
                 . " inner join #__company c on c.company_id = f.company_id "
                 . " where fd.language_id = '" . (int) $this->config->get('config_language_id') . "' ";
         $sort_data = array(
