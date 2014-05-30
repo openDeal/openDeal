@@ -19,7 +19,7 @@ require_once(DIR_SYSTEM . 'vendor/Rbr/Intergrater.php');]]></add>
         <operation error="log">
             <search position="replace"><![CDATA[if ($customer_query->num_rows) {]]></search>
             <add><![CDATA[if(!$customer_query->num_rows && !$override) { 
-                            $customer_query = /RbrIntergrater::customerLogin($email, $password);
+                            $customer_query = \RbrIntergrater::customerLogin($email, $password);
                             }
                             if ($customer_query->num_rows) {]]></add>
         </operation>
@@ -28,19 +28,19 @@ require_once(DIR_SYSTEM . 'vendor/Rbr/Intergrater.php');]]></add>
     <file path="public/model/account/" name="customer.php">
         <operation error="log">
             <search position="after"><![CDATA[public function getTotalCustomersByEmail($email) {]]></search>
-            <add><![CDATA[ return /RbrIntergrater::moduleCustomergetTotalCustomersByEmail($email); ]]></add>
+            <add><![CDATA[ return \RbrIntergrater::moduleCustomergetTotalCustomersByEmail($email); ]]></add>
         </operation>
         <operation error="log">
             <search position="after"><![CDATA[public function editCustomer($data) {]]></search>
-            <add><![CDATA[ /RbrIntergrater::moduleCustomereditCustomer($data, $this->customer->getId() ); ]]></add>
+            <add><![CDATA[ \RbrIntergrater::moduleCustomereditCustomer($data, $this->customer->getId() ); ]]></add>
         </operation>
         <operation error="log">
             <search position="after"><![CDATA[public function editPassword($email, $password) {]]></search>
-            <add><![CDATA[ /RbrIntergrater::moduleCustomereditPassword($email, $password); ]]></add>
+            <add><![CDATA[ \RbrIntergrater::moduleCustomereditPassword($email, $password); ]]></add>
         </operation>
         <operation error="log">
             <search position="after"><![CDATA[public function addCustomer($data) {]]></search>
-            <add><![CDATA[ $customer_id = /RbrIntergrater::moduleCustomeraddCustomer($data,$this->registry); 
+            <add><![CDATA[ $customer_id = \RbrIntergrater::moduleCustomeraddCustomer($data,$this->registry); 
 /*]]></add>
         </operation>
         <operation error="log">
@@ -52,14 +52,14 @@ require_once(DIR_SYSTEM . 'vendor/Rbr/Intergrater.php');]]></add>
     <file path="public/model/checkout/" name="order.php">
         <operation error="log">
             <search position="after"><![CDATA[public function confirm($order_id, $order_status_id, $comment = '', $notify = false) {]]></search>
-            <add><![CDATA[ return /RbrIntergrater::moduleCheckoutOrderConfirm($order_id); ]]></add>
+            <add><![CDATA[ return \RbrIntergrater::moduleCheckoutOrderConfirm($order_id); ]]></add>
         </operation>
     </file>
     
     <file path="admin/controller/deal/" name="company.php">
         <operation error="log">
             <search position="after"><![CDATA[public function insert() {]]></search>
-            <add><![CDATA[ /RbrIntergrater::mergeRegionalBusinesses(); 
+            <add><![CDATA[ \RbrIntergrater::mergeRegionalBusinesses(); 
 $this->session->data['success'] = $this->language->get('text_success');
 
             $url = '';
