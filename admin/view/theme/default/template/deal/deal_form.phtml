@@ -345,8 +345,7 @@
                                                 <img src="<?php echo $image['thumb']; ?>" alt="" id="thumb_<?php echo $i; ?>" />
                                                 <input type="hidden" name="images[]" value="<?php echo $image['image']; ?>" id="image_<?php echo $i; ?>" /><br />
                                                 <button type="button" class="btn btn-primary btn-sm" onclick="image_upload('image_<?php echo $i; ?>', 'thumb_<?php echo $i; ?>');"><?php echo $text_browse; ?></button>
-                                                <button type="button" class="btn btn-danger btn-sm" onclick="$('#thumb').attr('src', '<?php echo $no_image; ?>');
-                                                        $('#image').attr('value', '');"><?php echo $text_clear; ?></button>
+                                                <button type="button" class="btn btn-danger btn-sm" onclick="$(this).closest('.image').remove();"><?php echo $text_clear; ?></button>
                                             </div>
                                         <?php endforeach; ?>
                                     <?php else: ?>
@@ -548,7 +547,7 @@
                             xhtml += '<img src="<?php echo $no_image; ?>" alt="" id="thumb_' + deal_img_count + '" />';
                             xhtml += '<input type="hidden" name="images[]" value="" id="image_' + deal_img_count + '" /><br />';
                             xhtml += '<button type="button" class="btn btn-primary btn-sm" onclick="image_upload(\'image_' + deal_img_count + '\', \'thumb_' + deal_img_count + '\');"><?php echo $text_browse; ?></button>';
-                            xhtml += '<button type="button" class="btn btn-danger btn-sm" onclick="$(\'#thumb_' + deal_img_count + '\').attr(\'src\', \'<?php echo $no_image; ?>\');$(\'#image\').attr(\'value\', \'\');"><?php echo $text_clear; ?></button>';
+                            xhtml += '<button type="button" class="btn btn-danger btn-sm" onclick="$(this).closest(\'.image\').remove();"><?php echo $text_clear; ?></button>';
                             xhtml += '</div>';
                             $('#deal-img-container').append(xhtml);
                         });
