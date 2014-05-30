@@ -74,13 +74,12 @@
 
                             <td class="text-left">
                                 <?php if ($product['is_coupon']): ?>
-                                should showup only if payment status is order complete!!!!
-                                <a href="#nogo" class="btn btn-primary"><?php echo $button_coupon; ?></button>
-                                <?php elseif ($product['is_collect']): ?>
-<?php echo $text_collect; ?>
-                                <?php else: ?>
-                                    <?php echo $product['shipping_method']['title']; ?>
-                                <?php endif; ?>
+                                    <a href="<?php echo $product['is_coupon']; ?>" class="btn btn-primary"><?php echo $button_coupon; ?></button>
+                                    <?php elseif ($product['is_collect']): ?>
+                                        <?php echo $text_collect; ?>
+                                    <?php else: ?>
+                                        <?php echo $product['shipping_method']['title']; ?>
+                                    <?php endif; ?>
                             </td>
                             <td class="text-right"><?php echo $product['price']; ?></td>
                             <td class="text-right"><?php echo $product['total']; ?></td>
@@ -148,8 +147,8 @@
             <a href="<?php echo $continue; ?>" class="btn btn-primary pull-right"><?php echo $button_continue; ?></a>
 
         </div>
-        
+
     </div>
 
-        <?php echo $content_bottom; ?></div>
-    <?php echo $footer; ?>
+    <?php echo $content_bottom; ?></div>
+<?php echo $footer; ?>

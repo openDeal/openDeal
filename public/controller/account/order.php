@@ -298,7 +298,7 @@ class ControllerAccountOrder extends \Core\Controller {
                 $this->data['products'][] = array(
                     'name' => $product['title'],
                     'option' => $option,
-                    'is_coupon' => $is_coupon,
+                    'is_coupon' => ($is_coupon)? $this->url->link('order/coupon','order_deal_id=' . $product['order_deal_id'], 'SSL') : false,
                     'is_collect' => $is_collect,
                     'shipping_method' => $shipping_method,
                     'quantity' => $product['quantity'],
@@ -407,6 +407,12 @@ class ControllerAccountOrder extends \Core\Controller {
 
             $this->response->setOutput($this->render());
         }
+    }
+    
+    
+    public function coupon(){
+        $order_deal_id = $this->request->get['order_deal_id'];
+        var_dump($order_deal_id);
     }
 
 }
