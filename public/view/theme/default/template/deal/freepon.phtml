@@ -158,7 +158,8 @@
                                                         <div class="address_name">
                                                             <strong onclick="markerTrigger('<?php echo $location['latitude']; ?>,<?php echo $location['longitude']; ?>')"><?php echo $location['address']; ?></strong>
                                                         </div>
-                                                        <abbr title='phone'>P:</abbr>(123) 4567890<br />
+                                                        <?php if($location['phone']): ?>
+                                                        <abbr title='phone'>P:</abbr><?php echo $location['phone']; ?><br /><?php endif; ?>
                                                         <a class="btn btn-sm " href="//maps.google.com/maps?f=d&amp;daddr=<?php echo urlencode($location['address']); ?>" target="_blank">Get directions</a>
                                                     </div>
                                                 <?php endforeach; ?>
