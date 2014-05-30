@@ -16,4 +16,12 @@ $_['text_search']      = 'Search';
 $_['text_information'] = 'Information';
 $_['text_contact']     = 'Contact Us';
 $_['text_newsletter'] = 'Newsletter';
+
+
+$_['text_deals'] = 'Deals';
+$_['text_current_deal'] = 'Current Deals';
+$_['text_future_deal'] = 'Future Deals';
+$_['text_past_deal'] = 'Expired Deals';
+$_['text_freepon'] = 'Free Coupons';
+
 ?>
