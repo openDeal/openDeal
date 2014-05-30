@@ -46,8 +46,9 @@ class ControllerAccountSuccess extends \Core\Controller {
         } else {
             if (isset($this->session->data['redirect'])) {
                 $redirect = $this->session->data['redirect'];
-                        unset($this->session->data['redirect']);
-                $this->redirect(str_replace('&amp;', '&', $redirect));
+                unset($this->session->data['redirect']);
+                //    $this->redirect(str_replace('&amp;', '&', $redirect));
+                $this->data['continue'] = str_replace('&amp;', '&', $redirect);
             } else {
                 $this->data['continue'] = $this->url->link('account/account', '', 'SSL');
             }
