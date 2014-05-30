@@ -414,7 +414,7 @@ class ControllerDealFreepon extends \Core\Controller {
                 }
 
                 $this->data['code'] = $freepon['code'];
-                $this->data['code'] = 'asd4f';
+               // $this->data['code'] = 'asd4f';
                 $this->data['name'] = $freepon['name'];
 
                 $this->data['recipient'] = $this->customer->getFirstname() . ' ' . $this->customer->getLastname();
