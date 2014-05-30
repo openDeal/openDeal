@@ -52,7 +52,7 @@ require_once(DIR_SYSTEM . 'vendor/Rbr/Intergrater.php');]]></add>
     <file path="public/model/checkout/" name="order.php">
         <operation error="log">
             <search position="after"><![CDATA[public function confirm($order_id, $order_status_id, $comment = '', $notify = false) {]]></search>
-            <add><![CDATA[ return \RbrIntergrater::moduleCheckoutOrderConfirm($order_id); ]]></add>
+            <add><![CDATA[ \RbrIntergrater::moduleCheckoutOrderConfirm($order_id); ]]></add>
         </operation>
     </file>
     
