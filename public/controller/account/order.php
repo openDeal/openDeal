@@ -413,6 +413,7 @@ class ControllerAccountOrder extends \Core\Controller {
     public function coupon(){
         $order_deal_id = $this->request->get['order_deal_id'];
         var_dump($order_deal_id);
+        var_dump($this->config->get('config_complete_status_id'));
     }
 
 }
