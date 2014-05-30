@@ -267,6 +267,8 @@ class ControllerAccountRegister extends \Core\Controller {
 
         if (isset($this->request->post['newsletter'])) {
             $this->data['newsletter'] = $this->request->post['newsletter'];
+        }elseif($this->request->server['REQUEST_METHOD'] != 'POST'){
+            $this->data['newsletter'] = '1';
         } else {
             $this->data['newsletter'] = '';
         }
