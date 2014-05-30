@@ -408,6 +408,7 @@ class ControllerDealDeal extends \Core\Controller {
                 $this->cart->add($deal_id, 1, '0', '0');
                 $data['success'] = sprintf($this->language->get('text_success'), $this->url->link('deal/deal', 'deal_id=' . $deal_id), $deal['title'], $this->url->link('checkout/cart'));
                 $data['redirect'] = $this->url->link('checkout/cart');
+                $this->session->data['success'] = $data['success'];
                 $this->redirect($data['redirect']);
             }
 
@@ -421,6 +422,7 @@ class ControllerDealDeal extends \Core\Controller {
                 $this->cart->add($deal_id, 1, '0', '0');
                 $data['success'] = sprintf($this->language->get('text_success'), $this->url->link('deal/deal', 'deal_id=' . $deal_id), $deal['title'], $this->url->link('checkout/cart'));
                 $data['redirect'] = $this->url->link('checkout/cart');
+                $this->session->data['success'] = $data['success'];
                 $this->redirect($data['redirect']);
             }
 
@@ -433,6 +435,7 @@ class ControllerDealDeal extends \Core\Controller {
                 $this->cart->add($deal_id, 1, '0', $ship['deal_shipping_id']);
                 $data['success'] = sprintf($this->language->get('text_success'), $this->url->link('deal/deal', 'deal_id=' . $deal_id), $deal['title'], $this->url->link('checkout/cart'));
                 $data['redirect'] = $this->url->link('checkout/cart');
+                $this->session->data['success'] = $data['success'];
                 $this->redirect($data['redirect']);
             }
 
