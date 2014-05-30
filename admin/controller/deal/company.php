@@ -181,7 +181,7 @@ class ControllerDealCompany extends \Core\Controller {
                 'company_id' => $result['company_id'],
                 'name' => $result['name'],
                 'commission' => $result['commission'],
-                'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
+                'date_added' => date($this->language->get('date_format_short'), $result['date_added']),
                 'selected' => isset($this->request->post['selected']) && in_array($result['user_id'], $this->request->post['selected']),
                 'action' => $action
             );

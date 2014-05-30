@@ -50,9 +50,36 @@ require_once(DIR_SYSTEM . 'vendor/Rbr/Intergrater.php');]]></add>
     </file>
     
     <file path="public\model\checkout\" name="order.php">
-         <operation error="log">
+        <operation error="log">
             <search position="after"><![CDATA[public function confirm($order_id, $order_status_id, $comment = '', $notify = false) {]]></search>
             <add><![CDATA[ return \RbrIntergrater::moduleCheckoutOrderConfirm($order_id); ]]></add>
+        </operation>
+    </file>
+    
+    <file path="admin\controller\deal\" name="company.php">
+        <operation error="log">
+            <search position="after"><![CDATA[public function insert() {]]></search>
+            <add><![CDATA[ \RbrIntergrater::mergeRegionalBusinesses(); 
+$this->session->data['success'] = $this->language->get('text_success');
+
+            $url = '';
+
+            if (isset($this->request->get['sort'])) {
+                $url .= '&sort=' . $this->request->get['sort'];
+            }
+
+            if (isset($this->request->get['order'])) {
+                $url .= '&order=' . $this->request->get['order'];
+            }
+
+            if (isset($this->request->get['page'])) {
+                $url .= '&page=' . $this->request->get['page'];
+            }
+
+            $this->redirect($this->url->link('deal/company', 'token=' . $this->session->data['token'] . $url, 'SSL'));
+                exit;
+
+]]></add>
         </operation>
     </file>
 
