@@ -408,6 +408,7 @@ class ControllerDealDeal extends \Core\Controller {
                 $this->cart->add($deal_id, 1, '0', '0');
                 $data['success'] = sprintf($this->language->get('text_success'), $this->url->link('deal/deal', 'deal_id=' . $deal_id), $deal['title'], $this->url->link('checkout/cart'));
                 $data['redirect'] = $this->url->link('checkout/cart');
+                $this->redirect($data['redirect']);
             }
 
             //Ok here means that we may offer more than one shipping option
@@ -420,6 +421,7 @@ class ControllerDealDeal extends \Core\Controller {
                 $this->cart->add($deal_id, 1, '0', '0');
                 $data['success'] = sprintf($this->language->get('text_success'), $this->url->link('deal/deal', 'deal_id=' . $deal_id), $deal['title'], $this->url->link('checkout/cart'));
                 $data['redirect'] = $this->url->link('checkout/cart');
+                $this->redirect($data['redirect']);
             }
 
             //only one shipping option,no deal options and not collect -- add direct to cart
@@ -431,6 +433,7 @@ class ControllerDealDeal extends \Core\Controller {
                 $this->cart->add($deal_id, 1, '0', $ship['deal_shipping_id']);
                 $data['success'] = sprintf($this->language->get('text_success'), $this->url->link('deal/deal', 'deal_id=' . $deal_id), $deal['title'], $this->url->link('checkout/cart'));
                 $data['redirect'] = $this->url->link('checkout/cart');
+                $this->redirect($data['redirect']);
             }
 
 
