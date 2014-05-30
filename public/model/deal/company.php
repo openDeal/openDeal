@@ -20,14 +20,20 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 class ModelDealCompany extends \Core\Model {
-    
-    public function getCompany($company_id){
-       $query = $this->db->query("Select * from #__company where company_id = " . (int)$company_id);
-       return $query->row;
+
+    public function getCompany($company_id) {
+        $query = $this->db->query("Select * from #__company where company_id = " . (int) $company_id);
+        return $query->row;
     }
-    
-    public function getLocations($company_id){
-        $query = $this->db->query("select * from #__company_location where company_id = " . (int)$company_id);
+
+    public function getLocations($company_id) {
+        $query = $this->db->query("select * from #__company_location where company_id = " . (int) $company_id);
         return $query->rows;
     }
+
+    public function getLocationsFromDealId($deal_id) {
+        $query = $this->db->query("select c.* from #__company_location c inner join #__deal d on d.company_id = c.company_id where d.deal_id = " . (int) $deal_id);
+        return $query->rows;
+    }
+
 }

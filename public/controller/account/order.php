@@ -437,24 +437,59 @@ class ControllerAccountOrder extends \Core\Controller {
                 //OK order product
                 $coupon_info = $this->model_account_order->getOrderCoupon($order_id, $order_deal_id);
                 if ($coupon_info) {
-                    
+                    if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
+                        $server = $this->config->get('config_ssl');
+                    } else {
+                        $server = $this->config->get('config_url');
+                    }
                     $this->data['base'] = $server;
                     $this->data['text_print'] = $this->language->get('text_print');
                     if ($this->config->get('config_logo') && (substr($this->config->get('config_logo'), 0, 4) == "http" || file_exists(DIR_IMAGE . $this->config->get('config_logo')))) {
 
-                    if (substr($this->config->get('config_logo'), 0, 4) == "http") {
-                        $this->data['logo'] = $this->config->get('config_logo');
+                        if (substr($this->config->get('config_logo'), 0, 4) == "http") {
+                            $this->data['logo'] = $this->config->get('config_logo');
+                        } else {
+                            $this->data['logo'] = $server . 'image/' . $this->config->get('config_logo');
+                        }
                     } else {
-                        $this->data['logo'] = $server . 'image/' . $this->config->get('config_logo');
+                        $this->data['logo'] = '';
                     }
-                } else {
-                    $this->data['logo'] = '';
-                }
+
+                    $this->data['code'] = $coupon_info['coupon_code'];
+                    // $this->data['code'] = 'asd4f';
+                    $this->data['name'] = $coupon_info['title'];
+
+                    $this->data['recipient'] = $$order_info['payment_firstname'] . ' ' . $$order_info['payment_lastname'];
+                    $this->data['expires'] = date($this->language->get('date_format_long') . ' ' . $this->language->get('time_format'), strtotime($coupon_info['coupon_expire']));
+
+$this->data['text_recipient'] = $this->language->get('text_recipient');
+                $this->data['text_expires'] = $this->language->get('text_expires');
+                $this->data['text_usage'] = $this->language->get('text_usage');
+                $this->data['text_usage_text'] = $this->language->get('text_usage_text');
+                $this->data['text_scan'] = $this->language->get('text_scan');
+
+
+                $this->data['heading_title'] = $coupon_info['title'];
                 
-                 $this->data['code'] = $coupon_info['coupon_code'];
-               // $this->data['code'] = 'asd4f';
-                $this->data['name'] = $coupon_info['title'];
+                $this->document->setTitle($freepon['name']);
+
+                $PNG_TEMP_DIR = DIR_DOWNLOAD;
+                $PNG_WEB_DIR = 'download/';
+                $filename = $PNG_TEMP_DIR . 'coupon.png';
+                $errorCorrectionLevel = 'L';
+                $matrixPointSize = 6;
+                $qrdat = str_replace("&amp;", "&", $this->url->link('account/order/coupon', 'order_id=' . $order_id . '&order_deal_id=' . $order_deal_id));
+                $filename = $PNG_TEMP_DIR . 'coupon' . md5($qrdat . '|' . $errorCorrectionLevel . '|' . $matrixPointSize) . '.png';
+                QRcode::png($qrdat, $filename, $errorCorrectionLevel, $matrixPointSize, 2);
+                $this->data['qrcode'] = $PNG_WEB_DIR . basename($filename);
+                
+                $this->load->model('deal/company');
+                
+                $locations = $this->model_deal_company->getLocationsFromDealId($coupon_info['deal_id']);
+                $this->data['text_location'] = $this->language->get((count($locations) > 1) ? 'text_locations' : 'text_location');
+                $this->data['locations'] = $locations;
                     
+
                     $this->template = 'account/order_coupon.phtml';
                 } else {
                     $show_error_page = true;
