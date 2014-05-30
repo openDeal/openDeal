@@ -178,7 +178,25 @@ class ControllerSettingLanguage extends \Core\Controller {
         $filename = USE_DIR . 'language/' . $edit_lang . "/" . $edit_file . ".php";
         $current_vars = $this->get_file_vars($filename);
         $current_var_value = $current_vars[$str];
-
+        
+        $current_vars[$str] = str_replace('\"', '"', addslashes(html_entity_decode($strval)));
+        
+        $content = '<?php' . "\n\n";
+        foreach($current_vars as $key => $trans){
+            $content .= '$_[\'' . $key . '\'] = \'' . $trans . '\'' . ";\n";
+        }
+                
+       $handler = fopen($filename, 'w+');
+        
+       if (fwrite($handler, html_entity_decode($content, ENT_QUOTES, "UTF-8"))) {
+            return "success";
+        } else {
+            return "error";
+        };
+        
+        
+        
+/*
         $file_array = file($filename);
 
         for ($i = 0; $i < count($file_array); $i++) {
@@ -204,13 +222,16 @@ class ControllerSettingLanguage extends \Core\Controller {
         $current_entry = '$_[\'' . $str . '\']' . $line_spacing . "= '" . addslashes($current_var_value) . "';";
         $current_entry_backup = '$_[\'' . $str . '\']' . $line_spacing . "= '" . $current_var_value . "';";
         
-
-        
+echo '<pre>';
+        var_dump($current_entry);
+        var_dump($current_entry_backup);
+       var_dump($replacement_entry);
+        exit;
         
         
         $content = implode($file_array);
        
-        $content = str_replace(array($current_entry,$current_entry_backup), $replacement_entry, $content);
+        $content = str_replace($current_entry, $replacement_entry, $content);
         
         $content = str_replace('\"', '"', $content);
 
@@ -220,7 +241,7 @@ class ControllerSettingLanguage extends \Core\Controller {
             return "success";
         } else {
             return "error";
-        };
+        };*/
     }
 
     //Capture all the link files.

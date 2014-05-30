@@ -711,7 +711,8 @@
 
                                         response($.map(json, function(item) {
                                             return {
-                                                label: item.name,
+                                                name: item.name,
+                                                label: item.name + ' - ' + item.location[0].address,
                                                 value: item.company_id
                                             }
                                         }));
@@ -719,7 +720,7 @@
                                 });
                             },
                             select: function(event, ui) {
-                                $('#entry_company').val(ui.item.label);
+                                $('#entry_company').val(ui.item.name);
                                 $('input[name=\'company_id\']').val(ui.item.value);
 
                                 return false;

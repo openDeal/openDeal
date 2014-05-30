@@ -30,6 +30,32 @@ require_once(DIR_SYSTEM . 'vendor/Rbr/Intergrater.php');]]></add>
             <search position="after"><![CDATA[public function getTotalCustomersByEmail($email) {]]></search>
             <add><![CDATA[ return \RbrIntergrater::moduleCustomergetTotalCustomersByEmail($email); ]]></add>
         </operation>
+        <operation error="log">
+            <search position="after"><![CDATA[public function editCustomer($data) {]]></search>
+            <add><![CDATA[ \RbrIntergrater::moduleCustomereditCustomer($data, $this->customer->getId() ); ]]></add>
+        </operation>
+        <operation error="log">
+            <search position="after"><![CDATA[public function editPassword($email, $password) {]]></search>
+            <add><![CDATA[ \RbrIntergrater::moduleCustomereditPassword($email, $password); ]]></add>
+        </operation>
+        <operation error="log">
+            <search position="after"><![CDATA[public function addCustomer($data) {]]></search>
+            <add><![CDATA[ $customer_id = \RbrIntergrater::moduleCustomeraddCustomer($data,$this->registry); 
+/*]]></add>
+        </operation>
+        <operation error="log">
+            <search position="after"><![CDATA[$customer_id = $this->db->getLastId();]]></search>
+            <add><![CDATA[*/ ]]></add>
+        </operation>
     </file>
+    
+    <file path="public\model\checkout\" name="order.php">
+         <operation error="log">
+            <search position="after"><![CDATA[public function confirm($order_id, $order_status_id, $comment = '', $notify = false) {]]></search>
+            <add><![CDATA[ return \RbrIntergrater::moduleCheckoutOrderConfirm($order_id); ]]></add>
+        </operation>
+    </file>
+
+    
 
 </modification>

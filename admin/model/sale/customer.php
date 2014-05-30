@@ -48,8 +48,8 @@ class ModelSaleCustomer extends \Core\Model {
 
     public function deleteCustomer($customer_id) {
         $this->db->query("DELETE FROM #__customer WHERE customer_id = '" . (int) $customer_id . "'");
-        $this->db->query("DELETE FROM #__customer_reward WHERE customer_id = '" . (int) $customer_id . "'");
-        $this->db->query("DELETE FROM #__customer_transaction WHERE customer_id = '" . (int) $customer_id . "'");
+        //$this->db->query("DELETE FROM #__customer_reward WHERE customer_id = '" . (int) $customer_id . "'");
+        //$this->db->query("DELETE FROM #__customer_transaction WHERE customer_id = '" . (int) $customer_id . "'");
         $this->db->query("DELETE FROM #__customer_ip WHERE customer_id = '" . (int) $customer_id . "'");
         $this->db->query("DELETE FROM #__address WHERE customer_id = '" . (int) $customer_id . "'");
     }

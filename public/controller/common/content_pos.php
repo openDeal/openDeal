@@ -32,7 +32,7 @@ abstract class ControllerCommonContentPos extends \Core\Controller {
         }
 
         if ($route == 'information/information' && isset($this->request->get['information_id'])) {
-            $layout_id = $this->model_catalog_information->getInformationLayoutId($this->request->get['information_id']);
+            $layout_id = $this->model_public_information->getInformationLayoutId($this->request->get['information_id']);
         }
 
         if (!$layout_id) {
