@@ -90,6 +90,8 @@ class ModelCheckoutOrder extends \Core\Model {
                     $code = $order_deal_id . generateRandomString(2) . $order_id . generateRandomString(2) . $product['deal_id'];
                     $secret = hash('crc32', strrev($code));
 
+                    //$qe = $this->db->query("select coupon_expiry from #__deal where deal_id = '" . (int)$product['deal_id'] . "'");
+                    
                     $this->db->query("INSERT INTO #__order_coupon SET order_id = '" . (int) $order_id . "', "
                             . "order_deal_id = " . (int) $order_deal_id . ", "
                             . "coupon_code = " . $this->db->quote($code) . ", "
