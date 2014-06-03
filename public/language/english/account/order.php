@@ -33,6 +33,7 @@ $_['text_shipping_method'] = 'Shipping Method:';
 $_['text_status'] = 'Status:';
 $_['text_total'] = 'Total:';
 
+$_['text_error_order_status'] = 'Your Order Is not fully processed yet, Your coupon will be available once the order has been processed';
 
 $_['text_security_code'] = 'Coupon Security Code';
 $_['text_recipient'] = 'Recipient';
