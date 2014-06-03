@@ -522,6 +522,7 @@ class ControllerDealDeal extends \Core\Controller {
 
             $this->template = 'deal/buy.phtml';
         } else {
+            $this->load->language('error/not_found');
             $this->data['breadcrumbs'][] = array(
                 'text' => $this->language->get('text_error'),
                 'href' => $this->url->link('deal/deal', '&deal_id=' . $deal_id),
