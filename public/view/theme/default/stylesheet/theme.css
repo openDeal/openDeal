@@ -548,3 +548,6 @@ background-color: #2fa4e7;
 #module-column-left .panel-body {
     padding:5px;
 }
+.filter-well {
+    max-height: 60px;
+}
