@@ -461,10 +461,10 @@ class ControllerAccountOrder extends \Core\Controller {
                     // $this->data['code'] = 'asd4f';
                     $this->data['name'] = $coupon_info['title'];
 
-                    $this->data['recipient'] = $$order_info['payment_firstname'] . ' ' . $$order_info['payment_lastname'];
+                    $this->data['recipient'] = $order_info['payment_firstname'] . ' ' . $$order_info['payment_lastname'];
                     $this->data['expires'] = date($this->language->get('date_format_long') . ' ' . $this->language->get('time_format'), strtotime($coupon_info['coupon_expire']));
 
-$this->data['text_recipient'] = $this->language->get('text_recipient');
+                $this->data['text_recipient'] = $this->language->get('text_recipient');
                 $this->data['text_expires'] = $this->language->get('text_expires');
                 $this->data['text_usage'] = $this->language->get('text_usage');
                 $this->data['text_usage_text'] = $this->language->get('text_usage_text');
@@ -486,9 +486,15 @@ $this->data['text_recipient'] = $this->language->get('text_recipient');
                 $this->data['qrcode'] = $PNG_WEB_DIR . basename($filename);
                 
                 $this->load->model('deal/company');
+                $this->load->model('deal/deal');
+                
+                $deal = $this->model_deal_deal->getDeal($coupon_info['deal_id']);
+                
+                $company= $this->model_deal_company->getCompany($deal['company_id']);
+                $this->data['text_location'] = $company['name'];
                 
                 $locations = $this->model_deal_company->getLocationsFromDealId($coupon_info['deal_id']);
-                $this->data['text_location'] = $this->language->get((count($locations) > 1) ? 'text_locations' : 'text_location');
+         //       $this->data['text_location'] = $this->language->get((count($locations) > 1) ? 'text_locations' : 'text_location');
                 $this->data['locations'] = $locations;
                     
 
