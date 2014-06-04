@@ -60,6 +60,10 @@
             $('.checkout-content').slideUp('slow');
             $(this).parent().parent().find('.checkout-content').slideDown('slow');
         });
+        $(document.body).on('click', '.checkout-heading button', function() {
+            $('.checkout-content').slideUp('slow');
+            $(this).parent().parent().find('.checkout-content').slideDown('slow');
+        });
 
         $(document.body).on('click', '#button-login', function() {
             $.ajax({
@@ -113,9 +117,9 @@
 
                     $('#payment-address .checkout-content').slideDown('slow');
 
-                    $('.checkout-heading a').remove();
+                    $('.checkout-heading button').remove();
 
-                    $('#checkout .checkout-heading').append('<a class="pull-right"><?php echo $text_modify; ?></a>');
+                    $('#checkout .checkout-heading').append('<button class="pull-right btn btn-link btn-sm"><?php echo $text_modify; ?></button>');
 
                     $('#countryInput').trigger('change');
 
@@ -222,13 +226,13 @@
 
                                         $('#payment-method .checkout-content').slideDown('slow');
 
-                                        $('#checkout .checkout-heading a').remove();
-                                        $('#payment-address .checkout-heading a').remove();
-                                        $('#shipping-address .checkout-heading a').remove();
-                                        $('#payment-method .checkout-heading a').remove();
+                                        $('#checkout .checkout-heading button').remove();
+                                        $('#payment-address .checkout-heading button').remove();
+                                        $('#shipping-address .checkout-heading button').remove();
+                                        $('#payment-method .checkout-heading button').remove();
 
-                                        $('#shipping-address .checkout-heading').append('<a class="pull-right"><?php echo $text_modify; ?></a>');
-                                        $('#payment-address .checkout-heading').append('<a class="pull-right"><?php echo $text_modify; ?></a>');
+                                        $('#shipping-address .checkout-heading').append('<button class="pull-right btn btn-link btn-sm"><?php echo $text_modify; ?></button>');
+                                        $('#payment-address .checkout-heading').append('<button class="pull-right btn btn-link btn-sm"><?php echo $text_modify; ?></button>');
 
                                         $.ajax({
                                             url: 'index.php?route=checkout/shipping_address',
@@ -256,12 +260,12 @@
 
                                         $('#shipping-address .checkout-content').slideDown('slow');
 
-                                        $('#checkout .checkout-heading a').remove();
-                                        $('#payment-address .checkout-heading a').remove();
-                                        $('#shipping-address .checkout-heading a').remove();
-                                        $('#payment-method .checkout-heading a').remove();
+                                        $('#checkout .checkout-heading button').remove();
+                                        $('#payment-address .checkout-heading button').remove();
+                                        $('#shipping-address .checkout-heading button').remove();
+                                        $('#payment-method .checkout-heading button').remove();
 
-                                        $('#payment-address .checkout-heading').append('<a class="pull-right"><?php echo $text_modify; ?></a>');
+                                        $('#payment-address .checkout-heading').append('<button class="pull-right btn btn-link btn-sm"><?php echo $text_modify; ?></button>');
                                     },
                                     error: function(xhr, ajaxOptions, thrownError) {
                                         alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -279,11 +283,11 @@
 
                                     $('#payment-method .checkout-content').slideDown('slow');
 
-                                    $('#checkout .checkout-heading a').remove();
-                                    $('#payment-address .checkout-heading a').remove();
-                                    $('#payment-method .checkout-heading a').remove();
+                                    $('#checkout .checkout-heading button').remove();
+                                    $('#payment-address .checkout-heading button').remove();
+                                    $('#payment-method .checkout-heading button').remove();
 
-                                    $('#payment-address .checkout-heading').append('<a class="pull-right"><?php echo $text_modify; ?></a>');
+                                    $('#payment-address .checkout-heading').append('<button class="pull-right btn btn-link btn-sm"><?php echo $text_modify; ?></button>');
                                 },
                                 error: function(xhr, ajaxOptions, thrownError) {
                                     alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -390,12 +394,12 @@
 
                                     $('#shipping-address .checkout-content').slideDown('slow');
 
-                                    $('#payment-address .checkout-heading a').remove();
-                                    $('#shipping-address .checkout-heading a').remove();
-                                    $('#shipping-method .checkout-heading a').remove();
-                                    $('#payment-method .checkout-heading a').remove();
+                                    $('#payment-address .checkout-heading button').remove();
+                                    $('#shipping-address .checkout-heading button').remove();
+                                    $('#shipping-method .checkout-heading button').remove();
+                                    $('#payment-method .checkout-heading button').remove();
 
-                                    $('#payment-address .checkout-heading').append('<a class="pull-right"><?php echo $text_modify; ?></a>');
+                                    $('#payment-address .checkout-heading').append('<button class="pull-right btn btn-link btn-sm"><?php echo $text_modify; ?></button>');
                                 },
                                 error: function(xhr, ajaxOptions, thrownError) {
                                     alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -412,10 +416,10 @@
 
                                     $('#payment-method .checkout-content').slideDown('slow');
 
-                                    $('#payment-address .checkout-heading a').remove();
-                                    $('#payment-method .checkout-heading a').remove();
+                                    $('#payment-address .checkout-heading button').remove();
+                                    $('#payment-method .checkout-heading button').remove();
 
-                                    $('#payment-address .checkout-heading').append('<a class="pull-right"><?php echo $text_modify; ?></a>');
+                                    $('#payment-address .checkout-heading').append('<button class="pull-right btn btn-link btn-sm"><?php echo $text_modify; ?></button>');
                                 },
                                 error: function(xhr, ajaxOptions, thrownError) {
                                     alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -514,11 +518,11 @@ $(document.body).on('click', '#button-shipping-address', function() {
 
                                 $('#payment-method .checkout-content').slideDown('slow');
 
-                                $('#shipping-address .checkout-heading a').remove();
-                                $('#shipping-method .checkout-heading a').remove();
-                                $('#payment-method .checkout-heading a').remove();
+                                $('#shipping-address .checkout-heading button').remove();
+                                $('#shipping-method .checkout-heading button').remove();
+                                $('#payment-method .checkout-heading button').remove();
 
-                                $('#shipping-address .checkout-heading').append('<a class="pull-right"><?php echo $text_modify; ?></a>');
+                                $('#shipping-address .checkout-heading').append('<button class="pull-right btn btn-link btn-sm"><?php echo $text_modify; ?></button>');
 
                                 $.ajax({
                                     url: 'index.php?route=checkout/shipping_address',
@@ -639,13 +643,13 @@ $(document.body).on('click', '#button-shipping-address', function() {
 
                                         $('#shipping-method .checkout-content').slideDown('slow');
 
-                                        $('#payment-address .checkout-heading a').remove();
-                                        $('#shipping-address .checkout-heading a').remove();
-                                        $('#shipping-method .checkout-heading a').remove();
-                                        $('#payment-method .checkout-heading a').remove();
+                                        $('#payment-address .checkout-heading button').remove();
+                                        $('#shipping-address .checkout-heading button').remove();
+                                        $('#shipping-method .checkout-heading button').remove();
+                                        $('#payment-method .checkout-heading button').remove();
 
-                                        $('#payment-address .checkout-heading').append('<a class="pull-right"><?php echo $text_modify; ?></a>');
-                                        $('#shipping-address .checkout-heading').append('<a class="pull-right"><?php echo $text_modify; ?></a>');
+                                        $('#payment-address .checkout-heading').append('<button class="pull-right btn btn-link btn-sm"><?php echo $text_modify; ?></button>');
+                                        $('#shipping-address .checkout-heading').append('<button class="pull-right btn btn-link btn-sm"><?php echo $text_modify; ?></button>');
 
                                         $.ajax({
                                             url: 'index.php?route=checkout/guest_shipping',
@@ -673,12 +677,12 @@ $(document.body).on('click', '#button-shipping-address', function() {
 
                                         $('#shipping-address .checkout-content').slideDown('slow');
 
-                                        $('#payment-address .checkout-heading a').remove();
-                                        $('#shipping-address .checkout-heading a').remove();
-                                        $('#shipping-method .checkout-heading a').remove();
-                                        $('#payment-method .checkout-heading a').remove();
+                                        $('#payment-address .checkout-heading button').remove();
+                                        $('#shipping-address .checkout-heading button').remove();
+                                        $('#shipping-method .checkout-heading button').remove();
+                                        $('#payment-method .checkout-heading button').remove();
 
-                                        $('#payment-address .checkout-heading').append('<a class="pull-right"><?php echo $text_modify; ?></a>');
+                                        $('#payment-address .checkout-heading').append('<button class="pull-right btn btn-link btn-sm"><?php echo $text_modify; ?></button>');
                                     },
                                     error: function(xhr, ajaxOptions, thrownError) {
                                         alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -696,10 +700,10 @@ $(document.body).on('click', '#button-shipping-address', function() {
 
                                     $('#payment-method .checkout-content').slideDown('slow');
 
-                                    $('#payment-address .checkout-heading a').remove();
-                                    $('#payment-method .checkout-heading a').remove();
+                                    $('#payment-address .checkout-heading button').remove();
+                                    $('#payment-method .checkout-heading button').remove();
 
-                                    $('#payment-address .checkout-heading').append('<a class="pull-right"><?php echo $text_modify; ?></a>');
+                                    $('#payment-address .checkout-heading').append('<button class="pull-right btn btn-link btn-sm"><?php echo $text_modify; ?></button>');
                                 },
                                 error: function(xhr, ajaxOptions, thrownError) {
                                     alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -779,11 +783,11 @@ $(document.body).on('click', '#button-shipping-address', function() {
 
                                 $('#shipping-method .checkout-content').slideDown('slow');
 
-                                $('#shipping-address .checkout-heading a').remove();
-                                $('#shipping-method .checkout-heading a').remove();
-                                $('#payment-method .checkout-heading a').remove();
+                                $('#shipping-address .checkout-heading button').remove();
+                                $('#shipping-method .checkout-heading button').remove();
+                                $('#payment-method .checkout-heading button').remove();
 
-                                $('#shipping-address .checkout-heading').append('<a class="pull-right"><?php echo $text_modify; ?></a>');
+                                $('#shipping-address .checkout-heading').append('<button class="pull-right btn btn-link btn-sm"><?php echo $text_modify; ?></button>');
                             },
                             error: function(xhr, ajaxOptions, thrownError) {
                                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -833,10 +837,10 @@ $(document.body).on('click', '#button-shipping-address', function() {
 
                                 $('#payment-method .checkout-content').slideDown('slow');
 
-                                $('#shipping-method .checkout-heading a').remove();
-                                $('#payment-method .checkout-heading a').remove();
+                                $('#shipping-method .checkout-heading button').remove();
+                                $('#payment-method .checkout-heading button').remove();
 
-                                $('#shipping-method .checkout-heading').append('<a class="pull-right"><?php echo $text_modify; ?></a>');
+                                $('#shipping-method .checkout-heading').append('<button class="pull-right btn btn-link btn-sm"><?php echo $text_modify; ?></button>');
                             },
                             error: function(xhr, ajaxOptions, thrownError) {
                                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -886,9 +890,9 @@ $(document.body).on('click', '#button-shipping-address', function() {
 
                                 $('#confirm .checkout-content').slideDown('slow');
 
-                                $('#payment-method .checkout-heading a').remove();
+                                $('#payment-method .checkout-heading button').remove();
 
-                                $('#payment-method .checkout-heading').append('<a class="pull-right"<?php echo $text_modify; ?></a>');
+                                $('#payment-method .checkout-heading').append('<button class="pull-right btn btn-link btn-sm"><?php echo $text_modify; ?></button>');
                             },
                             error: function(xhr, ajaxOptions, thrownError) {
                                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
