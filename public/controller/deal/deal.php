@@ -189,7 +189,7 @@ class ControllerDealDeal extends \Core\Controller {
             $limit = $this->config->get('config_catalog_limit');
         }
 
-        $data['start'] = $page;
+        $data['start'] = ($page - 1) * $limit;
         $data['limit'] = $limit;
         $data['sort'] = $sort;
         $data['order'] = $order;
