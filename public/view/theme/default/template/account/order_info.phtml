@@ -13,8 +13,8 @@
         <h1><?php echo $heading_title; ?></h1>
 
         <div class="content">
-            <div class="row">
-                <div class="col-md-12">
+            <div class="clearfix">
+                <div >
                     <legend><?php echo $text_order_detail; ?>
                         <span class="pull-right"><?php if ($invoice_no) { ?>
                                 <b><?php echo $text_invoice_no; ?></b> <?php echo $invoice_no; ?>
@@ -22,7 +22,7 @@
                     </legend>
                 </div>
             </div>
-            <div class="row">
+            <div class="clearfix">
                 <div class="col-md-4">
                     <b><?php echo $text_order_id; ?></b> #<?php echo $order_id; ?>
                 </div>
@@ -36,7 +36,7 @@
                 </div>
             </div>
             <hr />
-            <div class="row">
+            <div class="clearfix">
                 <div class="col-md-6">
                     <legend><?php echo $text_payment_address; ?></legend>
 
