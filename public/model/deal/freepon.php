@@ -77,7 +77,7 @@ class ModelDealFreepon extends \Core\Model {
             }
 
             if (!isset($data['limit']) || $data['limit'] < 1) {
-                $data['limit'] = 20;
+                $data['limit'] = $this->config->get('config_catalog_limit');
             }
 
             $sql .= " LIMIT " . (int) $data['start'] . "," . (int) $data['limit'];
@@ -140,7 +140,9 @@ class ModelDealFreepon extends \Core\Model {
     }
 
     public function getTotalFreepons($data) {
-        $sql = "Select count(f.freepon_id) as total from #__freepon f inner join #__freepon_to_store f2s on f.freepon_id = f2s.freepon_id";
+        //$sql = "Select count(f.freepon_id) as total from #__freepon f inner join #__freepon_to_store f2s on f.freepon_id = f2s.freepon_id";
+       
+         $sql = "Select count(f.freepon_id) as total from #__freepon f inner join #__freepon_to_store f2s on f.freepon_id = f2s.freepon_id";
         $where = " Where f2s.store_id = '" . (int) $this->config->get('store_id') . "' and f.status = '1' and f.begin_time <= '" . time() . "' "
                 . "and f.end_time > '" . time() . "' ";
 
@@ -162,6 +164,7 @@ class ModelDealFreepon extends \Core\Model {
         }
 
         $sql .= $where;
+        
         $query = $this->db->query($sql);
         return $query->row['total'];
     }
