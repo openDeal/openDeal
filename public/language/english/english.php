@@ -69,3 +69,4 @@ $_['button_back'] = 'Back';
 
 $_['text_choose_option']  = 'Select Deal Option';
 $_['text_choose_shipping'] = 'Select Delivery Method';
+$_['text_collect'] = 'Collect From Supplier';
