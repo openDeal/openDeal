@@ -63,7 +63,7 @@ class City {
             $this->set($this->request->cookie['city_id']);
         } else {
 
-            if ($this->config->get('config_city_id')) {
+            if ($this->config->get('config_city_id') && (array_key_exists($this->request->cookie['city_id'], $this->cities))) {
                 $this->set($this->config->get('config_city_id'));
             } else {
                 $geo = new Geoplugin(get_client_ip());
@@ -113,7 +113,7 @@ class City {
      */
     public function returnClosest($latitude, $longitude) {
         $db = $this->registry->get('db');
-        $query = sprintf("SELECT c.*, ( 3959 * acos( cos( radians('%s') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( latitude ) ) ) ) AS distance FROM #__city c inner join #__city_to_store cs on c.city_id = cs.city_id where cs.store_id = %d ORDER BY distance LIMIT 1", $db->escape($latitude), $db->escape($longitude), $db->escape($latitude), $this->registry->get('config')->get('config_store_id'));
+        $query = sprintf("SELECT c.*, ( 3959 * acos( cos( radians('%s') ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians('%s') ) + sin( radians('%s') ) * sin( radians( latitude ) ) ) ) AS distance FROM #__city c inner join #__city_to_store cs on c.city_id = cs.city_id where cs.store_id = %d and c.status='1' ORDER BY distance LIMIT 1", $db->escape($latitude), $db->escape($longitude), $db->escape($latitude), $this->registry->get('config')->get('config_store_id'));
         $result = $db->query($query);
         return $result->row;
     }
