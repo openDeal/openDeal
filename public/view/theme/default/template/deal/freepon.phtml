@@ -191,7 +191,7 @@
         addOnready(function()
         {
             $('#deal_countdown').countdown({
-                timezone: 0,
+                timezone: <?php echo ((date('Z') / 3600) > 0)? '+':''; echo (date('Z') / 3600);?>,
                 until: +<?php echo $freepon['time_diff'];
             ?>,
                 expiryUrl: '<?php echo $this->url->link("deal/freepon"); ?>'

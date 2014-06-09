@@ -290,9 +290,13 @@
 <script type="text/javascript">
     addOnready(function()
     {
+
 <?php if ($deal['state'] == ModelDealDeal::DEAL_FUTURE): ?>
+
+
             $('#deal_countdown').countdown({
-                timezone: 0,
+                timezone: <?php echo ((date('Z') / 3600) > 0) ? '+' : '';
+    echo (date('Z') / 3600); ?>,
                 until: +<?php echo $deal['begin_time'] - time();
     ?>,
                 expiryUrl: '<?php echo $this->url->link("deal/deal", array("deal_id" => $deal['deal_id'])); ?>'
@@ -300,7 +304,8 @@
             $('#deal_countdown').countdown($.countdown.regionalOptions['<?php echo $lang; ?>']);
 <?php else: ?>
             $('#deal_countdown').countdown({
-                timezone: 0,
+                timezone: <?php echo ((date('Z') / 3600) > 0) ? '+' : '';
+    echo (date('Z') / 3600); ?>,
                 until: +<?php echo $deal['time_diff'];
     ?>,
                 expiryUrl: '<?php echo $this->url->link("deal/deal", array("deal_id" => $deal['deal_id'])); ?>'

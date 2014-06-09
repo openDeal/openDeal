@@ -148,7 +148,7 @@ foreach ($query->rows as $setting) {
         $config->set($setting['key'], unserialize($setting['value']));
     }
 }
-
+ 
 if ($config->get('config_gttimezone') != '') {
     date_default_timezone_set($config->get('config_gttimezone'));
 }

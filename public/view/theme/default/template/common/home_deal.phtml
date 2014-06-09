@@ -298,7 +298,7 @@
                                                 addOnready(function()
                                                 {
                                                     $('#deal_countdown_<?php echo $deal['deal_id']; ?>').countdown({
-                                                        timezone: 0,
+                                                        timezone: <?php echo ((date('Z') / 3600) > 0)? '+':''; echo (date('Z') / 3600);?>,
                                                         until: +<?php echo $deal['time_diff']; ?>
 
                                                     });
@@ -331,7 +331,7 @@
  * @todo - Better handling of the expiry time functionality
  */ ?>
             $('#deal_countdown').countdown({
-                timezone: 0,
+               timezone: <?php echo ((date('Z') / 3600) > 0)? '+':''; echo (date('Z') / 3600);?>,
                 until: +<?php echo $deal['time_diff'];
 ?>,
                 expiryUrl: '<?php echo $this->url->link("deal/deal", array("deal_id" => $deal['deal_id'])); ?>'

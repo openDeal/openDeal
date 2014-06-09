@@ -30,7 +30,7 @@
                                     addOnready(function()
                                     {
                                         $('#deal_countdown_<?php echo $deal['deal_id']; ?>').countdown({
-                                            timezone: 0,
+                                            timezone: <?php echo ((date('Z') / 3600) > 0)? '+':''; echo (date('Z') / 3600);?>,
                                             until: +<?php echo $deal['time_diff']; ?>
 
                                         });
