@@ -55,6 +55,19 @@
 
             @media print { 
                 .noprint{display:none;}
+                #mright {
+                    width:40%;
+                    float:right !important;
+                }
+                #mleft {
+                    width:55%;
+                    float: left !important;
+                }
+                
+                 #logo,#welcome {
+                    width: 50%;
+                    float: left;
+                }
             }
             .secret-code {
                 text-align: right;
@@ -71,8 +84,8 @@
             <div id="econ" class="container-fluid">
                 <!--top -->
                 <div id="etop" class="row">
-                    <div id="logo" class="col-md-8"><img src="<?php echo $logo; ?>" /></div>
-                    <div id="welcome" class="col-md-4"># <?php echo $code; ?> </div>
+                    <div id="logo" class="col-md-6"><img src="<?php echo $logo; ?>" /></div>
+                    <div id="welcome" class="col-md-6"># <?php echo $code; ?> </div>
                 </div>
                 <!--endtop -->
                 <div id="teamtitle"><span><?php echo $name; ?></span></div>
@@ -116,7 +129,8 @@
                     <h3><?php echo $text_location; ?></h3>
                     <ul id="server" class="list-unstyled">
                         <?php foreach ($locations as $location): ?>
-                            <li><?php echo $location['address']; ?></li>
+                            <li><?php echo $location['address']; ?> <?php echo ($location['phone'])?' <br /> Tel: ' . $location['phone']: ''; ?></li>
+                
                         <?php endforeach; ?></ul>
                 </div>
             </div>

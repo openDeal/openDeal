@@ -53,8 +53,22 @@
             #notice ul li{ line-height:26px;}
             #server{ background-color:#fff; min-height:20px; font-size:14px; color:#008fd5; margin-top:20px; line-height:20px; text-align:center; padding:10px;border-radius:10px;font-weight: bold;}
 
+            #logo {margin-bottom: 15px;}
+            
             @media print { 
                 .noprint{display:none;}
+                #mright {
+                    width:40%;
+                    float:right !important;
+                }
+                #mleft {
+                    width:55%;
+                    float: left !important;
+                }
+                #logo,#welcome {
+                    width: 50%;
+                    float: left;
+                }
             }
         </style>
     </head>
@@ -64,8 +78,8 @@
             <div id="econ" class="container-fluid">
                 <!--top -->
                 <div id="etop" class="row">
-                    <div id="logo" class="col-md-8"><img src="<?php echo $logo; ?>" /></div>
-                    <div id="welcome" class="col-md-4"># <?php echo $code; ?> </div>
+                    <div id="logo" class="col-md-6"><img src="<?php echo $logo; ?>" /></div>
+                    <div id="welcome" class="col-md-6"># <?php echo $code; ?> </div>
                 </div>
                 <!--endtop -->
                 <div id="teamtitle"><span><?php echo $name; ?></span></div>
@@ -106,7 +120,7 @@
                     <h3><?php echo $text_location; ?></h3>
                     <ul id="server" class="list-unstyled">
                         <?php foreach ($locations as $location): ?>
-                            <li><?php echo $location['address']; ?></li>
+                            <li><?php echo $location['address']; ?> <?php echo ($location['phone'])?' <br /> Tel: ' . $location['phone']: ''; ?></li>
                         <?php endforeach; ?></ul>
                 </div>
             </div>

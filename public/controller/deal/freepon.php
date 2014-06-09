@@ -444,7 +444,9 @@ class ControllerDealFreepon extends \Core\Controller {
 
                 $this->load->model('deal/company');
                 $locations = $this->model_deal_company->getLocations($freepon['company_id']);
-                $this->data['text_location'] = $this->language->get((count($locations) > 1) ? 'text_locations' : 'text_location');
+                $company = $this->model_deal_company->getCompany($freepon['company_id']);
+            /*    $this->data['text_location'] = $this->language->get((count($locations) > 1) ? 'text_locations' : 'text_location');*/
+                $this->data['text_location'] = $company['name'];
                 $this->data['locations'] = $locations;
 
                 $this->response->setOutput($this->render());
