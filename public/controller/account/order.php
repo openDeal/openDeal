@@ -467,7 +467,7 @@ class ControllerAccountOrder extends \Core\Controller {
                 $this->data['text_recipient'] = $this->language->get('text_recipient');
                 $this->data['text_expires'] = $this->language->get('text_expires');
                 $this->data['text_usage'] = $this->language->get('text_usage');
-                $this->data['text_usage_text'] = $this->language->get('text_usage_text');
+                $this->data['text_usage_text'] = $coupon_info['usage'] ? nl2br($coupon_info['usage']) : $this->language->get('text_usage_text');
                 $this->data['text_scan'] = $this->language->get('text_scan');
 
 

@@ -31,6 +31,7 @@ $_['entry_company'] = 'Company (autocomplete)';
 $_['entry_category'] = 'Categories (autocomplete)';
 $_['entry_keyword'] = 'SEO Keyword';
 $_['entry_city'] = 'Cities (autocomplete)';
+$_['entry_usage'] = 'Coupon Usage Text';
 
 $_['tab_link'] = "Link";
 $_['entry_image'] = "Images";

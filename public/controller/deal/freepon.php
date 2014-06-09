@@ -360,6 +360,7 @@ class ControllerDealFreepon extends \Core\Controller {
 
         $this->load->model('deal/freepon');
         $freepon = $this->model_deal_freepon->getFreepon($freepon_id);
+    
         if ($freepon) {
 
 
@@ -416,6 +417,8 @@ class ControllerDealFreepon extends \Core\Controller {
                 $this->data['code'] = $freepon['code'];
                // $this->data['code'] = 'asd4f';
                 $this->data['name'] = $freepon['name'];
+                
+                
 
                 $this->data['recipient'] = $this->customer->getFirstname() . ' ' . $this->customer->getLastname();
                 $this->data['expires'] = date($this->language->get('date_format_long') . ' ' . $this->language->get('time_format'), $freepon['end_time']);
@@ -424,7 +427,7 @@ class ControllerDealFreepon extends \Core\Controller {
                 $this->data['text_recipient'] = $this->language->get('text_recipient');
                 $this->data['text_expires'] = $this->language->get('text_expires');
                 $this->data['text_usage'] = $this->language->get('text_usage');
-                $this->data['text_usage_text'] = $this->language->get('text_usage_text');
+                $this->data['text_usage_text'] = ($freepon['usage'])?nl2br($freepon['usage']):$this->language->get('text_usage_text');
                 $this->data['text_scan'] = $this->language->get('text_scan');
 
 

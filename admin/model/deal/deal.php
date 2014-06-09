@@ -159,6 +159,7 @@ class ModelDealDeal extends \Core\Model {
                 'meta_keyword' => $result['meta_keyword'],
                 'meta_description' => $result['meta_description'],
                 'details' => $result['details'],
+                'usage' => $result['usage'],
                 'introduction' => $result['introduction'],
                 'highlights' => $result['highlights'],
                 'conditions' => $result['conditions'],
@@ -211,6 +212,7 @@ class ModelDealDeal extends \Core\Model {
                         . " highlights = " . $this->db->quote($description['highlights']) . ", "
                         . " conditions = " . $this->db->quote($description['conditions']) . ", "
                         . " details = " . $this->db->quote($description['details']) . ", "
+                         . " `usage` = " . $this->db->quote($description['usage']) . ", "
                         . " meta_keyword = " . $this->db->quote($description['meta_keyword']) . ", "
                         . " meta_description = " . $this->db->quote($description['meta_description']));
             }
@@ -315,6 +317,7 @@ class ModelDealDeal extends \Core\Model {
                         . " highlights = " . $this->db->quote($description['highlights']) . ", "
                         . " conditions = " . $this->db->quote($description['conditions']) . ", "
                         . " details = " . $this->db->quote($description['details']) . ", "
+                         . " `usage` = " . $this->db->quote($description['usage']) . ", "
                         . " meta_keyword = " . $this->db->quote($description['meta_keyword']) . ", "
                         . " meta_description = " . $this->db->quote($description['meta_description']));
             }

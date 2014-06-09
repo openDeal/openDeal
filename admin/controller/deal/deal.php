@@ -325,6 +325,7 @@ class ControllerDealDeal extends \Core\Controller {
         $this->data['entry_is_coupon'] = $this->language->get('entry_is_coupon');
         $this->data['entry_coupon_expiry'] = $this->language->get('entry_coupon_expiry');
         $this->data['entry_can_collect'] = $this->language->get('entry_can_collect');
+        $this->data['entry_usage'] = $this->language->get('entry_usage');
 
 
         $this->data['entry_shipping'] = $this->language->get('entry_shipping');

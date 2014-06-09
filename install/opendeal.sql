@@ -884,6 +884,7 @@ CREATE TABLE IF NOT EXISTS `od_deal_description` (
   `highlights` text NOT NULL,
   `conditions` text NOT NULL,
   `details` text NOT NULL,
+ `usage` TEXT NOT NULL,
   `collect_instructions` text NOT NULL,
   `meta_keyword` varchar(255) NOT NULL,
   `meta_description` varchar(255) NOT NULL,
@@ -1133,6 +1134,7 @@ CREATE TABLE IF NOT EXISTS `od_freepon_description` (
   `language_id` int(11) NOT NULL,
   `name` varchar(250) NOT NULL,
   `description` text NOT NULL,
+  `usage` TEXT NOT NULL,
   `meta_keyword` varchar(255) NOT NULL,
   `meta_description` varchar(255) NOT NULL,
   PRIMARY KEY (`freepon_id`,`language_id`)
@@ -1565,6 +1567,7 @@ CREATE TABLE IF NOT EXISTS `od_order_coupon` (
   `order_deal_id` int(11) NOT NULL,
   `coupon_code` varchar(25) NOT NULL,
   `coupon_secret` varchar(10) NOT NULL,
+  `usage` TEXT NOT NULL,
   `coupon_expire` datetime NOT NULL,
   `coupon_redeemed` int(1) NOT NULL DEFAULT '0',
   `coupon_active` int(1) NOT NULL DEFAULT '0',

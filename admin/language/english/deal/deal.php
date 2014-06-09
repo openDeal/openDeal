@@ -29,7 +29,7 @@ $_['entry_details'] = 'Deal Information';
 $_['entry_meta_keyword'] = 'Meta Tag Keywords:';
 $_['entry_meta_description'] = 'Meta Tag Description:';
 $_['entry_option'] = 'Product Options';
-
+$_['entry_usage'] = 'Coupon Usage Text';
 $_['entry_option_title'] = 'Option Title';
 
 $_['entry_market_price'] = 'Normal Price';

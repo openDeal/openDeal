@@ -308,6 +308,7 @@ class ControllerDealFreepon extends \Core\Controller {
         $this->data['entry_store'] = $this->language->get('entry_store');
         $this->data['entry_download'] = $this->language->get('entry_download');
         $this->data['entry_code'] = $this->language->get('entry_code');
+        $this->data['entry_usage'] = $this->language->get('entry_usage');
 
         $this->data['entry_deal_times'] = $this->language->get('entry_deal_times');
 

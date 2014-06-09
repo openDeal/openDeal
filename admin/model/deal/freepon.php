@@ -82,6 +82,7 @@ class ModelDealFreepon extends \Core\Model {
                         . " language_id = " . (int) $language_id . ", "
                         . " name = " . $this->db->quote($description['name']) . ", "
                         . " description = " . $this->db->quote($description['description']) . ", "
+                        . " `usage` = " . $this->db->quote($description['usage']) . ", "
                         . " meta_keyword = " . $this->db->quote($description['meta_keyword']) . ", "
                         . " meta_description = " . $this->db->quote($description['meta_description']));
             }
@@ -154,6 +155,7 @@ class ModelDealFreepon extends \Core\Model {
                         . " language_id = " . (int) $language_id . ", "
                         . " name = " . $this->db->quote($description['name']) . ", "
                         . " description = " . $this->db->quote($description['description']) . ", "
+                        . " `usage` = " . $this->db->quote($description['usage']) . ", "
                         . " meta_keyword = " . $this->db->quote($description['meta_keyword']) . ", "
                         . " meta_description = " . $this->db->quote($description['meta_description']));
             }
@@ -231,6 +233,7 @@ class ModelDealFreepon extends \Core\Model {
                 'meta_keyword' => $result['meta_keyword'],
                 'meta_description' => $result['meta_description'],
                 'description' => $result['description'],
+                'usage' => $result['usage']
             );
         }
 

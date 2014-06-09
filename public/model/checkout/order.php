@@ -90,12 +90,13 @@ class ModelCheckoutOrder extends \Core\Model {
                     $code = $order_deal_id . generateRandomString(2) . $order_id . generateRandomString(2) . $product['deal_id'];
                     $secret = hash('crc32', strrev($code));
 
-                    //$qe = $this->db->query("select coupon_expiry from #__deal where deal_id = '" . (int)$product['deal_id'] . "'");
-                    
+                    $qe = $this->db->query("select `usage` from #__deal_description where deal_id = '" . (int) $product['deal_id'] . "' and language_id = '" . (int) $data['language_id'] . "'");
+
                     $this->db->query("INSERT INTO #__order_coupon SET order_id = '" . (int) $order_id . "', "
                             . "order_deal_id = " . (int) $order_deal_id . ", "
                             . "coupon_code = " . $this->db->quote($code) . ", "
                             . "coupon_secret = " . $this->db->quote($secret) . ", "
+                            . "`usage` = " . $this->db->quote($qe->row['usage']) . ", "
                             . "coupon_expire = '" . DATE("Y-m-d H:i:s", $product['coupon_expiry']) . "', "
                             . "coupon_redeemed = '0', coupon_active = '0'");
                 }
@@ -242,7 +243,7 @@ class ModelCheckoutOrder extends \Core\Model {
 
     public function confirm($order_id, $order_status_id, $comment = '', $notify = false) {
         $order_info = $this->getOrder($order_id);
-  
+
         if ($order_info && !$order_info['order_status_id']) {
             // Fraud Detection
             if ($this->config->get('config_fraud_detection')) {
@@ -277,8 +278,8 @@ class ModelCheckoutOrder extends \Core\Model {
             if ($status) {
                 $order_status_id = $this->config->get('config_order_status_id');
             }
-     
-            
+
+
             $this->db->query("UPDATE `#__order` SET order_status_id = '" . (int) $order_status_id . "', date_modified = NOW() WHERE order_id = '" . (int) $order_id . "'");
 
             $this->db->query("INSERT INTO #__order_history SET order_id = '" . (int) $order_id . "', order_status_id = '" . (int) $order_status_id . "', notify = '1', comment = '" . $this->db->escape(($comment && $notify) ? $comment : '') . "', date_added = NOW()");
@@ -296,7 +297,6 @@ class ModelCheckoutOrder extends \Core\Model {
                 if ($test->row['tip_time'] == 0 && ($test->row['tip_point'] <= $test->row['tip_point'])) {
 
                     $this->db->query("UPDATE #__deal SET tip_time = '" . time() . "' WHERE deal_id = '" . (int) $order_product['deal_id'] . "' ");
-                    
                 }
             }
 
@@ -325,8 +325,7 @@ class ModelCheckoutOrder extends \Core\Model {
                 $this->model_checkout_voucher->confirm($order_id);
             }
 
-          //COUPON CONFIRM SND SEND OUT !!!!
-
+            //COUPON CONFIRM SND SEND OUT !!!!
             // Order Totals			
             $order_total_query = $this->db->query("SELECT * FROM `#__order_total` WHERE order_id = '" . (int) $order_id . "' ORDER BY sort_order ASC");
 
@@ -342,8 +341,8 @@ class ModelCheckoutOrder extends \Core\Model {
             $language = new Language($order_info['language_directory']);
             $language->load($order_info['language_filename']);
             $language->load('mail/order');
-            
-         
+
+
             $order_status_query = $this->db->query("SELECT * FROM #__order_status WHERE order_status_id = '" . (int) $order_status_id . "' AND language_id = '" . (int) $order_info['language_id'] . "'");
 
             if ($order_status_query->num_rows) {
@@ -512,9 +511,9 @@ class ModelCheckoutOrder extends \Core\Model {
             }
 
             $template->data['totals'] = $order_total_query->rows;
-            
+
             $html = $template->fetch('mail/order.phtml');
-            
+
 
 
             $text = sprintf($language->get('text_new_greeting'), html_entity_decode($order_info['firstname'], ENT_QUOTES, 'UTF-8'), html_entity_decode($order_info['store_name'], ENT_QUOTES, 'UTF-8')) . "\n\n";
@@ -532,14 +531,13 @@ class ModelCheckoutOrder extends \Core\Model {
 
             foreach ($order_product_query->rows as $product) {
                 $prod_ship = $language->get('text_collect');
-                if($product['shipping']){
+                if ($product['shipping']) {
                     $prod_ship = $product['shipping']['title'];
                 }
-                $text .= $product['quantity'] . 'x ' . $product['title'] 
-                        . "\n - " . $language->get('text_option') . ' : ' . $product['option'] 
+                $text .= $product['quantity'] . 'x ' . $product['title']
+                        . "\n - " . $language->get('text_option') . ' : ' . $product['option']
                         . "\n - " . $language->get("text_delivery") . ' : ' . $prod_ship
-                        . "\n - ". $language->get('text_product_total') . ' : ' .  html_entity_decode($this->currency->format($product['total'], $order_info['currency_code'], $order_info['currency_value']), ENT_NOQUOTES, 'UTF-8') 
-                        
+                        . "\n - " . $language->get('text_product_total') . ' : ' . html_entity_decode($this->currency->format($product['total'], $order_info['currency_code'], $order_info['currency_value']), ENT_NOQUOTES, 'UTF-8')
                         . "\n \n";
             }
 
@@ -562,9 +560,9 @@ class ModelCheckoutOrder extends \Core\Model {
                 $text .= $order_info['store_url'] . 'index.php?route=account/order/info&order_id=' . $order_id . "\n\n";
             }
 
-           
 
- 
+
+
             // Comment
             if ($order_info['comment']) {
                 $text .= $language->get('text_new_comment') . "\n\n";
@@ -572,7 +570,7 @@ class ModelCheckoutOrder extends \Core\Model {
             }
 
             $text .= $language->get('text_new_footer') . "\n\n";
-            
+
 
             $mail = new Mail();
             $mail->protocol = $this->config->get('config_mail_protocol');
@@ -597,8 +595,8 @@ class ModelCheckoutOrder extends \Core\Model {
                 $subject = sprintf($language->get('text_new_subject'), html_entity_decode($this->config->get('config_name'), ENT_QUOTES, 'UTF-8'), $order_id);
 
                 // Text 
-               /* $text = $language->get('text_new_received') . "\n\n" . $text;*/
-                
+                /* $text = $language->get('text_new_received') . "\n\n" . $text; */
+
 
                 $mail = new Mail();
                 $mail->protocol = $this->config->get('config_mail_protocol');
@@ -725,18 +723,16 @@ class ModelCheckoutOrder extends \Core\Model {
             }
         }
     }
-    
-    public function sendOrderCoupons($order_id){
+
+    public function sendOrderCoupons($order_id) {
         //Ok do we have any coupons!!!
         //Need mail tempalte + text template + send with a qr code to the coupon printable ?
     }
 
-    
-    public function tipDeal($deal_id){
+    public function tipDeal($deal_id) {
         //Send email to all members that the deal is now tipped
-        
     }
-    
+
 }
 
 ?>

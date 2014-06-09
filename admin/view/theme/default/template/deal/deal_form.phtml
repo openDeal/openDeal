@@ -95,6 +95,13 @@
                                             <textarea id="deal_description_<?php echo $i; ?>_details" class="form-control" name="deal_description[<?php echo $language['language_id']; ?>][details]" cols="40" rows="5"><?php echo isset($deal_description[$language['language_id']]) ? $deal_description[$language['language_id']]['details'] : ''; ?></textarea>
                                         </div>
                                     </div>
+                                    
+                                    <div class="form-group">
+                                        <label for=deal_description_<?php echo $i; ?>_usage" class="col-sm-2 control-label"><?php echo $entry_usage; ?></label>
+                                        <div class="col-sm-9">
+                                            <textarea id="deal_description_<?php echo $i; ?>_usage" class="form-control" name="deal_description[<?php echo $language['language_id']; ?>][usage]" cols="40" rows="5"><?php echo isset($deal_description[$language['language_id']]) ? $deal_description[$language['language_id']]['usage'] : ''; ?></textarea>
+                                        </div>
+                                    </div>
 
                                     <div class="form-group">
                                         <label for="deal_description_<?php echo $i; ?>_meta_keyw" class="col-sm-2 control-label"><?php echo $entry_meta_keyword; ?></label>
