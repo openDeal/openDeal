@@ -68,7 +68,7 @@ class ControllerDealDeal extends \Core\Controller {
             $deal['details'] = html_entity_decode($deal['details'], ENT_QUOTES, 'UTF-8');
             $this->data['deal'] = $deal;
             $this->data['no_image'] = $this->model_tool_image->resize('no_image.jpg', 715, 480);
-
+$this->data['text_website'] = $this->language->get('text_website');
 
             $this->document->addMeta('og:title', '<meta property="og:title" content="' . htmlspecialchars($deal['title'], ENT_QUOTES) . '" />');
             $this->document->addMeta('og:description', '<meta property="og:description" content="' . htmlspecialchars($deal['introduction'], ENT_QUOTES) . '" />');
@@ -425,7 +425,7 @@ class ControllerDealDeal extends \Core\Controller {
                 $this->session->data['success'] = $data['success'];
                 $this->redirect($data['redirect']);
             }
-
+$this->data['text_website'] = $this->language->get('text_website');
             //only one shipping option,no deal options and not collect -- add direct to cart
             if (count($deal_shipping) == 1 && !count($deal_options) && $deal['can_collect'] == 0) {
                 //Add to cart and redirect to the cart

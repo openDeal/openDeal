@@ -302,6 +302,7 @@ class ControllerDealFreepon extends \Core\Controller {
             $this->document->setKeywords($freepon['meta_keyword']);
             $this->document->addLink($this->url->link('deal/deal/view', 'freepon_id=' . $this->request->get['freepon_id']), 'canonical');
 
+            $this->data['text_website'] = $this->language->get('text_website');
             if (isset($deal['images'][0])) {
                 $this->document->addMeta("og:image", '<meta property="og:image" content="' . $freepon['images'][0] . '" />');
             }

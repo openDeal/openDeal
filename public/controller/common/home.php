@@ -76,6 +76,7 @@ class ControllerCommonHome extends \Core\Controller {
         }
 
 
+        $this->data['text_website'] = $this->language->get('text_website');
         $this->data['no_image'] = $this->model_tool_image->resize('no_image.jpg', 715, 480);
 
         $this->data['deal'] = array();
