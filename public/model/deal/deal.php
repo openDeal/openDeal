@@ -212,7 +212,7 @@ class ModelDealDeal extends \Core\Model {
 
             $deal['state'] = $this->getDealState($deal);
 
-
+      
             if ($deal['tipped'] && $deal['stock'] > 0 && $deal['current_orders'] < $deal['stock']) {
                 $deal['tippingPercent'] = 100 * ($deal['current_orders'] / $deal['stock']);
                 $deal['deals_left'] = $deal['stock'] - $deal['current_orders'];

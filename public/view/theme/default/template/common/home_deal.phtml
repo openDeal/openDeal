@@ -86,9 +86,12 @@
 
                                                 <?php if ($deal['tipped'] && $deal['stock'] > 0 && $deal['current_orders'] < $deal['stock']): ?>
                                                     <div class="tip_meter">
-                                                        <div class="progress_bar progress span12">
-                                                            <div class="bar" style="width: <?php echo $tippingPercent; ?>;"></div>
+                                                        <div class="progress progress-striped active">
+                                                        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $deal['tippingPercent']; ?>%;">
+                                                            <span class="sr-only"></span>
                                                         </div>
+
+                                                    </div>
                                                         <div class="min_max">
                                                             <span class="min">0</span>
                                                             <span class="max"><?php echo $deal['stock']; ?></span>
@@ -109,7 +112,7 @@
                                                 <?php endif; ?>
                                             <?php else: ?>
                                                 <div class="tip_meter">
-                                                    <div class="progress">
+                                                    <div class="progress progress-striped active">
                                                         <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $deal['tippingPercent']; ?>%;">
                                                             <span class="sr-only"></span>
                                                         </div>
