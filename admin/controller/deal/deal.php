@@ -494,7 +494,7 @@ class ControllerDealDeal extends \Core\Controller {
         }
 
         if (isset($this->request->post['stock'])) {
-            $this->data['stock'] = $this->request->post['entry_stock'];
+            $this->data['stock'] = $this->request->post['stock'];
         } elseif (!empty($deal_info)) {
             $this->data['stock'] = $deal_info['stock'];
         } else {
@@ -589,13 +589,14 @@ class ControllerDealDeal extends \Core\Controller {
 
         $this->data['no_image'] = $this->model_tool_image->resize('no_image.jpg', 100, 100);
 
-        if (isset($this->request->post['deal_image'])) {
-            $images = $this->request->post['deal_image'];
+        if (isset($this->request->post['images'])) {
+            $images = $this->request->post['images'];
         } elseif (!empty($deal_info)) {
             $images = $this->model_deal_deal->getDealImages($this->request->get['deal_id']);
         } else {
             $images = array();
         }
+        
 
         $this->data['images'] = array();
         foreach ($images as $image) {
@@ -618,9 +619,9 @@ class ControllerDealDeal extends \Core\Controller {
         if (isset($this->request->post['coupon_expiry'])) {
             $this->data['coupon_expiry'] = $this->request->post['coupon_expiry'];
         } elseif (!empty($deal_info)) {
-            $this->data['coupon_expiry'] = Date("Y/m/d H:i A", $deal_info['coupon_expiry']);
+            $this->data['coupon_expiry'] = Date("Y/m/d H:i:s", $deal_info['coupon_expiry']);
         } else {
-            $this->data['coupon_expiry'] = Date("Y/m/d H:i A", strtotime("+ 60 days"));
+            $this->data['coupon_expiry'] = Date("Y/m/d H:i:s", strtotime("+ 60 days"));
         }
 
         $this->document->addScript('view/theme/default/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js');
