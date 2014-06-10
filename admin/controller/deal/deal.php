@@ -706,6 +706,9 @@ class ControllerDealDeal extends \Core\Controller {
             $this->error['company_id'] = $this->language->get('error_company');
         }
 
+        if(isset($_POST['is_coupon']) && strtotime($_POST['coupon_expiry']) <= '1000000000'){
+            $this->error['warning'] = 'Please set a valid coupon expiry date';
+        }
 
         $this->load->model('tool/seo');
 
