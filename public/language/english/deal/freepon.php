@@ -23,3 +23,5 @@ $_['text_location'] = 'Location';
 $_['text_locations'] = 'Locations';
 
 $_['text_print'] = 'Print Coupon';
+
+$_['text_soldout'] = "<strong><big>Sold Out</big></strong>";

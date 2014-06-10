@@ -572,3 +572,8 @@ background-color: #2fa4e7;
         width: 33%;
     }
 }
+
+
+.list-group-item .alert {
+    margin-bottom: 0px;
+}

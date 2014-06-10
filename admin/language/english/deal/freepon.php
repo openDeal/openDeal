@@ -48,3 +48,6 @@ $_['error_company'] = 'Please select a company';
 $_['entry_meta_keyword'] = 'Meta Tag Keywords:';
 $_['entry_meta_description'] = 'Meta Tag Description:';
 $_['error_coupon_code_download'] = 'Please supply either a coupon code or coupon file for this Deal';
+
+$_['entry_stock'] = 'Max Redemptions';
+$_['entry_stock_notice'] = 'Set to 0 for unlimited redemptions';

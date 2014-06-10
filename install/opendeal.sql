@@ -1099,6 +1099,7 @@ CREATE TABLE IF NOT EXISTS `od_freepon` (
   `company_id` int(11) NOT NULL,
   `download` varchar(250) NOT NULL,
   `code` varchar(2585) NOT NULL,
+  `stock` INT( 11 ) NOT NULL DEFAULT '0',
   `begin_time` bigint(20) NOT NULL,
   `end_time` bigint(20) NOT NULL,
   `status` int(1) NOT NULL DEFAULT '0',

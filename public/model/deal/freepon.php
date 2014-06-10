@@ -122,6 +122,11 @@ class ModelDealFreepon extends \Core\Model {
 
             $time_diff = $freepon['end_time'] - $now;
             $freepon['time_diff'] = $time_diff;
+
+            $freepon['sold_out'] = false;
+            if ($freepon['stock'] > 0 && $freepon['stock'] <= $freepon['downloaded']) {
+                $freepon['sold_out'] = true;
+            }
         }
 
         return $freepon;
@@ -139,10 +144,15 @@ class ModelDealFreepon extends \Core\Model {
         return $freepon_image_data;
     }
 
+    public function customerClaimed($freepon_id, $customer_id) {
+        $repeat = $this->db->query("Select count(*) as total from #__freepon_claim where freepon_id = '" . (int) $freepon_id . "' and customer_id = '" . (int) $customer_id . "'");
+        return $repeat->row['total'];
+    }
+
     public function getTotalFreepons($data) {
         //$sql = "Select count(f.freepon_id) as total from #__freepon f inner join #__freepon_to_store f2s on f.freepon_id = f2s.freepon_id";
-       
-         $sql = "Select count(f.freepon_id) as total from #__freepon f inner join #__freepon_to_store f2s on f.freepon_id = f2s.freepon_id";
+
+        $sql = "Select count(f.freepon_id) as total from #__freepon f inner join #__freepon_to_store f2s on f.freepon_id = f2s.freepon_id";
         $where = " Where f2s.store_id = '" . (int) $this->config->get('store_id') . "' and f.status = '1' and f.begin_time <= '" . time() . "' "
                 . "and f.end_time > '" . time() . "' ";
 
@@ -164,7 +174,7 @@ class ModelDealFreepon extends \Core\Model {
         }
 
         $sql .= $where;
-        
+
         $query = $this->db->query($sql);
         return $query->row['total'];
     }
@@ -185,7 +195,7 @@ class ModelDealFreepon extends \Core\Model {
 
     public function updateClaim($freepon_id, $customer_id) {
         $repeat = $this->db->query("Select count(*) as total from #__freepon_claim where freepon_id = '" . (int) $freepon_id . "' and customer_id = '" . (int) $customer_id . "'");
-        if ($repeat->row['total'] == 0) {
+        if ($this->customerClaimed($freepon_id, $customer_id) == 0) {
             $this->db->query("insert into #__freepon_claim SET freepon_id = '" . (int) $freepon_id . "', customer_id = '" . $customer_id . "', timestamp = '" . time() . "'");
             //If !user->hasClaim
             $this->db->query("UPDATE #__freepon SET downloaded = (downloaded + 1) WHERE freepon_id = '" . (int) $freepon_id . "'");

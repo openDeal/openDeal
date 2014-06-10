@@ -75,6 +75,9 @@
 
                                 <li class="list-group-item">
 
+                                    <?php if($deal['sold_out']): ?>
+                                    <div class="alert alert-danger text-center"><?php echo $text_soldout; ?></div>
+                                    <?php else: ?>
                                     <div class="countdown_block">
                                         <div id="deal_countdown_<?php echo $deal['freepon_id']; ?>" class="hasCountdown" data-time="<?php echo $deal['time_diff']; ?>"></div>
                                         <script type="text/javascript">
@@ -88,6 +91,7 @@
                                                 $('#deal_countdown_<?php echo $deal['freepon_id']; ?>').countdown($.countdown.regionalOptions['<?php echo $this->language->get('code'); ?>']);
                                             });</script>
                                     </div>
+                                    <?php endif; ?>
 
                                 </li>
                                 <li class="list-group-item"><a class="btn btn-success btn-block" href="<?php echo $deal['url']; ?>"><?php echo $button_view_coupon;?></a></li>

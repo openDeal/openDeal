@@ -21,6 +21,13 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="col-md-4">
+                                        <?php if($freepon['sold_out']): ?>
+                                        
+                                            <div class="alert alert-danger text-center"><?php echo $text_soldout; ?></div>
+                                       
+                                            
+                                        
+                                        <?php else: ?>
                                         <div class="price_block deal_detail_block">
                                             <div class="tag">
                                                 <div class="tag_background"></div>
@@ -43,6 +50,7 @@
                                            
                                             </div>
                                         </div>
+                                        <?php endif; ?>
                                         <div class="bought_block deal_detail_block row">
                                             <h3>
                                                 <?php echo sprintf($this->language->get('text_bought'), $freepon['downloaded']); ?>	

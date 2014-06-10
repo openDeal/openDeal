@@ -309,6 +309,8 @@ class ControllerDealFreepon extends \Core\Controller {
         $this->data['entry_download'] = $this->language->get('entry_download');
         $this->data['entry_code'] = $this->language->get('entry_code');
         $this->data['entry_usage'] = $this->language->get('entry_usage');
+        $this->data['entry_stock'] = $this->language->get('entry_stock');
+        $this->data['entry_stock_notice'] = $this->language->get('entry_stock_notice');
 
         $this->data['entry_deal_times'] = $this->language->get('entry_deal_times');
 
@@ -461,6 +463,14 @@ class ControllerDealFreepon extends \Core\Controller {
         } else {
             $this->data['status'] = '0';
         }
+        
+        if (isset($this->request->post['stock'])) {
+            $this->data['stock'] = $this->request->post['stock'];
+        } elseif (!empty($freepon_info)) {
+            $this->data['stock'] = $freepon_info['stock'];
+        } else {
+            $this->data['stock'] = '0';
+        }
 
         if (isset($this->request->post['keyword'])) {
             $this->data['keyword'] = $this->request->post['keyword'];
@@ -518,8 +528,8 @@ class ControllerDealFreepon extends \Core\Controller {
 
         $this->data['no_image'] = $this->model_tool_image->resize('no_image.jpg', 100, 100);
 
-        if (isset($this->request->post['freepon_image'])) {
-            $images = $this->request->post['freepon_image'];
+        if (isset($this->request->post['images'])) {
+            $images = $this->request->post['images'];
         } elseif (!empty($freepon_info)) {
             $images = $this->model_deal_freepon->getFreeponImages($this->request->get['freepon_id']);
         } else {

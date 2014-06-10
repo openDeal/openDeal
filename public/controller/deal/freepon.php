@@ -234,6 +234,8 @@ class ControllerDealFreepon extends \Core\Controller {
         $this->data['text_limit'] = $this->language->get('text_limit');
         $this->data['text_sort'] = $this->language->get('text_sort');
         $this->data['button_view_coupon'] = $this->language->get('button_view_coupon');
+        
+        $this->data['text_soldout'] = $this->language->get('text_soldout');
 
 
         $this->data['lang'] = $this->language->get('code');
@@ -319,6 +321,8 @@ class ControllerDealFreepon extends \Core\Controller {
 
             $this->data['text_get_coupon'] = $this->language->get('text_get_coupon');
             $this->data['claim_coupon'] = $this->url->link('deal/freepon/claim', 'freepon_id=' . $freepon_id);
+            
+            $this->data['text_soldout'] = $this->language->get('text_soldout');
         } else {
             $this->data['breadcrumbs'][] = array(
                 'text' => $this->language->get('text_error'),
@@ -361,12 +365,21 @@ class ControllerDealFreepon extends \Core\Controller {
 
         $this->load->model('deal/freepon');
         $freepon = $this->model_deal_freepon->getFreepon($freepon_id);
+        
+        if($freepon['sold_out'] && !$this->model_deal_freepon->customerClaimed($freepon_id, $this->customer->getId())){
+            //check if this user has a claim!?
+            $freepon = false;
+        }
     
         if ($freepon) {
 
 
 
             $this->model_deal_freepon->updateClaim($freepon_id, $this->customer->getId());
+            
+            
+            
+            
             //is is a download or a code ?
             if ($freepon['download'] && is_file(DIR_IMAGE . $freepon['download'])) {
                 $file = DIR_IMAGE . $freepon['download'];
