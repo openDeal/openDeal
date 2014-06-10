@@ -58,6 +58,8 @@ class ControllerCommonFilemanager extends \Core\Controller {
                     'path' => DIR_IMAGE . 'data/', // path to files (REQUIRED)
                     'URL' => HTTP_CATALOG . 'image/data/', // URL to files (REQUIRED)
                     'accessControl' => 'filemanager_access', // disable and hide dot starting files (OPTIONAL)
+                   'tmbPath' => DIR_IMAGE . 'tmb',
+                    'tmbURL' => HTTP_CATALOG . 'image/tmb/',
                     'attributes' => array(
                         array(// hide readmes
                             'pattern' => '/\.(txt|html|php|py|pl|sh|xml|htm|phtml)$/i',
