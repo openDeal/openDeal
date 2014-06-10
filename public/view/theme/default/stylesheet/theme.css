@@ -565,3 +565,10 @@ background-color: #2fa4e7;
 .page_container:after {
     clear: both;
 }
+
+
+@-moz-document url-prefix() {
+    .col-lg-4, .col-md-4{
+        width: 33%;
+    }
+}
