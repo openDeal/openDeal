@@ -295,7 +295,7 @@ class ModelDealDeal extends \Core\Model {
                 . " feature_weight = " . (int) $data['feature_weight'] . ", "
                 . " can_collect = " . (int) $data['can_collect'] . ", "
                 . " is_coupon = " . (int) $data['is_coupon'] . ", "
-                . " coupon_expiry = " . $this->db->quote(strtotime($data['coupon_expiry'])) . ", "
+                . " coupon_expiry = " . strtotime($data['coupon_expiry']) . ", "
                 . " modify_date = " . time()
                 . " where deal_id = " . (int) $deal_id);
 
