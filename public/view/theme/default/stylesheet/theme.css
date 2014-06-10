@@ -551,3 +551,17 @@ background-color: #2fa4e7;
 .filter-well {
     max-height: 60px;
 }
+
+
+.page_container {
+    *zoom: 1;
+}
+.page_container:before,
+.page_container:after {
+    display: table;
+    content: "";
+    line-height: 0;
+}
+.page_container:after {
+    clear: both;
+}
