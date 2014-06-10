@@ -41,7 +41,9 @@ class ControllerCommonHome extends \Core\Controller {
             'limit' => '4',
             'filter_begin_time' => time(),
             'filter_end_time' => time(),
-            'filter_city_id' => $this->city->city
+            'filter_city_id' => $this->city->city,
+            'sort' => 'd.feature_weight',
+            'order' => 'DESC'
         );
         $this->load->model('deal/deal');
 
