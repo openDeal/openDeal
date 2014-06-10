@@ -118,6 +118,8 @@ class ModelDealDeal extends \Core\Model {
             'd.current_orders',
             'd.deal_price'
         );
+        
+        $sql .= " group by d.deal_id ";
 
         if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
             $sql .= " ORDER BY " . $data['sort'];
