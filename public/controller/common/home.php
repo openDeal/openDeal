@@ -38,7 +38,7 @@ class ControllerCommonHome extends \Core\Controller {
         $this->data['heading_title'] = $this->config->get('config_title');
 
         $filter = array(
-            'limit' => $this->config->get('config_deals_home_count'),
+            'limit' => '4',
             'filter_begin_time' => time(),
             'filter_end_time' => time(),
             'filter_city_id' => $this->city->city
