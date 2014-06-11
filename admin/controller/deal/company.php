@@ -124,6 +124,12 @@ class ControllerDealCompany extends \Core\Controller {
         } else {
             $page = 1;
         }
+        
+       if (isset($this->request->get['filter_name'])) {
+            $filter_name = $this->request->get['filter_name'];
+        } else {
+            $filter_name = null;
+        }
 
         $url = '';
 
@@ -138,6 +144,11 @@ class ControllerDealCompany extends \Core\Controller {
         if (isset($this->request->get['page'])) {
             $url .= '&page=' . $this->request->get['page'];
         }
+        
+         if (isset($this->request->get['filter_name'])) {
+            $url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
+        }
+
 
         $this->data['breadcrumbs'] = array();
 
@@ -159,6 +170,7 @@ class ControllerDealCompany extends \Core\Controller {
         $this->data['companies'] = array();
 
         $data = array(
+            'filter_name' => $filter_name,
             'sort' => $sort,
             'order' => $order,
             'start' => ($page - 1) * $this->config->get('config_admin_limit'),
@@ -214,6 +226,10 @@ class ControllerDealCompany extends \Core\Controller {
         }
 
         $url = '';
+        
+         if (isset($this->request->get['filter_name'])) {
+            $url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
+        }
 
         if ($order == 'ASC') {
             $url .= '&order=DESC';
