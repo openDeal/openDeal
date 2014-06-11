@@ -59,6 +59,12 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr class="filter">
+                            <td></td>
+                            <td><input type="text" name="filter_name" value="<?php echo $filter_name; ?>" class="form-control"/></td>
+                            <td colspan="2"></td>
+                            <td align="right"><button onclick="filter();" class="btn btn-primary"><?php echo $button_filter; ?></button></td>
+                        </tr>
                         <?php if ($companies): ?>
                             <?php foreach ($companies as $company): ?>
                                 <tr>
@@ -94,5 +100,29 @@
     </div>
 
 </section><!-- /.content -->
+
+<script type="text/javascript">
+    function filter() {
+        url = 'index.php?route=deal/company&token=<?php echo $token; ?>';
+
+
+
+        var filter_name = $('input[name=\'filter_name\']').val();
+
+        if (filter_name) {
+            url += '&filter_name=' + encodeURIComponent(filter_name);
+        }
+
+        location = url;
+    }
+    addOnready(function() {
+        $('#form input').keydown(function(e) {
+            if (e.keyCode == 13) {
+                e.preventDefault();
+                filter();
+            }
+        });
+    });
+</script>
 
 <?php echo $footer; ?>

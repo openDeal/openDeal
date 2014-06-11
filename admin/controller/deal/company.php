@@ -264,6 +264,9 @@ class ControllerDealCompany extends \Core\Controller {
 
         $this->data['sort'] = $sort;
         $this->data['order'] = $order;
+         $this->data['filter_name'] = $filter_name;
+         $this->data['button_filter'] = $this->language->get('button_filter');
+         $this->data['token'] = $this->session->data['token'];
 
         $this->children = array(
             'common/header',

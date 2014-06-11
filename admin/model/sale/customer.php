@@ -76,7 +76,7 @@ class ModelSaleCustomer extends \Core\Model {
         }
 
         if (!empty($data['filter_email'])) {
-            $implode[] = "email LIKE '" . $this->db->escape($data['filter_email']) . "%'";
+            $implode[] = "email LIKE '%" . $this->db->escape($data['filter_email']) . "%'";
         }
 
         if (isset($data['filter_newsletter']) && !is_null($data['filter_newsletter'])) {
@@ -86,7 +86,7 @@ class ModelSaleCustomer extends \Core\Model {
      
 
         if (!empty($data['filter_ip'])) {
-            $implode[] = "customer_id IN (SELECT customer_id FROM #__customer_ip WHERE ip = '" . $this->db->escape($data['filter_ip']) . "')";
+            $implode[] = "customer_id IN (SELECT customer_id FROM #__customer_ip WHERE ip like '%" . $this->db->escape($data['filter_ip']) . "%')";
         }
 
         if (isset($data['filter_status']) && !is_null($data['filter_status'])) {
@@ -102,7 +102,7 @@ class ModelSaleCustomer extends \Core\Model {
         }
 
         if ($implode) {
-            $sql .= " AND " . implode(" AND ", $implode);
+            $sql .= " WHERE " . implode(" AND ", $implode);
         }
 
         $sort_data = array(
