@@ -154,7 +154,7 @@ class ControllerCommonHome extends \Core\Controller {
 
         $this->data['order'] = $this->url->link('sale/order', 'token=' . $this->session->data['token'], 'SSL');
         $this->data['customer'] = $this->url->link('sale/customer', 'token=' . $this->session->data['token'], 'SSL');
-        $this->data['online'] = $this->url->link('report/online', 'token=' . $this->session->data['token'], 'SSL');
+        $this->data['online'] = $this->url->link('report/customer_online', 'token=' . $this->session->data['token'], 'SSL');
         $this->data['deal'] = $this->url->link('deal/deal', 'token=' . $this->session->data['token'], 'SSL');
 
         $this->load->model('deal/deal');
