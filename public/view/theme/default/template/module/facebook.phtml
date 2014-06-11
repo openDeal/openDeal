@@ -1,49 +1,36 @@
-<?php /** OLD
-<script type="text/javascript">
-    addOnready(function() {
 
-        width_percent = $('#fbcomment-container').width();
-        fbxml = '<fb:comments data-href="<?php echo $siteurl; ?>" data-num-posts="<?php echo $numpost; ?>" width="' + width_percent + 'px"  data-colorscheme="<?php echo $colorscheme; ?>"></fb:comments>';
 
-        $('#fbcomment-container').append(fbxml);
-    });
-
-</script>
-<?php if ($width == 'auto') { ?>
-    <div width="100%" id="fbcomment-container"></div>
-    
-<?php } else { ?>
-    <div class="fb-comments" data-href="<?php echo $siteurl; ?>" data-num-posts="<?php echo $numpost; ?>" data-width="<?php echo $width; ?>"  data-colorscheme="<?php echo $colorscheme; ?>"></div>
-<?php } ?>
- * 
- */?>
-
-<div class="box">
-  <div class="box-heading">Comments (<fb:comments-count href="<?php echo $siteurl; ?>"></fb:comments-count>)</div>
-  <div class="box-content">
-    <div class="box-product" id="facebook_comments_<?php echo $module; ?>">
-		<div class="fb-comments" data-href="<?php echo $siteurl; ?>" data-num-posts="<?php echo $numpost; ?>" data-width="<?php echo $width; ?>" data-colorscheme="<?php echo $colorscheme; ?>"></div>
+<div class="panel panel-default">
+    <div class="panel-heading">Comments (<fb:comments-count href="<?php echo $siteurl; ?>"></fb:comments-count>)</div>
+    <div class="panel-body">
+        <div class="box-product" id="facebook_comments_<?php echo $module; ?>">
+            <div class="fb-comments" data-href="<?php echo $siteurl; ?>" data-num-posts="<?php echo $numpost; ?>" data-width="<?php echo ($width == 'auto')?'100%':$width . 'px'; ?>" data-colorscheme="<?php echo $colorscheme; ?>"></div>
+        </div>
     </div>
-  </div>
 </div>
 
 <script>
-     //addOnready(function() {
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '<?php echo $appid; ?>', // App ID
-      status     : true, // check login status
-      cookie     : true, // enable cookies to allow the server to access the session
-      xfbml      : true  // parse XFBML
-    });
-  };
- //});
+    //addOnready(function() {
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId: '<?php echo $appid; ?>', // App ID
+            status: true, // check login status
+            cookie: true, // enable cookies to allow the server to access the session
+            xfbml: true  // parse XFBML
+        });
+    };
+    //});
 
-  // Load the SDK Asynchronously
-  (function(d){
-     var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
-     js = d.createElement('script'); js.id = id; js.async = true;
-     js.src = "//connect.facebook.net/en_US/all.js";
-     d.getElementsByTagName('head')[0].appendChild(js);
-   }(document));   
+    // Load the SDK Asynchronously
+    (function(d) {
+        var js, id = 'facebook-jssdk';
+        if (d.getElementById(id)) {
+            return;
+        }
+        js = d.createElement('script');
+        js.id = id;
+        js.async = true;
+        js.src = "//connect.facebook.net/en_US/all.js";
+        d.getElementsByTagName('head')[0].appendChild(js);
+    }(document));
 </script>
