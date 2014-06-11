@@ -36,12 +36,15 @@ class ControllerModuleFacebook extends \Core\Controller {
         } else {
             $siteurl = $this->config->get('config_url');
         }*/
-
+$this->document->addMeta('og:type', '<meta property="og:type" content="product"/>');
 
         if ((isset($this->request->get['deal_id']) || isset($this->request->get['freepon_id'])) && $setting['urltype'] == "2") {
             $this->data['siteurl'] = $siteurl . $_SERVER["REQUEST_URI"];
+             
+            
         } else {
             $this->data['siteurl'] = $siteurl;
+            
         }
 
 
