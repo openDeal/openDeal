@@ -12,10 +12,11 @@
         <?php if ($success) { ?>
             <div class="alert alert-success"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><?php echo $success; ?></div>
         <?php } ?>
-        <?php if ($error_warning) { ?>
-            <div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><?php echo $error_warning; ?></div>
-        <?php } ?>
+
         <h1><?php echo $heading_title; ?></h1>
+        <?php if ($error_warning) { ?>
+            <div class="alert alert-danger cart-warning"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><?php echo $error_warning; ?></div>
+        <?php } ?>
         <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
 
             <div class="cart-info">
@@ -53,9 +54,9 @@
                                 </td>
 
                                 <td class="quantity">
-                                    <input type="text" name="quantity[<?php echo $product['key']; ?>]" value="<?php echo $product['quantity']; ?>" size="1" class="form-control"/>
-                                    <button type="submit" class='btn btn-primary fa-icon-refresh btn-square' title='<?php echo $button_update; ?>'></button>
-                                    <a href="<?php echo $product['remove']; ?>" class="btn btn-danger fa-icon-remove btn-square" alt="<?php echo $button_remove; ?>" title="<?php echo $button_remove; ?>" ></a></td>
+                                    <input autocomplete="off" type="text" name="quantity[<?php echo $product['key']; ?>]" value="<?php echo $product['quantity']; ?>" size="1" class="form-control qtybox"/>
+                                    <button style="display:none;" type="button" class='btn btn-primary fa-icon-refresh btn-square' title='<?php echo $button_update; ?>'></button>
+                                    <a style="display: inline-block;" href="<?php echo $product['remove']; ?>" class="btn btn-danger fa-icon-remove btn-square" alt="<?php echo $button_remove; ?>" title="<?php echo $button_remove; ?>" ></a></td>
                                 <td class="price  hidden-xs hidden-sm"><?php echo $product['price']; ?></td>
                                 <td class="price  hidden-xs hidden-sm"><?php echo ($product['is_coupon'] || $product['shipping']['price'] == 0) ? 'Free' : $this->currency->format($product['shipping']['price']); ?></td>
                                 <td class="total"><?php echo $product['total']; ?></td>
@@ -155,13 +156,13 @@
 
             </div>
         <?php } ?>
-        <div class="row">
+        <div class="row cart-totals">
             <div class="cart-total col-md-4 col-sm-8 cols-xs-12 pull-right">
                 <table id="total" class="table table-bordered table-responsive table-condensed">
                     <?php foreach ($totals as $total) { ?>
                         <tr>
-                            <td class="total"><b><?php echo $total['title']; ?>:</b></td>
-                            <td class="total"><?php echo $total['text']; ?></td>
+                            <td class="total" ><b><?php echo $total['title']; ?>:</b></td>
+                            <td class="total" data-rel="<?php echo $total['code']; ?>"><?php echo $total['text']; ?></td>
                         </tr>
                     <?php } ?>
                 </table>
@@ -176,6 +177,45 @@
 </div>
 <script>
     addOnready(function() {
+
+        $('.qtybox').on('keyup', function() {
+            $('div.buttons').children('a').attr('disabled', 'disabled');
+            if($(this).val() == ''){
+                return;
+            }
+      /*      $(this).siblings('button').show();
+        });
+
+        $('.qtybox').on('blur', function() {*/
+            $('.cart-warning').remove();
+            var $this = $(this);
+            $('div.buttons').children('a').attr('disabled', 'disabled');
+            $.post('<?php echo $this->url->link('module/cart/update'); ?>', $(this).serialize(), function(data) {
+                console.log(data);
+                if (data.cart_stock != '') {
+                    $('#content h1').after('<div class="alert alert-danger cart-warning"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + data.cart_stock + '</div>');
+                }
+                $.each(data.totals, function(i, total) {
+                    $('td[data-rel="' + total.code + '"]').text(total.text);
+                });
+                if (data.item.quantity > 0) {
+                    $this.closest('tr').find(".stock").remove();
+                    if(data.item.stock == false){
+                         $this.closest('tr').find(".name a").after('<span class="stock">***</span>');
+                     }
+                      $this.closest('tr').find(".total").text(data.item.total);
+                      $this.siblings('button').hide();
+                } else {
+                    $this.closest('tr').remove(0);
+                    if (data.product_count == 0) {
+                        $('#content .cart-totals, #content .cart-info').hide(1500).remove();
+                    }
+                }
+                $('div.buttons').children('a').attr('disabled', false);
+            }, 'json');
+
+        });
+
         $('input[name=\'next\']').on('change', function() {
             $('.cart-module > div').hide();
 

@@ -75,14 +75,14 @@ class ControllerModuleCart extends \Core\Controller {
         }
 
         $this->data['display_price'] = TRUE;
-        
-       /* if (!$this->config->get('config_customer_price')) {
-            $this->data['display_price'] = TRUE;
-        } elseif ($this->customer->isLogged()) {
-            $this->data['display_price'] = TRUE;
-        } else {
-            $this->data['display_price'] = FALSE;
-        }*/
+
+        /* if (!$this->config->get('config_customer_price')) {
+          $this->data['display_price'] = TRUE;
+          } elseif ($this->customer->isLogged()) {
+          $this->data['display_price'] = TRUE;
+          } else {
+          $this->data['display_price'] = FALSE;
+          } */
 
         // Calculate Totals
         $total_data = array();
@@ -125,17 +125,92 @@ class ControllerModuleCart extends \Core\Controller {
 
         $this->id = 'cart';
 
-            $this->template = 'module/cart.phtml';
-        
+        $this->template = 'module/cart.phtml';
+
 
         $this->render();
+    }
+
+    public function update() {
+
+        $this->language->load('checkout/cart');
+        if (!empty($this->request->post['quantity'])) {
+            foreach ($this->request->post['quantity'] as $key => $value) {
+                $this->cart->update($key, $value);
+            }
+
+            unset($this->session->data['payment_method']);
+            unset($this->session->data['payment_methods']);
+
+            $data = array();
+
+            $cart = $this->cart->getProducts();
+            $stock = $this->cart->hasStock();
+            $data['product_count'] = $this->cart->hasProducts();
+
+            $data['cart_stock'] = ($stock === false) ? $this->language->get('error_stock') : '';
+            if (!$this->cart->hasProducts()) {
+                $data['cart_stock'] = $this->language->get('text_empty');
+            }
+            if (isset($cart[$key])) {
+                $cart[$key]['total'] = $this->currency->format(($cart[$key]['price'] + $cart[$key]['shipping']['price'] ) * $cart[$key]['quantity']);
+                $data['item'] = $cart[$key];
+            } else {
+                $data['item'] = array('key' => $key, 'quantity' => 0);
+            }
+            $this->load->model('setting/extension');
+
+            $total_data = array();
+            $total = 0;
+            $taxes = array();
+
+            // Display prices
+            $sort_order = array();
+
+            $results = $this->model_setting_extension->getExtensions('total');
+
+
+            foreach ($results as $key => $value) {
+                $sort_order[$key] = $this->config->get($value['code'] . '_sort_order');
+            }
+
+            array_multisort($sort_order, SORT_ASC, $results);
+
+            foreach ($results as $result) {
+                if ($this->config->get($result['code'] . '_status')) {
+                    $this->load->model('total/' . $result['code']);
+
+                    $this->{'model_total_' . $result['code']}->getTotal($total_data, $total, array());
+                }
+
+                $sort_order = array();
+
+                foreach ($total_data as $key => $value) {
+                    $sort_order[$key] = $value['sort_order'];
+                }
+
+                array_multisort($sort_order, SORT_ASC, $total_data);
+            }
+
+
+            $data['totals'] = $total_data;
+            echo json_encode($data);
+            exit;
+            /*  if (isset($cart[$key])) {
+              echo json_encode(array('quantity' => 0));
+              } else {
+              echo json_encode($cart[$key]);
+              } */
+
+            //       $this->redirect($this->url->link('checkout/cart'));
+        }
     }
 
     public function callback() {
         $this->language->load('module/cart');
 
         $this->load->model('tool/seo_url');
-        
+
         unset($this->session->data['payment_methods']);
         unset($this->session->data['payment_method']);
 

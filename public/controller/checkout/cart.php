@@ -159,7 +159,7 @@ class ControllerCheckoutCart extends \Core\Controller {
 
 
                 $price = $this->currency->format($product['price']);
-                $total = $this->currency->format(($product['price'] + $product['shipping']['price'] )* $product['quantity']);
+                $total = $this->currency->format(($product['price'] + $product['shipping']['price'] ) * $product['quantity']);
 
 
 
@@ -251,7 +251,7 @@ class ControllerCheckoutCart extends \Core\Controller {
                 $this->data['shipping_method'] = '';
             }
 
-            
+
             // Totals
             $this->load->model('setting/extension');
 
@@ -263,7 +263,7 @@ class ControllerCheckoutCart extends \Core\Controller {
             $sort_order = array();
 
             $results = $this->model_setting_extension->getExtensions('total');
-            
+
 
             foreach ($results as $key => $value) {
                 $sort_order[$key] = $this->config->get($value['code'] . '_sort_order');
@@ -299,6 +299,8 @@ class ControllerCheckoutCart extends \Core\Controller {
             $this->data['checkout_buttons'] = array();
 
             $this->template = 'checkout/cart.phtml';
+
+
 
             $this->children = array(
                 'common/column_left',
@@ -460,7 +462,6 @@ class ControllerCheckoutCart extends \Core\Controller {
             $this->redirect($data['redirect']);
         }
     }
-
 
 }
 
