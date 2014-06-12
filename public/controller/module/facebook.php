@@ -47,7 +47,7 @@ $this->document->addMeta('og:type', '<meta property="og:type" content="product"/
             
         }
 
-        $this->document->addMeta('og:type', '<meta property="og:type" content="'.$this->data['siteurl'].'"/>');
+        $this->document->addMeta('og:url', '<meta property="og:url" content="'.$this->data['siteurl'].'"/>');
 
         $this->data['colorscheme'] = $setting['colorscheme'];
 
