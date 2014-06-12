@@ -5,7 +5,7 @@ class ControllerModuleFacebook extends \Core\Controller {
     protected function index($setting) {
         static $module = 0;
 
-        $this->document->addScript('public/view/javascript/facebook/facebook_comment.js');
+      //  $this->document->addScript('public/view/javascript/facebook/facebook_comment.js');
 
         $this->data['adminuid'] = $this->config->get('adminuid');
 
