@@ -78,7 +78,7 @@
                                 <li class="list-group-item">
 
                                     <?php if ($deal['state'] == ModelDealDeal::DEAL_AVAILABLE): ?>
-                                        <div class="countdown_block">
+                                     <?php /*   <div class="countdown_block">
                                             <div id="deal_countdown_<?php echo $deal['deal_id']; ?>" class="hasCountdown" data-time="<?php echo $deal['time_diff']; ?>"></div>
                                             <script type="text/javascript">
                                                 addOnready(function()
@@ -90,7 +90,11 @@
                                                     });
                                                     $('#deal_countdown_<?php echo $deal['deal_id']; ?>').countdown($.countdown.regionalOptions['<?php echo $this->language->get('code'); ?>']);
                                                 });</script>
-                                        </div>
+                                        </div> */ ?>
+                                    <div class="alert alert-info text-center">
+                                        <h4><?php echo $text_deal_closes; ?></h4>
+                                        <strong><?php echo $deal['ends_at']; ?></strong>
+                                    </div>
                                     <?php else: ?>
                                         <div class="alert alert-danger"><?php echo $this->language->get("deal_state_" . (int) $deal['state']); ?></div>
                                     <?php endif; ?>
@@ -104,7 +108,7 @@
             </div>
 
 
-            <div class="pagination-container row">
+            <div class="pagination-container clearfix">
                 <?php echo $pagination; ?>
             </div>
         <?php else: ?>

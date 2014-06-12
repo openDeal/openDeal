@@ -336,6 +336,13 @@ $this->data['text_website'] = $this->language->get('text_website');
                 $deal['image'] = false;
             }
             $deal['url'] = $this->url->link('deal/deal', 'deal_id=' . $deal['deal_id']);
+            
+            $deal['ends_at'] = DATE($this->language->get('date_format_long') . ' ' . $this->language->get('time_format_short'), $deal['end_time']);
+                    /*
+                     * $_['date_format_long']      = 'l dS F Y';
+$_['time_format']           = 'h:i:s A';
+                     */
+            
             $this->data['deals'][$deal['deal_id']] = $deal;
         }
 
@@ -376,6 +383,7 @@ $this->data['text_website'] = $this->language->get('text_website');
         $this->data['text_limit'] = $this->language->get('text_limit');
         $this->data['text_sort'] = $this->language->get('text_sort');
         $this->data['text_no_results'] = $this->language->get('text_no_results');
+        $this->data['text_deal_closes'] = $this->language->get('text_deal_closes');
 
         $this->response->setOutput($this->render());
     }

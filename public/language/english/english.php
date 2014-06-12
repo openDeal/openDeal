@@ -6,6 +6,7 @@ $_['direction']             = 'ltr';
 $_['date_format_short']     = 'd/m/Y';
 $_['date_format_long']      = 'l dS F Y';
 $_['time_format']           = 'h:i:s A';
+$_['time_format_short']     = 'g:i A';
 $_['decimal_point']         = '.';
 $_['thousand_point']        = ',';
 
@@ -71,3 +72,5 @@ $_['text_choose_option']  = 'Select Deal Option';
 $_['text_choose_shipping'] = 'Select Delivery Method';
 $_['text_collect'] = 'Collect From Supplier';
 $_['text_website'] = 'Visit Website';
+
+$_['text_deal_closes'] = "Deal Closes at: ";
