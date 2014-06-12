@@ -12,7 +12,7 @@
         <?php echo $content_top; ?>
 
         <h1><?php echo $heading_title; ?></h1>
-         <div class="well well-sm filter-well">
+        <div class="well well-sm filter-well">
             <div class="clearfix">
                 <div class="limit pull-right col-lg-2 col-md-3 col-sm-4 col-xs-6">
                     <div class="input-group-btn">
@@ -31,7 +31,7 @@
                         </ul>
                     </div>
                 </div>
-                
+
                 <div class="limit pull-right col-lg-3 col-md-4 col-sm-5 col-xs-6">
                     <div class="input-group-btn">
                         <button type="button" class="btn btn-default" tabindex="-1"><?php echo $text_sort; ?></button>
@@ -51,7 +51,7 @@
                 </div>
 
 
-               
+
             </div>
 
         </div>
@@ -78,53 +78,63 @@
                                 <li class="list-group-item">
 
                                     <?php if ($deal['state'] == ModelDealDeal::DEAL_AVAILABLE): ?>
-                                     <?php /*   <div class="countdown_block">
+                                        <div class="countdown_block">
                                             <div id="deal_countdown_<?php echo $deal['deal_id']; ?>" class="hasCountdown" data-time="<?php echo $deal['time_diff']; ?>"></div>
                                             <script type="text/javascript">
                                                 addOnready(function()
                                                 {
                                                     $('#deal_countdown_<?php echo $deal['deal_id']; ?>').countdown({
-                                                        timezone: <?php echo ((date('Z') / 3600) > 0)? '+':''; echo (date('Z') / 3600);?>,
+                                                        timezone: <?php echo ((date('Z') / 3600) > 0) ? '+' : '';
+                            echo (date('Z') / 3600);
+                            ?>,
                                                         until: +<?php echo $deal['time_diff']; ?>
 
                                                     });
                                                     $('#deal_countdown_<?php echo $deal['deal_id']; ?>').countdown($.countdown.regionalOptions['<?php echo $this->language->get('code'); ?>']);
                                                 });</script>
-                                        </div> */ ?>
-                                    <div class="alert alert-info text-center">
-                                        <h4><?php echo $text_deal_closes; ?></h4>
-                                        <strong><?php echo $deal['ends_at']; ?></strong>
-                                    </div>
+                                        </div> 
+                                        <!-- <div class="alert alert-info text-center">
+                                             <h4><?php echo $text_deal_closes; ?></h4>
+                                             <strong><?php echo $deal['ends_at']; ?></strong>
+                                         </div> -->
                                     <?php else: ?>
                                         <div class="alert alert-danger"><?php echo $this->language->get("deal_state_" . (int) $deal['state']); ?></div>
-                                    <?php endif; ?>
+        <?php endif; ?>
 
                                 </li>
                                 <li class="list-group-item"><a class="btn btn-success btn-block" href="<?php echo $deal['url']; ?>">View Deal</a></li>
                             </ul>
                         </div>
                     </div>
-                <?php endforeach; ?>
+    <?php endforeach; ?>
             </div>
 
 
             <div class="pagination-container clearfix">
-                <?php echo $pagination; ?>
+            <?php echo $pagination; ?>
             </div>
-        <?php else: ?>
+            <?php else: ?>
             <div class="alert alert-info">
-                <?php echo $text_no_results; ?>
+            <?php echo $text_no_results; ?>
             </div>
         <?php endif; ?>
-        <?php echo $content_bottom; ?></div>
+<?php echo $content_bottom; ?></div>
 </div>
 <script>
     addOnready(function()
     {
-        $.getScript('/public/view/theme/default/javascript/isotope.pkgd.min.js', function() {
-            $('.deals-list').isotope({
-                
-                itemSelector: '.deal-item'
+        $.getScript('/public/view/theme/default/javascript/imagesloaded.pkgd.min.js', function() {
+
+            $.getScript('/public/view/theme/default/javascript/isotope.pkgd.min.js', function() {
+                var $iso = $('.deals-list').isotope({
+                    itemSelector: '.deal-item'
+                });
+               
+                $iso.imagesLoaded(function() {
+                    console.log("images Loaded")
+                    $iso.isotope('layout');
+                });
+
             });
         });
     });
