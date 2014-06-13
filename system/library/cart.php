@@ -54,21 +54,21 @@ class Cart {
                         $stock = false;
                     }
 
-                    
-
-                 /*   if ($deal_query->row['user_max'] > 0) {
-
-                        if ($deal_query->row['user_max'] > $quantity) {
+                   
+                    if ($stock && $deal_query->row['user_max'] > 0) {
+                       
+                        if ($deal_query->row['user_max'] < $quantity) {
                             $stock = false;
                         }
                         //Max per user!!!!
                         if ($stock && \Core\Registry::getInstance()->get('customer')->isLogged()) {
                             $ordersQ = $this->db->query("Select sum(od.quantity) as total from #__order_deal od inner join #__order o on od.order_id = o.order_id where od.deal_id = '" . (int) $deal_id . "' and o.customer_id='" . (int) \Core\Registry::getInstance()->get('customer')->getId() . "' and o.order_status_id > 0");
+                         
                             if (((int) $ordersQ->row['total'] + $quantity) > $deal_query->row['user_max']) {
                                 $stock = false;
                             }
                         }
-                    }*/
+                    }
 
                     $shipping_price = 0;
                     $shipping_title = 'Collect';
