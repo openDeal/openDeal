@@ -86,19 +86,24 @@ class ModelCheckoutOrder extends \Core\Model {
                         . "title = " . $this->db->quote($product['shipping']['title']));
             } else {
                 if ($product['is_coupon']) {
-                    //code = order_deal_id + 2 random letter + order_id + 2 random letter;
-                    $code = $order_deal_id . generateRandomString(2) . $order_id . generateRandomString(2) . $product['deal_id'];
-                    $secret = hash('crc32', strrev($code));
 
-                    $qe = $this->db->query("select `usage` from #__deal_description where deal_id = '" . (int) $product['deal_id'] . "' and language_id = '" . (int) $data['language_id'] . "'");
+                    $ci = 1;
+                    while ($ci <= $product['quantity']) {
+                        $ci++;
+                        //code = order_deal_id + 2 random letter + order_id + 2 random letter;
+                        $code = $order_deal_id . generateRandomString(2) . $order_id . generateRandomString(2) . $product['deal_id'];
+                        $secret = hash('crc32', strrev($code));
 
-                    $this->db->query("INSERT INTO #__order_coupon SET order_id = '" . (int) $order_id . "', "
-                            . "order_deal_id = " . (int) $order_deal_id . ", "
-                            . "coupon_code = " . $this->db->quote($code) . ", "
-                            . "coupon_secret = " . $this->db->quote($secret) . ", "
-                            . "`usage` = " . $this->db->quote($qe->row['usage']) . ", "
-                            . "coupon_expire = '" . DATE("Y-m-d H:i:s", $product['coupon_expiry']) . "', "
-                            . "coupon_redeemed = '0', coupon_active = '0'");
+                        $qe = $this->db->query("select `usage` from #__deal_description where deal_id = '" . (int) $product['deal_id'] . "' and language_id = '" . (int) $data['language_id'] . "'");
+
+                        $this->db->query("INSERT INTO #__order_coupon SET order_id = '" . (int) $order_id . "', "
+                                . "order_deal_id = " . (int) $order_deal_id . ", "
+                                . "coupon_code = " . $this->db->quote($code) . ", "
+                                . "coupon_secret = " . $this->db->quote($secret) . ", "
+                                . "`usage` = " . $this->db->quote($qe->row['usage']) . ", "
+                                . "coupon_expire = '" . DATE("Y-m-d H:i:s", $product['coupon_expiry']) . "', "
+                                . "coupon_redeemed = '0', coupon_active = '0'");
+                    }
                 }
             }
         }
