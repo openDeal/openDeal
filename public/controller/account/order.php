@@ -438,6 +438,7 @@ class ControllerAccountOrder extends \Core\Controller {
                $this->data['order_coupons'] = array();
                 //OK order product
                 $coupon_info = $this->model_account_order->getOrderCoupon($order_id, $order_deal_id);
+            
                 if ($coupon_info->num_rows) {
                     if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
                         $server = $this->config->get('config_ssl');
@@ -461,13 +462,13 @@ class ControllerAccountOrder extends \Core\Controller {
 
                     foreach ($coupon_info->rows as $coup) {
                         $this->data['order_coupons'][$coup['order_coupon_id']]['code'] = $coup['coupon_code'];
-                        $this->data['order_coupons'][$coup['order_coupon_id']]['secret_code'] = $coup['secret_code'];
+                        $this->data['order_coupons'][$coup['order_coupon_id']]['secret_code'] = $coup['coupon_secret'];
                     }
                     
                     // $this->data['code'] = 'asd4f';
                     $this->data['name'] = $coupon_info->row['title'];
 
-                    $this->data['recipient'] = $order_info['payment_firstname'] . ' ' . $$order_info['payment_lastname'];
+                    $this->data['recipient'] = $order_info['payment_firstname'] . ' ' . $order_info['payment_lastname'];
                     $this->data['expires'] = date($this->language->get('date_format_long') . ' ' . $this->language->get('time_format'), strtotime($coupon_info->row['coupon_expire']));
 
                     $this->data['text_recipient'] = $this->language->get('text_recipient');
