@@ -54,9 +54,24 @@ class Cart {
                         $stock = false;
                     }
 
+
+                    if ($deal_query->row['user_max'] > 0) {
+
+                        if ($deal_query->row['user_max'] > $quantity) {
+                            $stock = false;
+                        }
+                        //Max per user!!!!
+                        if ($stock && $this->customer - isLogged()) {
+                            $ordersQ = $this->db->query("Select sum(od.quantity) as total from nz_order_deal od inner join nz_order o on od.order_id = o.order_id where od.deal_id = '" . (int) $deal_id . "' and o.customer_id='" . (int) $this->customer->getId() . "' and o.order_status_id > 0");
+                            if (((int) $orderQ->row['total'] + $quantity) > $deal_query->row['user_max']) {
+                                $stock = false;
+                            }
+                        }
+                    }
+
                     $shipping_price = 0;
                     $shipping_title = 'Collect';
-                    
+
                     if ($shipping_id > 0) {
                         $shipping_query = $this->db->query("Select * from #__deal_shipping where deal_shipping_id = " . (int) $shipping_id);
                         if ($shipping_query->num_rows) {
@@ -75,7 +90,7 @@ class Cart {
                         'title' => $deal_query->row['title'],
                         'shipping' => array(
                             'deal_shipping_id' => $shipping_id,
-                            'price' => (float)$shipping_price,
+                            'price' => (float) $shipping_price,
                             'title' => $shipping_title
                         ),
                         'option' => array(
@@ -94,7 +109,7 @@ class Cart {
                 }
             }
         }
-        
+
         return $this->data;
     }
 
@@ -145,7 +160,7 @@ class Cart {
 
         return $total;
     }
-    
+
     public function getShippingTotal() {
         $total = 0;
 
