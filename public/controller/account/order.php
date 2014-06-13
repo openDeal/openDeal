@@ -434,9 +434,11 @@ class ControllerAccountOrder extends \Core\Controller {
         if ($order_info) {
             if ($order_info['order_status_id'] == $this->config->get('config_complete_status_id')) {
                 //debugPre($order_info);
+                //
+               $this->data['order_coupons'] = array();
                 //OK order product
                 $coupon_info = $this->model_account_order->getOrderCoupon($order_id, $order_deal_id);
-                if ($coupon_info) {
+                if ($coupon_info->num_rows) {
                     if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
                         $server = $this->config->get('config_ssl');
                     } else {
@@ -455,48 +457,52 @@ class ControllerAccountOrder extends \Core\Controller {
                         $this->data['logo'] = '';
                     }
 
-                    $this->data['code'] = $coupon_info['coupon_code'];
-                    $this->data['secret_code'] = $coupon_info['coupon_secret'];
                     $this->data['text_security_code'] = $this->language->get('text_security_code');
+
+                    foreach ($coupon_info->rows as $coup) {
+                        $this->data['order_coupons'][$coup['order_coupon_id']]['code'] = $coup['coupon_code'];
+                        $this->data['order_coupons'][$coup['order_coupon_id']]['secret_code'] = $coup['secret_code'];
+                    }
+                    
                     // $this->data['code'] = 'asd4f';
-                    $this->data['name'] = $coupon_info['title'];
+                    $this->data['name'] = $coupon_info->row['title'];
 
                     $this->data['recipient'] = $order_info['payment_firstname'] . ' ' . $$order_info['payment_lastname'];
-                    $this->data['expires'] = date($this->language->get('date_format_long') . ' ' . $this->language->get('time_format'), strtotime($coupon_info['coupon_expire']));
+                    $this->data['expires'] = date($this->language->get('date_format_long') . ' ' . $this->language->get('time_format'), strtotime($coupon_info->row['coupon_expire']));
 
-                $this->data['text_recipient'] = $this->language->get('text_recipient');
-                $this->data['text_expires'] = $this->language->get('text_expires');
-                $this->data['text_usage'] = $this->language->get('text_usage');
-                $this->data['text_usage_text'] = $coupon_info['usage'] ? nl2br($coupon_info['usage']) : $this->language->get('text_usage_text');
-                $this->data['text_scan'] = $this->language->get('text_scan');
+                    $this->data['text_recipient'] = $this->language->get('text_recipient');
+                    $this->data['text_expires'] = $this->language->get('text_expires');
+                    $this->data['text_usage'] = $this->language->get('text_usage');
+                    $this->data['text_usage_text'] = $coupon_info->row['usage'] ? nl2br($coupon_info->row['usage']) : $this->language->get('text_usage_text');
+                    $this->data['text_scan'] = $this->language->get('text_scan');
 
 
-                $this->data['heading_title'] = $coupon_info['title'];
-                
-                $this->document->setTitle($freepon['name']);
+                    $this->data['heading_title'] = $coupon_info->row['title'];
 
-                $PNG_TEMP_DIR = DIR_DOWNLOAD;
-                $PNG_WEB_DIR = 'download/';
-                $filename = $PNG_TEMP_DIR . 'coupon.png';
-                $errorCorrectionLevel = 'L';
-                $matrixPointSize = 6;
-                $qrdat = str_replace("&amp;", "&", $this->url->link('account/order/coupon', 'order_id=' . $order_id . '&order_deal_id=' . $order_deal_id));
-                $filename = $PNG_TEMP_DIR . 'coupon' . md5($qrdat . '|' . $errorCorrectionLevel . '|' . $matrixPointSize) . '.png';
-                QRcode::png($qrdat, $filename, $errorCorrectionLevel, $matrixPointSize, 2);
-                $this->data['qrcode'] = $PNG_WEB_DIR . basename($filename);
-                
-                $this->load->model('deal/company');
-                $this->load->model('deal/deal');
-                
-                $deal = $this->model_deal_deal->getDeal($coupon_info['deal_id']);
-                
-                $company= $this->model_deal_company->getCompany($deal['company_id']);
-                $this->data['text_location'] = $company['name'];
-                
-                $locations = $this->model_deal_company->getLocationsFromDealId($coupon_info['deal_id']);
-         //       $this->data['text_location'] = $this->language->get((count($locations) > 1) ? 'text_locations' : 'text_location');
-                $this->data['locations'] = $locations;
-                    
+                    $this->document->setTitle($coupon_info->row['title']);
+
+                    $PNG_TEMP_DIR = DIR_DOWNLOAD;
+                    $PNG_WEB_DIR = 'download/';
+                    $filename = $PNG_TEMP_DIR . 'coupon.png';
+                    $errorCorrectionLevel = 'L';
+                    $matrixPointSize = 6;
+                    $qrdat = str_replace("&amp;", "&", $this->url->link('account/order/coupon', 'order_id=' . $order_id . '&order_deal_id=' . $order_deal_id));
+                    $filename = $PNG_TEMP_DIR . 'coupon' . md5($qrdat . '|' . $errorCorrectionLevel . '|' . $matrixPointSize) . '.png';
+                    QRcode::png($qrdat, $filename, $errorCorrectionLevel, $matrixPointSize, 2);
+                    $this->data['qrcode'] = $PNG_WEB_DIR . basename($filename);
+
+                    $this->load->model('deal/company');
+                    $this->load->model('deal/deal');
+
+                    $deal = $this->model_deal_deal->getDeal($coupon_info->row['deal_id']);
+
+                    $company = $this->model_deal_company->getCompany($deal['company_id']);
+                    $this->data['text_location'] = $company['name'];
+
+                    $locations = $this->model_deal_company->getLocationsFromDealId($coupon_info->row['deal_id']);
+                    //       $this->data['text_location'] = $this->language->get((count($locations) > 1) ? 'text_locations' : 'text_location');
+                    $this->data['locations'] = $locations;
+
 
                     $this->template = 'account/order_coupon.phtml';
                 } else {
