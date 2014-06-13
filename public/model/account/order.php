@@ -125,7 +125,7 @@ class ModelAccountOrder extends \Core\Model {
             $query = $this->db->query("SELECT * FROM  `#__order_coupon` oc 
                 INNER JOIN #__order_deal od ON od.order_deal_id = oc.order_deal_id 
                 WHERE oc.order_deal_id = '" . (int)$order_deal_id . "' and oc.order_id = '" . $order_id . "'");
-            return $query->rows;
+            return $query;
         }
 
 	public function getOrderOption($order_id, $order_deal_id) {
