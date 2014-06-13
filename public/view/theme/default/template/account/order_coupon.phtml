@@ -63,8 +63,8 @@
                     width:55%;
                     float: left !important;
                 }
-                
-                 #logo,#welcome {
+
+                #logo,#welcome {
                     width: 50%;
                     float: left;
                 }
@@ -80,63 +80,67 @@
     </head>
 
     <body>
-        <div id="ecard" >
-            <div id="econ" class="container-fluid">
-                <!--top -->
-                <div id="etop" class="row">
-                    <div id="logo" class="col-md-6"><img src="<?php echo $logo; ?>" /></div>
-                    <div id="welcome" class="col-md-6"># <?php echo $code; ?> </div>
-                </div>
-                <!--endtop -->
-                <div id="teamtitle"><span><?php echo $name; ?></span></div>
-                <!--main -->
-                <div id="main" class="row">
-
-                    <div id="mleft" class="col-md-6">
-                        <div id="name"><?php echo $text_recipient; ?></div>
-                        <div id="relname"><?php echo $recipient; ?></div>
-
-                        <div id="name"><?php echo $text_expires; ?></div>
-                        <div id="relname"><?php echo $expires; ?></div>
-                        <div id="name"><?php echo $text_usage; ?></div>
-                        <div id="notice">
-                            <?php echo $text_usage_text; ?>
-                        </div>
-
-
+        <?php foreach($order_coupons as $coup): ?>
+        <div style="page-break-after: always;">
+            <div id="ecard" >
+                <div id="econ" class="container-fluid">
+                    <!--top -->
+                    <div id="etop" class="row">
+                        <div id="logo" class="col-md-6"><img src="<?php echo $logo; ?>" /></div>
+                        <div id="welcome" class="col-md-6"># <?php echo $coup['code']; ?> </div>
                     </div>
-                    <!--right -->
-                    <div id="mright" class="col-md-6">
-                        <div class="row">
-                            <div class="col-md-7" id="scanimg">
-                                <img src="<?php echo $qrcode; ?>" alt="<?php echo $code; ?>" />
+                    <!--endtop -->
+                    <div id="teamtitle"><span><?php echo $name; ?></span></div>
+                    <!--main -->
+                    <div id="main" class="row">
+
+                        <div id="mleft" class="col-md-6">
+                            <div id="name"><?php echo $text_recipient; ?></div>
+                            <div id="relname"><?php echo $recipient; ?></div>
+
+                            <div id="name"><?php echo $text_expires; ?></div>
+                            <div id="relname"><?php echo $expires; ?></div>
+                            <div id="name"><?php echo $text_usage; ?></div>
+                            <div id="notice">
+                                <?php echo $text_usage_text; ?>
                             </div>
-                            <div class="col-md-5" id="scan">
-                                <?php echo $text_scan; ?>
+
+
+                        </div>
+                        <!--right -->
+                        <div id="mright" class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-7" id="scanimg">
+                                    <img src="<?php echo $qrcode; ?>" alt="<?php echo $coup['code']; ?>" />
+                                </div>
+                                <div class="col-md-5" id="scan">
+                                    <?php echo $text_scan; ?>
+                                </div>
                             </div>
+                            <div class="row secret-code">
+                                <?php echo $text_security_code; ?> : <?php echo $coup['secret_code']; ?>
+                            </div>
+
+
+
+
                         </div>
-                        <div class="row secret-code">
-                            <?php echo $text_security_code; ?> : <?php echo $secret_code; ?>
-                        </div>
+                    </div>
+                    <!--endmain -->
+                    <div class="clearfix">
+                        <h3><?php echo $text_location; ?></h3>
+                        <ul id="server" class="list-unstyled">
+                            <?php foreach ($locations as $location): ?>
+                                <li><?php echo $location['address']; ?> <?php echo ($location['phone']) ? ' <br /> Tel: ' . $location['phone'] : ''; ?></li>
 
-
-
-
+                            <?php endforeach; ?></ul>
                     </div>
                 </div>
-                <!--endmain -->
-                <div class="clearfix">
-                    <h3><?php echo $text_location; ?></h3>
-                    <ul id="server" class="list-unstyled">
-                        <?php foreach ($locations as $location): ?>
-                            <li><?php echo $location['address']; ?> <?php echo ($location['phone'])?' <br /> Tel: ' . $location['phone']: ''; ?></li>
-                
-                        <?php endforeach; ?></ul>
-                </div>
+
             </div>
 
         </div>
-
+        <?php endforeach; ?>
         <div class="noprint" style="text-align:center; margin:20px;">
             <button class="btn btn-primary btn-lg" onclick="window.print();"><?php echo $text_print; ?></button></div>
     </body></html>
