@@ -55,7 +55,7 @@ class Cart {
                     }
 
 
-                    if ($deal_query->row['user_max'] > 0) {
+              /*      if ($deal_query->row['user_max'] > 0) {
 
                         if ($deal_query->row['user_max'] > $quantity) {
                             $stock = false;
@@ -67,7 +67,7 @@ class Cart {
                                 $stock = false;
                             }
                         }
-                    }
+                    }*/
 
                     $shipping_price = 0;
                     $shipping_title = 'Collect';
