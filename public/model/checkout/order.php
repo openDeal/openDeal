@@ -301,7 +301,7 @@ class ModelCheckoutOrder extends \Core\Model {
                 $test = $this->db->query("Select tip_point, tip_time, current_orders from #__deal WHERE deal_id = '" . (int) $order_product['deal_id'] . "' ");
                 if ($test->row['tip_time'] == 0 && ($test->row['tip_point'] <= $test->row['tip_point'])) {
 
-                    $this->db->query("UPDATE #__deal SET tip_time = '" . strtotime() . "' WHERE deal_id = '" . (int) $order_product['deal_id'] . "' ");
+                    $this->db->query("UPDATE #__deal SET tip_time = '" . time() . "' WHERE deal_id = '" . (int) $order_product['deal_id'] . "' ");
                 }
             }
 
