@@ -483,7 +483,7 @@ class ControllerAccountOrder extends \Core\Controller {
                     $this->document->setTitle($coupon_info->row['title']);
 
                     $PNG_TEMP_DIR = DIR_DOWNLOAD;
-                    $PNG_WEB_DIR = 'download/';
+                    $PNG_WEB_DIR = HTTPS_CATALOG . 'download/';
                     $filename = $PNG_TEMP_DIR . 'coupon.png';
                     $errorCorrectionLevel = 'L';
                     $matrixPointSize = 6;
@@ -506,6 +506,7 @@ class ControllerAccountOrder extends \Core\Controller {
 
 
                     $this->template = 'account/order_coupon.phtml';
+                    
                 } else {
                     $show_error_page = true;
                     $this->data['text_error'] = $this->language->get('text_error');
