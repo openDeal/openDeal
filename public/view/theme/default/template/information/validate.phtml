@@ -1,0 +1,44 @@
+<?php echo $header; ?>
+<div class="page_container">
+    <?php echo $column_left; ?>
+    <?php echo $column_right; ?>
+    <div id="content">
+        <?php echo $content_top; ?>
+        <div class="breadcrumb">
+            <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+                <?php echo $breadcrumb['separator']; ?><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a>
+            <?php } ?>
+        </div>
+        <h1><?php echo $heading_title; ?></h1>
+
+        <?php if ($coupon_info): ?>
+            <div class="alert alert-<?php echo $coupon_info['status']; ?>">
+                <?php echo $coupon_info['message']; ?>
+            </div>
+        <?php endif; ?>
+
+        <form class="form-horizontal validate" method="post" action="<?php echo $action; ?>">
+            <legend><?php echo $legend_validate; ?></legend>
+            <div class="form-group">
+                <label for="inputCode" class="col-sm-2 control-label required"><?php echo $entry_code; ?></label>
+                <div class="col-sm-10">
+                    <input type="text" id="inputCode" class="form-control required" name="code" value="" />
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputSecret" class="col-sm-2 control-label required"><?php echo $entry_secret; ?></label>
+                <div class="col-sm-10">
+                    <input type="text" id="inputSecret" class="form-control required" name="secret" value="" />
+
+                </div>
+            </div>
+            <div class="form-group buttons">
+                <div class="col-sm-offset-2"><button type="submit" class="btn btn-primary"><?php echo $button_continue; ?></button></div>
+            </div>
+        </form>
+
+
+        <?php echo $content_bottom; ?></div>
+</div>
+<?php echo $footer; ?>
