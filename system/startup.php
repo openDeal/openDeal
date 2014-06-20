@@ -184,6 +184,8 @@ $languages = array();
 
 if (APP_NAMESPACE == 'admin') {
     $query = $db->query("SELECT * FROM `#__language`");
+    
+ 
 
     foreach ($query->rows as $result) {
         $languages[$result['code']] = $result;

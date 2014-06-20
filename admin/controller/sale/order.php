@@ -2375,13 +2375,14 @@ class ControllerSaleOrder extends \Core\Controller {
         $this->data['orders'] = array();
 
         $orders = array();
-
         if (isset($this->request->post['selected'])) {
             $orders = $this->request->post['selected'];
         } elseif (isset($this->request->get['order_id'])) {
             $orders[] = $this->request->get['order_id'];
         }
 
+        
+        
         foreach ($orders as $order_id) {
             $order_info = $this->model_sale_order->getOrder($order_id);
 

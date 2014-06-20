@@ -7,8 +7,13 @@
 <link rel="stylesheet" type="text/css" href="view/stylesheet/invoice.css" />
 </head>
 <body>
+    <?php $i = 1; ?>
 <?php foreach ($orders as $order) { ?>
+    <?php if ($i++ < count($orders)):?>
 <div style="page-break-after: always;">
+    <?php else: ?>
+    <div>
+    <?php endif; ?>
   <h1><?php echo $text_invoice; ?></h1>
   <table class="store">
     <tr>
