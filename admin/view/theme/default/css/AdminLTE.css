@@ -3017,3 +3017,7 @@ textarea {
 .tabs-left > .tab-content {
     margin-left: 150px;
 }
+
+.form-inline .form-control {
+    width: auto;
+}

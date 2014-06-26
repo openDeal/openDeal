@@ -1,0 +1,142 @@
+<?php echo $header; ?>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1><i class="fa fa-dashboard"></i> <?php echo $heading_title; ?><small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <?php foreach ($breadcrumbs as $i => $breadcrumb) { ?>
+            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo ($i == 0) ? '<i class="fa fa-dashboard"></i> ' : ''; ?><?php echo $breadcrumb['text']; ?></a></li>
+        <?php } ?>
+    </ol>
+</section>
+<section class="page-actions">
+
+    <a href="<?php echo $button_export; ?>" class="btn btn-primary"><?php echo $text_export_all; ?></a>
+
+</section>
+<!-- Main content -->
+<section class="content">
+
+
+    <div class="box">
+        <div class="box-body">
+
+
+
+            <!-- Start Filter fields -->
+            <table class="table table-bordered table-striped table-responsive">
+                <thead>
+                    <tr class="filter">
+                        <td colspan="7">
+                            <div class="form-inline">
+                                <div class="form-group  col-md-3">
+                                    <label ><?php echo $entry_date_start; ?></label>
+                                    <input class="form-control" type="text" name="filter_date_start" value="<?php echo $filter_date_start; ?>" id="date-start"  />
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label > <?php echo $entry_date_end; ?></label>
+                                    <input class="form-control" type="text" name="filter_date_end" value="<?php echo $filter_date_end; ?>" id="date-end"  />
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label> <?php echo $entry_status; ?></label>
+                                    <select name="filter_order_status_id" class="form-control">
+                                        <option value="0"><?php echo $text_all_status; ?></option>
+                                        <?php foreach ($order_statuses as $order_status) : ?>
+                                            <?php if ($order_status['order_status_id'] == $filter_order_status_id) { ?>
+                                                <option value="<?php echo $order_status['order_status_id']; ?>" selected="selected"><?php echo $order_status['name']; ?></option>
+                                            <?php } else { ?>
+                                                <option value="<?php echo $order_status['order_status_id']; ?>"><?php echo $order_status['name']; ?></option>
+                                            <?php } ?>    
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                 <a onclick="filter();" class="btn btn-primary pull-right"><?php echo $button_filter; ?></a>
+                            </div>
+                           
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="left"><?php echo $text_customer; ?></th>
+                        <th class="left"><?php echo $text_product; ?></th>
+                        <th class="right"><?php echo $text_order; ?></th>
+                        <th class="right"><?php echo $text_date; ?></th>
+                        <th class="right"><?php echo $text_amount; ?></th>
+                        <th class="right"><?php echo $text_status; ?></th>
+                        <th class="right"><?php echo $text_action; ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <?php if ($orders) { ?>
+                        <?php foreach ($orders as $order) : ?>
+                            <tr>
+                                <td class="left"><?php echo $order['firstname'] . ' ' . $order['lastname']; ?></td>
+                                <td class="left"><?php echo $order['nb_product']; ?></td>
+                                <td class="right"><?php echo $order['order_id']; ?></td>
+                                <td class="right"><?php echo $order['date_added']; ?></td>
+                                <td class="right"><?php echo $order['total']; ?></td>
+                                <td class="right"><?php echo $order['status']; ?></td>
+                                <td class="right">
+                                    <?php foreach ($order['action'] as $action) : ?>
+                                        
+                                        <a class="btn btn-primary btn-sm" href="<?php echo $action['href']; ?>">
+                                            <?php echo $action['text']; ?>
+                                        </a> 
+                                     
+                                    <?php endforeach; ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php } else { ?>
+                        <tr>
+                            <td class="center" colspan="7"><?php echo 'No result'; ?></td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+            <!-- End list table -->
+
+
+           
+        </div>
+          <div class="box-footer">
+            <div class="row">
+                <div class="pagination-container">
+                    <?php //echo $pagination; ?>
+                </div>
+            </div>
+        </div>
+        <!-- End Box Table -->
+    </div>
+
+
+
+    <script type="text/javascript"><!--
+        function filter() {
+            var url = 'index.php?route=report/export_xls&token=<?php echo $token; ?>';
+            var filter_date_start = $('input[name=\'filter_date_start\']').val();
+            var filter_date_end = $('input[name=\'filter_date_end\']').val();
+            var filter_order_status_id = $('select[name=\'filter_order_status_id\']').val();
+
+            if (filter_date_start) {
+                url += '&filter_date_start=' + encodeURIComponent(filter_date_start);
+            }
+            if (filter_date_end) {
+                url += '&filter_date_end=' + encodeURIComponent(filter_date_end);
+            }
+            if (filter_order_status_id != 0) {
+                url += '&filter_order_status_id=' + encodeURIComponent(filter_order_status_id);
+            }
+
+            location = url;
+        }
+        //--></script>
+
+    <script type="text/javascript"><!--
+        $(document).ready(function() {
+            $('#date-start').datepicker({dateFormat: 'yy-mm-dd'});
+            $('#date-end').datepicker({dateFormat: 'yy-mm-dd'});
+        });
+        //--></script> 
+
+    <?php echo $footer; ?>

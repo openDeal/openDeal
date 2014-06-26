@@ -101,3 +101,4 @@ $_['text_paypal_search']               = 'Search';
 $_['text_recurring_profile']           = 'Recurring Profiles';
 $_['text_plugins']           = 'Plugin Manager';
 $_['menu_language']         = 'Language Editor';
+$_['text_report_export_xls']		   = 'Export to Excel';

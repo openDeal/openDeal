@@ -68,6 +68,7 @@ class ControllerCommonHeader extends \Core\Controller {
         $this->data['text_profile'] = $this->language->get('text_profile');
         $this->data['text_reports'] = $this->language->get('text_reports');
         $this->data['text_report_sale_order'] = $this->language->get('text_report_sale_order');
+        $this->data['text_report_export_xls'] = $this->language->get('text_report_export_xls');
         $this->data['text_report_sale_tax'] = $this->language->get('text_report_sale_tax');
         $this->data['text_report_sale_shipping'] = $this->language->get('text_report_sale_shipping');
         $this->data['text_report_sale_return'] = $this->language->get('text_report_sale_return');
@@ -173,6 +174,7 @@ class ControllerCommonHeader extends \Core\Controller {
             $this->data['product'] = $this->url->link('catalog/product', 'token=' . $this->session->data['token'], 'SSL');
             $this->data['profile'] = $this->url->link('catalog/profile', 'token=' . $this->session->data['token'], 'SSL');
             $this->data['report_sale_order'] = $this->url->link('report/sale_order', 'token=' . $this->session->data['token'], 'SSL');
+            $this->data['report_export_xls'] = $this->url->link('report/export_xls', 'token=' . $this->session->data['token'], 'SSL');
             $this->data['report_sale_tax'] = $this->url->link('report/sale_tax', 'token=' . $this->session->data['token'], 'SSL');
             $this->data['report_sale_shipping'] = $this->url->link('report/sale_shipping', 'token=' . $this->session->data['token'], 'SSL');
             $this->data['report_sale_return'] = $this->url->link('report/sale_return', 'token=' . $this->session->data['token'], 'SSL');
