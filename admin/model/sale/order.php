@@ -535,8 +535,8 @@ class ModelSaleOrder extends \Core\Model {
     }
 
     public function getOrderProductCompanyName($order_deal_id) {
-        $query = $this->db->query("SELECT c.name FROM  `od_company` c INNER JOIN od_deal d ON d.company_id = c.company_id "
-                . "INNER JOIN od_order_deal od ON od.deal_id = d.deal_id WHERE od.order_deal_id =" . (int)$order_deal_id);
+        $query = $this->db->query("SELECT c.name FROM  `#__company` c INNER JOIN #__deal d ON d.company_id = c.company_id "
+                . "INNER JOIN #__order_deal od ON od.deal_id = d.deal_id WHERE od.order_deal_id =" . (int)$order_deal_id);
         if($query->row){
             return $query->row['name'];
         }
