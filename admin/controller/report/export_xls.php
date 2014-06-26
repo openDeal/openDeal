@@ -10,6 +10,8 @@ class ControllerReportExportXLS extends \Core\Controller {
     private $filter_date_start;  // The start date from data filter
     private $filter_date_end;   // The end date from data filter
     private $filter_order_status_id; // Status order filter
+    
+    private $order_statuses = array();
 
     /**
      * Index page of the Export XLSX module
@@ -190,6 +192,11 @@ class ControllerReportExportXLS extends \Core\Controller {
         require_once DIR_SYSTEM . 'vendor/PHPExcel/PHPExcel.php';
         require_once DIR_SYSTEM . 'vendor/PHPExcel/PHPExcel/IOFactory.php';
 
+        $this->load->model('localisation/order_status');
+        $order_statuses = $this->model_localisation_order_status->getOrderStatuses();
+        foreach($order_statuses as $os){
+         $this->order_statuses[$os['order_status_id']] = $os['name'];   
+        }
 
         // Create a new worksheet Excel and set the counter at 1
         $this->objPHPExcel = new PHPExcel();
@@ -494,6 +501,7 @@ class ControllerReportExportXLS extends \Core\Controller {
         // Loading model
         $this->load->model('report/export_xls');
         $this->load->model('sale/order');
+        
 
         // Get the the info relative to this order
         $result = $this->model_report_export_xls->getOrder($order_id);
@@ -519,10 +527,10 @@ class ControllerReportExportXLS extends \Core\Controller {
                 'shipping_postcode' => $res['shipping_postcode'],
                 'shipping_zone' => $res['shipping_zone'],
                 'shipping_country' => $res['shipping_country'],
-                'shipping_method' => $res['shipping_method']
+                'shipping_method' => $res['shipping_method'],
+                'order_status' => $this->order_statuses[$res['order_status_id']]
             );
         }
-
 
         // If the counter = 1, then we write the heading part (legend)
         if ($this->mainCounter == 1) {
@@ -561,6 +569,7 @@ class ControllerReportExportXLS extends \Core\Controller {
             $this->objPHPExcel->getActiveSheet()->setCellValue('Q' . $this->mainCounter, $this->language->get('header_shipping_country'));
             $this->objPHPExcel->getActiveSheet()->setCellValue('R' . $this->mainCounter, $this->language->get('header_shipping_method'));
             $this->objPHPExcel->getActiveSheet()->setCellValue('S' . $this->mainCounter, $this->language->get('header_company'));
+            $this->objPHPExcel->getActiveSheet()->setCellValue('T' . $this->mainCounter, $this->language->get('header_status'));
         }
 
 
@@ -607,6 +616,7 @@ class ControllerReportExportXLS extends \Core\Controller {
             $this->objPHPExcel->getActiveSheet()->setCellValue('Q' . $counter, $this->data['orders'][0]['shipping_country']);
             $this->objPHPExcel->getActiveSheet()->setCellValue('R' . $counter, $shipping);
             $this->objPHPExcel->getActiveSheet()->setCellValue('S' . $counter, $company);
+            $this->objPHPExcel->getActiveSheet()->setCellValue('T' . $counter, $this->data['orders'][0]['order_status']);
 
             $counter++;
             $this->mainCounter++;

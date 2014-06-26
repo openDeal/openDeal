@@ -53,4 +53,5 @@ $_['header_ship_to'] = 'Ship To (if different address)';
 $_['header_company'] = 'Deal Company';
 $_['shipping_coupon'] = 'Coupon';
 $_['shipping_collect'] = 'Collection';
+$_['header_status'] = 'Order Status';
 ?>
