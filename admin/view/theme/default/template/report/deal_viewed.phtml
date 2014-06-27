@@ -1,0 +1,68 @@
+<?php echo $header; ?>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1><i class="fa fa-dashboard"></i> <?php echo $heading_title; ?><small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <?php foreach ($breadcrumbs as $i => $breadcrumb) { ?>
+            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo ($i == 0) ? '<i class="fa fa-dashboard"></i> ' : ''; ?><?php echo $breadcrumb['text']; ?></a></li>
+        <?php } ?>
+    </ol>
+</section>
+<section class="page-actions">
+
+    <a href="<?php echo $reset; ?>" class="btn btn-danger"><?php echo $button_reset; ?></a>
+
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+
+    <div class="box">
+        <div class="box-body">
+            <?php if ($success) { ?>
+                <div class="alert alert-success"><?php echo $success; ?></div>
+            <?php } ?>
+                <table class="table table-bordered table-striped table-responsive">
+                <thead>
+                    <tr>
+                        <th class="left"><?php echo $column_name; ?></th>
+                        <th class="right"><?php echo $column_viewed; ?></th>
+                        <th class="right"><?php echo $column_percent; ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if ($products) { ?>
+                        <?php foreach ($products as $product) { ?>
+                            <tr>
+                                <td class="left"><?php echo $product['name']; ?></td>
+                                <td class="right"><?php echo $product['viewed']; ?></td>
+                                <td class="right"><?php echo $product['percent']; ?></td>
+                            </tr>
+                        <?php } ?>
+                    <?php } else { ?>
+                        <tr>
+                            <td class="center" colspan="3"><?php echo $text_no_results; ?></td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+           
+
+        </div>
+        <div class="box-footer">
+            <div class="row">
+                <div class="pagination-container">
+                    <?php echo $pagination; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+           
+       
+<?php echo $footer; ?>
