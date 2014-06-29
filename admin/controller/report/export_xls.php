@@ -570,6 +570,7 @@ class ControllerReportExportXLS extends \Core\Controller {
             $this->objPHPExcel->getActiveSheet()->setCellValue('R' . $this->mainCounter, $this->language->get('header_shipping_method'));
             $this->objPHPExcel->getActiveSheet()->setCellValue('S' . $this->mainCounter, $this->language->get('header_company'));
             $this->objPHPExcel->getActiveSheet()->setCellValue('T' . $this->mainCounter, $this->language->get('header_status'));
+            $this->objPHPExcel->getActiveSheet()->setCellValue('F' . $this->mainCounter, $this->language->get('header_total'));
         }
 
 
@@ -601,7 +602,7 @@ class ControllerReportExportXLS extends \Core\Controller {
             $this->objPHPExcel->getActiveSheet()->setCellValue('C' . $counter, $this->data['orders'][0]['customer']);
             $this->objPHPExcel->getActiveSheet()->setCellValue('D' . $counter, $this->data['orders'][0]['email']);
             $this->objPHPExcel->getActiveSheet()->setCellValue('E' . $counter, $this->data['orders'][0]['telephone']);
-            $this->objPHPExcel->getActiveSheet()->setCellValue('F' . $counter, $this->data['orders'][0]['total']);
+            $this->objPHPExcel->getActiveSheet()->setCellValue('F' . $counter, $prod['total']);
             $this->objPHPExcel->getActiveSheet()->setCellValue('G' . $counter, $this->data['orders'][0]['date_added']);
             $this->objPHPExcel->getActiveSheet()->setCellValue('H' . $counter, $prod['quantity']);
             $this->objPHPExcel->getActiveSheet()->setCellValue('I' . $counter, html_entity_decode($prod['title'], ENT_QUOTES, 'UTF-8'));
@@ -617,6 +618,7 @@ class ControllerReportExportXLS extends \Core\Controller {
             $this->objPHPExcel->getActiveSheet()->setCellValue('R' . $counter, $shipping);
             $this->objPHPExcel->getActiveSheet()->setCellValue('S' . $counter, $company);
             $this->objPHPExcel->getActiveSheet()->setCellValue('T' . $counter, $this->data['orders'][0]['order_status']);
+            $this->objPHPExcel->getActiveSheet()->setCellValue('U' . $counter, $this->data['orders'][0]['total']);
 
             $counter++;
             $this->mainCounter++;
@@ -641,7 +643,7 @@ class ControllerReportExportXLS extends \Core\Controller {
 
 
         // Set column widths
-        $columns = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T');
+        $columns = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T','U');
 
 
         // General style
