@@ -457,6 +457,8 @@ class ControllerAccountOrder extends \Core\Controller {
                     } else {
                         $this->data['logo'] = '';
                     }
+                    
+                    $this->data['pdf_class'] = isset($this->request->get['pdf'])?'pdf':'';
 
                     $this->data['text_security_code'] = $this->language->get('text_security_code');
 
