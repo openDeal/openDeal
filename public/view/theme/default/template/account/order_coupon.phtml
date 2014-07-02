@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html dir="<?php echo $direction; ?>" lang="<?php echo $lang; ?>">
+<html  lang="<?php echo $lang; ?>">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="utf-8">
@@ -34,7 +34,7 @@
             #econ{ width:100%; margin:0 auto; margin-bottom:10px; overflow:hidden;}
             #etop{ min-height:110px; border-bottom:1px solid #45aeea;}
 
-            #welcome{ color: #008fd5;  font-weight:bold; font-size:26px; vertical-align:middle ;text-align:right; }
+            #welcome,.pdf .welcome{ color: #008fd5;  font-weight:bold; font-size:26px; vertical-align:middle ;text-align:right; }
             #teamtitle{ width:100%; text-align:left; font-size:20px; font-weight:bold; margin-top:8px; margin-bottom:10px;color:#008fd5; }
             #main{padding-bottom: 15px;border-bottom:1px solid #45aeea;}
             #mleft{line-height:150%; }
@@ -89,9 +89,17 @@
                 float: left;
             }
 
-            .pdf .row {
-                display:block;
+            .pdf #ecard {
+           /*     display:none;*/
             }
+            
+            #etable {
+                display:none;
+            }
+            .pdf #etable {
+             /*   display: block; */
+            }
+            
             .secret-code {
                 text-align: right;
                 font-size: 75%;
@@ -107,6 +115,20 @@
         <?php foreach ($order_coupons as $coup): ?>
         
             <div <?php echo ($i++ == count($order_coupons) )?'':'style="page-break-after: always;"';?>>
+                <div id="etable">
+                    <table class="table table-responsive">
+                        <tr><td>
+                                <img src="<?php echo $logo; ?>" />
+                            </td>
+                            <td>
+                                
+                                <div class="welcome"># <?php echo $coup['code']; ?> </div>
+                                <strong><?php echo $text_expires; ?> : </strong> <?php echo $expires; ?>
+                            </td>
+                            <td>
+                        </tr>
+                    </table>
+                </div>
                 <div id="ecard" >
                     <div id="econ" class="container-fluid">
                         <!--top -->
